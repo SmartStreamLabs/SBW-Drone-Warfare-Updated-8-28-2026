@@ -1,0 +1,49 @@
+{
+  "loader": "neoforge:obj",
+  "model": "sbwdroneconfig:models/block/radar_jammer_tower_item.obj",
+  "mtl_override": "sbwdroneconfig:models/block/radar_jammer_tower.mtl",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": false,
+  "emissive_ambient": false,
+  "textures": {
+    "particle": "sbwdroneconfig:block/radar_jammer_tower_build"
+  },
+  "display": {
+    "gui": {
+      "rotation": [30, 225, 0],
+      "translation": [0, -7, 0],
+      "scale": [0.55, 0.55, 0.55]
+    },
+    "ground": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 3, 0],
+      "scale": [0.25, 0.25, 0.25]
+    },
+    "fixed": {
+      "rotation": [0, 180, 0],
+      "translation": [0, -8, 0],
+      "scale": [0.65, 0.65, 0.65]
+    },
+    "thirdperson_righthand": {
+      "rotation": [75, 45, 0],
+      "translation": [0, -3, 1],
+      "scale": [0.24, 0.24, 0.24]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [75, 45, 0],
+      "translation": [0, -3, 1],
+      "scale": [0.24, 0.24, 0.24]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 45, 0],
+      "translation": [0, -5, 0],
+      "scale": [0.26, 0.26, 0.26]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 225, 0],
+      "translation": [0, -5, 0],
+      "scale": [0.26, 0.26, 0.26]
+    }
+  }
+}

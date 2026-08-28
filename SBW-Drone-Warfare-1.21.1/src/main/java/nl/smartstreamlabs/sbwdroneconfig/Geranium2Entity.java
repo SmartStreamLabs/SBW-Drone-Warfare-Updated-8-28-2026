@@ -1,0 +1,159 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+
+import com.atsuishio.superbwarfare.data.CustomData;
+import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
+import com.atsuishio.superbwarfare.init.ModTags;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.Nullable;
+
+import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
+
+public class Geranium2Entity extends GlideBombEntity {
+    private static final EntityDataAccessor<Float> GERANIUM_FUEL = SynchedEntityData.defineId(Geranium2Entity.class, EntityDataSerializers.FLOAT);
+    private static final String TAG_GERANIUM_FUEL = "sbwdroneconfigGeranium2Fuel";
+    private static final float GERANIUM_MAX_HEALTH = 12.0F;
+    private static final float GERANIUM_COMPONENT_MAX_HEALTH = 6.0F;
+    private static final float GERANIUM_INCOMING_DAMAGE_MULTIPLIER = 1.0F;
+
+    public Geranium2Entity(EntityType<? extends DroneEntity> type, Level level) {
+        super(type, level);
+        this.setHealth(GERANIUM_MAX_HEALTH);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(GERANIUM_FUEL, 0.0F);
+    }
+
+    @Override
+    protected float getDroneMaxHealthLimit() {
+        return GERANIUM_MAX_HEALTH;
+    }
+
+    @Override
+    protected float getDroneComponentMaxHealthLimit() {
+        return GERANIUM_COMPONENT_MAX_HEALTH;
+    }
+
+    @Override
+    protected float getIncomingDamageMultiplier() {
+        return GERANIUM_INCOMING_DAMAGE_MULTIPLIER;
+    }
+
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        InteractionResult refuelResult = Geranium2FuelSystem.refuel(this, player, hand);
+        if (refuelResult.consumesAction()) {
+            return refuelResult;
+        }
+
+        ItemStack stack = player.getItemInHand(hand);
+        if (player.isCrouching() && (stack.isEmpty() || stack.is(ModTags.Items.TOOLS_CROWBAR))) {
+            if (!this.level().isClientSide()) {
+                pickupGeranium(player);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
+        }
+
+        if (isSbwDroneAttachment(stack)) {
+            if (!this.level().isClientSide()) {
+                player.displayClientMessage(Component.translatable("message.sbwdroneconfig.geranium_2_no_payloads"), true);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
+        }
+
+        return super.interact(player, hand);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putFloat(TAG_GERANIUM_FUEL, getGeraniumFuel());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains(TAG_GERANIUM_FUEL)) {
+            setGeraniumFuel(tag.getFloat(TAG_GERANIUM_FUEL));
+        }
+    }
+
+    @Override
+    public void travel() {
+        Geranium2FuelSystem.beforeGeraniumTravel(this);
+        super.travel();
+    }
+
+    @Override
+    public @Nullable ItemStack getPickResult() {
+        return new ItemStack(AddonItems.GERANIUM_2.get());
+    }
+
+    public float getGeraniumFuel() {
+        return this.entityData.get(GERANIUM_FUEL);
+    }
+
+    public void setGeraniumFuel(float fuel) {
+        this.entityData.set(GERANIUM_FUEL, Math.max(0.0F, Math.min(fuel, (float) AddonConfig.lucasMaxFuel())));
+    }
+
+    public int getGeraniumFuelPercent() {
+        int maxFuel = AddonConfig.lucasMaxFuel();
+        if (maxFuel <= 0) {
+            return 0;
+        }
+        return Math.max(0, Math.min(100, Math.round((getGeraniumFuel() / (float) maxFuel) * 100.0F)));
+    }
+
+    private void pickupGeranium(Player player) {
+        ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(AddonItems.GERANIUM_2.get()));
+        returnInheritedPayloadIfPresent(player);
+
+        player.getInventory().items.stream()
+                .filter(SbwCompat::isMonitor)
+                .forEach(itemStack -> SbwCompat.unlinkMonitorFromDrone(itemStack, player, this));
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            SbwCompat.disconnectControllersForDrone(serverLevel, this);
+        }
+
+        this.discard();
+    }
+
+    private void returnInheritedPayloadIfPresent(Player player) {
+        if (this.getCurrentItem().isEmpty()) {
+            return;
+        }
+
+        int ammo = Math.max(0, this.entityData.get(AMMO));
+        for (int index = 0; index < ammo; index++) {
+            ItemStack payload = this.getCurrentItem().copy();
+            payload.setCount(1);
+            ItemHandlerHelper.giveItemToPlayer(player, payload);
+        }
+    }
+
+    private static boolean isSbwDroneAttachment(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        String itemId = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        return CustomData.DRONE_ATTACHMENT.containsKey(itemId);
+    }
+}

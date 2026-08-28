@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WMW",
+    "EDE",
+    "BRB"
+  ],
+  "key": {
+    "W": {
+      "item": "superbwarfare:cell"
+    },
+    "M": {
+      "item": "superbwarfare:monitor"
+    },
+    "E": {
+      "item": "superbwarfare:missile_engine"
+    },
+    "D": {
+      "item": "superbwarfare:drone"
+    },
+    "B": {
+      "item": "superbwarfare:large_battery_pack"
+    },
+    "R": {
+      "item": "superbwarfare:rpg_rocket_tbg"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:ukrainian_bayraktar_tb2",
+    "count": 1
+  }
+}

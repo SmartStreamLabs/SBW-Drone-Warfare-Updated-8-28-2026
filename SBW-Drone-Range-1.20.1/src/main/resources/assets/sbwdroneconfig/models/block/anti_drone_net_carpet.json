@@ -1,0 +1,21 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "sbwdroneconfig:block/anti_drone_net",
+    "net": "sbwdroneconfig:block/anti_drone_net"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 1, 16],
+      "faces": {
+        "down": { "uv": [0, 0, 16, 16], "texture": "#net", "cullface": "down" },
+        "up": { "uv": [0, 0, 16, 16], "texture": "#net" },
+        "north": { "uv": [0, 15, 16, 16], "texture": "#net" },
+        "south": { "uv": [0, 15, 16, 16], "texture": "#net" },
+        "west": { "uv": [0, 15, 16, 16], "texture": "#net" },
+        "east": { "uv": [0, 15, 16, 16], "texture": "#net" }
+      }
+    }
+  ]
+}

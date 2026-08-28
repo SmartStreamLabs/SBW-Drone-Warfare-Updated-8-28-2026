@@ -1,0 +1,6 @@
+{
+  "ID": "sbwdroneconfig:cubed_fpv_drone",
+  "MaxHealth": 1,
+  "Type": "Drone",
+  "HasLowHealthWarning": false
+}

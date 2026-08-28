@@ -1,0 +1,29 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "GCG",
+                    "BMB",
+                    " L "
+                ],
+    "key":  {
+                "G":  {
+                          "item":  "minecraft:black_stained_glass_pane"
+                      },
+                "C":  {
+                          "item":  "superbwarfare:cell"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:battery"
+                      },
+                "M":  {
+                          "item":  "superbwarfare:monitor"
+                      },
+                "L":  {
+                          "item":  "minecraft:leather"
+                      }
+            },
+    "result":  {
+                   "id":  "sbwdroneconfig:fpv_goggles",
+                   "count":  1
+               }
+}

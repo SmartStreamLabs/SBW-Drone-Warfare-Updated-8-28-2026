@@ -1,0 +1,161 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+version = '1.0.6'
+group = 'nl.smartstreamlabs.sbwdroneconfig'
+def jeiVersion = '15.28.0.160'
+def sbw0891Jar = file(providers.gradleProperty('sbw0891Jar').getOrElse(
+        'C:/Users/Gebruiker/Desktop/SuperbWarfare-0.8.9.1-1.20/build/libs/superbwarfare-0.8.9.1-mc1.20.1-unknown-all.jar'
+))
+if (!sbw0891Jar.isFile()) {
+    throw new GradleException("Superb Warfare 0.8.9.1 Forge jar not found: ${sbw0891Jar}. Build the supplied 0.8.9.1 source or pass -Psbw0891Jar=<path>.")
+}
+def sbw0891Version = sbw0891Jar.name.substring('superbwarfare-'.length(), sbw0891Jar.name.length() - '.jar'.length())
+def kotlinForForgeRuntimeJar = [
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/1.20.1/mods/kotlinforforge-4.12.0-all.jar'),
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/Forge 1.20.1/mods/kotlinforforge-4.12.0-all.jar')
+].find { it.exists() }
+def simpleCloudsRuntimeJar = [
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/1.20.1/mods/simpleclouds-0.7.3+1.20.1-forge-all.jar'),
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/Creative-Server/mods/simpleclouds-0.7.3+1.20.1-forge-all.jar')
+].find { it.exists() }
+
+base {
+    archivesName = 'SBW-Drone-Warfare-1.20.1-Forge'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    withSourcesJar()
+}
+
+minecraft {
+    mappings channel: 'parchment', version: '2023.08.13-1.20.1'
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'info'
+            mods {
+                sbwdroneconfig {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', 'sbwdroneconfig'
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', 'sbwdroneconfig'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs sbw0891Jar.parentFile
+    }
+    if (simpleCloudsRuntimeJar != null) {
+        flatDir {
+            dirs simpleCloudsRuntimeJar.parentFile
+        }
+    }
+    maven {
+        url = 'https://maven.minecraftforge.net'
+    }
+    maven {
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+    maven {
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+    }
+    maven {
+        name = 'JEI'
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
+        content {
+            includeGroup 'com.github.mcmodderanchor'
+        }
+    }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.6')
+    runtimeOnly fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.6')
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:${jeiVersion}")
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:${jeiVersion}")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jeiVersion}")
+    runtimeOnly fg.deobf('top.theillusivec4.curios:curios-forge:5.14.1+1.20.1')
+    runtimeOnly fg.deobf('com.github.mcmodderanchor:simplebedrockmodel:2.5.1-forge-mc1.20.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    compileOnly fg.deobf("local.superbwarfare:superbwarfare:${sbw0891Version}")
+    runtimeOnly fg.deobf("local.superbwarfare:superbwarfare:${sbw0891Version}")
+    if (kotlinForForgeRuntimeJar != null) {
+        runtimeOnly files(kotlinForForgeRuntimeJar)
+    }
+    if (simpleCloudsRuntimeJar != null) {
+        runtimeOnly fg.deobf('local.simpleclouds:simpleclouds:0.7.3+1.20.1-forge-all')
+    }
+}
+
+mixin {
+    add sourceSets.main, 'sbwdroneconfig.refmap.json'
+    config 'sbwdroneconfig.mixins.json'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version      : '1.20.1',
+            minecraft_version_range: '[1.20.1,1.21)',
+            forge_version          : '47.2.0',
+            forge_version_range    : '[47,)',
+            loader_version_range   : '[47,)',
+            mod_id                 : 'sbwdroneconfig',
+            mod_name               : 'SBW Drone Warfare',
+            mod_license            : 'GNU GENERAL PUBLIC LICENSE',
+            mod_version            : project.version,
+            mod_authors            : 'Team SmartStreamLabs',
+            mod_description        : '''SBW Drone Warfare is a tactical drone expansion for Superb Warfare. It adds controllable FPV and LUCAS drones, drone inventories and modules, fiber optic links, jammers, radar tools, anti-drone nets, extraction crates, fuel production, battery support, weather camera effects, thermal vision, screenshots, configurable audio, spotlight systems, and a full in-game config GUI.'''
+    ]
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(
+                'MixinConfigs': 'sbwdroneconfig.mixins.json'
+        )
+    }
+}

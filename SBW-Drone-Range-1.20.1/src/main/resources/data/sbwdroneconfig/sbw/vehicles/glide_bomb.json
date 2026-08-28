@@ -1,0 +1,6 @@
+{
+  "ID": "sbwdroneconfig:glide_bomb",
+  "MaxHealth": 1,
+  "Type": "Drone",
+  "HasLowHealthWarning": false
+}

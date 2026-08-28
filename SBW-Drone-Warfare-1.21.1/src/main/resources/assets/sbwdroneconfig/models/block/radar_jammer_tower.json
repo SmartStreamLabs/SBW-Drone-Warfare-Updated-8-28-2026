@@ -1,0 +1,12 @@
+{
+  "loader": "forge:obj",
+  "model": "sbwdroneconfig:models/block/radar_jammer_tower.obj",
+  "mtl_override": "sbwdroneconfig:models/block/radar_jammer_tower.mtl",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": false,
+  "emissive_ambient": false,
+  "textures": {
+    "particle": "sbwdroneconfig:block/radar_jammer_tower_build"
+  }
+}

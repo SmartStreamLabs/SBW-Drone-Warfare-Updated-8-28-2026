@@ -1,0 +1,53 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+
+public record DeliveryCratePickupMessage() implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DeliveryCratePickupMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "delivery_crate_pickup"));
+
+    public static void encode(DeliveryCratePickupMessage message, FriendlyByteBuf buffer) {
+    }
+
+    public static DeliveryCratePickupMessage decode(FriendlyByteBuf buffer) {
+        return new DeliveryCratePickupMessage();
+    }
+
+    public static void handle(DeliveryCratePickupMessage message, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer player)) {
+            return;
+        }
+
+        DeliveryDroneEntity drone = findControlledDeliveryDrone(player);
+        if (drone == null) {
+            player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_no_drone"), true);
+            return;
+        }
+
+        if (drone.hasMountedExtractionCrate()) {
+            player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_crate_already_attached"), true);
+            return;
+        }
+
+        drone.tryPickupExtractionCrate(player);
+    }
+
+    private static DeliveryDroneEntity findControlledDeliveryDrone(ServerPlayer player) {
+        Entity active = SbwCompat.findActiveLinkedDrone(player);
+        if (active instanceof DeliveryDroneEntity deliveryDrone && SbwCompat.isUsingLinkedMonitorForDrone(player, deliveryDrone)) {
+            return deliveryDrone;
+        }
+        return null;
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
+}

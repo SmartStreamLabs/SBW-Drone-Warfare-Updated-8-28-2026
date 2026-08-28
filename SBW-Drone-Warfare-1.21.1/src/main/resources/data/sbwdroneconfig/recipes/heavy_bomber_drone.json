@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TPT",
+    "MDM",
+    "TBT"
+  ],
+  "key": {
+    "T": {
+      "item": "superbwarfare:tm_62"
+    },
+    "P": {
+      "item": "superbwarfare:large_propeller"
+    },
+    "M": {
+      "item": "superbwarfare:large_motor"
+    },
+    "D": {
+      "item": "superbwarfare:drone"
+    },
+    "B": {
+      "item": "superbwarfare:large_battery_pack"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:heavy_bomber_drone",
+    "count": 1
+  }
+}

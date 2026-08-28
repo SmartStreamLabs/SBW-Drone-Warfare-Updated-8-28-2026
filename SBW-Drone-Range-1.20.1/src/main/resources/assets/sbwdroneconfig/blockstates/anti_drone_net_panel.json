@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sbwdroneconfig:block/anti_drone_net_panel_bottom"
+    },
+    "type=top": {
+      "model": "sbwdroneconfig:block/anti_drone_net_panel_top"
+    },
+    "type=double": {
+      "model": "sbwdroneconfig:block/anti_drone_net_panel_double"
+    }
+  }
+}

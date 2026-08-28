@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sbwdroneconfig:block/jammer"
+    },
+    "facing=east": {
+      "model": "sbwdroneconfig:block/jammer",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sbwdroneconfig:block/jammer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sbwdroneconfig:block/jammer",
+      "y": 270
+    }
+  }
+}

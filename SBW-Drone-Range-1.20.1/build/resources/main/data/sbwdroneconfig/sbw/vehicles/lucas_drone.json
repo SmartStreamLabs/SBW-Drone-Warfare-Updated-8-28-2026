@@ -1,0 +1,13 @@
+{
+  "ID": "sbwdroneconfig:lucas_drone",
+  "MaxHealth": 5,
+  "MaxEnergy": 0,
+  "Mass": 0.0005,
+  "VehicleContainerType": "Empty",
+  "SendHitParticles": false,
+  "EngineSound": "sbwdroneconfig:lucas_drone_engine",
+  "Type": "Drone",
+  "HasLowHealthWarning": false,
+  "SelfHurtPercent": 0,
+  "Gravity": 0.0
+}

@@ -1,0 +1,210 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.80'
+}
+
+version = mod_version
+group = mod_group_id
+def jeiVersion = '19.39.0.372'
+
+def sbw0891Jar = file(providers.gradleProperty('sbw0891Jar').getOrElse(
+        'C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/superbwarfare-0.8.9.1-hotfix-mc1.21.1-2b9980c9.jar'
+))
+if (!sbw0891Jar.isFile()) {
+    throw new GradleException("Superb Warfare 0.8.9.1 NeoForge jar not found: ${sbw0891Jar}. Install the supplied 0.8.9.1 release or pass -Psbw0891Jar=<path>.")
+}
+
+def curiosRuntimeJar = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/curios-neoforge-9.5.1+1.21.1.jar'),
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/NeoForge 1.21.1/mods/curios-neoforge-9.5.1+1.21.1.jar')
+].find { it.exists() }
+
+def kotlinForForgeRuntimeJar = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/kotlinforforge-5.12.0-all.jar'),
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/NeoForge 1.21.1/mods/kotlinforforge-5.12.0-all.jar')
+].find { it.exists() }
+
+def configuredSimpleBedrockModelJar = providers.gradleProperty('simpleBedrockModelJar')
+        .map { file(it) }
+        .orNull
+def simpleBedrockModelRuntimeCandidates = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/simplebedrockmodel-2.5.1.1-neoforge-mc1.21.1.jar'),
+        file('C:/jtmp/SimpleBedrockModel-2.5.1.1/build/libs/simplebedrockmodel-2.5.1.1-neoforge-mc1.21.1.jar')
+]
+if (configuredSimpleBedrockModelJar != null) {
+    simpleBedrockModelRuntimeCandidates.add(0, configuredSimpleBedrockModelJar)
+}
+def simpleBedrockModelRuntimeJar = simpleBedrockModelRuntimeCandidates.find { it.isFile() }
+if (simpleBedrockModelRuntimeJar == null) {
+    throw new GradleException('SimpleBedrockModel 2.5.1.1 for NeoForge 1.21.1 is required by Superb Warfare 0.8.9.1. Install it or pass -PsimpleBedrockModelJar=<path>.')
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+sourceSets.main.resources {
+    srcDir('src/generated/resources')
+    exclude('**/*.bbmodel')
+    exclude('src/generated/**/.cache')
+}
+
+base {
+    archivesName = 'SBW-Drone-Warfare-1.21.1-NeoForge'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+neoForge {
+    version = neo_version
+
+    parchment {
+        minecraftVersion = parchment_minecraft_version
+        mappingsVersion = parchment_mappings_version
+    }
+
+    runs {
+        create('client') {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        create('server') {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        create('data') {
+            data()
+            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources').absolutePath, '--existing', file('src/main/resources').absolutePath
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        create(mod_id) {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex('software\\.bernie.*')
+        }
+    }
+    maven {
+        name = 'JEI'
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
+        content {
+            includeGroup 'com.github.MCModderAnchor'
+        }
+    }
+    mavenCentral()
+}
+
+configurations {
+    localRuntime
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    implementation 'software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.5'
+    compileOnly "mezz.jei:jei-1.21.1-common-api:${jeiVersion}"
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:${jeiVersion}"
+    localRuntime "mezz.jei:jei-1.21.1-neoforge:${jeiVersion}"
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testImplementation 'com.google.code.gson:gson:2.11.0'
+    compileOnly files(sbw0891Jar)
+    localRuntime files(sbw0891Jar)
+    localRuntime files(simpleBedrockModelRuntimeJar)
+    if (curiosRuntimeJar != null) {
+        localRuntime files(curiosRuntimeJar)
+    }
+    if (kotlinForForgeRuntimeJar != null) {
+        localRuntime files(kotlinForForgeRuntimeJar)
+    }
+}
+
+sourceSets.test.compileClasspath += sourceSets.main.compileClasspath
+sourceSets.test.runtimeClasspath += sourceSets.main.runtimeClasspath
+
+tasks.withType(ProcessResources).configureEach {
+    def replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            sbw_version_range      : sbw_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(
+                'MixinConfigs': 'sbwdroneconfig.mixins.json'
+        )
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

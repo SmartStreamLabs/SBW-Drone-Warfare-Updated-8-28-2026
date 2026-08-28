@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "sbwdroneconfig:block/drone_jammer"
+    },
+    "lit=true": {
+      "model": "sbwdroneconfig:block/drone_jammer_active"
+    }
+  }
+}

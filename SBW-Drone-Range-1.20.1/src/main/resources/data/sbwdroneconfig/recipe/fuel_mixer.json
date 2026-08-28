@@ -1,0 +1,32 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "IRI",
+                    "BFB",
+                    "MCM"
+                ],
+    "key":  {
+                "I":  {
+                          "item":  "minecraft:iron_ingot"
+                      },
+                "R":  {
+                          "item":  "minecraft:redstone"
+                      },
+                "B":  {
+                          "item":  "minecraft:blaze_powder"
+                      },
+                "F":  {
+                          "item":  "minecraft:furnace"
+                      },
+                "M":  {
+                          "item":  "superbwarfare:motor"
+                      },
+                "C":  {
+                          "item":  "superbwarfare:cell"
+                      }
+            },
+    "result":  {
+                   "id":  "sbwdroneconfig:fuel_mixer",
+                   "count":  1
+               }
+}

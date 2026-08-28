@@ -1,0 +1,15 @@
+{
+    "type":  "minecraft:crafting_shapeless",
+    "ingredients":  [
+                        {
+                            "item":  "sbwdroneconfig:empty_jerrycan"
+                        },
+                        {
+                            "item":  "sbwdroneconfig:gasoline_canister"
+                        }
+                    ],
+    "result":  {
+                   "item":  "sbwdroneconfig:gasoline_jerrycan",
+                   "count":  1
+               }
+}

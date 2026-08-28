@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "sbwdroneconfig:block/drone_detection_siren_side",
+    "north": "sbwdroneconfig:block/drone_detection_siren_front",
+    "south": "sbwdroneconfig:block/drone_detection_siren_back",
+    "east": "sbwdroneconfig:block/drone_detection_siren_side",
+    "west": "sbwdroneconfig:block/drone_detection_siren_side",
+    "up": "sbwdroneconfig:block/drone_detection_siren_top",
+    "down": "sbwdroneconfig:block/drone_detection_siren_bottom"
+  }
+}

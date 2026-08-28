@@ -1,0 +1,11 @@
+{
+    "type":  "superbwarfare:vehicle_assembling",
+    "category":  "misc",
+    "inputs":  [
+                   "sbwdroneconfig:empty_jerrycan",
+                   "sbwdroneconfig:gasoline_canister"
+               ],
+    "result":  {
+                   "item":  "sbwdroneconfig:gasoline_jerrycan"
+               }
+}

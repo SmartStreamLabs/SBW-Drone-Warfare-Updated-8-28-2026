@@ -1,0 +1,12 @@
+{
+    "type":  "minecraft:crafting_shapeless",
+    "ingredients":  [
+                        {
+                            "item":  "sbwdroneconfig:anti_drone_net"
+                        }
+                    ],
+    "result":  {
+                   "item":  "sbwdroneconfig:anti_drone_net_carpet",
+                   "count":  4
+               }
+}

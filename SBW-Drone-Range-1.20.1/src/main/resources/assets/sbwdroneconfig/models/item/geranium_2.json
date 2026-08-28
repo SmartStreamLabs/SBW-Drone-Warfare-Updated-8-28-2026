@@ -1,0 +1,137 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "sbwdroneconfig:item/geranium_2"
+  },
+  "base": {
+    "loader": "neoforge:obj",
+    "model": "sbwdroneconfig:models/item/geranium_2.obj",
+    "mtl_override": "sbwdroneconfig:models/item/geranium_2.mtl",
+    "automatic_culling": false,
+    "shade_quads": true,
+    "flip_v": false,
+    "emissive_ambient": false,
+    "display": {
+      "ground": {
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          2.2,
+          0
+        ],
+        "scale": [
+          0.24,
+          0.24,
+          0.24
+        ]
+      },
+      "fixed": {
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          1.1,
+          1.1
+        ]
+      },
+      "gui": {
+        "rotation": [
+          28,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.34,
+          0.34,
+          0.34
+        ]
+      },
+      "thirdperson_righthand": {
+        "rotation": [
+          72,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          2.0,
+          0.15
+        ],
+        "scale": [
+          0.18,
+          0.18,
+          0.18
+        ]
+      },
+      "thirdperson_lefthand": {
+        "rotation": [
+          72,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          2.0,
+          0.15
+        ],
+        "scale": [
+          0.18,
+          0.18,
+          0.18
+        ]
+      },
+      "firstperson_righthand": {
+        "rotation": [
+          18,
+          -38,
+          0
+        ],
+        "translation": [
+          1.1,
+          1.2,
+          0.0
+        ],
+        "scale": [
+          0.16,
+          0.16,
+          0.16
+        ]
+      },
+      "firstperson_lefthand": {
+        "rotation": [
+          18,
+          38,
+          0
+        ],
+        "translation": [
+          -1.1,
+          1.2,
+          0.0
+        ],
+        "scale": [
+          0.16,
+          0.16,
+          0.16
+        ]
+      }
+    }
+  },
+  "perspectives": {}
+}

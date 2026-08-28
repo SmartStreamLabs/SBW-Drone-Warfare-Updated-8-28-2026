@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sbwdroneconfig:item/fiber_optic_spool_upgrade"
+  }
+}

@@ -1,0 +1,29 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "PMP",
+                    "RDR",
+                    "PBP"
+                ],
+    "key":  {
+                "P":  {
+                          "item":  "superbwarfare:propeller"
+                      },
+                "M":  {
+                          "item":  "superbwarfare:monitor"
+                      },
+                "R":  {
+                          "item":  "superbwarfare:motor"
+                      },
+                "D":  {
+                          "item":  "superbwarfare:drone"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:battery"
+                      }
+            },
+    "result":  {
+                   "id":  "sbwdroneconfig:cubed_fpv_drone",
+                   "count":  1
+               }
+}

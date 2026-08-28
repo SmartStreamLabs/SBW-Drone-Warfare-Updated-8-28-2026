@@ -1,0 +1,6 @@
+newmtl jerrycan
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+map_Kd sbwdroneconfig:item/empty_jerrycan_3d

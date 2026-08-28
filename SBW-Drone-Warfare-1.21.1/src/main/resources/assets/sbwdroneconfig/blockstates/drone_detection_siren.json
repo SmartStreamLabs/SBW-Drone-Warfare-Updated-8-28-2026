@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "sbwdroneconfig:block/drone_detection_siren"
+    },
+    "lit=true": {
+      "model": "sbwdroneconfig:block/drone_detection_siren_active"
+    }
+  }
+}

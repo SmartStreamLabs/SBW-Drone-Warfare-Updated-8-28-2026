@@ -1,0 +1,32 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "IPI",
+                    "MDM",
+                    "BEB"
+                ],
+    "key":  {
+                "I":  {
+                          "item":  "minecraft:iron_ingot"
+                      },
+                "P":  {
+                          "item":  "superbwarfare:large_propeller"
+                      },
+                "M":  {
+                          "item":  "superbwarfare:large_motor"
+                      },
+                "D":  {
+                          "item":  "superbwarfare:drone"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:large_battery_pack"
+                      },
+                "E":  {
+                          "item":  "superbwarfare:missile_engine"
+                      }
+            },
+    "result":  {
+                   "item":  "sbwdroneconfig:lucas_drone",
+                   "count":  1
+               }
+}

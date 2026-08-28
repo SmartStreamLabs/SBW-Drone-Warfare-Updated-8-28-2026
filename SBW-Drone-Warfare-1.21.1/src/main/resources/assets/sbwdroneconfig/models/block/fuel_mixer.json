@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "sbwdroneconfig:block/fuel_mixer_side",
+    "north": "sbwdroneconfig:block/fuel_mixer_front",
+    "east": "sbwdroneconfig:block/fuel_mixer_side",
+    "south": "sbwdroneconfig:block/fuel_mixer_side",
+    "west": "sbwdroneconfig:block/fuel_mixer_side",
+    "up": "sbwdroneconfig:block/fuel_mixer_top",
+    "down": "sbwdroneconfig:block/fuel_mixer_bottom"
+  }
+}

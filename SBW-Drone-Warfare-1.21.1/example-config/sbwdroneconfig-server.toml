@@ -1,0 +1,138 @@
+[drone]
+# Maximum distance in blocks between the player and the linked Superb Warfare drone.
+droneMaxRange = 100
+
+# Keep a small area around an actively controlled drone loaded.
+enableDroneChunkLoading = false
+
+# Chunk radius around the drone when chunk loading is enabled.
+droneChunkLoadRadius = 1
+
+# Move the controlling player with the drone so vanilla chunk loading follows the drone.
+enableDronePlayerAnchor = true
+
+# Allow drone crash explosions to damage entities and destroy blocks.
+enableDroneCrashExplosionDamage = true
+
+[thermalVision]
+# Enable the Thermal Vision drone overlay toggle on the client.
+enableThermalVision = true
+
+# Maximum range in blocks for Thermal Vision entity highlighting while using the drone monitor.
+thermalVisionRange = 64
+
+# Highlight player entities in Thermal Vision.
+thermalHighlightPlayers = true
+
+# Highlight non-player living entities in Thermal Vision.
+thermalHighlightMobs = true
+
+[battery]
+# Enable the drone battery / energy system.
+enableBatterySystem = true
+
+# Maximum battery capacity for a drone.
+maxEnergy = 1200
+
+# Energy consumed each server tick while the drone is actively flying or being controlled.
+energyUsePerTick = 1
+
+# Energy consumed each server tick while the drone is idle.
+idleEnergyUsePerTick = 0
+
+# Threshold where the controller starts receiving low battery warnings.
+lowEnergyThreshold = 200
+
+# If true, an empty drone drifts back toward its controller while descending.
+returnHomeOnEmpty = false
+
+# Maximum energy transferred from an SBW battery item to the drone per right-click.
+batteryTransferRate = 100
+
+[droneSiren]
+# Enable the Drone Detection Siren block.
+enableDroneSiren = true
+
+# Detection radius in blocks for nearby Superb Warfare drones.
+droneSirenRange = 32
+
+# Emit a redstone signal while the siren is active.
+droneSirenRedstoneOutput = true
+
+# Ticks the siren remains active after losing drone contact.
+droneSirenCooldownTicks = 20
+
+# If false, sirens ignore drones owned by the player who placed the siren.
+detectFriendlyDrones = true
+
+# Player names whose owned drones should never trigger any siren.
+ignoredDroneOwnerNames = []
+
+# Player UUIDs whose owned drones should never trigger any siren.
+ignoredDroneOwnerUUIDs = []
+
+# If true, drones without a stored owner are ignored by sirens.
+ignoreOwnerlessDrones = false
+
+# Custom drone names that should never trigger any siren.
+ignoredDroneNames = []
+
+# If true, drones without a custom name are ignored by sirens.
+ignoreUnnamedDrones = false
+
+# If true, siren drone-name blacklist checks ignore case.
+blacklistMatchCaseInsensitive = true
+
+[droneJammer]
+# Enable the Drone Jammer block.
+enableDroneJammer = true
+
+# Detection and disruption radius in blocks for active drone jammers.
+jammerRange = 32
+
+# Drone jammer behavior mode: HARD or SOFT.
+jammerMode = "HARD"
+
+# If false, jammers ignore drones owned by the player who placed the jammer.
+affectFriendlyDrones = true
+
+[weather]
+# Enable rain and storm effects for drones.
+weatherEffectsEnabled = true
+
+# Multiplier applied to effective drone visibility and control clarity during rain.
+rainVisibilityMultiplier = 0.8
+
+# Strength of random wind instability applied to drones during thunderstorms.
+stormInstabilityStrength = 0.2
+
+[spotlight]
+# Enable the drone Spotlight Module upgrade system.
+enableSpotlightModule = true
+
+# Maximum render/search distance of the drone spotlight beam.
+spotlightRange = 48
+
+# Extra drone battery energy consumed per second while the spotlight is active.
+spotlightEnergyCostPerSecond = 2
+
+# Require a Spotlight Module item to be installed in the drone inventory before use.
+spotlightRequiresModule = true
+
+# If true, other players can also see spotlight beams from active drones.
+spotlightVisibleToOtherPlayers = true
+
+# Automatically disable the spotlight when the drone battery runs empty.
+spotlightAutoOffWhenBatteryEmpty = true
+
+# Create temporary real light blocks in front of the drone spotlight.
+spotlightRealLightEnabled = true
+
+# Maximum distance used by the real spotlight light positions.
+spotlightLightRange = 48
+
+# Base light level used for the nearest spotlight light source.
+spotlightLightLevel = 15
+
+# How often the spotlight real light positions update while active.
+spotlightLightUpdateIntervalTicks = 2

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "sbwdroneconfig:block/extraction_crate_bottom",
+    "up": "sbwdroneconfig:block/extraction_crate_top",
+    "north": "sbwdroneconfig:block/extraction_crate_front",
+    "south": "sbwdroneconfig:block/extraction_crate_back",
+    "east": "sbwdroneconfig:block/extraction_crate_side",
+    "west": "sbwdroneconfig:block/extraction_crate_side",
+    "particle": "sbwdroneconfig:block/extraction_crate_side"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.sbwdroneconfig.fpv_drone.propellers": {
+      "loop": true,
+      "animation_length": 1,
+      "bones": {
+        "wingFL": {
+          "rotation": [0, "query.anim_time * 360", 0]
+        },
+        "wingFR": {
+          "rotation": [0, "query.anim_time * -360", 0]
+        },
+        "wingBL": {
+          "rotation": [0, "query.anim_time * -360", 0]
+        },
+        "wingBR": {
+          "rotation": [0, "query.anim_time * 360", 0]
+        }
+      }
+    }
+  }
+}

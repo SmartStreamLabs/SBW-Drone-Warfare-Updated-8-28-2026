@@ -1,0 +1,53 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "sbwdroneconfig:item/glide_bomb"
+  },
+  "base": {
+    "loader": "neoforge:obj",
+    "model": "sbwdroneconfig:models/item/glide_bomb.obj",
+    "mtl_override": "sbwdroneconfig:models/item/glide_bomb.mtl",
+    "automatic_culling": false,
+    "shade_quads": true,
+    "flip_v": false,
+    "emissive_ambient": false,
+    "display": {
+      "ground": {
+        "rotation": [0, 0, 0],
+        "translation": [0, 2.2, 0],
+        "scale": [0.09, 0.09, 0.09]
+      },
+      "fixed": {
+        "rotation": [0, 0, 0],
+        "translation": [0, 0, 0],
+        "scale": [0.32, 0.32, 0.32]
+      },
+      "gui": {
+        "rotation": [28, 225, 0],
+        "translation": [0, 0, 0],
+        "scale": [0.12, 0.12, 0.12]
+      },
+      "thirdperson_righthand": {
+        "rotation": [72, 0, 0],
+        "translation": [0, 2.0, 0.2],
+        "scale": [0.09, 0.09, 0.09]
+      },
+      "thirdperson_lefthand": {
+        "rotation": [72, 0, 0],
+        "translation": [0, 2.0, 0.2],
+        "scale": [0.09, 0.09, 0.09]
+      },
+      "firstperson_righthand": {
+        "rotation": [18, -38, 0],
+        "translation": [1.1, 1.2, 0.0],
+        "scale": [0.075, 0.075, 0.075]
+      },
+      "firstperson_lefthand": {
+        "rotation": [18, 38, 0],
+        "translation": [-1.1, 1.2, 0.0],
+        "scale": [0.075, 0.075, 0.075]
+      }
+    }
+  },
+  "perspectives": {}
+}

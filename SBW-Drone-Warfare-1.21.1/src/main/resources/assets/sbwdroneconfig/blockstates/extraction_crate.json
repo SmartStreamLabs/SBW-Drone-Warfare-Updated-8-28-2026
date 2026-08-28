@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "sbwdroneconfig:block/extraction_crate" },
+    "facing=south": { "model": "sbwdroneconfig:block/extraction_crate", "y": 180 },
+    "facing=west": { "model": "sbwdroneconfig:block/extraction_crate", "y": 270 },
+    "facing=east": { "model": "sbwdroneconfig:block/extraction_crate", "y": 90 }
+  }
+}

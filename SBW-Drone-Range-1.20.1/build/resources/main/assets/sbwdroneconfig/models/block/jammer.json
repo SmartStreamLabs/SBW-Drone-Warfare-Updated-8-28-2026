@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "sbwdroneconfig:block/jammer_side_right",
+    "down": "sbwdroneconfig:block/jammer_bottom",
+    "up": "sbwdroneconfig:block/jammer_top",
+    "north": "sbwdroneconfig:block/jammer_side_right",
+    "south": "sbwdroneconfig:block/jammer_back",
+    "west": "sbwdroneconfig:block/jammer_side_right",
+    "east": "sbwdroneconfig:block/jammer_side_right"
+  }
+}

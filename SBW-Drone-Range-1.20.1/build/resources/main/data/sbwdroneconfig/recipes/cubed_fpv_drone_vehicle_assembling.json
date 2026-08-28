@@ -1,0 +1,14 @@
+{
+    "type":  "superbwarfare:vehicle_assembling",
+    "category":  "misc",
+    "inputs":  [
+                   "4 superbwarfare:propeller",
+                   "2 superbwarfare:motor",
+                   "superbwarfare:battery",
+                   "superbwarfare:monitor",
+                   "superbwarfare:drone"
+               ],
+    "result":  {
+                   "item":  "sbwdroneconfig:cubed_fpv_drone"
+               }
+}
