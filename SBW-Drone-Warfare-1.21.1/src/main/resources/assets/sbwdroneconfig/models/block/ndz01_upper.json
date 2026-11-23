@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "sbwdroneconfig:block/ndz01_metal"
+  },
+  "elements": []
+}

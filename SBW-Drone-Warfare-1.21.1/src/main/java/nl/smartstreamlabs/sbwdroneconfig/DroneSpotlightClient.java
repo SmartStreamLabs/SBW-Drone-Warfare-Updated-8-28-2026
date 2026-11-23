@@ -17,13 +17,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 
@@ -47,13 +47,15 @@ public final class DroneSpotlightClient {
     private DroneSpotlightClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static boolean osdActive(UUID id){return ACTIVE_SPOTLIGHT_DRONES.contains(id);}
+
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneSpotlightClient::onClientSetup);
         modBus.addListener(DroneSpotlightClient::onRegisterKeyMappings);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneSpotlightClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneSpotlightClient.class);
     }
 
     private static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
@@ -61,10 +63,7 @@ public final class DroneSpotlightClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         if (toggleCooldown > 0) {
             toggleCooldown--;
@@ -90,10 +89,7 @@ public final class DroneSpotlightClient {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
-            return;
-        }
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) {
 
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
@@ -106,13 +102,13 @@ public final class DroneSpotlightClient {
             return;
         }
 
-        int width = event.getWindow().getGuiScaledWidth();
-        int height = event.getWindow().getGuiScaledHeight();
+        int width = minecraft.getWindow().getGuiScaledWidth();
+        int height = minecraft.getWindow().getGuiScaledHeight();
         renderScreenCone(event.getGuiGraphics(), width, height);
 
         Component text = Component.translatable("overlay.sbwdroneconfig.spotlight_on");
         int x = width - minecraft.font.width(text) - 10;
-        event.getGuiGraphics().drawString(minecraft.font, text, x, 34, 0xFFF5D1, true);
+        if(!DroneOsdClient.ownsFullView())event.getGuiGraphics().drawString(minecraft.font, text, x, 34, 0xFFF5D1, true);
     }
 
     @SubscribeEvent
@@ -237,8 +233,8 @@ public final class DroneSpotlightClient {
     }
 
     private static void drawLine(VertexConsumer consumer, Matrix4f matrix, Vec3 from, Vec3 to, int red, int green, int blue, int alpha) {
-        consumer.vertex(matrix, (float) from.x, (float) from.y, (float) from.z).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
-        consumer.vertex(matrix, (float) to.x, (float) to.y, (float) to.z).color(red, green, blue, alpha).normal(0.0F, 1.0F, 0.0F).endVertex();
+        consumer.addVertex(matrix, (float) from.x, (float) from.y, (float) from.z).setColor(red, green, blue, alpha).setNormal(0.0F, 1.0F, 0.0F);
+        consumer.addVertex(matrix, (float) to.x, (float) to.y, (float) to.z).setColor(red, green, blue, alpha).setNormal(0.0F, 1.0F, 0.0F);
     }
 
     static UUID getControlledDroneUuid(LocalPlayer player) {

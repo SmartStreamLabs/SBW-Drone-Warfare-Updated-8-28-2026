@@ -1,0 +1,26 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    " S ",
+                    "CNC",
+                    " F "
+                ],
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:string"
+                      },
+                "C":  {
+                          "item":  "superbwarfare:cell"
+                      },
+                "N":  {
+                          "item":  "sbwdroneconfig:anti_drone_net"
+                      },
+                "F":  {
+                          "item":  "superbwarfare:iff"
+                      }
+            },
+    "result":  {
+                   "item":  "sbwdroneconfig:anti_drone_net_panel",
+                   "count":  4
+               }
+}

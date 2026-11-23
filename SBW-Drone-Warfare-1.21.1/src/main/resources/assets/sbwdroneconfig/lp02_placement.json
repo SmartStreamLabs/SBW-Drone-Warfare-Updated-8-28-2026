@@ -1,0 +1,36 @@
+{
+  "units_per_block": 16,
+  "ground_origin": [
+    0,
+    0,
+    0
+  ],
+  "forward_axis": "+Z",
+  "rail_pivot": [
+    0,
+    18,
+    0
+  ],
+  "rail_rotation_degrees": [
+    -14,
+    0,
+    0
+  ],
+  "reference_drone_scale": 1,
+  "reference_drone_transform_order": [
+    "rotate Y 180 degrees about source origin",
+    "translate (0,22,0)",
+    "rotate X -14 degrees about (0,18,0)"
+  ],
+  "animation_offsets": true,
+  "default_console_lid_rotation": [
+    -105,
+    0,
+    0
+  ],
+  "console_lid_pivot": [
+    19,
+    13,
+    5
+  ]
+}

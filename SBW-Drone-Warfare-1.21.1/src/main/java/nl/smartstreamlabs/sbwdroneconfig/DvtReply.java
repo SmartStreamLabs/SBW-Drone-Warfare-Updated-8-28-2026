@@ -1,0 +1,11 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import java.util.*;import net.minecraft.core.BlockPos;import net.minecraft.network.FriendlyByteBuf;
+public record DvtReply(BlockPos pos,boolean show,UUID selected,boolean lid,String status,String name,int entity,int energy,int capacity,double distance,float jam,int cx,int cz,List<Entry> choices,String notice)implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
+ public static final Type<DvtReply> TYPE=new Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,"dvtreply"));@Override public Type<? extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> type(){return TYPE;}
+
+ public record Entry(UUID id,String name,String status,boolean owner){}
+ public DvtReply{choices=List.copyOf(choices);if(choices.size()>64)throw new IllegalArgumentException("DVT list limit");}
+ public static void encode(DvtReply m,FriendlyByteBuf b){b.writeBlockPos(m.pos);b.writeBoolean(m.show);b.writeBoolean(m.selected!=null);if(m.selected!=null)b.writeUUID(m.selected);b.writeBoolean(m.lid);b.writeUtf(m.status,32);b.writeUtf(m.name,128);b.writeInt(m.entity);b.writeInt(m.energy);b.writeInt(m.capacity);b.writeDouble(m.distance);b.writeFloat(m.jam);b.writeInt(m.cx);b.writeInt(m.cz);b.writeVarInt(m.choices.size());for(var e:m.choices){b.writeUUID(e.id);b.writeUtf(e.name,128);b.writeUtf(e.status,32);b.writeBoolean(e.owner);}b.writeUtf(m.notice,256);}
+ public static DvtReply decode(FriendlyByteBuf b){var pos=b.readBlockPos();boolean show=b.readBoolean();UUID id=b.readBoolean()?b.readUUID():null;boolean lid=b.readBoolean();String status=b.readUtf(32),name=b.readUtf(128);int entity=b.readInt(),energy=b.readInt(),capacity=b.readInt();double distance=b.readDouble();float jam=b.readFloat();int cx=b.readInt(),cz=b.readInt(),n=b.readVarInt();if(n<0||n>64)throw new IllegalArgumentException("DVT list limit");var list=new ArrayList<Entry>();for(int i=0;i<n;i++)list.add(new Entry(b.readUUID(),b.readUtf(128),b.readUtf(32),b.readBoolean()));return new DvtReply(pos,show,id,lid,status,name,entity,energy,capacity,distance,jam,cx,cz,list,b.readUtf(256));}
+ public static void handle(DvtReply m,net.neoforged.neoforge.network.handling.IPayloadContext c){c.enqueueWork(()->DvtClient.receive(m));}
+}

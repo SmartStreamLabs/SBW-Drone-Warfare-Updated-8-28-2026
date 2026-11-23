@@ -23,13 +23,11 @@ final class PayloadMountDebugRenderer {
     }
 
     private static void drawLine(VertexConsumer consumer, Matrix4f matrix, Vec3 from, Vec3 to, int red, int green, int blue) {
-        consumer.vertex(matrix, (float) from.x, (float) from.y, (float) from.z)
-                .color(red, green, blue, ALPHA)
-                .normal(0.0F, 1.0F, 0.0F)
-                .endVertex();
-        consumer.vertex(matrix, (float) to.x, (float) to.y, (float) to.z)
-                .color(red, green, blue, ALPHA)
-                .normal(0.0F, 1.0F, 0.0F)
-                .endVertex();
+        consumer.addVertex(matrix, (float) from.x, (float) from.y, (float) from.z)
+                .setColor(red, green, blue, ALPHA)
+                .setNormal(0.0F, 1.0F, 0.0F);
+        consumer.addVertex(matrix, (float) to.x, (float) to.y, (float) to.z)
+                .setColor(red, green, blue, ALPHA)
+                .setNormal(0.0F, 1.0F, 0.0F);
     }
 }

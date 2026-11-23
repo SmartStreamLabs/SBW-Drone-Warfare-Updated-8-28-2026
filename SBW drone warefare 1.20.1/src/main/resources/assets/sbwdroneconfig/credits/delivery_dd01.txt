@@ -1,0 +1,1 @@
+Original DD-01 mesh and texture supplied by the user. 442 elements, 13856 triangles, 29 bones. Only the production model is used; no fitting chest or bag is included.

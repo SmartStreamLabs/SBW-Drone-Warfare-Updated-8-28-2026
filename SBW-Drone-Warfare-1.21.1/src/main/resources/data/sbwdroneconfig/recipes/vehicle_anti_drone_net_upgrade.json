@@ -23,7 +23,7 @@
     }
   },
   "result": {
-    "item": "sbwdroneconfig:vehicle_anti_drone_net_upgrade",
+    "id": "sbwdroneconfig:vehicle_anti_drone_net_upgrade",
     "count": 1
   }
 }

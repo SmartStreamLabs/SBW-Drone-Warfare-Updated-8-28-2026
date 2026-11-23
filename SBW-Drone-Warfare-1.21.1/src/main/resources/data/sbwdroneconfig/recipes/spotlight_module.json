@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:spotlight_module",
+                   "id":  "sbwdroneconfig:spotlight_module",
                    "count":  1
                }
 }

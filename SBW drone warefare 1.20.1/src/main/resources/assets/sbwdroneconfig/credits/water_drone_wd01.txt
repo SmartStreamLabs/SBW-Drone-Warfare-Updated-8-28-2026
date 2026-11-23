@@ -1,0 +1,3 @@
+WD-01 model and both complete texture atlases: user-supplied Water_Drone_WD01_Package.zip.
+380 mesh elements, 13194 triangles, 23 bones retained. Original editable asset included with source delivery.
+WD-01 drive sound: original harmonic synthesis authored in the project QA generator; no sampled Minecraft/game/video audio. Mono 44100 Hz OGG Vorbis.

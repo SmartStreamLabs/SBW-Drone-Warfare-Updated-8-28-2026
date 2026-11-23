@@ -1,10 +1,10 @@
 {
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "textures": {
     "particle": "sbwdroneconfig:item/heavy_bomber_drone"
   },
   "base": {
-    "loader": "forge:obj",
+    "loader": "neoforge:obj",
     "model": "sbwdroneconfig:models/item/heavy_bomber_drone.obj",
     "mtl_override": "sbwdroneconfig:models/item/heavy_bomber_drone.mtl",
     "automatic_culling": false,
@@ -13,41 +13,132 @@
     "emissive_ambient": false,
     "display": {
       "ground": {
-        "rotation": [0, 0, 0],
-        "translation": [0, 3.2, 0],
-        "scale": [0.13, 0.13, 0.13]
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          3.2,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.25,
+          0.25
+        ]
       },
       "fixed": {
-        "rotation": [0, 0, 0],
-        "translation": [0, 0, 0],
-        "scale": [0.72, 0.72, 0.72]
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
       },
       "gui": {
-        "rotation": [28, 225, 0],
-        "translation": [0, 0.5, 0],
-        "scale": [0.18, 0.18, 0.18]
+        "rotation": [
+          28,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          0.5,
+          0
+        ],
+        "scale": [
+          0.33,
+          0.33,
+          0.33
+        ]
       },
       "thirdperson_righthand": {
-        "rotation": [68, 0, 0],
-        "translation": [0, 2.6, 0.2],
-        "scale": [0.12, 0.12, 0.12]
+        "rotation": [
+          68,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          2.6,
+          0.2
+        ],
+        "scale": [
+          0.2,
+          0.2,
+          0.2
+        ]
       },
       "thirdperson_lefthand": {
-        "rotation": [68, 0, 0],
-        "translation": [0, 2.6, 0.2],
-        "scale": [0.12, 0.12, 0.12]
+        "rotation": [
+          68,
+          0,
+          0
+        ],
+        "translation": [
+          0,
+          2.6,
+          0.2
+        ],
+        "scale": [
+          0.2,
+          0.2,
+          0.2
+        ]
       },
       "firstperson_righthand": {
-        "rotation": [18, -38, 0],
-        "translation": [1.2, 1.5, 0.0],
-        "scale": [0.11, 0.11, 0.11]
+        "rotation": [
+          18,
+          -38,
+          0
+        ],
+        "translation": [
+          1.2,
+          1.5,
+          0.0
+        ],
+        "scale": [
+          0.2,
+          0.2,
+          0.2
+        ]
       },
       "firstperson_lefthand": {
-        "rotation": [18, 38, 0],
-        "translation": [-1.2, 1.5, 0.0],
-        "scale": [0.11, 0.11, 0.11]
+        "rotation": [
+          18,
+          38,
+          0
+        ],
+        "translation": [
+          -1.2,
+          1.5,
+          0.0
+        ],
+        "scale": [
+          0.2,
+          0.2,
+          0.2
+        ]
       }
     }
   },
-  "perspectives": {}
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/heavy_bomber_drone"
+      }
+    }
+  }
 }

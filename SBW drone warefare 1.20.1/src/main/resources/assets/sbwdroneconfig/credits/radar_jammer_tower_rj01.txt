@@ -1,0 +1,1 @@
+RJ-01 visual asset supplied by the user, 11 November 2026. Complete original Generic mesh/texture with 365 parts / 12,336 triangles; 16-group hierarchy retained. The source bundle includes the native editable model and exports. Replaces the former tower appearance only.

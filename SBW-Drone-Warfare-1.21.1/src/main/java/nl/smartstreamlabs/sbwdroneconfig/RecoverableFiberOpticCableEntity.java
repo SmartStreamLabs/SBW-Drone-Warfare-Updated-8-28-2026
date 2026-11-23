@@ -1,8 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,8 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class RecoverableFiberOpticCableEntity extends Entity {
     private static final String TAG_RECOVERED_SPOOL = "sbwdroneconfigRecoveredFiberSpool";
@@ -30,21 +27,21 @@ public class RecoverableFiberOpticCableEntity extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_RECOVERED_SPOOL, ItemStack.EMPTY);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_RECOVERED_SPOOL, ItemStack.EMPTY);
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         if (tag.contains(TAG_RECOVERED_SPOOL)) {
-            setRecoveredSpool(ItemStack.of(tag.getCompound(TAG_RECOVERED_SPOOL)));
+            setRecoveredSpool(ItemStack.parse(registryAccess(), tag.getCompound(TAG_RECOVERED_SPOOL)).orElse(ItemStack.EMPTY));
         }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         if (!getRecoveredSpool().isEmpty()) {
-            tag.put(TAG_RECOVERED_SPOOL, getRecoveredSpool().save(new CompoundTag()));
+            tag.put(TAG_RECOVERED_SPOOL, getRecoveredSpool().save(registryAccess(), new CompoundTag()));
         }
     }
 
@@ -95,11 +92,6 @@ public class RecoverableFiberOpticCableEntity extends Entity {
     @Override
     public boolean isPushable() {
         return false;
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public ItemStack getRecoveredSpool() {

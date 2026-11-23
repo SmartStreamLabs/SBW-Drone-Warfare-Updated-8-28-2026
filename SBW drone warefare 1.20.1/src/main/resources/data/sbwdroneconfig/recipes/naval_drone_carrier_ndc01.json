@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PDP",
+    "MEM",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "D": {
+      "item": "superbwarfare:monitor"
+    },
+    "M": {
+      "item": "superbwarfare:large_motor"
+    },
+    "E": {
+      "item": "superbwarfare:medium_battery_pack"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:naval_drone_carrier_ndc01",
+    "count": 1
+  }
+}

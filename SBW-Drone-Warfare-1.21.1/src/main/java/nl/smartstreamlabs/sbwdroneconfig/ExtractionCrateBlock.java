@@ -1,9 +1,11 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtractionCrateBlock extends BaseEntityBlock {
+    public static final MapCodec<ExtractionCrateBlock> CODEC = simpleCodec(ExtractionCrateBlock::new);
     private static final VoxelShape SHAPE = Shapes.block();
 
     public ExtractionCrateBlock(Properties properties) {
@@ -44,7 +47,22 @@ public class ExtractionCrateBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return openCrate(level, pos, player);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = openCrate(level, pos, player);
+        return result.consumesAction() ? ItemInteractionResult.sidedSuccess(level.isClientSide()) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    private InteractionResult openCrate(Level level, BlockPos pos, Player player) {
         if (level.isClientSide()) {
             return InteractionResult.sidedSuccess(true);
         }

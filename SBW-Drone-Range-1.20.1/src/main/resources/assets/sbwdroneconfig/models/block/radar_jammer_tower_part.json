@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/block",
-  "textures": {
-    "particle": "sbwdroneconfig:block/radar_jammer_tower_build"
-  },
-  "elements": []
-}

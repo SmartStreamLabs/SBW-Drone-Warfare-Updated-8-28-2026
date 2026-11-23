@@ -1,0 +1,24 @@
+{
+  "MaxHealth": 80,
+  "MaxEnergy": 0,
+  "Mass": 0.06,
+  "VehicleContainerType": "Empty",
+  "SendHitParticles": false,
+  "EngineSound": "superbwarfare:drone_engine",
+  "Type": "Drone",
+  "HasLowHealthWarning": false,
+  "SelfHurtPercent": 0,
+  "Seats": [
+    {
+      "Position": [
+        0,
+        -1.55,
+        0
+      ],
+      "Transform": "Vehicle",
+      "BanHand": false,
+      "HidePassenger": false,
+      "IsEnclosed": false
+    }
+  ]
+}

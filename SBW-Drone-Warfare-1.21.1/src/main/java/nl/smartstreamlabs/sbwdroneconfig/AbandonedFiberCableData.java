@@ -1,5 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -31,13 +32,12 @@ public final class AbandonedFiberCableData extends SavedData {
 
     public static AbandonedFiberCableData get(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(
-                AbandonedFiberCableData::load,
-                AbandonedFiberCableData::new,
+                new SavedData.Factory<>(AbandonedFiberCableData::new, AbandonedFiberCableData::load),
                 DATA_NAME
         );
     }
 
-    private static AbandonedFiberCableData load(CompoundTag tag) {
+    private static AbandonedFiberCableData load(CompoundTag tag, HolderLookup.Provider registries) {
         AbandonedFiberCableData data = new AbandonedFiberCableData();
         if (tag == null || !tag.contains(TAG_CABLES, Tag.TAG_LIST)) {
             return data;
@@ -54,7 +54,7 @@ public final class AbandonedFiberCableData extends SavedData {
     }
 
     @Override
-    public CompoundTag save(CompoundTag tag) {
+    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         ListTag list = new ListTag();
         for (CableRecord record : cables.values()) {
             list.add(writeRecord(record));

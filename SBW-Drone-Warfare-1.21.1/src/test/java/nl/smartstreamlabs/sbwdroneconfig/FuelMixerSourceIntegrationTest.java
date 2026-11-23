@@ -82,7 +82,7 @@ class FuelMixerSourceIntegrationTest {
         assertEquals("minecraft:crafting_shapeless", vanillaGasolineRecipe.get("type").getAsString());
         assertEquals("sbwdroneconfig:empty_jerrycan", vanillaIngredients.get(0).getAsJsonObject().get("item").getAsString());
         assertEquals("sbwdroneconfig:gasoline_canister", vanillaIngredients.get(1).getAsJsonObject().get("item").getAsString());
-        assertEquals("sbwdroneconfig:gasoline_jerrycan", vanillaGasolineRecipe.getAsJsonObject("result").get("item").getAsString());
+        assertEquals("sbwdroneconfig:gasoline_jerrycan", vanillaGasolineRecipe.getAsJsonObject("result").get("id").getAsString());
 
         JsonObject assemblingRecipe = readRecipe("gasoline_jerrycan_vehicle_assembling.json");
         String assemblingText = Files.readString(Path.of("src", "main", "resources", "data", "sbwdroneconfig", "recipes", "gasoline_jerrycan_vehicle_assembling.json"), StandardCharsets.UTF_8);
@@ -107,12 +107,12 @@ class FuelMixerSourceIntegrationTest {
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
             assertEquals("Fuel Mixer", root.get("block.sbwdroneconfig.fuel_mixer").getAsString());
             assertEquals("Gasoline Canister", root.get("item.sbwdroneconfig.gasoline_canister").getAsString());
-            assertEquals("Makes Gasoline Canisters for LUCAS fuel.", root.get("tooltip.sbwdroneconfig.fuel_mixer.1").getAsString());
-            assertEquals("Put Coal/Charcoal + Blaze Powder + Redstone in the Fuel Mixer.", root.get("tooltip.sbwdroneconfig.fuel_mixer.2").getAsString());
-            assertEquals("Then combine Gasoline Canister + Empty Jerrycan to make a Gasoline Jerrycan.", root.get("tooltip.sbwdroneconfig.fuel_mixer.3").getAsString());
-            assertEquals("Made in the Fuel Mixer from Coal/Charcoal, Blaze Powder, and Redstone.", root.get("tooltip.sbwdroneconfig.gasoline_canister.1").getAsString());
-            assertEquals("Combine with an Empty Jerrycan to make a Gasoline Jerrycan.", root.get("tooltip.sbwdroneconfig.gasoline_canister.2").getAsString());
-            assertEquals("Contains gasoline for LUCAS and Geranium-2 drones.", root.get("tooltip.sbwdroneconfig.gasoline_jerrycan.1").getAsString());
+            assertEquals("Produces Gasoline Canisters from coal or charcoal, Blaze Powder and Redstone.", root.get("tooltip.sbwdroneconfig.fuel_mixer.1").getAsString());
+            assertEquals("Open the machine and fill the three ingredient slots.", root.get("tooltip.sbwdroneconfig.fuel_mixer.2").getAsString());
+            assertEquals("Processing stops when ingredients are missing or the output is full.", root.get("tooltip.sbwdroneconfig.fuel_mixer.3").getAsString());
+            assertEquals("Fuel ingredient produced by the Fuel Mixer.", root.get("tooltip.sbwdroneconfig.gasoline_canister.1").getAsString());
+            assertEquals("Craft with an Empty Jerrycan to make a usable refueling can.", root.get("tooltip.sbwdroneconfig.gasoline_canister.2").getAsString());
+            assertEquals("Refuels compatible gasoline-powered drones.", root.get("tooltip.sbwdroneconfig.gasoline_jerrycan.1").getAsString());
             assertEquals("Slot 1: Coal or Charcoal", root.get("screen.sbwdroneconfig.fuel_mixer.tooltip.coal").getAsString());
             assertEquals("Slot 2: Blaze Powder", root.get("screen.sbwdroneconfig.fuel_mixer.tooltip.blaze_powder").getAsString());
             assertEquals("Slot 3: Redstone", root.get("screen.sbwdroneconfig.fuel_mixer.tooltip.redstone").getAsString());

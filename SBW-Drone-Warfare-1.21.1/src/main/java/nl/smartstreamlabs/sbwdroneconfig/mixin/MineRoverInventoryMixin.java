@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig.mixin;
+import org.spongepowered.asm.mixin.*;import org.spongepowered.asm.mixin.injection.*;import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+@Mixin(value=net.neoforged.neoforge.items.ItemStackHandler.class,remap=false) public abstract class MineRoverInventoryMixin{
+ @Inject(method="getSlotLimit",at=@At("HEAD"),cancellable=true) private void mr01$limit(int slot,CallbackInfoReturnable<Integer> ci){if((Object)this instanceof com.atsuishio.superbwarfare.inventory.handler.VehicleContainerHandler h&&h.getVehicle() instanceof nl.smartstreamlabs.sbwdroneconfig.MineRoverEntity)ci.setReturnValue(slot>=0&&slot<=6?1:0);}
+ @Inject(method="getSlotLimit",at=@At("HEAD"),cancellable=true) private void gad01$limit(int slot,CallbackInfoReturnable<Integer> ci){if((Object)this instanceof com.atsuishio.superbwarfare.inventory.handler.VehicleContainerHandler h&&h.getVehicle() instanceof nl.smartstreamlabs.sbwdroneconfig.Gad01Entity)ci.setReturnValue(slot>=0&&slot<3?1:0);}
+ @Inject(method="isItemValid",at=@At("HEAD"),cancellable=true) private void gad01$valid(int slot,net.minecraft.world.item.ItemStack stack,CallbackInfoReturnable<Boolean> ci){if((Object)this instanceof com.atsuishio.superbwarfare.inventory.handler.VehicleContainerHandler h&&h.getVehicle() instanceof nl.smartstreamlabs.sbwdroneconfig.Gad01Entity g)ci.setReturnValue(g.canPlaceItem(slot,stack));}
+}

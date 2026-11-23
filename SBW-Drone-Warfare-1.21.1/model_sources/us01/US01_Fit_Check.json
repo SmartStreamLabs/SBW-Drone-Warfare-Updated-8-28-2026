@@ -1,0 +1,29 @@
+{
+  "revision": "REV02",
+  "eye_opening_checks": [
+    {
+      "x_units": -2,
+      "face_opening_clear": true
+    },
+    {
+      "x_units": 2,
+      "face_opening_clear": true
+    }
+  ],
+  "helmet_to_reference_head_surface_intersections": [],
+  "unposed_armor_bounds_blocks_xyz": [
+    [
+      -0.5368750095367432,
+      0.5368750095367432
+    ],
+    [
+      0.0012499999720603228,
+      2.1031250953674316
+    ],
+    [
+      -0.3268750011920929,
+      0.3568750023841858
+    ]
+  ],
+  "notes": "Sampled fitting checks in native coordinates. Eyewear is completely removed. Preview materials hide back-facing surfaces to reveal winding problems. Not a full in-game clipping or renderer compatibility test."
+}

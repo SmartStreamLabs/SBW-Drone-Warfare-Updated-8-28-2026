@@ -1,0 +1,212 @@
+{
+  "asset": "Drone Interceptor Launcher DIL-01",
+  "revision": "Refined visual revision 2",
+  "identity": "Original fictional exterior game prop; authored game proportions, no internal weapon engineering.",
+  "units_per_block": 16,
+  "texture_resolution": 1024,
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "bounds_blocks": {
+    "min": [
+      -0.2408,
+      -0.262814655,
+      -0.7005
+    ],
+    "max": [
+      0.18383066625,
+      0.4086,
+      0.635
+    ]
+  },
+  "dimensions_blocks": [
+    0.42463066625,
+    0.671414655,
+    1.3355000000000001
+  ],
+  "elements": 431,
+  "triangles": 22912,
+  "bones": 23,
+  "clips": 3,
+  "anchor_positions_blocks": {
+    "main_hand_anchor": [
+      0,
+      -0.11,
+      0.235
+    ],
+    "support_hand_anchor": [
+      0,
+      -0.07,
+      -0.285
+    ],
+    "shoulder_anchor": [
+      0,
+      0.007,
+      0.425
+    ],
+    "aim_anchor": [
+      -0.129,
+      0.35,
+      0.312
+    ],
+    "muzzle_anchor": [
+      0,
+      0.16,
+      -0.72
+    ],
+    "item_origin_anchor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "bone_pivots_units": {
+    "dil01_root": [
+      0,
+      0,
+      0
+    ],
+    "tube_shell": [
+      0,
+      0,
+      0
+    ],
+    "front_guard": [
+      0,
+      0,
+      0
+    ],
+    "rear_guard": [
+      0,
+      0,
+      0
+    ],
+    "bands": [
+      0,
+      0,
+      0
+    ],
+    "mounts": [
+      0,
+      0,
+      0
+    ],
+    "main_grip": [
+      0,
+      0,
+      0
+    ],
+    "support_grip": [
+      0,
+      0,
+      0
+    ],
+    "trigger_guard": [
+      0,
+      0,
+      0
+    ],
+    "optic": [
+      0,
+      0,
+      0
+    ],
+    "optic_controls": [
+      0,
+      0,
+      0
+    ],
+    "shoulder_pad": [
+      0,
+      0,
+      0
+    ],
+    "sling": [
+      0,
+      0,
+      0
+    ],
+    "markings": [
+      0,
+      0,
+      0
+    ],
+    "trigger": [
+      0,
+      0.288,
+      2.32
+    ],
+    "safety_switch": [
+      -3.6,
+      4.384,
+      1.968
+    ],
+    "rear_cap": [
+      0,
+      4.864,
+      8.88
+    ],
+    "main_hand_anchor": [
+      0,
+      -1.76,
+      3.76
+    ],
+    "support_hand_anchor": [
+      0,
+      -1.12,
+      -4.56
+    ],
+    "shoulder_anchor": [
+      0,
+      0.112,
+      6.8
+    ],
+    "aim_anchor": [
+      -2.064,
+      5.6,
+      4.992
+    ],
+    "muzzle_anchor": [
+      0,
+      2.56,
+      -11.52
+    ],
+    "item_origin_anchor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "suggested_main_hand_centering_units": [
+    0,
+    1.76,
+    -3.76
+  ],
+  "screen_uv_pixels": [
+    544,
+    192,
+    800,
+    320
+  ],
+  "texture_states": {
+    "standby": "drone_interceptor_launcher_dil01.png",
+    "locked": "drone_interceptor_launcher_dil01_locked.png"
+  },
+  "visual_changes": [
+    "Resculpted rounded-square bumpers, thinner stepped shell and recessed front lip.",
+    "Compact cylindrical scope with coated glass, fine focus knurling and integrated sensor/LCD pod.",
+    "Shorter contoured grips with dedicated stipple UV islands and finger ridges.",
+    "Smooth wide sling ribbon, correctly oriented broadside, woven UV, edge stitching and tangent-aligned open buckles.",
+    "Recessed slotted fasteners, layered identity/serial plates, detailed service dials, shoulder tread and cap reinforcement.",
+    "1024px atlas with material grain, textile weave, grip pattern, lens coating and sharper markings."
+  ],
+  "compatibility_notes": [
+    "Main/support/shoulder/muzzle anchor positions retained; aim anchor and safety/rear-cap pivots changed. Read current JSON.",
+    "Generic meshes require a mesh-capable renderer. Cache/batch fixed geometry.",
+    "No player hand pose, gameplay, real optics or functioning weapon code included.",
+    "Three cosmetic clips retain their names and return to bind pose.",
+    "Do not change existing mod ranges, controls, damage, jammer or fiber logic."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "minecraft_integrated": false
+}

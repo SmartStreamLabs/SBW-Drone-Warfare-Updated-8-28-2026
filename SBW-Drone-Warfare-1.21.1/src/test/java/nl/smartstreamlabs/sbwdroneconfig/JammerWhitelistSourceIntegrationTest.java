@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class JammerWhitelistSourceIntegrationTest {
     @Test
     void jammerBlockEntityStoresAndAppliesGamertagWhitelistServerSide() throws Exception {
-        String source = Files.readString(Path.of("src", "main", "java", "nl", "smartstreamlabs", "sbwdroneconfig", "JammerBlockEntity.java"), StandardCharsets.UTF_8);
+        String source = Files.readString(Path.of("src","main","java","nl","smartstreamlabs","sbwdroneconfig","JammerRules.java")) + Files.readString(Path.of("src", "main", "java", "nl", "smartstreamlabs", "sbwdroneconfig", "JammerBlockEntity.java"), StandardCharsets.UTF_8);
 
         assertTrue(source.contains("whitelistedGamertags"), "Jammer block entity should persist a per-block whitelist.");
         assertTrue(source.contains("addWhitelistedGamertag"), "Jammer block entity should allow adding gamertags.");
         assertTrue(source.contains("removeWhitelistedGamertag"), "Jammer block entity should allow removing gamertags.");
-        assertTrue(source.contains("findWhitelistedGamertag(level, entity)"), "Jammer scan should check the whitelist before applying influence.");
+        assertTrue(source.contains("findWhitelistedGamertag(level, entity, whitelistedGamertags)"), "Jammer scan should check the whitelist before applying influence.");
         assertTrue(source.contains("return false;"), "Whitelisted drones/controllers should be skipped by shouldAffectDrone.");
         assertTrue(source.contains("SbwCompat.getDroneControllerUuid(drone)"), "Whitelist must work for the active controller gamertag.");
         assertTrue(source.contains("SbwCompat.resolveDroneOwner(level, drone)"), "Whitelist should also fall back to stored drone owner identity.");
@@ -40,7 +40,7 @@ class JammerWhitelistSourceIntegrationTest {
         assertTrue(screen.contains("UpdateJammerWhitelistMessage"), "Jammer GUI should send whitelist add/remove packets.");
         assertTrue(screen.contains("screen.sbwdroneconfig.jammer.whitelist"), "Jammer GUI should label the whitelist.");
         assertTrue(openMessage.contains("List<String> whitelistedGamertags"), "Open packet should sync the current whitelist to the client.");
-        assertTrue(network.contains("UpdateJammerWhitelistMessage.class"), "Whitelist update packet should be registered.");
+        assertTrue(network.contains("UpdateJammerWhitelistMessage.TYPE"), "Whitelist update packet should be registered.");
         assertTrue(network.contains("updateJammerWhitelist"), "Client helper should send whitelist updates.");
         assertTrue(updateMessage.contains("blockEntity.addWhitelistedGamertag(trimmed)"), "Server packet should add entries on the block entity.");
         assertTrue(updateMessage.contains("blockEntity.removeWhitelistedGamertag(trimmed)"), "Server packet should remove entries on the block entity.");
@@ -64,15 +64,24 @@ class JammerWhitelistSourceIntegrationTest {
     void jammerGuiUsesSharedLayoutConstantsSoWhitelistTextCannotOverlapButtons() throws Exception {
         String screen = Files.readString(Path.of("src", "main", "java", "nl", "smartstreamlabs", "sbwdroneconfig", "JammerScreen.java"), StandardCharsets.UTF_8);
 
-        assertTrue(screen.contains("JammerScreenLayout.PANEL_TOP"), "Widget placement and text rendering should share the same panel top.");
+        assertTrue(screen.contains("JammerScreenLayout.panelTop(height, longRangeTower)"), "Widget placement and text rendering should share the same responsive panel top.");
+        assertTrue(screen.indexOf("super.render(guiGraphics, mouseX, mouseY, partialTick);") < screen.indexOf("renderForegroundText(guiGraphics, left, top, towerOffset);"),
+                "Custom text should render after widgets so the radar tower labels stay sharp and visible.");
         assertTrue(screen.contains("JammerScreenLayout.WHITELIST_LIST_LABEL_Y"), "Whitelist list label should have an explicit non-overlapping Y position.");
         assertTrue(screen.contains("JammerScreenLayout.SAVE_BUTTON_Y"), "Save and cancel buttons should sit below the whitelist list area.");
+        assertTrue(screen.contains("JammerScreenLayout.TOWER_STATUS_LINE_GAP"), "Radar tower status should use fixed line spacing instead of crowded inline text.");
+        assertFalse(screen.contains("x + 104"), "Radar tower status text must not be squeezed beside long energy labels.");
         assertFalse(screen.contains("int top = 50;"), "Old widget top offset caused text and buttons to drift out of sync.");
         assertFalse(screen.contains("int top = 40;"), "Old render top offset caused whitelist entries to overlap Add/Remove buttons.");
 
+        assertTrue(JammerScreenLayout.PANEL_WIDTH >= 280,
+                "Radar jammer tower text needs a wider panel at high GUI scale.");
+        assertTrue(JammerScreenLayout.WHITELIST_INPUT_LABEL_Y + JammerScreenLayout.LONG_RANGE_PANEL_EXTRA_HEIGHT
+                        > JammerScreenLayout.TOWER_STATUS_Y + (JammerScreenLayout.TOWER_STATUS_LINE_GAP * 2),
+                "Tower power status should finish before the whitelist input label.");
         assertTrue(JammerScreenLayout.WHITELIST_LIST_LABEL_Y > JammerScreenLayout.WHITELIST_BUTTON_Y + JammerScreenLayout.BUTTON_HEIGHT,
                 "Whitelist list text should render below the Add/Remove buttons.");
-        assertTrue(JammerScreenLayout.SAVE_BUTTON_Y > JammerScreenLayout.WHITELIST_LIST_Y + 50,
-                "Save row should leave room for visible whitelist entries.");
+        assertTrue(JammerScreenLayout.SAVE_BUTTON_Y > JammerScreenLayout.WHITELIST_LIST_Y + 22,
+                "Save row should leave room for visible compact whitelist entries.");
     }
 }

@@ -5,16 +5,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,12 +38,12 @@ public final class DroneFiberOpticClient {
     private DroneFiberOpticClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneFiberOpticClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneFiberOpticClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneFiberOpticClient.class);
     }
 
     public static void handleSync(DroneFiberOpticSyncMessage message) {
@@ -161,11 +161,7 @@ public final class DroneFiberOpticClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-
+    public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         rendererCalled = false;
         droneFoundClient = false;
@@ -190,9 +186,9 @@ public final class DroneFiberOpticClient {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
         FiberHudState hudState = currentState();
-        if (event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath()) || !shouldRenderHud(hudState)) {
+        if (!shouldRenderHud(hudState)) {
             return;
         }
 
@@ -352,6 +348,11 @@ public final class DroneFiberOpticClient {
         return currentState != null && currentState.linkMode() == DroneLinkMode.FIBER_OPTIC && currentState.fiberSessionActive();
     }
 
+    static boolean hasActiveFiberSessionFor(UUID droneId) {
+        var current = RENDER_STATES.get(droneId);
+        return current != null && current.linkMode() == DroneLinkMode.FIBER_OPTIC && current.fiberSessionActive();
+    }
+
     static boolean isFiberHudActiveFor(UUID droneId) {
         FiberHudState currentState = currentState();
         return droneId != null
@@ -361,7 +362,7 @@ public final class DroneFiberOpticClient {
                 && droneId.equals(currentState.droneId());
     }
 
-    static boolean hasFiberSpoolModule(CubedFpvDroneEntity drone) {
+    static boolean hasFiberSpoolModule(Entity drone) {
         if (drone == null || !AddonConfig.enableFiberOpticMode()) {
             return false;
         }

@@ -10,7 +10,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public final class LucasFuelSystem {
     private static final String TAG_LOW_WARNING_SENT = "sbwdroneconfigLucasLowFuelWarningSent";
@@ -80,7 +80,7 @@ public final class LucasFuelSystem {
 
         if (engineActive && drone.getLucasFuel() > 0.0F) {
             double drain = drone.onGround() ? AddonConfig.lucasFuelDrainIdle() : AddonConfig.lucasFuelDrainFlying();
-            if (activelyControlled && (drone.upInputDown() || drone.hasLucasTakeoffAssist())) {
+            if (MissionManager.powered(drone) && MissionManager.climb(drone)>0 || activelyControlled && (drone.upInputDown() || drone.hasLucasTakeoffAssist())) {
                 drain += AddonConfig.lucasFuelDrainClimb();
             }
             drainFuel(drone, drain);
@@ -156,7 +156,7 @@ public final class LucasFuelSystem {
     }
 
     private static ServerPlayer getController(LucasDroneEntity drone) {
-        Entity controller = drone.getController();
+        Entity controller = SbwCompat.getDroneController(drone);
         return controller instanceof ServerPlayer serverPlayer ? serverPlayer : null;
     }
 

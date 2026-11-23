@@ -1,0 +1,124 @@
+{
+  "MaxHealth": 1200,
+  "MaxEnergy": 2000000,
+  "KeepChunkLoaded": false,
+  "Seats": [],
+  "Weapons": {},
+  "Gravity": 0.04,
+  "RotateOffsetHeight": 0,
+  "Mass": 4,
+  "UpStep": 0,
+  "VehicleContainerType": "Large",
+  "VehicleIcon": "sbwdroneconfig:ndc01/icon.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/water.png",
+  "Type": "Boat",
+  "HudType": "@Empty",
+  "EngineType": "Ship",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 0,
+    "MaxForwardSpeedRate": 0.85,
+    "MaxBackwardSpeedRate": 0.2,
+    "Increment": 0.013,
+    "Decrement": 0.025,
+    "SteeringSpeed": 0.065,
+    "BodyPitchRate": 0,
+    "BodyRollRate": 0,
+    "EngineSoundVolume": 0
+  },
+  "TurretPos": [
+    0,
+    2.045,
+    5.28
+  ],
+  "BarrelPos": [
+    0,
+    0,
+    0
+  ],
+  "TurretPitchRange": [
+    -50,
+    50
+  ],
+  "DestroyInfo": {
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "ExplodeBlocks": false,
+    "ExplodePassengers": false,
+    "SympatheticDetonation": false,
+    "ParticleType": "Small"
+  },
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "TerrainCompat": [],
+  "InertiaRotateRate": 1,
+  "DamageModifiers": [],
+  "OBB": [
+    {
+      "Size": [
+        1.6,
+        0.6,
+        4.8
+      ],
+      "Position": [
+        0,
+        0.65,
+        0
+      ]
+    },
+    {
+      "Size": [
+        0.85,
+        0.55,
+        0.62
+      ],
+      "Position": [
+        0,
+        0.65,
+        5.32
+      ]
+    },
+    {
+      "Size": [
+        1.65,
+        0.6,
+        0.55
+      ],
+      "Position": [
+        0,
+        0.65,
+        -5.55
+      ]
+    },
+    {
+      "Size": [
+        0.4,
+        1.35,
+        0.3
+      ],
+      "Position": [
+        0,
+        3,
+        -5.7
+      ]
+    }
+  ]
+}

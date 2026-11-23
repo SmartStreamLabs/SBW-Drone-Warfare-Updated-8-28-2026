@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:drone_detection_siren",
+                   "id":  "sbwdroneconfig:drone_detection_siren",
                    "count":  1
                }
 }

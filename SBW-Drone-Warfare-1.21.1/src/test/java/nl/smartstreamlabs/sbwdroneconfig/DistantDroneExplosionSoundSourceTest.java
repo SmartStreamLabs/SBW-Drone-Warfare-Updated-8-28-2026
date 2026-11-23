@@ -22,7 +22,7 @@ class DistantDroneExplosionSoundSourceTest {
 
         assertTrue(soundsSource.contains("DRONE_DISTANT_EXPLOSION = SOUND_EVENTS.register("),
                 "The addon should register a dedicated distant drone explosion sound event.");
-        assertTrue(soundsSource.contains("SoundEvent.createFixedRangeEvent(new ResourceLocation(SbwDroneRangeConfig.MOD_ID, \"drone_distant_explosion\"), 192.0F)"),
+        assertTrue(soundsSource.contains("SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, \"drone_distant_explosion\"), 192.0F)"),
                 "The distant drone explosion sound should use a fixed range so it can be heard around 100 blocks away.");
     }
 
@@ -32,14 +32,14 @@ class DistantDroneExplosionSoundSourceTest {
 
         assertTrue(soundsSource.contains("DRONE_5000_BLOCK_EXPLOSION = SOUND_EVENTS.register("),
                 "The addon should register a dedicated 5000-block drone explosion sound event.");
-        assertTrue(soundsSource.contains("SoundEvent.createFixedRangeEvent(new ResourceLocation(SbwDroneRangeConfig.MOD_ID, \"drone_5000_block_explosion\"), 5000.0F)"),
+        assertTrue(soundsSource.contains("SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, \"drone_5000_block_explosion\"), 5000.0F)"),
                 "The 5000-block drone explosion sound should use a fixed range so it can be heard from extremely far away.");
     }
 
     @Test
     void packagesTheDistantExplosionOggAndSoundsJsonEntry() throws Exception {
         ClassLoader loader = DistantDroneExplosionSoundSourceTest.class.getClassLoader();
-        assertNotNull(loader.getResource("assets/sbwdroneconfig/sounds/drone_distant_explosion.ogg"),
+        assertNotNull(loader.getResource("assets/sbwdroneconfig/sounds/explosion_audio/drone_distant_user.ogg"),
                 "The provided afstand-explosie.ogg should be packaged under a lowercase mod sound path.");
 
         try (var stream = loader.getResourceAsStream("assets/sbwdroneconfig/sounds.json")) {
@@ -49,7 +49,7 @@ class DistantDroneExplosionSoundSourceTest {
             JsonObject entry = root.getAsJsonObject("drone_distant_explosion");
             assertNotNull(entry, "sounds.json should define the distant drone explosion key.");
             assertEquals("subtitles.sbwdroneconfig.drone_distant_explosion", entry.get("subtitle").getAsString());
-            assertEquals("sbwdroneconfig:drone_distant_explosion",
+            assertEquals("sbwdroneconfig:explosion_audio/drone_distant_user",
                     entry.getAsJsonArray("sounds").get(0).getAsJsonObject().get("name").getAsString());
         }
     }
@@ -57,7 +57,7 @@ class DistantDroneExplosionSoundSourceTest {
     @Test
     void packagesTheFiveThousandBlockExplosionOggAndSoundsJsonEntry() throws Exception {
         ClassLoader loader = DistantDroneExplosionSoundSourceTest.class.getClassLoader();
-        assertNotNull(loader.getResource("assets/sbwdroneconfig/sounds/drone_5000_block_explosion.ogg"),
+        assertNotNull(loader.getResource("assets/sbwdroneconfig/sounds/explosion_audio/drone_distant_user.ogg"),
                 "The provided afstand-5000-blocks-explosie.ogg should be packaged under a lowercase mod sound path.");
 
         try (var stream = loader.getResourceAsStream("assets/sbwdroneconfig/sounds.json")) {
@@ -67,7 +67,7 @@ class DistantDroneExplosionSoundSourceTest {
             JsonObject entry = root.getAsJsonObject("drone_5000_block_explosion");
             assertNotNull(entry, "sounds.json should define the 5000-block drone explosion key.");
             assertEquals("subtitles.sbwdroneconfig.drone_5000_block_explosion", entry.get("subtitle").getAsString());
-            assertEquals("sbwdroneconfig:drone_5000_block_explosion",
+            assertEquals("sbwdroneconfig:explosion_audio/drone_distant_user",
                     entry.getAsJsonArray("sounds").get(0).getAsJsonObject().get("name").getAsString());
         }
     }

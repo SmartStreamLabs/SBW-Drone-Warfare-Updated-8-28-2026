@@ -1,13 +1,14 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record PortableFpvDetectorOpenMessage() implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PortableFpvDetectorOpenMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "portable_fpv_detector_open"));
 
-public record PortableFpvDetectorOpenMessage() {
     public static void encode(PortableFpvDetectorOpenMessage message, FriendlyByteBuf buffer) {
     }
 
@@ -15,8 +16,12 @@ public record PortableFpvDetectorOpenMessage() {
         return new PortableFpvDetectorOpenMessage();
     }
 
-    public static void handle(PortableFpvDetectorOpenMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        contextSupplier.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> DroneJammerClient::openDetectorScreen));
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(PortableFpvDetectorOpenMessage message, IPayloadContext context) {
+        context.enqueueWork(DroneJammerClient::openDetectorScreen);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

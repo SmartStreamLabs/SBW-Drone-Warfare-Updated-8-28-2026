@@ -62,18 +62,32 @@ public final class DroneCrashExplosionSystem {
                 ? LUCAS_CRASH_EXPLOSION_POWER
                 : fpvDrone ? FPV_CRASH_EXPLOSION_POWER : CRASH_EXPLOSION_POWER;
 
+        // SBW treats a vanilla source with null attacker + null last driver as friendly fire.
+        // Capture the real pilot before clearing the session and use its explosion damage type.
+        var pilotId=SbwCompat.getDroneControllerUuid(drone);
+        var attacker=pilotId==null?null:level.getServer().getPlayerList().getPlayer(pilotId);
+        var damageSource=new net.minecraft.world.damagesource.DamageSource(
+                level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE)
+                    .getHolderOrThrow(com.atsuishio.superbwarfare.init.ModDamageTypes.CUSTOM_EXPLOSION),drone,attacker);
         disconnectController(level, drone);
         FiberOpticLinkSystem.handleDroneCrashRecovery(level, drone);
-        if (geranium) {
+        if (DroneExplosionVfx.isAddonEntity(drone)) {
+            DroneExplosionVfx.crash(level, drone, explosionPower);
+            spawnCrashEffects(level, drone.position(), fpvDrone, lucasDrone, glideBomb, geranium, true);
+        } else if (geranium) {
             spawnCrashEffects(level, drone.position(), fpvDrone, lucasDrone, glideBomb, true);
         } else {
             spawnCrashEffects(level, drone.position(), fpvDrone, lucasDrone, glideBomb);
         }
 
         if (AddonConfig.enableDroneCrashExplosionDamage()) {
-            level.explode(null, drone.getX(), drone.getY(), drone.getZ(), explosionPower, Level.ExplosionInteraction.TNT);
+            try (var attack=DroneAttackDamage.scope(drone);var scope=DroneExplosionVfx.explosionScope(level,drone,drone.getX(),drone.getY(),drone.getZ(),explosionPower,DroneExplosionVfx.isAddonEntity(drone))) {
+            level.explode(drone, damageSource, null, drone.getX(), drone.getY(), drone.getZ(), explosionPower, false, Level.ExplosionInteraction.TNT);
+            }
         }
     }
+
+    public static float cageAttackStrength(Entity drone){float power=drone instanceof Geranium2Entity?GERANIUM_CRASH_EXPLOSION_POWER:drone instanceof GlideBombEntity?GLIDE_BOMB_CRASH_EXPLOSION_POWER:drone instanceof LucasDroneEntity?LUCAS_CRASH_EXPLOSION_POWER:drone instanceof CubedFpvDroneEntity?FPV_CRASH_EXPLOSION_POWER:CRASH_EXPLOSION_POWER;return 14*power+1;}
 
     private static void disconnectController(ServerLevel level, Entity drone) {
         UUID controllerUuid = SbwCompat.getDroneControllerUuid(drone);
@@ -93,6 +107,11 @@ public final class DroneCrashExplosionSystem {
     }
 
     private static void spawnCrashEffects(ServerLevel level, Vec3 pos, boolean fpvDrone, boolean lucasDrone, boolean glideBomb, boolean geranium) {
+        spawnCrashEffects(level,pos,fpvDrone,lucasDrone,glideBomb,geranium,false);
+    }
+
+    private static void spawnCrashEffects(ServerLevel level, Vec3 pos, boolean fpvDrone, boolean lucasDrone, boolean glideBomb, boolean geranium, boolean ownVisual) {
+        if (!ownVisual) {
         ParticleTool.spawnHugeExplosionParticles(level, pos);
         if (fpvDrone || lucasDrone) {
             ParticleTool.spawnHugeExplosionParticles(level, pos);
@@ -101,6 +120,9 @@ public final class DroneCrashExplosionSystem {
             ParticleTool.spawnHugeExplosionParticles(level, pos);
         }
 
+        }
+
+        if (ownVisual) return; // Confirmed event is the sole new audio route.
         float soundVolume = geranium ? LUCAS_CRASH_SOUND_VOLUME * 1.35F : glideBomb ? FPV_CRASH_SOUND_VOLUME * 2.0F : lucasDrone ? LUCAS_CRASH_SOUND_VOLUME : fpvDrone ? FPV_CRASH_SOUND_VOLUME : CRASH_SOUND_VOLUME;
         float soundPitch = geranium ? LUCAS_CRASH_SOUND_PITCH * 0.95F : glideBomb ? FPV_CRASH_SOUND_PITCH * 0.9F : lucasDrone ? LUCAS_CRASH_SOUND_PITCH : fpvDrone ? FPV_CRASH_SOUND_PITCH : CRASH_SOUND_PITCH;
         level.playSound(null, pos.x, pos.y, pos.z, AddonSounds.DRONE_CLOSE_EXPLOSION.get(), SoundSource.BLOCKS, soundVolume, soundPitch);
@@ -109,6 +131,8 @@ public final class DroneCrashExplosionSystem {
         } else {
             playDistantExplosionSound(level, pos, fpvDrone, lucasDrone, glideBomb);
         }
+
+        if (ownVisual) return;
 
         int explosionEmitterCount = geranium ? 18 : glideBomb ? 24 : lucasDrone ? 14 : fpvDrone ? 10 : 5;
         int flashCount = geranium ? 120 : glideBomb ? 150 : lucasDrone ? 96 : fpvDrone ? 76 : 40;

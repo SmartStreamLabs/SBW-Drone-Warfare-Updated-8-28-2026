@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NPN",
+    "RBR",
+    "NCN"
+  ],
+  "key": {
+    "N": {
+      "item": "sbwdroneconfig:anti_drone_net"
+    },
+    "P": {
+      "item": "sbwdroneconfig:anti_drone_net_panel"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "B": {
+      "item": "superbwarfare:battery"
+    },
+    "C": {
+      "item": "sbwdroneconfig:anti_drone_net_carpet"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:vehicle_anti_drone_net_upgrade",
+    "count": 1
+  }
+}

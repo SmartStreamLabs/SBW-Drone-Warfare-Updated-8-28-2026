@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:cubed_fpv_drone",
+                   "id":  "sbwdroneconfig:cubed_fpv_drone",
                    "count":  1
                }
 }

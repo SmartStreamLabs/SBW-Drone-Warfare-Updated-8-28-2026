@@ -1,11 +1,8 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
-import com.atsuishio.superbwarfare.data.CustomData;
 import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
 import com.atsuishio.superbwarfare.init.ModTags;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,27 +13,29 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
-
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
 
 public class Geranium2Entity extends GlideBombEntity {
     private static final EntityDataAccessor<Float> GERANIUM_FUEL = SynchedEntityData.defineId(Geranium2Entity.class, EntityDataSerializers.FLOAT);
     private static final String TAG_GERANIUM_FUEL = "sbwdroneconfigGeranium2Fuel";
+    private static final EntityDataAccessor<java.util.Optional<net.minecraft.core.BlockPos>> LP02_MOUNT=SynchedEntityData.defineId(Geranium2Entity.class,EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    public boolean isLp02Fit(){return this.entityData.get(LP02_MOUNT).isPresent();}
+    public void setLp02Mount(net.minecraft.core.BlockPos anchor){this.entityData.set(LP02_MOUNT,java.util.Optional.of(anchor.immutable()));}
+    public boolean isLp02PropellerSafe(){var a=this.entityData.get(LP02_MOUNT);if(a.isEmpty())return true;var p=a.get();return ((net.minecraft.world.entity.Entity)this).distanceToSqr(p.getX()+.5,p.getY()+.5,p.getZ()+.5)>36;}
     private static final float GERANIUM_MAX_HEALTH = 12.0F;
     private static final float GERANIUM_COMPONENT_MAX_HEALTH = 6.0F;
     private static final float GERANIUM_INCOMING_DAMAGE_MULTIPLIER = 1.0F;
 
     public Geranium2Entity(EntityType<? extends DroneEntity> type, Level level) {
         super(type, level);
-        this.setHealth(GERANIUM_MAX_HEALTH);
+        this.setHealth(getMaxHealth());
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(GERANIUM_FUEL, 0.0F);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(GERANIUM_FUEL, 0.0F).define(LP02_MOUNT,java.util.Optional.empty());
     }
 
     @Override
@@ -69,25 +68,20 @@ public class Geranium2Entity extends GlideBombEntity {
             return InteractionResult.sidedSuccess(this.level().isClientSide());
         }
 
-        if (isSbwDroneAttachment(stack)) {
-            if (!this.level().isClientSide()) {
-                player.displayClientMessage(Component.translatable("message.sbwdroneconfig.geranium_2_no_payloads"), true);
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
-        }
-
         return super.interact(player, hand);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
+        this.entityData.get(LP02_MOUNT).ifPresent(p->tag.putLong("sbwdroneconfigLp02Mount",p.asLong()));
         tag.putFloat(TAG_GERANIUM_FUEL, getGeraniumFuel());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+        this.entityData.set(LP02_MOUNT,tag.contains("sbwdroneconfigLp02Mount")?java.util.Optional.of(net.minecraft.core.BlockPos.of(tag.getLong("sbwdroneconfigLp02Mount"))):java.util.Optional.empty());
         if (tag.contains(TAG_GERANIUM_FUEL)) {
             setGeraniumFuel(tag.getFloat(TAG_GERANIUM_FUEL));
         }
@@ -122,7 +116,6 @@ public class Geranium2Entity extends GlideBombEntity {
 
     private void pickupGeranium(Player player) {
         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(AddonItems.GERANIUM_2.get()));
-        returnInheritedPayloadIfPresent(player);
 
         player.getInventory().items.stream()
                 .filter(SbwCompat::isMonitor)
@@ -133,27 +126,5 @@ public class Geranium2Entity extends GlideBombEntity {
         }
 
         this.discard();
-    }
-
-    private void returnInheritedPayloadIfPresent(Player player) {
-        if (this.getCurrentItem().isEmpty()) {
-            return;
-        }
-
-        int ammo = Math.max(0, this.entityData.get(AMMO));
-        for (int index = 0; index < ammo; index++) {
-            ItemStack payload = this.getCurrentItem().copy();
-            payload.setCount(1);
-            ItemHandlerHelper.giveItemToPlayer(player, payload);
-        }
-    }
-
-    private static boolean isSbwDroneAttachment(ItemStack stack) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-
-        String itemId = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
-        return CustomData.DRONE_ATTACHMENT.containsKey(itemId);
     }
 }

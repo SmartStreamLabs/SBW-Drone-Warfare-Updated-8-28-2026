@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SGS",
+    "RCR",
+    "IMI"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "C": {
+      "item": "superbwarfare:cell"
+    },
+    "I": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "M": {
+      "item": "superbwarfare:monitor"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:fiber_optic_spool_upgrade",
+    "count": 1
+  }
+}

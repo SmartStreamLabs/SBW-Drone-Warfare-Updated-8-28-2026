@@ -1,0 +1,200 @@
+{
+  "asset": "Water Drone WD-01",
+  "identity": "Original fictional exterior game model inspired by supplied reference; designed proportions, not factory dimensions.",
+  "units_per_block": 16,
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "waterline_y_blocks": 0,
+  "bounds_blocks": {
+    "min": [
+      -0.878685830625,
+      -0.45,
+      -2.4375
+    ],
+    "max": [
+      0.878685830625,
+      1.58,
+      2.56
+    ]
+  },
+  "dimensions_blocks": [
+    1.75737166125,
+    2.0300000000000002,
+    4.9975000000000005
+  ],
+  "elements": 380,
+  "triangles": 13194,
+  "bones": 23,
+  "clips": 3,
+  "anchor_positions_blocks": {
+    "main_camera_anchor": [
+      0,
+      1.405,
+      0.458
+    ],
+    "bow_camera_anchor": [
+      0,
+      0.3,
+      -2.184
+    ],
+    "waterline_anchor": [
+      0,
+      0,
+      0
+    ],
+    "bow_wake_anchor": [
+      0,
+      0,
+      -2.42
+    ],
+    "stern_wake_anchor": [
+      0,
+      0,
+      2.4
+    ],
+    "recovery_anchor": [
+      0,
+      0.35,
+      1.9
+    ]
+  },
+  "bone_pivots_units": {
+    "wd01_root": [
+      0,
+      0,
+      0
+    ],
+    "hull": [
+      0,
+      0,
+      0
+    ],
+    "deck_hardware": [
+      0,
+      0,
+      0
+    ],
+    "canopy": [
+      0,
+      0,
+      0
+    ],
+    "protective_arches": [
+      0,
+      0,
+      0
+    ],
+    "service_module": [
+      0,
+      0,
+      0
+    ],
+    "navigation_lights": [
+      0,
+      0,
+      0
+    ],
+    "bow_camera": [
+      0,
+      0,
+      0
+    ],
+    "mast": [
+      0,
+      0,
+      0
+    ],
+    "aerials": [
+      0,
+      0,
+      0
+    ],
+    "stern_drive": [
+      0,
+      0,
+      0
+    ],
+    "camera_yaw": [
+      0,
+      12.64,
+      9.92
+    ],
+    "camera_pitch": [
+      0,
+      20.32,
+      9.92
+    ],
+    "propeller_port": [
+      -7.52,
+      -2.88,
+      34.56
+    ],
+    "propeller_starboard": [
+      7.52,
+      -2.88,
+      34.56
+    ],
+    "rudder_port": [
+      -7.52,
+      -3.52,
+      38.72
+    ],
+    "rudder_starboard": [
+      7.52,
+      -3.52,
+      38.72
+    ],
+    "main_camera_anchor": [
+      0,
+      22.48,
+      7.328
+    ],
+    "bow_camera_anchor": [
+      0,
+      4.8,
+      -34.944
+    ],
+    "waterline_anchor": [
+      0,
+      0,
+      0
+    ],
+    "bow_wake_anchor": [
+      0,
+      0,
+      -38.72
+    ],
+    "stern_wake_anchor": [
+      0,
+      0,
+      38.4
+    ],
+    "recovery_anchor": [
+      0,
+      5.6,
+      30.4
+    ]
+  },
+  "camera_anchor_parent": "camera_pitch",
+  "screen_uv_pixels": [
+    272,
+    112,
+    400,
+    176
+  ],
+  "texture_states": {
+    "standby": "water_drone_wd01.png",
+    "linked": "water_drone_wd01_linked.png"
+  },
+  "notes": [
+    "Waterline Y=0 is an authored placement reference, not implemented buoyancy.",
+    "Native mesh model requires a mesh-capable renderer. OBJ is static.",
+    "Camera, rudder and propeller animations are cosmetic examples; bind to actual runtime state.",
+    "Transform main camera anchor through yaw and pitch parents.",
+    "Navigation lights are static material colours; no live light, camera, water, wake or physics code included.",
+    "Keep existing drone range, controls, damage, save data and fiber logic unchanged."
+  ],
+  "blockbench_ui_tested": false,
+  "minecraft_integrated": false,
+  "in_game_tested": false
+}

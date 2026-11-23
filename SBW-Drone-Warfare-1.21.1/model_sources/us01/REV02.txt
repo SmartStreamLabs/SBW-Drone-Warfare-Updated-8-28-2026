@@ -1,0 +1,7 @@
+US-01 REV02
+Arm flags on outer upper arms. Eyewear removed. Helmet rebuilt.
+Normals corrected. Carrier, fabric, pouches and boots refined.
+{
+  "CLASSIC": "fd69cff6b0c58ba6ad93a1ff1aedc01f4d5aedc25b936b86ac0684d4ae762e8b",
+  "SLIM": "825782eb843cd594ccf94281e4e1d681f6aa3c7ed1eda61831e6375c45219c41"
+}

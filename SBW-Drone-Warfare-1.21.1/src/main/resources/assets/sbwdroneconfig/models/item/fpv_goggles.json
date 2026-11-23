@@ -1,10 +1,10 @@
 {
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "textures": {
     "particle": "sbwdroneconfig:item/fpv_goggles"
   },
   "base": {
-    "loader": "forge:obj",
+    "loader": "neoforge:obj",
     "model": "sbwdroneconfig:models/item/fpv_goggles.obj",
     "mtl_override": "sbwdroneconfig:models/item/fpv_goggles.mtl",
     "automatic_culling": false,

@@ -1,12 +1,12 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class AddonClientRenderLayers {
     private AddonClientRenderLayers() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(AddonClientRenderLayers::onClientSetup);
     }
 

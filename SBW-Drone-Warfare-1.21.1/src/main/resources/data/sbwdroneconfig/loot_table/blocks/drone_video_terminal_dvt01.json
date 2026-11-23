@@ -1,0 +1,1 @@
+{"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "sbwdroneconfig:drone_video_terminal_dvt01"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]}

@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "meshes": 274,
+  "groups": 22,
+  "vertices": 3608,
+  "faces": 6002,
+  "triangles": 6002,
+  "textures": 4,
+  "animations": 1,
+  "dimensions_blocks_xyz": [
+    10.9,
+    4.82,
+    11.15
+  ],
+  "native_sha256": "e615f735dbdfe4a8764a93b817f5b497e510b394f37c02989d39403226ffd340",
+  "checks": [
+    "Unique IDs and complete outliner references",
+    "Finite coordinates and nondegenerate triangles",
+    "Valid texture indices and bounded UV coordinates",
+    "Embedded textures equal the separately supplied PNG files",
+    "Animation group targets and keyframe times",
+    "Door surfaces clear main walls at six sampled angles",
+    "Front slit, open doorway and headroom ray samples are clear",
+    "Bottom of model is at Y=0"
+  ],
+  "limitations": [
+    "Structural file validation and Blender renders; no Blockbench UI or Minecraft test performed.",
+    "Geometric checks use sampled poses and rays; they are not exhaustive collision validation."
+  ]
+}

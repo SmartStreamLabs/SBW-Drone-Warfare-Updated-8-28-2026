@@ -1,12 +1,12 @@
 {
-  "loader": "forge:obj",
+  "loader": "neoforge:obj",
   "model": "sbwdroneconfig:models/block/radar_jammer_tower.obj",
-  "mtl_override": "sbwdroneconfig:models/block/radar_jammer_tower.mtl",
+  "mtl_override": "sbwdroneconfig:models/block/rj01.mtl",
   "automatic_culling": false,
   "shade_quads": true,
-  "flip_v": false,
-  "emissive_ambient": false,
+  "flip_v": true,
+  "render_type": "minecraft:solid",
   "textures": {
-    "particle": "sbwdroneconfig:block/radar_jammer_tower_build"
+    "particle": "sbwdroneconfig:block/radar_jammer_tower_rj01"
   }
 }

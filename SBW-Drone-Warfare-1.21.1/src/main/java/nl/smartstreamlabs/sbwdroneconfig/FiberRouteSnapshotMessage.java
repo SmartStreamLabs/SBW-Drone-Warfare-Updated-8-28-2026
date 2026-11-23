@@ -1,12 +1,13 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record FiberRouteSnapshotMessage(
         UUID droneId,
@@ -14,8 +15,11 @@ public record FiberRouteSnapshotMessage(
         UUID sessionId,
         int revision,
         List<FiberCableRouteState.RoutePoint> points
-) {
+) implements CustomPacketPayload {
     private static final int HARD_POINT_LIMIT = 2048;
+    public static final CustomPacketPayload.Type<FiberRouteSnapshotMessage> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "fiber_route_snapshot")
+    );
 
     public FiberRouteSnapshotMessage {
         points = List.copyOf(points);
@@ -51,8 +55,12 @@ public record FiberRouteSnapshotMessage(
         return new FiberRouteSnapshotMessage(droneId, droneEntityId, sessionId, revision, points);
     }
 
-    public static void handle(FiberRouteSnapshotMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        DroneFiberOpticClient.handleRouteSnapshot(message);
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(FiberRouteSnapshotMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> DroneFiberOpticClient.handleRouteSnapshot(message));
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

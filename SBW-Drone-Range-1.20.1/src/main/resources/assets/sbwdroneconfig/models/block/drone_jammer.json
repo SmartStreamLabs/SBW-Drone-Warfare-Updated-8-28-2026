@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "sbwdroneconfig:block/drone_jammer",
-    "particle": "sbwdroneconfig:block/drone_jammer"
-  }
-}

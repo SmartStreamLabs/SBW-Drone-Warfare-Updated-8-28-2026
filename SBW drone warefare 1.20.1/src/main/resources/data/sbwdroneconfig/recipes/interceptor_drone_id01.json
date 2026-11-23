@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "BDB",
+    "IRI"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "B": {
+      "item": "superbwarfare:steel_block"
+    },
+    "D": {
+      "item": "sbwdroneconfig:cubed_fpv_drone"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:interceptor_drone_id01",
+    "count": 1
+  }
+}

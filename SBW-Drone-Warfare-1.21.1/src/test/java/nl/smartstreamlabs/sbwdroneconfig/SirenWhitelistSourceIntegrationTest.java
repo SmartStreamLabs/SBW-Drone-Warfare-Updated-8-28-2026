@@ -44,10 +44,9 @@ class SirenWhitelistSourceIntegrationTest {
                 "Cubed FPV drones should get an owner as soon as they are placed.");
         assertTrue(cubedItem.contains("SbwCompat.assignDroneOwner(entity, player)"),
                 "Cubed FPV drones spawned into liquid should also get an owner.");
-        assertTrue(lucasItem.contains("SbwCompat.assignDroneOwner(entity, context.getPlayer())"),
-                "LUCAS drones should get an owner as soon as they are placed.");
-        assertTrue(lucasItem.contains("SbwCompat.assignDroneOwner(entity, player)"),
-                "LUCAS drones spawned into liquid should also get an owner.");
+        String platform=Files.readString(Path.of("src","main","java","nl","smartstreamlabs","sbwdroneconfig","LucasPlatformBlockEntity.java"),StandardCharsets.UTF_8);
+        assertTrue(lucasItem.contains("LucasPlatformBlock.interact"));
+        assertTrue(platform.contains("SbwCompat.assignDroneOwner(flying,player)"),"Platform launches must retain player ownership.");
     }
 
     @Test
@@ -60,8 +59,7 @@ class SirenWhitelistSourceIntegrationTest {
             assertEquals("Gamertag whitelist", root.get("screen.sbwdroneconfig.siren.input").getAsString());
             assertEquals("Added siren whitelist entry: %s", root.get("message.sbwdroneconfig.siren_blacklist_added").getAsString());
             assertEquals("Removed siren whitelist entry: %s", root.get("message.sbwdroneconfig.siren_blacklist_removed").getAsString());
-            assertEquals("Can output redstone and whitelist trusted pilot gamertags.",
-                    root.get("tooltip.sbwdroneconfig.drone_detection_siren.2").getAsString());
+            assertEquals("Open its settings to configure detection and trusted pilots.", root.get("tooltip.sbwdroneconfig.drone_detection_siren.2").getAsString());
         }
     }
 }

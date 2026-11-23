@@ -1,0 +1,19 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.core.*;import net.minecraft.nbt.*;import net.minecraft.world.entity.*;import net.minecraft.world.entity.player.Player;import net.minecraft.world.level.*;import net.minecraft.world.phys.*;import net.minecraft.network.syncher.*;
+/** Exists only while occupied. Native riding/NBT synchronises the real player, without a dimension change. */
+public final class Ps01Seat extends Entity{
+ private static final EntityDataAccessor<BlockPos> ROOT=SynchedEntityData.defineId(Ps01Seat.class,EntityDataSerializers.BLOCK_POS);private static final EntityDataAccessor<Integer> INDEX=SynchedEntityData.defineId(Ps01Seat.class,EntityDataSerializers.INT);
+ public Ps01Seat(EntityType<?extends Ps01Seat> t,Level l){super(t,l);noPhysics=true;setNoGravity(true);}
+ @Override protected void defineSynchedData(SynchedEntityData.Builder b){b.define(ROOT,BlockPos.ZERO);b.define(INDEX,0);}
+ public BlockPos root(){return entityData.get(ROOT);}public int seat(){return entityData.get(INDEX);}private Ps01BlockEntity main(){return level().hasChunkAt(root())&&level().getBlockEntity(root())instanceof Ps01BlockEntity b?b:null;}
+ public static void sit(Ps01BlockEntity b,Player p,int index){var l=b.getLevel();var at=Ps01Geometry.SEATS[index];var pos=Ps01Geometry.point(b.getBlockPos(),b.facing(),at[0],at[1],at[2]);if(p.distanceToSqr(pos)>16||p.isPassenger()||InjuryHooks.downed(p))return;var existing=l.getEntitiesOfClass(Ps01Seat.class,b.getRenderBoundingBox(),s->s.root().equals(b.getBlockPos())&&s.seat()==index);if(!existing.isEmpty()){p.displayClientMessage(net.minecraft.network.chat.Component.literal("Seat occupied"),true);return;}var seat=AddonEntities.PS01_SEAT.get().create(l);if(seat==null)return;seat.entityData.set(ROOT,b.getBlockPos());seat.entityData.set(INDEX,index);seat.setPos(pos);seat.setYRot((index<3?-90:90)+90*Ps01Geometry.quarter(b.facing()));if(l.addFreshEntity(seat)){p.startRiding(seat,true);p.setYRot(seat.getYRot());}}
+ @Override public void tick(){super.tick();var b=main();if(b!=null){var a=Ps01Geometry.SEATS[seat()];setPos(Ps01Geometry.point(root(),b.facing(),a[0],a[1],a[2]));}if(!level().isClientSide&&(getPassengers().isEmpty()&&tickCount>2||b==null&&tickCount>20)){ejectSafely();discard();}}
+ @Override protected void positionRider(Entity p,MoveFunction move){if(!hasPassenger(p))return;move.accept(p,getX(),getY()-.75,getZ());if(p instanceof LivingEntity living)living.yBodyRot=getYRot();}
+
+ public Vec3 safe(LivingEntity p){var b=main();if(b==null)return null;for(double z:new double[]{Ps01Geometry.SEATS[seat()][2],0,-1.5,1.5})for(double x:new double[]{0,-.5,.5}){var at=Ps01Geometry.point(root(),b.facing(),x,.26,z);var box=p.getDimensions(Pose.STANDING).makeBoundingBox(at);if(level().noCollision(p,box)&&level().getEntities(this,box,e->e!=p&&e instanceof LivingEntity).isEmpty())return at;}return null;}
+ @Override public Vec3 getDismountLocationForPassenger(LivingEntity p){var at=safe(p);return at!=null?at:position().add(0,-.5,0);}
+ public void ejectSafely(){for(var e:java.util.List.copyOf(getPassengers())){Vec3 at=e instanceof LivingEntity living?safe(living):null;if(at==null)at=new Vec3(getX(),root().getY()+.26,getZ());e.stopRiding();if(e instanceof net.minecraft.server.level.ServerPlayer player)player.connection.teleport(at.x,at.y,at.z,player.getYRot(),player.getXRot());else e.setPos(at);}if(!level().isClientSide)discard();}
+ @Override public boolean isPickable(){return false;}@Override public boolean canBeCollidedWith(){return false;}@Override public boolean isPushable(){return false;}
+ @Override protected void addAdditionalSaveData(CompoundTag n){n.putLong("Root",root().asLong());n.putInt("Seat",seat());}@Override protected void readAdditionalSaveData(CompoundTag n){entityData.set(ROOT,BlockPos.of(n.getLong("Root")));entityData.set(INDEX,Math.max(0,Math.min(5,n.getInt("Seat"))));}
+
+}

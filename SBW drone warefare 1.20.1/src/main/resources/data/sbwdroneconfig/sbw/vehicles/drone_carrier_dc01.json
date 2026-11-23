@@ -1,0 +1,210 @@
+{
+  "MaxHealth": 260,
+  "MaxEnergy": 2000000,
+  "OBB": [
+    {
+      "Size": [
+        1.15,
+        0.57,
+        1.8
+      ],
+      "Position": [
+        0,
+        0.87,
+        0
+      ]
+    },
+    {
+      "Size": [
+        0.22,
+        0.487477065625,
+        1.77
+      ],
+      "Position": [
+        1.23,
+        0.487477065625,
+        0
+      ],
+      "Part": "WheelLeft"
+    },
+    {
+      "Size": [
+        0.22,
+        0.487477065625,
+        1.77
+      ],
+      "Position": [
+        -1.23,
+        0.487477065625,
+        0
+      ],
+      "Part": "WheelRight"
+    }
+  ],
+  "Seats": [
+    {
+      "Transform": "Vehicle",
+      "Position": [
+        0,
+        1.444977065625,
+        0
+      ],
+      "RotateWithVehicle": true,
+      "IsEnclosed": false,
+      "DismountInfo": {
+        "Transform": "Vehicle",
+        "Position": [
+          3,
+          0.1,
+          0
+        ]
+      }
+    },
+    {
+      "Transform": "Vehicle",
+      "Position": [
+        0,
+        1.444977065625,
+        0.8
+      ],
+      "RotateWithVehicle": true,
+      "IsEnclosed": false,
+      "DismountInfo": {
+        "Transform": "Vehicle",
+        "Position": [
+          3,
+          0.1,
+          0.8
+        ]
+      }
+    },
+    {
+      "Transform": "Vehicle",
+      "Position": [
+        0,
+        1.444977065625,
+        -0.8
+      ],
+      "RotateWithVehicle": true,
+      "IsEnclosed": false,
+      "DismountInfo": {
+        "Transform": "Vehicle",
+        "Position": [
+          3,
+          0.1,
+          -0.8
+        ]
+      }
+    }
+  ],
+  "Weapons": {},
+  "EngineType": "Wheel",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 24,
+    "WheelRotSpeed": 2.051378558123321,
+    "WheelDifferential": 0.5,
+    "MaxForwardSpeedRate": 0.45,
+    "MaxBackwardSpeedRate": 0.22,
+    "Increment": 0.018,
+    "Decrement": 0.025,
+    "SteeringSpeed": 0.06,
+    "TrackRotSpeed": 0.2,
+    "TrackDifferential": 0.01,
+    "EngineSoundVolume": 0.25
+  },
+  "TurretPos": [
+    0,
+    1.5015666256375666,
+    -0.0625
+  ],
+  "TurretTurnSpeed": [
+    12.5,
+    10
+  ],
+  "TurretPitchRange": [
+    -12,
+    35
+  ],
+  "BarrelPos": [
+    0,
+    0.71875,
+    0.3125
+  ],
+  "ThirdPersonCameraPos": [
+    0,
+    0,
+    0
+  ],
+  "HasDecoy": false,
+  "UpStep": 0.6,
+  "RotateOffsetHeight": 0.487477065625,
+  "Mass": 18,
+  "DamageModifiers": [],
+  "VehicleContainerType": "Medium",
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "SympatheticDetonation": false
+  },
+  "VehicleIcon": "sbwdroneconfig:textures/item/drone_carrier_dc01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "EngineSound": "superbwarfare:lav_150_engine",
+  "HudType": "@Empty",
+  "TerrainCompat": [
+    [
+      -1.23,
+      0,
+      -1.28
+    ],
+    [
+      -1.23,
+      0,
+      0
+    ],
+    [
+      -1.23,
+      0,
+      1.28
+    ],
+    [
+      1.23,
+      0,
+      -1.28
+    ],
+    [
+      1.23,
+      0,
+      0
+    ],
+    [
+      1.23,
+      0,
+      1.28
+    ]
+  ],
+  "InertiaRotateRate": 1,
+  "KeepChunkLoaded": false
+}

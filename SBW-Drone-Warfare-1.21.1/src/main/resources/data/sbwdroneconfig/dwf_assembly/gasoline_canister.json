@@ -1,0 +1,29 @@
+{
+  "ticks": 200,
+  "category": "Components",
+  "ingredients": [
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:coal"
+        },
+        {
+          "item": "minecraft:charcoal"
+        }
+      ]
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:blaze_powder"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:redstone"
+      }
+    }
+  ],
+  "result": {
+    "item": "sbwdroneconfig:gasoline_canister"
+  }
+}

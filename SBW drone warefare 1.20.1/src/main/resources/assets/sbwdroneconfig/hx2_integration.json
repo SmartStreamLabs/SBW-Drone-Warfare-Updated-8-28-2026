@@ -1,0 +1,135 @@
+{
+  "set": "HX-2 drone and matching launch platform / exterior game art",
+  "scale_note": "Authored game proportions, not verified factory dimensions or real launch engineering.",
+  "units_per_block": 16,
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "drone": {
+    "file": "HX2_Drone.bbmodel",
+    "texture": "hx2_drone.png",
+    "elements": 166,
+    "triangles": 5012,
+    "bones": 25,
+    "clips": 2,
+    "bounds_blocks": {
+      "min": [
+        -0.6710443353460337,
+        -0.6710443353460337,
+        -0.8305
+      ],
+      "max": [
+        0.6710443353460336,
+        0.6710443353460336,
+        0.727
+      ]
+    },
+    "dimensions_blocks": [
+      1.3420886706920672,
+      1.3420886706920672,
+      1.5575
+    ],
+    "dock_anchor_blocks": [
+      0.0,
+      -0.139,
+      0.0
+    ],
+    "camera_anchor_blocks": [
+      0,
+      0.024,
+      -0.845
+    ]
+  },
+  "platform": {
+    "file": "HX2_Launch_Platform.bbmodel",
+    "texture": "hx2_launch_platform.png",
+    "elements": 197,
+    "triangles": 6196,
+    "bones": 13,
+    "clips": 2,
+    "bounds_blocks": {
+      "min": [
+        -0.835,
+        0.0,
+        -1.2390937399007185
+      ],
+      "max": [
+        1.10796858125,
+        1.8182289225892385,
+        1.27
+      ]
+    },
+    "dimensions_blocks": [
+      1.94296858125,
+      1.8182289225892385,
+      2.5090937399007185
+    ],
+    "root_ground_y_blocks": 0,
+    "rail_bind_pitch_degrees": 35,
+    "rail_pivot_blocks": [
+      0,
+      0.88,
+      0
+    ],
+    "dock_anchor_pre_tilt_blocks": [
+      0.0,
+      1.025,
+      0.35
+    ],
+    "dock_anchor_parent": "carriage",
+    "screen_uv_pixels": [
+      272,
+      112,
+      400,
+      176
+    ],
+    "ready_texture": "hx2_launch_platform_ready.png",
+    "contains_drone_mesh": false
+  },
+  "docked_drone_root_matrix_blocks": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.8191520442889918,
+      -0.573576436351046,
+      0.9118874278552076
+    ],
+    [
+      0.0,
+      0.573576436351046,
+      0.8191520442889918,
+      0.4495989234248441
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "docked_drone_root_position_blocks": [
+    0.0,
+    0.9118874278552076,
+    0.4495989234248441
+  ],
+  "docked_drone_root_rotation_degrees": [
+    35,
+    0,
+    0
+  ],
+  "docking_formula": "worldDrone = worldPlatform * platformDockAnchorTransform * inverse(droneDockAnchorTransform). Include rail_tilt and carriage transforms. Matrices here use block units.",
+  "notes": [
+    "Two separate native files; platform contains no fixed drone.",
+    "Lower X-wings pass beside the narrow rail. Two drone belly pads touch the carriage cradle pads in the authored dock pose.",
+    "Rail/carriage clips are cosmetic rig examples, not a real launch mechanism.",
+    "No motor, launch forces, flight control, targeting, explosive construction or operational engineering is implemented.",
+    "Keep existing mod ranges, controls, damage, fiber logic and other models unchanged."
+  ],
+  "blockbench_ui_tested": false,
+  "minecraft_integrated": false,
+  "in_game_tested": false
+}

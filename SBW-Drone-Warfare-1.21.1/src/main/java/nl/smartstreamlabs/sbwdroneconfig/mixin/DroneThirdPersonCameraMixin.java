@@ -1,7 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig.mixin;
 
 import nl.smartstreamlabs.sbwdroneconfig.DroneClientViewContext;
-import net.minecraft.client.CameraType;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
@@ -20,30 +19,23 @@ public abstract class DroneThirdPersonCameraMixin {
     private static final double DRONE_THIRD_PERSON_HEIGHT = 8.0D;
     private static final double DRONE_THIRD_PERSON_TARGET_HEIGHT = 2.4D;
 
-    @Shadow
+    @Shadow(remap = false)
     protected abstract void setPosition(double x, double y, double z);
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract float getYRot();
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract float getXRot();
 
-    @Inject(method = "setup", at = @At("TAIL"), require = 0)
+    @Inject(method = "setup", at = @At("TAIL"), require = 0, remap = false)
     private void sbwdronewarfare$moveDroneThirdPersonCamera(BlockGetter level, Entity cameraEntity, boolean detached, boolean mirror, float partialTick, CallbackInfo ci) {
         if (DroneClientViewContext.isReadOnlyCameraInterceptActive()) {
             return;
         }
-
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.options.getCameraType() == CameraType.FIRST_PERSON) {
-            return;
-        }
-
-        Entity drone = DroneClientViewContext.activeCubedFpvDrone(minecraft);
-        if (drone == null) {
-            drone = DroneClientViewContext.activeLucasDrone(minecraft);
-        }
+        if(minecraft.options.getCameraType()==net.minecraft.client.CameraType.FIRST_PERSON)return;
+        Entity drone = DroneClientViewContext.activeLucasDrone(minecraft);
         if (drone == null || !drone.isAlive()) {
             return;
         }

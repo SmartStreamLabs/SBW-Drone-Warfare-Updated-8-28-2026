@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "superbwarfare:custom_explosion",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:projectile_explosion",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:vehicle_explosion",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:mine",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:lunge_mine",
+      "required": false
+    }
+  ]
+}

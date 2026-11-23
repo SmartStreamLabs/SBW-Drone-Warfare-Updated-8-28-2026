@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "RCR",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "sbwdroneconfig:drone_video_terminal_dvt01"
+  }
+}

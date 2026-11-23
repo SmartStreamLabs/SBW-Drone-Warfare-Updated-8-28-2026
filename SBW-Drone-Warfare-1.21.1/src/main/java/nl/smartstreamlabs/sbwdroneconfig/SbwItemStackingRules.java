@@ -1,11 +1,15 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.component.CustomData;
 
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +17,7 @@ import java.util.Set;
 public final class SbwItemStackingRules {
     private static final String SBW_NAMESPACE = "superbwarfare";
     private static final int STACK_SIZE = 64;
-    private static final Set<String> STACK_SIZE_OVERRIDE_ITEM_IDS = Set.of(
+    private static final Set<String> STACKABLE_ITEM_IDS = Set.of(
             "tm_62",
             "ptkm_1r",
             "lunge_mine",
@@ -36,15 +40,18 @@ public final class SbwItemStackingRules {
             "x",
             "y",
             "z",
-            "ForgeCaps",
-            "ForgeData"
+            "neoforge:attachments"
+    );
+    private static final Set<DataComponentType<?>> IGNORED_STACKING_COMPONENTS = Set.of(
+            DataComponents.BLOCK_ENTITY_DATA,
+            DataComponents.BLOCK_STATE
     );
 
     private SbwItemStackingRules() {
     }
 
     public static int getMaxStackSize(ItemStack stack) {
-        if (!isExplicitStackSizeOverride(stack)) {
+        if (!isSupportedStackableStack(stack)) {
             return -1;
         }
 
@@ -56,96 +63,46 @@ public final class SbwItemStackingRules {
     }
 
     public static boolean canMergeStackableSbwItems(ItemStack first, ItemStack second) {
-        if (!isStackingCandidate(first) || !isStackingCandidate(second)) {
+        if (!isSupportedStackableStack(first) || !isSupportedStackableStack(second)) {
             return false;
         }
         if (first.isDamaged() || second.isDamaged()) {
             return false;
         }
 
-        ResourceLocation firstId = ForgeRegistries.ITEMS.getKey(first.getItem());
-        ResourceLocation secondId = ForgeRegistries.ITEMS.getKey(second.getItem());
-        if (!Objects.equals(firstId, secondId)) {
+        ResourceLocation firstId = BuiltInRegistries.ITEM.getKey(first.getItem());
+        ResourceLocation secondId = BuiltInRegistries.ITEM.getKey(second.getItem());
+        if (!firstId.equals(secondId)) {
+            return false;
+        }
+
+        if (!Objects.equals(normalizedComponentsForStacking(first), normalizedComponentsForStacking(second))) {
             return false;
         }
 
         return Objects.equals(normalizedTagForStacking(first), normalizedTagForStacking(second));
     }
 
-    private static boolean isStackingCandidate(ItemStack stack) {
-        if (!isSbwStack(stack)) {
-            return false;
-        }
-
-        return isExplicitStackSizeOverride(stack) || stack.getItem().getMaxStackSize(stack) > 1;
-    }
-
-    private static boolean isExplicitStackSizeOverride(ItemStack stack) {
-        if (!isSbwStack(stack)) {
-            return false;
-        }
-
-        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return itemId != null && STACK_SIZE_OVERRIDE_ITEM_IDS.contains(itemId.getPath());
-    }
-
-    private static boolean isSbwStack(ItemStack stack) {
+    private static boolean isSupportedStackableStack(ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             return false;
         }
 
-        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return itemId != null && SBW_NAMESPACE.equals(itemId.getNamespace());
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return SBW_NAMESPACE.equals(itemId.getNamespace()) && STACKABLE_ITEM_IDS.contains(itemId.getPath());
+    }
+
+    private static DataComponentMap normalizedComponentsForStacking(ItemStack stack) {
+        return stack.getComponents().filter(componentType -> !IGNORED_STACKING_COMPONENTS.contains(componentType));
     }
 
     private static CompoundTag normalizedTagForStacking(ItemStack stack) {
-        CompoundTag source = stack.getTag();
-        if (source == null || source.isEmpty()) {
+        CustomData blockEntityData = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY);
+        CompoundTag tag = blockEntityData.copyTag();
+        if (tag.isEmpty() || isHarmlessBlockEntityTag(tag)) {
             return null;
         }
-
-        CompoundTag normalized = source.copy();
-        removeHarmlessBlockTag(normalized, "BlockEntityTag");
-        removeHarmlessBlockTag(normalized, "BlockStateTag");
-        removeHarmlessMonitorState(normalized);
-        removeZeroNumeric(normalized, "Energy");
-
-        return normalized.isEmpty() ? null : normalized;
-    }
-
-    private static void removeHarmlessBlockTag(CompoundTag tag, String key) {
-        if (!tag.contains(key, Tag.TAG_COMPOUND)) {
-            return;
-        }
-
-        CompoundTag blockTag = tag.getCompound(key);
-        if (blockTag.isEmpty() || isHarmlessBlockEntityTag(blockTag)) {
-            tag.remove(key);
-        }
-    }
-
-    private static void removeHarmlessMonitorState(CompoundTag tag) {
-        boolean linked = tag.getBoolean(SbwCompat.TAG_LINKED);
-        boolean using = tag.getBoolean(SbwCompat.TAG_USING);
-        boolean linkedDroneUnset = !tag.contains(SbwCompat.TAG_LINKED_DRONE)
-                || "none".equals(tag.getString(SbwCompat.TAG_LINKED_DRONE))
-                || tag.getString(SbwCompat.TAG_LINKED_DRONE).isEmpty();
-
-        if (!linked && !using && linkedDroneUnset) {
-            tag.remove(SbwCompat.TAG_LINKED);
-            tag.remove(SbwCompat.TAG_USING);
-            tag.remove(SbwCompat.TAG_LINKED_DRONE);
-            removeZeroNumeric(tag, "PosX");
-            removeZeroNumeric(tag, "PosY");
-            removeZeroNumeric(tag, "PosZ");
-        }
-    }
-
-    private static void removeZeroNumeric(CompoundTag tag, String key) {
-        Tag value = tag.get(key);
-        if (value != null && isNumericTag(value) && Math.abs(tag.getDouble(key)) < 1.0E-6D) {
-            tag.remove(key);
-        }
+        return tag;
     }
 
     private static boolean isHarmlessBlockEntityTag(CompoundTag tag) {

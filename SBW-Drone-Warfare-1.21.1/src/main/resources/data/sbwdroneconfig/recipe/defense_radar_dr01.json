@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ICI",
+    "RCR",
+    "ILI"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_block"
+    },
+    "C": {
+      "item": "minecraft:copper_block"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "L": {
+      "item": "minecraft:lightning_rod"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:defense_radar_dr01",
+    "count": 1
+  }
+}

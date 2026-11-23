@@ -1,0 +1,141 @@
+{
+  "MaxHealth": 120,
+  "MaxEnergy": 0,
+  "OBB": [
+    {
+      "Size": [
+        1,
+        0.6,
+        1.6
+      ],
+      "Position": [
+        0,
+        0.65,
+        0.4375
+      ]
+    },
+    {
+      "Size": [
+        0.2,
+        0.12,
+        0.4
+      ],
+      "Position": [
+        0,
+        0.65,
+        2.4
+      ]
+    }
+  ],
+  "Seats": [
+    {
+      "Position": [
+        0,
+        1.0875,
+        -1.125
+      ],
+      "Transform": "Vehicle",
+      "BanHand": true,
+      "HidePassenger": false,
+      "IsEnclosed": false
+    }
+  ],
+  "Weapons": {},
+  "EngineType": "Wheel",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 0,
+    "WheelRotSpeed": 2.5396825396825395,
+    "WheelDifferential": 0.3,
+    "MaxForwardSpeedRate": 0,
+    "MaxBackwardSpeedRate": 0,
+    "Increment": 0.02,
+    "Decrement": 0.04,
+    "SteeringSpeed": 0.045,
+    "EngineSoundVolume": 0
+  },
+  "TurretPos": [
+    0,
+    1.5015666256375666,
+    -0.0625
+  ],
+  "TurretTurnSpeed": [
+    12.5,
+    10
+  ],
+  "TurretPitchRange": [
+    -12,
+    35
+  ],
+  "BarrelPos": [
+    0,
+    0.71875,
+    0.3125
+  ],
+  "ThirdPersonCameraPos": [
+    0,
+    0,
+    0
+  ],
+  "HasDecoy": false,
+  "UpStep": 0.6,
+  "RotateOffsetHeight": 0.39375,
+  "Mass": 0.35,
+  "DamageModifiers": [],
+  "VehicleContainerType": "Medium",
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "SympatheticDetonation": false
+  },
+  "VehicleIcon": "sbwdroneconfig:textures/item/medical_trailer_mt01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "EngineSound": "superbwarfare:lav_150_engine",
+  "HudType": "@Empty",
+  "TerrainCompat": [
+    [
+      -0.85,
+      0,
+      -0.2
+    ],
+    [
+      -0.85,
+      0,
+      0.2
+    ],
+    [
+      0.85,
+      0,
+      -0.2
+    ],
+    [
+      0.85,
+      0,
+      0.2
+    ]
+  ],
+  "InertiaRotateRate": 1,
+  "KeepChunkLoaded": false
+}

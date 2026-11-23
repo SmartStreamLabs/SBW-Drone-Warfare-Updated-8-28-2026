@@ -13,11 +13,14 @@ import net.minecraft.world.item.ItemStack;
  * reuse vanilla chest screens without adding a custom block or screen.
  */
 public class DroneInventoryContainer extends SimpleContainer {
+    public Entity boundDrone(){return drone;}
     public static final int SIZE = 27;
     private static final String TAG_DRONE_INVENTORY = "sbwdroneconfigDroneInventory";
 
     private final Entity drone;
     private boolean loading;
+    private CompoundTag hgVersion;
+    @Override public boolean stillValid(net.minecraft.world.entity.player.Player p){return !Hg01Payload.supported(drone)||drone.isAlive()&&!drone.isRemoved()&&p.distanceToSqr(drone)<=64&&Hg01Payload.allowed(p,drone)&&drone.getPersistentData().get(TAG_DRONE_INVENTORY)==hgVersion;}
 
     public DroneInventoryContainer(Entity drone) {
         super(SIZE);
@@ -36,8 +39,9 @@ public class DroneInventoryContainer extends SimpleContainer {
     public void loadFromDrone() {
         CompoundTag stored = drone.getPersistentData().getCompound(TAG_DRONE_INVENTORY);
         NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(stored, items);
+        ContainerHelper.loadAllItems(stored, items, drone.registryAccess());
 
+        hgVersion=drone.getPersistentData().contains(TAG_DRONE_INVENTORY)?drone.getPersistentData().getCompound(TAG_DRONE_INVENTORY):null;
         loading = true;
         try {
             clearContent();
@@ -56,8 +60,8 @@ public class DroneInventoryContainer extends SimpleContainer {
         }
 
         CompoundTag stored = new CompoundTag();
-        ContainerHelper.saveAllItems(stored, items);
-        drone.getPersistentData().put(TAG_DRONE_INVENTORY, stored);
+        ContainerHelper.saveAllItems(stored, items, drone.registryAccess());
+        drone.getPersistentData().put(TAG_DRONE_INVENTORY, stored);hgVersion=stored;
         FiberOpticLinkSystem.syncVisualStateForTrackingPlayers(drone);
     }
 }

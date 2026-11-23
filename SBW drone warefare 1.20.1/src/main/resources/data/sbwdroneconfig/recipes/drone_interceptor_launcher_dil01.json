@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ISI",
+    "EJE",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "S": {
+      "item": "superbwarfare:seeker"
+    },
+    "E": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "J": {
+      "item": "superbwarfare:javelin"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:drone_interceptor_launcher_dil01",
+    "count": 1
+  }
+}

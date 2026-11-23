@@ -5,9 +5,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.UUID;
 
@@ -17,12 +17,12 @@ public final class LucasFuelClient {
     private LucasFuelClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(LucasFuelClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(LucasFuelClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(LucasFuelClient.class);
     }
 
     public static void handleSync(LucasFuelSyncMessage message) {
@@ -36,8 +36,8 @@ public final class LucasFuelClient {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (!shouldRenderHud() || event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
+        if (!shouldRenderHud()) {
             return;
         }
         if (LucasDroneHudOverlay.shouldRenderForCurrentView()) {

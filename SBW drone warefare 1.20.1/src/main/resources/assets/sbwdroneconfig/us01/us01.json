@@ -1,0 +1,8132 @@
+{
+  "classic": {
+    "model": "US_ARMY_COMBAT_SET_US01_CLASSIC_REV02",
+    "sourceSHA256": "fd69cff6b0c58ba6ad93a1ff1aedc01f4d5aedc25b936b86ac0684d4ae762e8b",
+    "armorMeshes": 607,
+    "referencesExcluded": 6,
+    "triangles": 13818,
+    "pieces": {
+      "head": {
+        "triangles": 2738,
+        "drawParts": 2,
+        "sha256": "e7040d03c892834130b8354bde34eb54dd78faf82f5300fde0a22d60fd87ebe3"
+      },
+      "chest": {
+        "triangles": 6744,
+        "drawParts": 5,
+        "sha256": "fa0b029c82b034f33cf8737ce43cf038fcc8e43e8827410d0903eea95fe395b4"
+      },
+      "legs": {
+        "triangles": 1360,
+        "drawParts": 3,
+        "sha256": "7aec68fbda055c78f2ed978c25a7478da376f03920c8d7404b419273092054f0"
+      },
+      "feet": {
+        "triangles": 2976,
+        "drawParts": 2,
+        "sha256": "b7079000fe42e658c8ac37305d26feb74d53a8a16db21d9b5bd19564b18cb3e7"
+      }
+    },
+    "flags": {
+      "right_US_OUTER_ARM_FLAG": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "left_US_OUTER_ARM_FLAG": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "groups": [
+      {
+        "name": "US01_Root",
+        "parent": null,
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "US01_Root",
+        "pivot": [
+          0,
+          24,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Helmet",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Headset",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Neck_Scarf_Optional",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "body",
+        "parent": "US01_Root",
+        "pivot": [
+          0,
+          24,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Uniform_Torso",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Plate_Carrier",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Front_Pouches",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Chest_Holster_Optional",
+        "parent": "body",
+        "pivot": [
+          0.65,
+          20.65,
+          -3.55
+        ],
+        "rotation": [
+          0,
+          0,
+          -23
+        ]
+      },
+      {
+        "name": "Hydration_Pack_Optional",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Battle_Belt",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_arm",
+        "parent": "US01_Root",
+        "pivot": [
+          -5,
+          22,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Sleeve",
+        "parent": "right_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Glove",
+        "parent": "right_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_arm",
+        "parent": "US01_Root",
+        "pivot": [
+          5,
+          22,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Sleeve",
+        "parent": "left_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Glove",
+        "parent": "left_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_leg",
+        "parent": "US01_Root",
+        "pivot": [
+          -2,
+          12,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Trousers",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Knee_Pad",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Boot",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_leg",
+        "parent": "US01_Root",
+        "pivot": [
+          2,
+          12,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Trousers",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Knee_Pad",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Boot",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "meshes": [
+      {
+        "name": "helmet_high_cut_open_shell_REV02",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rolled_rubber_rim",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_inner_liner",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_shaped_accessory_rail_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_-1.4",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_-0.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_0.5",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_1.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_-1_-1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_-1_1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_velcro_side_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_shaped_accessory_rail_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_-1.4",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_-0.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_0.5",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_1.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_1_-1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_1_1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_velcro_side_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_front_mount_base",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_fork_-0.59",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(-0.59, 30.35)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(-0.59, 31.78)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_fork_0.59",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(0.59, 30.35)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(0.59, 31.78)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_center_recess",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_lower_bridge",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_top_latch",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_latch_groove",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "crown_velcro_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "crown_velcro_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rear_velcro",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rear_strap_anchor",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "ear_cushion_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_shell_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_rib_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_swivel_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "ear_cushion_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_shell_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_rib_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_swivel_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_windscreen",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_downlead_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_downlead_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "woven_neck_scarf",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.57",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.94",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "uniform_torso",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_shoulder_seam_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shirt_side_stitch_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_shoulder_seam_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shirt_side_stitch_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_center_zip",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_front_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_back_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_side_band_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_15.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_17.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_18.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_shoulder_strap_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shoulder_release_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_19.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_20.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_side_band_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_15.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_17.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_18.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_shoulder_strap_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shoulder_release_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_19.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_20.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_edge_-3.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_edge_3.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "subdued_US_chest_flag",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "army_name_tape",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "upper_chest_d_ring",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_27",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_28",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_29",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_30",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_31",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_32",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_33",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_54",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_55",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_56",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_57",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_0_-0.9511999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_0_0.9511999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_0_-0.8528",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_0_0.8528",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "utility_pouch_bellows_-0.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "utility_pouch_bellows_0.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_67",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_68",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_69",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_70",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_1_-0.49299999999999994",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_1_0.49299999999999994",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_1_-0.442",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_1_0.442",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_78",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_79",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_80",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_81",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_2_-0.4784999999999999",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_2_0.4784999999999999",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_2_-0.429",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_2_0.429",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_body",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_carrier",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_antenna",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_knob",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_switch",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_button",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_coiled_lead_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_coiled_lead_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_19.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.55",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_status_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-3.52",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-3.15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-2.78",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_status_light",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "closed_chest_holster",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "holster_retention_strap",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "holster_buckle",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "hydration_pack_main",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "hydration_pack_back_pocket",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_vertical_webbing_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_strap_buckle_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_vertical_webbing_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_strap_buckle_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_17.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_18.0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_18.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_19.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_20.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "rear_US01_label",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_-1_-1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_-1_1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_16.932",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.163999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.396",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.628",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.86",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.092",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.323999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.556",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.788",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.02",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.252",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.484",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.716",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.948",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.412",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.644",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.876",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.108",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.34",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.572",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.804000000000002",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.036",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.268",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_pull_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_1_-1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_1_1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_16.932",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.163999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.396",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.628",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.86",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.092",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.323999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.556",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.788",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.02",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.252",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.484",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.716",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.948",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.412",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.644",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.876",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.108",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.34",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.572",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.804000000000002",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.036",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.268",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_pull_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "belt_(0, -2.52)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(0, 2.52)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(-4.13, 0)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(4.13, 0)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_center_buckle",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_buckle_center",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_utility_pouch_-1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_flap_-1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_utility_pouch_1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_flap_1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_-1_-0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_-1_0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_1_-0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_1_0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "right_uniform_sleeve",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_arm_pocket",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_arm_velcro",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_US_OUTER_ARM_FLAG",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_pocket_pull",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_front_sleeve_zip",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.45",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.9",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_pad",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_sleeve_cuff",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_sleeve_outer_seam",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_glove_main",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_glove_wrist_strap",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_1",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_1",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_2",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_2",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_3",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_3",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_uniform_sleeve",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_arm_pocket",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_arm_velcro",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_US_OUTER_ARM_FLAG",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_pocket_pull",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_front_sleeve_zip",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.45",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.9",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_pad",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_sleeve_cuff",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_sleeve_outer_seam",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_glove_main",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_glove_wrist_strap",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_1",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_1",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_2",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_2",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_3",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_3",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_trouser_leg",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_leg_seam_-1.75",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_leg_seam_1.75",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_pocket",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_flap",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_button_-0.85",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_button_0.85",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_reinforced_knee_cloth",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_pad_rim",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_molded_face",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_6.0",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_6.55",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_7.1",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_strap_5.0",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_strap_8.2",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_recess_-0.97",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_recess_0.97",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_leather",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_outsole",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_toe_cap",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_tongue",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(0, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(0, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(1, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(1, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(2, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(2, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(3, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(3, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(4, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(4, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(5, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(5, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -2.75)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -1.9)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 0.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 1.85)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -2.75)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -1.9)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 0.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 1.85)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_counter",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_0.72",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_1.0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_1.28",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_collar",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_rear_pull",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_-1.35",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_-0.4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_0.6",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_1.55",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-2.7",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-2.05",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-1.25",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-0.4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_0.5",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_1.45",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_-1.3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_-0.65",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_0.65",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_1.3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_trouser_leg",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_leg_seam_-1.75",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_leg_seam_1.75",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_pocket",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_flap",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_button_-0.85",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_button_0.85",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_reinforced_knee_cloth",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_pad_rim",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_molded_face",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_6.0",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_6.55",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_7.1",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_strap_5.0",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_strap_8.2",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_recess_-0.97",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_recess_0.97",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_leather",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_outsole",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_toe_cap",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_tongue",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(0, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(0, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(1, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(1, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(2, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(2, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(3, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(3, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(4, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(4, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(5, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(5, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -2.75)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -1.9)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 0.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 1.85)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -2.75)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -1.9)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 0.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 1.85)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_counter",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_0.72",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_1.0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_1.28",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_collar",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_rear_pull",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_-1.35",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_-0.4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_0.6",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_1.55",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-2.7",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-2.05",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-1.25",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-0.4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_0.5",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_1.45",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_-1.3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_-0.65",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_0.65",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_1.3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      }
+    ]
+  },
+  "slim": {
+    "model": "US_ARMY_COMBAT_SET_US01_SLIM_REV02",
+    "sourceSHA256": "825782eb843cd594ccf94281e4e1d681f6aa3c7ed1eda61831e6375c45219c41",
+    "armorMeshes": 607,
+    "referencesExcluded": 6,
+    "triangles": 13818,
+    "pieces": {
+      "head": {
+        "triangles": 2738,
+        "drawParts": 2,
+        "sha256": "e7040d03c892834130b8354bde34eb54dd78faf82f5300fde0a22d60fd87ebe3"
+      },
+      "chest": {
+        "triangles": 6744,
+        "drawParts": 5,
+        "sha256": "1862d07f77be5f521d32a30d8d311404f614a9f85810344cd5cb0b04c3c3ce54"
+      },
+      "legs": {
+        "triangles": 1360,
+        "drawParts": 3,
+        "sha256": "7aec68fbda055c78f2ed978c25a7478da376f03920c8d7404b419273092054f0"
+      },
+      "feet": {
+        "triangles": 2976,
+        "drawParts": 2,
+        "sha256": "b7079000fe42e658c8ac37305d26feb74d53a8a16db21d9b5bd19564b18cb3e7"
+      }
+    },
+    "flags": {
+      "right_US_OUTER_ARM_FLAG": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "left_US_OUTER_ARM_FLAG": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "groups": [
+      {
+        "name": "US01_Root",
+        "parent": null,
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "US01_Root",
+        "pivot": [
+          0,
+          24,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Helmet",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Headset",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Neck_Scarf_Optional",
+        "parent": "head",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "body",
+        "parent": "US01_Root",
+        "pivot": [
+          0,
+          24,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Uniform_Torso",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Plate_Carrier",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Front_Pouches",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Chest_Holster_Optional",
+        "parent": "body",
+        "pivot": [
+          0.65,
+          20.65,
+          -3.55
+        ],
+        "rotation": [
+          0,
+          0,
+          -23
+        ]
+      },
+      {
+        "name": "Hydration_Pack_Optional",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Battle_Belt",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_arm",
+        "parent": "US01_Root",
+        "pivot": [
+          -5,
+          22,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Sleeve",
+        "parent": "right_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Glove",
+        "parent": "right_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_arm",
+        "parent": "US01_Root",
+        "pivot": [
+          5,
+          22,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Sleeve",
+        "parent": "left_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Glove",
+        "parent": "left_arm",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_leg",
+        "parent": "US01_Root",
+        "pivot": [
+          -2,
+          12,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Trousers",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Knee_Pad",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "right_Boot",
+        "parent": "right_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_leg",
+        "parent": "US01_Root",
+        "pivot": [
+          2,
+          12,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Trousers",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Knee_Pad",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "left_Boot",
+        "parent": "left_leg",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "meshes": [
+      {
+        "name": "helmet_high_cut_open_shell_REV02",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rolled_rubber_rim",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_inner_liner",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_shaped_accessory_rail_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_-1.4",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_-0.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_0.5",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_-1_1.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_-1_-1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_-1_1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_velcro_side_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_shaped_accessory_rail_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_-1.4",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_-0.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_0.5",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_slot_1_1.45",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_1_-1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "rail_fastener_1_1.72",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_velcro_side_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_front_mount_base",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_fork_-0.59",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(-0.59, 30.35)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(-0.59, 31.78)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_fork_0.59",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(0.59, 30.35)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_screw_(0.59, 31.78)",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_center_recess",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_lower_bridge",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_top_latch",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "mount_latch_groove",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "crown_velcro_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "crown_velcro_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rear_velcro",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_rear_strap_anchor",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_bungee_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_-1_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "ear_cushion_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_shell_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_rib_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_-1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_-1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_swivel_-1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "helmet_chin_strap_1_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "ear_cushion_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_shell_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "earcup_rib_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_1_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_mount_wire_1_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_swivel_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_boom_2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "microphone_windscreen",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_downlead_0",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "headset_downlead_1",
+        "slot": "head",
+        "limb": "head",
+        "optional": 0
+      },
+      {
+        "name": "woven_neck_scarf",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.2",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.57",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "scarf_fold_24.94",
+        "slot": "head",
+        "limb": "head",
+        "optional": 1
+      },
+      {
+        "name": "uniform_torso",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_shoulder_seam_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shirt_side_stitch_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_shoulder_seam_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shirt_side_stitch_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "uniform_center_zip",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_front_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_back_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_side_band_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_15.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_17.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_-1_18.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_shoulder_strap_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shoulder_release_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_19.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_19.3_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.05_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_-1_20.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_-1_20.8_-3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_side_band_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_15.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_17.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "side_molle_1_18.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_shoulder_strap_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "shoulder_release_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_19.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_19.3_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.05_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_molle_1_20.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_1.6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_2.4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "molle_bartack_1_20.8_3.2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_edge_-3.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_edge_3.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "subdued_US_chest_flag",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "army_name_tape",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "upper_chest_d_ring",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hydration_hose_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_0_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_1_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_2_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_3_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_4_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_bound_edge_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_4",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_6",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_10",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_11",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_12",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_13",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_14",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_16",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_17",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_19",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_20",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_21",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_22",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_23",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_24",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_25",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_26",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_27",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_28",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_29",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_30",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_31",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_32",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "carrier_sewn_border_5_33",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_54",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_55",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_56",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_0_57",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_0_-0.9511999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_0_0.9511999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_0_-0.8528",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_0_0.8528",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "utility_pouch_bellows_-0.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "utility_pouch_bellows_0.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_67",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_68",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_69",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_1_70",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_1_-0.49299999999999994",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_1_0.49299999999999994",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_1_-0.442",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_1_0.442",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "front_pouch_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_flap_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_pull_tab_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_78",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_79",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_80",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_stitch_2_81",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_2_-0.4784999999999999",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_webbing_2_0.4784999999999999",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_2_-0.429",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "pouch_snap_2_0.429",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_body",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_carrier",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_antenna",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_knob",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_switch",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_button",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_coiled_lead_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_coiled_lead_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "ptt_body_lead_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_19.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.05",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.3",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_cable_ridge_20.55",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_status_panel",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-3.52",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-3.15",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_control_key_-2.78",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "radio_status_light",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "closed_chest_holster",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "holster_retention_strap",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "holster_buckle",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 2
+      },
+      {
+        "name": "hydration_pack_main",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "hydration_pack_back_pocket",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_vertical_webbing_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_strap_buckle_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_vertical_webbing_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_strap_buckle_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_17.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_18.0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_18.9",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_19.8",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_molle_20.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_0",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_carry_handle_2",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "rear_US01_label",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_-1_-1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_-1_1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_16.932",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.163999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.396",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.628",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_17.86",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.092",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.323999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.556",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_18.788",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.02",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.252",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.484",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.716",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_19.948",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.412",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.644",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_20.876",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.108",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.34",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.572",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_21.804000000000002",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.036",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.268",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_-1_22.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_pull_-1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_1_-1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_compression_wrap_1_1.1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_16.7",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_16.932",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.163999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.396",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.628",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_17.86",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.092",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.323999999999998",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.556",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_18.788",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.02",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.252",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.484",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.716",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_19.948",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.18",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.412",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.644",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_20.876",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.108",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.34",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.572",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_21.804000000000002",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.036",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.268",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_tooth_1_22.5",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "pack_zipper_pull_1",
+        "slot": "chest",
+        "limb": "body",
+        "optional": 3
+      },
+      {
+        "name": "belt_(0, -2.52)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(0, 2.52)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(-4.13, 0)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_(4.13, 0)",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_center_buckle",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "belt_buckle_center",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_utility_pouch_-1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_flap_-1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_utility_pouch_1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_flap_1",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_-1_-0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_-1_0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_1_-0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "hip_pouch_snap_1_0.45",
+        "slot": "legs",
+        "limb": "body",
+        "optional": 0
+      },
+      {
+        "name": "right_uniform_sleeve",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_arm_pocket",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_arm_velcro",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_US_OUTER_ARM_FLAG",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_pocket_pull",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_front_sleeve_zip",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.45",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_fold_17.9",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_elbow_pad",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_sleeve_cuff",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_sleeve_outer_seam",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_glove_main",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_glove_wrist_strap",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_0",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_1",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_1",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_2",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_2",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_finger_panel_3",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_knuckle_3",
+        "slot": "chest",
+        "limb": "right_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_uniform_sleeve",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_arm_pocket",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_arm_velcro",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_US_OUTER_ARM_FLAG",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_pocket_pull",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_front_sleeve_zip",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.45",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_fold_17.9",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_elbow_pad",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_sleeve_cuff",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_sleeve_outer_seam",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_glove_main",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_glove_wrist_strap",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_0",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_1",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_1",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_2",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_2",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_finger_panel_3",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "left_knuckle_3",
+        "slot": "chest",
+        "limb": "left_arm",
+        "optional": 0
+      },
+      {
+        "name": "right_trouser_leg",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_leg_seam_-1.75",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_leg_seam_1.75",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_pocket",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_flap",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_button_-0.85",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_cargo_button_0.85",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_reinforced_knee_cloth",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_pad_rim",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_molded_face",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_6.0",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_6.55",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_ridge_7.1",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_strap_5.0",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_strap_8.2",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_recess_-0.97",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_knee_recess_0.97",
+        "slot": "legs",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_leather",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_outsole",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_toe_cap",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_tongue",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(0, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(0, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(1, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(1, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(2, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(2, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(3, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(3, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(4, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(4, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_a_4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_b_4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(5, -0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_eyelet_(5, 0.95)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -2.75)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -1.9)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, -1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 0.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(-1.85, 1.85)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -2.75)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -1.9)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, -1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 0.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 1.0)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_sole_lug_(1.85, 1.85)",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_counter",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_0.72",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_1.0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_heel_stitch_1.28",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_collar",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_rear_pull",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_-1.35",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_-0.4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_0.6",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_outer_ankle_panel_1.55",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-2.7",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-2.05",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-1.25",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_-0.4",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_0.5",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_boot_welt_1.45",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_-1.3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_-0.65",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_0.65",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_toe_tread_1.3",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_left_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_0",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_1",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "right_lace_bow_right_2",
+        "slot": "feet",
+        "limb": "right_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_trouser_leg",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_leg_seam_-1.75",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_leg_seam_1.75",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_pocket",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_flap",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_button_-0.85",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_cargo_button_0.85",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_reinforced_knee_cloth",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_pad_rim",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_molded_face",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_6.0",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_6.55",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_ridge_7.1",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_strap_5.0",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_strap_8.2",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_recess_-0.97",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_knee_recess_0.97",
+        "slot": "legs",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_leather",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_outsole",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_toe_cap",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_tongue",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(0, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(0, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(1, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(1, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(2, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(2, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(3, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(3, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(4, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(4, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_a_4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_b_4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(5, -0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_eyelet_(5, 0.95)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -2.75)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -1.9)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, -1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 0.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(-1.85, 1.85)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -2.75)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -1.9)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, -1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 0.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 1.0)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_sole_lug_(1.85, 1.85)",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_counter",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_0.72",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_1.0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_heel_stitch_1.28",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_collar",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_rear_pull",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_-1.35",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_-0.4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_0.6",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_outer_ankle_panel_1.55",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-2.7",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-2.05",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-1.25",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_-0.4",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_0.5",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_boot_welt_1.45",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_-1.3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_-0.65",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_0.65",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_toe_tread_1.3",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_left_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_0",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_1",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      },
+      {
+        "name": "left_lace_bow_right_2",
+        "slot": "feet",
+        "limb": "left_leg",
+        "optional": 0
+      }
+    ]
+  }
+}

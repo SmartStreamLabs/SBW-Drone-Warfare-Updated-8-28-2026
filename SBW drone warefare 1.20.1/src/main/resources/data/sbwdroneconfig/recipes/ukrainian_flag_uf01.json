@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "I I",
+    "IBY",
+    "SSS"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_block"
+    },
+    "B": {
+      "item": "minecraft:blue_dye"
+    },
+    "Y": {
+      "item": "minecraft:yellow_dye"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:ukrainian_flag_uf01",
+    "count": 1
+  }
+}

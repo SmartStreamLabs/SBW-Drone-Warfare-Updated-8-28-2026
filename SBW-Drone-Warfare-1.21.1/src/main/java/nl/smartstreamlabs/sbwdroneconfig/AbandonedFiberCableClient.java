@@ -2,10 +2,11 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -24,7 +25,7 @@ public final class AbandonedFiberCableClient {
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(AbandonedFiberCableClient.class);
+        NeoForge.EVENT_BUS.register(AbandonedFiberCableClient.class);
     }
 
     public static void handleSync(AbandonedFiberCableSyncMessage message) {
@@ -50,11 +51,7 @@ public final class AbandonedFiberCableClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-
+    public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null) {
             CABLES.clear();

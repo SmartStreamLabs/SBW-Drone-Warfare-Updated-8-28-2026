@@ -1,0 +1,282 @@
+{
+  "asset_name": "Glide Bomb Deployment Platform LP-03",
+  "revision": 2,
+  "role": "Fictional overhead game display/deployment frame with GB-01 hanging underneath. Exterior visual asset, not real launch or lifting engineering.",
+  "units_per_block": 16,
+  "platform_forward_axis": "+Z",
+  "payload_forward_axis_native": "-Z",
+  "payload_reference_scale": 1.0,
+  "payload_reference_rotation_degrees": [
+    0,
+    180,
+    0
+  ],
+  "payload_reference_translation_units": [
+    0,
+    9,
+    0
+  ],
+  "payload_anchor": "payload_mount_anchor",
+  "transform_order": [
+    "Use GB-01 native model coordinates with 16 units per block.",
+    "Rotate payload Y 180 degrees about its native origin.",
+    "Translate payload (0,9,0) in platform model units.",
+    "Apply the platform/entity facing and world placement once."
+  ],
+  "mount_pitch_rotation_degrees": [
+    0,
+    0,
+    0
+  ],
+  "replaces_old_placement": "Do not reuse the old 0.25 payload scale, (0,17.2,0) translation or -8 degree bind pitch from the GP-4 reference setup.",
+  "bone_pivots_units": {
+    "platform_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "stabilizers": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pitch_support": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "runner_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rear_guard": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "control_unit": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cable_harness": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mount_pitch": [
+      0.0,
+      23.0,
+      0.0
+    ],
+    "payload_cradle": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "clamp_left": [
+      -3.6,
+      39.0,
+      0.0
+    ],
+    "clamp_right": [
+      3.6,
+      39.0,
+      0.0
+    ],
+    "gate_left": [
+      -28.0,
+      5.0,
+      31.0
+    ],
+    "gate_right": [
+      28.0,
+      5.0,
+      31.0
+    ],
+    "safety_cover": [
+      34.8,
+      13.6,
+      6.5
+    ],
+    "payload_mount_anchor": [
+      0.0,
+      9.0,
+      0.0
+    ],
+    "visual_payload_center_anchor": [
+      0.0,
+      14.96,
+      0.0
+    ],
+    "front_clearance_reference": [
+      0.0,
+      17.0,
+      35.0
+    ]
+  },
+  "hang_configuration": "Entire GB-01 body and wing kit below the overhead frame; four hanger legs and split contact adapters. Central underside and forward path remain open.",
+  "release_animation": "Existing prepare_release clip name retained. Hangers slide outwards by 24 native units along X. Low outer guides swing along Y. Cosmetic art preview, not game deployment code.",
+  "integration_requirements": [
+    "Standalone platform model contains no bomb. Render one actual loaded GB-01 using the payload mount transform. The fit-scene reference must not become a second permanent bomb.",
+    "Use mesh-capable rendering for the adapters, beams and GB-01.",
+    "Update renderer pivots, visuals and platform placement/collision footprint to the larger gantry. Existing registry IDs and core launch/gameplay behaviour should remain intact.",
+    "No Java mod repository has been modified by this art package.",
+    "Do not copy the entire render envelope into the bomb damage hitbox.",
+    "Use current overhead contact geometry; no old belly cradles or enclosing front/rear hoops through the wing kit."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "platform_bounds_units": {
+    "min": [
+      -32.1,
+      0.0,
+      -38.2
+    ],
+    "max": [
+      42.15,
+      42.28,
+      33.35
+    ]
+  },
+  "platform_dimensions_blocks": [
+    4.640625,
+    2.6425,
+    4.471875000000001
+  ],
+  "payload_fit_bounds_units": {
+    "min": [
+      -22.5,
+      9.0,
+      -33.2
+    ],
+    "max": [
+      22.5,
+      33.5,
+      24.199409607084768
+    ]
+  },
+  "clearance_units": {
+    "wing_to_column_inner_side": 4.399999999999999,
+    "tail_to_overhead_beam": 6.0,
+    "payload_bottom_to_base_top": 4.45,
+    "open_adapter_to_wing_tip": 1.5799999999999983
+  },
+  "validation": {
+    "elements": 273,
+    "triangles": 6716,
+    "bones": 18,
+    "clips": 2,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "full_scale_GB01_reference_transform_checked": true,
+    "no_payload_baked_into_production_platform": true,
+    "ground_datum_checked": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false,
+    "closed_frame_surface_clearance_checked": true,
+    "open_frame_forward_surface_clearance_sampled": true,
+    "forward_clearance_samples": 49
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "platform_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "stabilizers": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pitch_support": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "runner_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rear_guard": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "control_unit": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cable_harness": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mount_pitch": [
+      0.0,
+      1.4375,
+      0.0
+    ],
+    "payload_cradle": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "clamp_left": [
+      -0.225,
+      2.4375,
+      0.0
+    ],
+    "clamp_right": [
+      0.225,
+      2.4375,
+      0.0
+    ],
+    "gate_left": [
+      -1.75,
+      0.3125,
+      1.9375
+    ],
+    "gate_right": [
+      1.75,
+      0.3125,
+      1.9375
+    ],
+    "safety_cover": [
+      2.175,
+      0.85,
+      0.40625
+    ],
+    "payload_mount_anchor": [
+      0.0,
+      0.5625,
+      0.0
+    ],
+    "visual_payload_center_anchor": [
+      0.0,
+      0.935,
+      0.0
+    ],
+    "front_clearance_reference": [
+      0.0,
+      1.0625,
+      2.1875
+    ]
+  }
+}

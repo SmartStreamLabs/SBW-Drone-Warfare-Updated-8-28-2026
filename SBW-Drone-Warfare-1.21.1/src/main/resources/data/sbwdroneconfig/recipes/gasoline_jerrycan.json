@@ -9,7 +9,7 @@
                         }
                     ],
     "result":  {
-                   "item":  "sbwdroneconfig:gasoline_jerrycan",
+                   "id":  "sbwdroneconfig:gasoline_jerrycan",
                    "count":  1
                }
 }

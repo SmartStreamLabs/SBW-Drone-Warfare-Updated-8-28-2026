@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "superbwarfare:gunfire",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:gunfire_absolute",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:gunfire_headshot",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:gunfire_headshot_absolute",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:laser",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:laser_headshot",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:projectile_hit",
+      "required": false
+    },
+    {
+      "id": "superbwarfare:grapeshot_hit",
+      "required": false
+    },
+    {
+      "id": "tacz:bullet",
+      "required": false
+    },
+    {
+      "id": "tacz:bullet_void",
+      "required": false
+    },
+    {
+      "id": "tacz:bullet_ignore_armor",
+      "required": false
+    },
+    {
+      "id": "#tacz:bullets",
+      "required": false
+    }
+  ]
+}

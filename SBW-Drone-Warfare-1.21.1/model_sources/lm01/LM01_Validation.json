@@ -1,0 +1,34 @@
+{
+  "result": "PASS",
+  "cubes": 142,
+  "rendered_quads": 720,
+  "covered_touching_faces_disabled": 132,
+  "rendered_triangles": 1440,
+  "bounds_units_xyz": [
+    [
+      1.3499999999999996,
+      14.65
+    ],
+    [
+      0.0,
+      3.34
+    ],
+    [
+      1.3499999999999996,
+      15.22
+    ]
+  ],
+  "height_blocks": 0.20875,
+  "checks": [
+    "Native Java Block/Item model with real cuboid geometry",
+    "Every cube referenced once; no mesh/entity geometry",
+    "Positive cuboid dimensions and finite positions/rotations",
+    "Only vanilla-supported single-axis rotations",
+    "All posed geometry stays inside one block footprint",
+    "Bottom at floor; less than quarter-block height",
+    "Opaque power-of-two atlas embedded byte-identically",
+    "Disabled internal touching faces represented explicitly with null textures",
+    "Native and exported Java geometry, faces, rotations and UVs match",
+    "Block, item and blockstate texture/model references resolve within the example assets"
+  ]
+}

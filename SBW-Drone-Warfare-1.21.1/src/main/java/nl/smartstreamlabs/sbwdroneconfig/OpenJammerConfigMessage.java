@@ -2,25 +2,16 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
-import java.util.function.Supplier;
 
-public record OpenJammerConfigMessage(
-        BlockPos blockPos,
-        int range,
-        int minRange,
-        int maxRange,
-        boolean longRangeTower,
-        int energy,
-        int maxEnergy,
-        boolean charging,
-        boolean operational,
-        List<String> whitelistedGamertags
-) {
+public record OpenJammerConfigMessage(BlockPos blockPos, int range, int minRange, int maxRange, boolean longRangeTower, int energy, int maxEnergy, boolean charging, boolean operational, List<String> whitelistedGamertags) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<OpenJammerConfigMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "open_jammer_config"));
+
     public OpenJammerConfigMessage(BlockPos blockPos, int range, List<String> whitelistedGamertags) {
         this(blockPos, range, JammerBlockEntity.MIN_RANGE, JammerBlockEntity.MAX_RANGE, false, 0, 0, false, false, whitelistedGamertags);
     }
@@ -65,15 +56,25 @@ public record OpenJammerConfigMessage(
 
     public static OpenJammerConfigMessage decode(FriendlyByteBuf buffer) {
         return new OpenJammerConfigMessage(
-                buffer.readBlockPos(), buffer.readVarInt(), buffer.readVarInt(), buffer.readVarInt(),
-                buffer.readBoolean(), buffer.readVarInt(), buffer.readVarInt(), buffer.readBoolean(),
-                buffer.readBoolean(), buffer.readList(FriendlyByteBuf::readUtf)
+                buffer.readBlockPos(),
+                buffer.readVarInt(),
+                buffer.readVarInt(),
+                buffer.readVarInt(),
+                buffer.readBoolean(),
+                buffer.readVarInt(),
+                buffer.readVarInt(),
+                buffer.readBoolean(),
+                buffer.readBoolean(),
+                buffer.readList(FriendlyByteBuf::readUtf)
         );
     }
 
-    public static void handle(OpenJammerConfigMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> JammerScreen.open(message)));
-        context.setPacketHandled(true);
+    public static void handle(OpenJammerConfigMessage message, IPayloadContext context) {
+        JammerScreen.open(message);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

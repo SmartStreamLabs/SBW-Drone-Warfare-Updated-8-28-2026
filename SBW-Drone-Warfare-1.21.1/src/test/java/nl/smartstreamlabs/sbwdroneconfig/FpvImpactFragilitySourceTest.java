@@ -72,7 +72,7 @@ class FpvImpactFragilitySourceTest {
         assertTrue(source.contains("private static final float MAX_HEALTH = 1.0F"),
                 "The Cubed FPV drone should stay fragile instead of inheriting SBW's high vehicle health.");
         assertTrue(source.contains("private static final float COMPONENT_MAX_HEALTH = 1.0F"),
-                "The Cubed FPV drone should not inherit SBW's 50-health vehicle subcomponents.");
+                "The Cubed FPV drone should not inherit SBW's high vehicle subcomponent health.");
         assertTrue(source.contains("private static final float INCOMING_DAMAGE_MULTIPLIER = 8.0F"),
                 "The Cubed FPV drone should amplify incoming damage so SBW vehicle mitigation cannot keep it tanky.");
         assertTrue(source.contains("public float getMaxHealth()"),
@@ -110,8 +110,8 @@ class FpvImpactFragilitySourceTest {
                 "The Delivery Drone should have higher component health for cargo use.");
         assertTrue(source.contains("private static final float DELIVERY_INCOMING_DAMAGE_MULTIPLIER = 1.0F"),
                 "The Delivery Drone should not inherit the Cubed FPV incoming damage amplification.");
-        assertTrue(source.contains("setHealth(DELIVERY_MAX_HEALTH)"),
-                "Fresh Delivery Drone entities should spawn with the higher health value.");
+        assertTrue(source.contains("setHealth(getMaxHealth())"),
+                "Fresh Delivery Drone entities should initialize the effective durable health, including the server profile.");
         assertTrue(source.contains("protected float getDroneMaxHealthLimit()"));
         assertTrue(source.contains("protected float getDroneComponentMaxHealthLimit()"));
         assertTrue(source.contains("protected float getIncomingDamageMultiplier()"));

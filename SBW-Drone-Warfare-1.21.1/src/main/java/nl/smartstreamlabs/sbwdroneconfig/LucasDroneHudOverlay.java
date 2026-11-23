@@ -8,10 +8,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.lang.reflect.Field;
 import java.time.LocalTime;
@@ -30,12 +30,12 @@ public final class LucasDroneHudOverlay {
     private LucasDroneHudOverlay() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(LucasDroneHudOverlay::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(LucasDroneHudOverlay.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(LucasDroneHudOverlay.class);
     }
 
     public static boolean shouldRenderForCurrentView() {
@@ -47,17 +47,12 @@ public final class LucasDroneHudOverlay {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            hudTick++;
-        }
-    }
+    public static void onClientTick(ClientTickEvent.Post event) {
+        hudTick++;
+}
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
-            return;
-        }
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
 
         Minecraft minecraft = Minecraft.getInstance();
         LucasDroneEntity lucasDrone = DroneClientViewContext.activeLucasDrone(minecraft);
@@ -66,8 +61,8 @@ public final class LucasDroneHudOverlay {
         }
 
         GuiGraphics guiGraphics = event.getGuiGraphics();
-        int width = event.getWindow().getGuiScaledWidth();
-        int height = event.getWindow().getGuiScaledHeight();
+        int width = minecraft.getWindow().getGuiScaledWidth();
+        int height = minecraft.getWindow().getGuiScaledHeight();
         double scale = Mth.clamp(AddonConfig.lucasHudScale(), 0.60D, 1.50D);
         int scaledWidth = Math.max(1, Mth.floor(width / scale));
         int scaledHeight = Math.max(1, Mth.floor(height / scale));

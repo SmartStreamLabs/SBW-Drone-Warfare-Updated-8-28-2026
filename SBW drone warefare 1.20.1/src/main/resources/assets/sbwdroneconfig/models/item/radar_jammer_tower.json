@@ -1,0 +1,129 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "loader": "forge:obj",
+    "model": "sbwdroneconfig:models/block/radar_jammer_tower_item.obj",
+    "mtl_override": "sbwdroneconfig:models/block/rj01.mtl",
+    "automatic_culling": false,
+    "shade_quads": true,
+    "flip_v": true,
+    "render_type": "minecraft:solid",
+    "textures": {
+      "particle": "sbwdroneconfig:block/radar_jammer_tower_rj01"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          25,
+          225,
+          0
+        ],
+        "scale": [
+          0.3,
+          0.3,
+          0.3
+        ]
+      },
+      "ground": {
+        "translation": [
+          0,
+          4.5,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.25,
+          0.25
+        ]
+      },
+      "fixed": {
+        "rotation": [
+          0,
+          180,
+          0
+        ],
+        "scale": [
+          0.3,
+          0.3,
+          0.3
+        ]
+      },
+      "thirdperson_righthand": {
+        "rotation": [
+          75,
+          45,
+          0
+        ],
+        "translation": [
+          0,
+          2,
+          1
+        ],
+        "scale": [
+          0.24,
+          0.24,
+          0.24
+        ]
+      },
+      "thirdperson_lefthand": {
+        "rotation": [
+          75,
+          45,
+          0
+        ],
+        "translation": [
+          0,
+          2,
+          1
+        ],
+        "scale": [
+          0.24,
+          0.24,
+          0.24
+        ]
+      },
+      "firstperson_righthand": {
+        "rotation": [
+          0,
+          45,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.26,
+          0.26,
+          0.26
+        ]
+      },
+      "firstperson_lefthand": {
+        "rotation": [
+          0,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.26,
+          0.26,
+          0.26
+        ]
+      }
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/radar_jammer_tower"
+      }
+    }
+  }
+}

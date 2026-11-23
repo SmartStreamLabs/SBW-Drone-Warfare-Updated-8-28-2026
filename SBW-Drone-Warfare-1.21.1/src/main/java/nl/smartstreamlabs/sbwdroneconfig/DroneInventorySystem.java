@@ -14,8 +14,8 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 public final class DroneInventorySystem {
     private static final String TAG_HOPPER_TRANSFER_COOLDOWN = "sbwdroneconfigDroneHopperCooldown";
@@ -23,10 +23,10 @@ public final class DroneInventorySystem {
     private DroneInventorySystem() {
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST)
     public static void onDroneInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();
-        Entity target = event.getTarget();
+        Entity target = event.getTarget();if(PlatformInventory.editingDrone(target)){event.setCanceled(true);event.setCancellationResult(InteractionResult.FAIL);return;}if(target instanceof Gad01Entity || target instanceof Sd01Entity)return;
 
         if (event.getHand() != InteractionHand.MAIN_HAND || player.level().isClientSide() || !SbwCompat.isDrone(target)) {
             return;
@@ -62,7 +62,7 @@ public final class DroneInventorySystem {
         }
     }
 
-    public static void onDroneBaseTick(Entity drone) {
+    public static void onDroneBaseTick(Entity drone) {if(PlatformInventory.editingDrone(drone))return;if(drone instanceof Gad01Entity || drone instanceof Sd01Entity)return;
         if (!(drone.level() instanceof ServerLevel serverLevel) || !SbwCompat.isDrone(drone)) {
             return;
         }
@@ -184,7 +184,7 @@ public final class DroneInventorySystem {
                 return true;
             }
 
-            if (ItemStack.isSameItemSameTags(hopperStack, singleItem) && hopperStack.getCount() < hopperStack.getMaxStackSize()) {
+            if (ItemStack.isSameItemSameComponents(hopperStack, singleItem) && hopperStack.getCount() < hopperStack.getMaxStackSize()) {
                 hopperStack.grow(1);
                 hopper.setItem(slot, hopperStack);
                 return true;

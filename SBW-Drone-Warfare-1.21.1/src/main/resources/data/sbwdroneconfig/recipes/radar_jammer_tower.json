@@ -1,32 +1,32 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "AFA",
-    "BJB",
-    "SCS"
-  ],
-  "key": {
-    "A": {
-      "item": "superbwarfare:artillery_indicator"
-    },
-    "F": {
-      "item": "superbwarfare:iff"
-    },
-    "B": {
-      "item": "superbwarfare:large_battery_pack"
-    },
-    "J": {
-      "item": "sbwdroneconfig:jammer"
-    },
-    "S": {
-      "item": "minecraft:smooth_stone"
-    },
-    "C": {
-      "item": "superbwarfare:charging_station"
-    }
-  },
-  "result": {
-    "item": "sbwdroneconfig:radar_jammer_tower",
-    "count": 1
-  }
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "AFA",
+                    "BJB",
+                    "SCS"
+                ],
+    "key":  {
+                "A":  {
+                          "item":  "superbwarfare:artillery_indicator"
+                      },
+                "F":  {
+                          "item":  "superbwarfare:iff"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:large_battery_pack"
+                      },
+                "J":  {
+                          "item":  "sbwdroneconfig:jammer"
+                      },
+                "S":  {
+                          "item":  "minecraft:smooth_stone"
+                      },
+                "C":  {
+                          "item":  "superbwarfare:charging_station"
+                      }
+            },
+    "result":  {
+                   "id":  "sbwdroneconfig:radar_jammer_tower",
+                   "count":  1
+               }
 }

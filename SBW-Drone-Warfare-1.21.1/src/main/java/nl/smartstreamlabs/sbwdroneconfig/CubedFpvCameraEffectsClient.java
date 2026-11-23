@@ -3,15 +3,18 @@ package nl.smartstreamlabs.sbwdroneconfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.ViewportEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraft.util.Mth;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
 public final class CubedFpvCameraEffectsClient {
+    private static final double MIN_FPV_FOV = 120.0D;
+    private static final double MAX_FPV_FOV = 155.0D;
     private static final double FPV_ZOOM_FOV = 45.0D;
     private static final double FPV_ZOOM_LERP = 0.32D;
     private static final KeyMapping ZOOM_FPV_CAMERA = new KeyMapping(
@@ -30,13 +33,13 @@ public final class CubedFpvCameraEffectsClient {
     private CubedFpvCameraEffectsClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(CubedFpvCameraEffectsClient::onClientSetup);
         modBus.addListener(CubedFpvCameraEffectsClient::onRegisterKeyMappings);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(CubedFpvCameraEffectsClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(CubedFpvCameraEffectsClient.class);
     }
 
     private static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
@@ -44,10 +47,7 @@ public final class CubedFpvCameraEffectsClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         tickCounter++;
         CubedFpvDroneEntity drone = DroneClientViewContext.activeCubedFpvDrone(Minecraft.getInstance());
@@ -104,6 +104,6 @@ public final class CubedFpvCameraEffectsClient {
     }
 
     private static double baseFpvFov() {
-        return CubedFpvCameraViewMath.clampFov(AddonConfig.fpvCameraFov());
+        return Mth.clamp(AddonConfig.fpvCameraFov(), MIN_FPV_FOV, MAX_FPV_FOV);
     }
 }

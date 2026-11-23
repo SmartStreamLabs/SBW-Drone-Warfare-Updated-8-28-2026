@@ -1,7 +1,7 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 enum DroneAudioProfile {
     CUBED_FPV(
@@ -43,17 +43,17 @@ enum DroneAudioProfile {
 
     private static final float MAX_INSTANCE_VOLUME = 3.0F;
 
-    private final RegistryObject<SoundEvent> nearSound;
-    private final RegistryObject<SoundEvent> midSound;
-    private final RegistryObject<SoundEvent> farSound;
+    private final DeferredHolder<SoundEvent, SoundEvent> nearSound;
+    private final DeferredHolder<SoundEvent, SoundEvent> midSound;
+    private final DeferredHolder<SoundEvent, SoundEvent> farSound;
     private final double maxDistance;
     private final LayerRange nearRange;
     private final LayerRange midRange;
     private final LayerRange farRange;
 
-    DroneAudioProfile(RegistryObject<SoundEvent> nearSound,
-                      RegistryObject<SoundEvent> midSound,
-                      RegistryObject<SoundEvent> farSound,
+    DroneAudioProfile(DeferredHolder<SoundEvent, SoundEvent> nearSound,
+                      DeferredHolder<SoundEvent, SoundEvent> midSound,
+                      DeferredHolder<SoundEvent, SoundEvent> farSound,
                       double maxDistance,
                       LayerRange nearRange,
                       LayerRange midRange,

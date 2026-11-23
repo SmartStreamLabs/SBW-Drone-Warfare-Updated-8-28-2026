@@ -1,5 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -18,11 +20,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class RadarJammerTowerBlock extends JammerBlock {
+    public static final MapCodec<RadarJammerTowerBlock> CODEC = simpleCodec(RadarJammerTowerBlock::new);
     private static final VoxelShape MASTER_SHAPE = Shapes.block();
     private static final ThreadLocal<Boolean> REMOVING_MULTIBLOCK = ThreadLocal.withInitial(() -> false);
 
     public RadarJammerTowerBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
@@ -43,19 +51,19 @@ public class RadarJammerTowerBlock extends JammerBlock {
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock()) && !isRemovingMultiblock()) {
-            removeMultiblock(level, pos, false);
+            removeMultiblock(level, pos, false, state.getValue(HorizontalDirectionalBlock.FACING));
         }
         super.onRemove(state, level, pos, newState, isMoving);
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return MASTER_SHAPE;
+        return Rj01Shapes.cell(state.getValue(HorizontalDirectionalBlock.FACING), BlockPos.ZERO);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return MASTER_SHAPE;
+        return Rj01Shapes.cell(state.getValue(HorizontalDirectionalBlock.FACING), BlockPos.ZERO);
     }
 
     @Override
@@ -72,9 +80,7 @@ public class RadarJammerTowerBlock extends JammerBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide()
-                ? null
-                : createTickerHelper(blockEntityType, AddonBlockEntities.RADAR_JAMMER_TOWER.get(), JammerBlockEntity::serverTick);
+        return createTickerHelper(blockEntityType, AddonBlockEntities.RADAR_JAMMER_TOWER.get(), RadarJammerTowerBlockEntity::rj01Tick);
     }
 
     static boolean isRemovingMultiblock() {
@@ -86,6 +92,11 @@ public class RadarJammerTowerBlock extends JammerBlock {
             return;
         }
 
+        var current=level.getBlockState(masterPos);
+        removeMultiblock(level,masterPos,dropMaster,current.hasProperty(HorizontalDirectionalBlock.FACING)?current.getValue(HorizontalDirectionalBlock.FACING):Direction.NORTH);
+    }
+    static void removeMultiblock(Level level,BlockPos masterPos,boolean dropMaster,Direction facing){
+        if(level.isClientSide()||isRemovingMultiblock())return;
         REMOVING_MULTIBLOCK.set(true);
         try {
             BlockState masterState = level.getBlockState(masterPos);
@@ -93,14 +104,11 @@ public class RadarJammerTowerBlock extends JammerBlock {
                 level.destroyBlock(masterPos, dropMaster);
             }
 
-            Direction facing = masterState.hasProperty(HorizontalDirectionalBlock.FACING)
-                    ? masterState.getValue(HorizontalDirectionalBlock.FACING)
-                    : Direction.NORTH;
             for (RadarJammerTowerPart part : RadarJammerTowerPart.values()) {
                 BlockPos partPos = part.partPos(masterPos, facing);
                 BlockState partState = level.getBlockState(partPos);
                 if (partState.is(AddonBlocks.RADAR_JAMMER_TOWER_PART.get())
-                        && part.masterPos(partPos, partState.getValue(HorizontalDirectionalBlock.FACING)).equals(masterPos)) {
+                        && RadarJammerTowerPartBlock.findMasterPos(partState,partPos).equals(masterPos)) {
                     level.destroyBlock(partPos, false);
                 }
             }
@@ -109,12 +117,29 @@ public class RadarJammerTowerBlock extends JammerBlock {
         }
     }
 
+    // Idempotent old-layout migration. Never overwrite a foreign block or load chunks.
+    static boolean reconcileParts(Level level,BlockPos masterPos,BlockState state){
+        boolean complete=true;Direction facing=state.getValue(HorizontalDirectionalBlock.FACING);
+        REMOVING_MULTIBLOCK.set(true);
+        try{for(var part:RadarJammerTowerPart.values()){
+            BlockPos pos=part.partPos(masterPos,facing);if(!level.hasChunkAt(pos)){complete=false;continue;}
+            BlockState found=level.getBlockState(pos);boolean ours=found.is(AddonBlocks.RADAR_JAMMER_TOWER_PART.get())&&RadarJammerTowerPartBlock.findMasterPos(found,pos).equals(masterPos);
+            if(!part.required()){if(ours)level.removeBlock(pos,false);continue;}
+            if(ours)continue;
+            if(found.isAir())level.setBlock(pos,AddonBlocks.RADAR_JAMMER_TOWER_PART.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING,facing).setValue(RadarJammerTowerPartBlock.PART,part),3);
+            // Occupied cells are deliberately left intact; no player data is deleted.
+        }}finally{REMOVING_MULTIBLOCK.set(false);}return complete;
+    }
+
     private boolean canPlaceMultiblock(BlockPlaceContext context) {
         Level level = context.getLevel();
         BlockPos masterPos = context.getClickedPos();
         Direction facing = context.getHorizontalDirection().getOpposite();
+        if(!RadarJammerTowerBlockEntity.stationBelow(level,masterPos)){if(context.getPlayer()!=null)context.getPlayer().displayClientMessage(net.minecraft.network.chat.Component.literal("Place the radar tower on a Charging Station."),true);return false;}
         for (RadarJammerTowerPart part : RadarJammerTowerPart.values()) {
-            if (!level.getBlockState(part.partPos(masterPos, facing)).canBeReplaced(context)) {
+            if(!part.required())continue;
+            BlockPos partPos = part.partPos(masterPos, facing);
+            if (level.isOutsideBuildHeight(partPos) || !level.getBlockState(partPos).canBeReplaced(context)) {
                 return false;
             }
         }
@@ -123,10 +148,11 @@ public class RadarJammerTowerBlock extends JammerBlock {
 
     private void placeMultiblockParts(Level level, BlockPos masterPos, BlockState masterState) {
         Direction facing = masterState.getValue(HorizontalDirectionalBlock.FACING);
-        BlockState partState = AddonBlocks.RADAR_JAMMER_TOWER_PART.get().defaultBlockState()
+        BlockState partState = AddonBlocks.RADAR_JAMMER_TOWER_PART.get()
+                .defaultBlockState()
                 .setValue(HorizontalDirectionalBlock.FACING, facing);
         for (RadarJammerTowerPart part : RadarJammerTowerPart.values()) {
-            level.setBlock(part.partPos(masterPos, facing), partState.setValue(RadarJammerTowerPartBlock.PART, part), 3);
+            if(part.required())level.setBlock(part.partPos(masterPos, facing), partState.setValue(RadarJammerTowerPartBlock.PART, part), 3);
         }
     }
 }

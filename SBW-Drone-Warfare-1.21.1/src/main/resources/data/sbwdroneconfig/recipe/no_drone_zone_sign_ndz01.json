@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RBW",
+    " P ",
+    " S "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "W": {
+      "item": "minecraft:white_dye"
+    },
+    "P": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "S": {
+      "item": "superbwarfare:steel_pipe"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:no_drone_zone_sign_ndz01",
+    "count": 1
+  }
+}

@@ -4,7 +4,6 @@ import net.minecraft.server.level.ServerPlayer;
 
 import java.util.List;
 
-/** Shared server-side contract for the regular jammer and the long-range tower. */
 public interface ConfigurableJammerBlockEntity {
     int getJammerRange();
 

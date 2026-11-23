@@ -1,0 +1,10 @@
+newmtl hb01
+Ka 0.08 0.08 0.08
+Kd 1.0 1.0 1.0
+Ks 0.12 0.12 0.12
+Ns 24
+d 1.0
+illum 2
+map_Kd sbwdroneconfig:item/heavy_bomber_drone
+map_d heavy_bomber_hb01_alpha.png
+# Static bind pose. See animation channels and pivots for moving parts.

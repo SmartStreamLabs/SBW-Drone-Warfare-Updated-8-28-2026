@@ -9,9 +9,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -30,7 +30,8 @@ public final class DroneBatterySystem {
     private DroneBatterySystem() {
     }
 
-    public static void onDroneBaseTick(Entity entity) {
+    public static void onDroneBaseTick(Entity entity) {if(PlatformInventory.editingDrone(entity))return;if(entity instanceof Gad01Entity||entity instanceof Fl01Entity)return;
+        if(Dc01Docking.docked(entity)||entity instanceof Hx2Entity h&&h.mount()!=null)return;
         if (!AddonConfig.enableBatterySystem() || entity == null || entity.level().isClientSide() || !SbwCompat.isDrone(entity)) {
             return;
         }
@@ -46,7 +47,7 @@ public final class DroneBatterySystem {
 
         int currentEnergy = getCurrentEnergy(entity);
         boolean active = isActivelyUsingEnergy(entity);
-        int energyUse = active ? AddonConfig.energyUsePerTick() : AddonConfig.idleEnergyUsePerTick();
+        int energyUse = entity instanceof Hx2Entity h?(h.motor()?Hx2Config.USE.get():0):active ? AddonConfig.energyUsePerTick() : AddonConfig.idleEnergyUsePerTick();
         energyUse += DroneWeatherEffects.getAdditionalEnergyUse(entity, active);
         energyUse = FiberOpticLinkSystem.applyExtraBatteryDrain(entity, energyUse, active);
 
@@ -79,7 +80,7 @@ public final class DroneBatterySystem {
                         true
                 );
                 entity.getPersistentData().putBoolean(TAG_EMPTY_WARNING_SENT, true);
-                SbwCompat.stopUsingMonitor(SbwCompat.getActiveLinkedMonitor(controller));
+                SbwCompat.stopUsingLinkedMonitorForDrone(controller, entity);
                 SbwCompat.resetDroneInput(entity);
             } else if (!outOfEnergy) {
                 entity.getPersistentData().putBoolean(TAG_EMPTY_WARNING_SENT, false);
@@ -152,7 +153,7 @@ public final class DroneBatterySystem {
         syncIfNeeded(drone, player, currentEnergy, lowEnergy, outOfEnergy);
     }
 
-    public static int currentEnergy(Entity drone) {
+    public static int currentEnergy(Entity drone) {if(drone instanceof Sd01Entity d)return d.getEnergy();if(drone instanceof Gad01Entity g)return g.getEnergy();
         if (drone == null || !SbwCompat.isDrone(drone)) {
             return 0;
         }
@@ -160,7 +161,7 @@ public final class DroneBatterySystem {
         return getCurrentEnergy(drone);
     }
 
-    public static boolean isOutOfEnergyState(Entity drone) {
+    public static boolean isOutOfEnergyState(Entity drone) {if(drone instanceof Sd01Entity d)return d.getEnergy()<=0;if(drone instanceof Gad01Entity g)return g.getEnergy()<=0;
         if (drone == null || !SbwCompat.isDrone(drone)) {
             return true;
         }
@@ -169,6 +170,7 @@ public final class DroneBatterySystem {
     }
 
     public static int consumeEnergy(Entity drone, int amount) {
+        if(drone instanceof Sd01Entity d){int n=Math.max(0,Math.min(amount,d.getEnergy()));d.consumeEnergy(n);return n;}
         if (drone == null || !SbwCompat.isDrone(drone) || amount <= 0) {
             return 0;
         }
@@ -183,10 +185,10 @@ public final class DroneBatterySystem {
 
     @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        handleRecharge(event.getEntity(), event.getTarget(), event.getHand(), event);
+        if(event.getTarget() instanceof Sd01Entity||event.getTarget() instanceof Gad01Entity)return;handleRecharge(event.getEntity(), event.getTarget(), event.getHand(), event);
     }
 
-    private static void handleRecharge(Player player, Entity target, InteractionHand hand, PlayerInteractEvent event) {
+    private static void handleRecharge(Player player, Entity target, InteractionHand hand, PlayerInteractEvent.EntityInteract event) {
         if (!AddonConfig.enableBatterySystem() || target.level().isClientSide() || !SbwCompat.isDrone(target)) {
             return;
         }
@@ -207,13 +209,7 @@ public final class DroneBatterySystem {
             return;
         }
 
-        int transferred = stack.getCapability(ForgeCapabilities.ENERGY)
-                .map(storage -> {
-                    int available = storage.getEnergyStored();
-                    int requested = Math.min(Math.min(available, missing), AddonConfig.batteryTransferRate());
-                    return requested <= 0 ? 0 : storage.extractEnergy(requested, false);
-                })
-                .orElse(0);
+        int transferred = extractEnergyFromBattery(stack, missing);
 
         if (transferred <= 0) {
             player.displayClientMessage(Component.translatable("message.sbwdroneconfig.drone_recharge_empty_battery"), true);
@@ -277,7 +273,17 @@ public final class DroneBatterySystem {
             return;
         }
 
-        DroneInventoryContainer container = new DroneInventoryContainer(drone);
+        rechargeFromInventoryBatteries(drone,new DroneInventoryContainer(drone));
+    }
+
+    public static void prepareOnPlatform(Entity drone,DroneInventoryContainer inventory){
+        if(!AddonConfig.enableBatterySystem()||drone instanceof Fl01Entity)return;
+        initializeEnergy(drone);rechargeFromInventoryBatteries(drone,inventory);
+    }
+
+    private static void rechargeFromInventoryBatteries(Entity drone,DroneInventoryContainer container){
+        int currentEnergy=getCurrentEnergy(drone),maxEnergy=getMaxEnergy(drone),missing=maxEnergy-currentEnergy;
+        if(missing<=0)return;
         boolean changed = false;
 
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
@@ -286,13 +292,7 @@ public final class DroneBatterySystem {
                 continue;
             }
 
-            int transferred = stack.getCapability(ForgeCapabilities.ENERGY)
-                    .map(storage -> {
-                        int available = storage.getEnergyStored();
-                        int requested = Math.min(Math.min(available, missing), AddonConfig.batteryTransferRate());
-                        return requested <= 0 ? 0 : storage.extractEnergy(requested, false);
-                    })
-                    .orElse(0);
+            int transferred = extractEnergyFromBattery(stack, missing);
 
             if (transferred <= 0) {
                 continue;
@@ -310,6 +310,17 @@ public final class DroneBatterySystem {
         }
     }
 
+    private static int extractEnergyFromBattery(ItemStack stack, int missingEnergy) {
+        var storage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if (storage == null) {
+            return 0;
+        }
+
+        int available = storage.getEnergyStored();
+        int requested = Math.min(Math.min(available, missingEnergy), AddonConfig.batteryTransferRate());
+        return requested <= 0 ? 0 : storage.extractEnergy(requested, false);
+    }
+
     private static boolean isControlled(Entity drone) {
         ServerPlayer controller = getController(drone);
         return controller != null && SbwCompat.isUsingLinkedMonitorForDrone(controller, drone);
@@ -317,7 +328,7 @@ public final class DroneBatterySystem {
 
     private static void initializeEnergy(Entity drone) {
         var data = drone.getPersistentData();
-        int configuredMax = AddonConfig.maxEnergy();
+        int configuredMax = drone instanceof Hx2Entity?Hx2Config.CAPACITY.get():AddonConfig.maxEnergy();
         int storedMax = data.getInt(TAG_MAX_ENERGY);
         int currentEnergy = data.contains(TAG_CURRENT_ENERGY) ? data.getInt(TAG_CURRENT_ENERGY) : configuredMax;
 
@@ -347,6 +358,7 @@ public final class DroneBatterySystem {
     }
 
     private static boolean isOutOfEnergy(Entity drone) {
+        if(drone instanceof Fl01Entity)return false;
         return drone.getPersistentData().getBoolean(TAG_OUT_OF_ENERGY);
     }
 

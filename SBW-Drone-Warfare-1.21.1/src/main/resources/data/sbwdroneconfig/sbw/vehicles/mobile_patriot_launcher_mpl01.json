@@ -1,0 +1,224 @@
+{
+  "MaxHealth": 420,
+  "MaxEnergy": 3000000,
+  "OBB": [
+    {
+      "Size": [
+        1.42,
+        1.15,
+        5.1
+      ],
+      "Position": [
+        0,
+        1.2,
+        0
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        1.36,
+        0.7,
+        1.15
+      ],
+      "Position": [
+        0,
+        2.65,
+        4.1
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        1.1,
+        0.83,
+        3.37
+      ],
+      "Position": [
+        0,
+        3.27,
+        1.74
+      ],
+      "Part": "Turret",
+      "Transform": "Turret",
+      "Rotation": "Turret"
+    }
+  ],
+  "Seats": [
+    {
+      "HidePassenger": false,
+      "IsEnclosed": true,
+      "Transform": "Vehicle",
+      "Position": [
+        0.63,
+        1.22,
+        3.85
+      ],
+      "ViewPos": [
+        0.63,
+        2.62,
+        3.97
+      ],
+      "Orientation": 0,
+      "CanRotateBody": false,
+      "CanRotateHead": true,
+      "RotateWithVehicle": true,
+      "MinYaw": -95,
+      "MaxYaw": 95,
+      "MinPitch": -65,
+      "MaxPitch": 60,
+      "Weapons": [],
+      "DismountInfo": {
+        "Transform": "Vehicle",
+        "Position": [
+          2.7,
+          0.05,
+          3.85
+        ]
+      }
+    },
+    {
+      "HidePassenger": false,
+      "IsEnclosed": true,
+      "Transform": "Vehicle",
+      "Position": [
+        -0.63,
+        1.22,
+        3.85
+      ],
+      "ViewPos": [
+        -0.63,
+        2.62,
+        3.97
+      ],
+      "Orientation": 0,
+      "CanRotateBody": false,
+      "CanRotateHead": true,
+      "RotateWithVehicle": true,
+      "MinYaw": -95,
+      "MaxYaw": 95,
+      "MinPitch": -65,
+      "MaxPitch": 60,
+      "Weapons": [],
+      "DismountInfo": {
+        "Transform": "Vehicle",
+        "Position": [
+          -2.7,
+          0.05,
+          3.85
+        ]
+      }
+    }
+  ],
+  "EngineType": "Wheel",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 80,
+    "WheelRotSpeed": 0.833,
+    "WheelDifferential": 0.5,
+    "MaxForwardSpeedRate": 0.55,
+    "MaxBackwardSpeedRate": 0.2,
+    "Increment": 0.008,
+    "Decrement": 0.03,
+    "SteeringSpeed": 0.035,
+    "EngineSoundVolume": 0.6
+  },
+  "UpStep": 0.85,
+  "Mass": 38,
+  "RotateOffsetHeight": 0,
+  "DamageModifiers": [
+    "All - 5",
+    "minecraft:lava + 5",
+    "All * 0.4",
+    "minecraft:arrow * 0.2",
+    "minecraft:trident * 0.4",
+    "minecraft:mob_attack * 0.4",
+    "minecraft:mob_attack_no_aggro * 0.4",
+    "minecraft:mob_projectile * 0.4",
+    "minecraft:player_attack * 0.4",
+    "minecraft:lava * 4",
+    "@minecraft:tnt * 3",
+    "@minecraft:tnt_minecart * 3",
+    "minecraft:explosion * 4",
+    "minecraft:player_explosion * 4",
+    "superbwarfare:projectile_hit * 0.8",
+    "superbwarfare:grapeshot_hit * 0.2",
+    "@#superbwarfare:aerial_bomb * 1.4",
+    "#superbwarfare:projectile * 0.16",
+    "superbwarfare:vehicle_strike * 0.7",
+    "@superbwarfare:cannon_shell * 0.6",
+    "@superbwarfare:small_cannon_shell * 0.8",
+    "@#superbwarfare:aa_missile * 0.5",
+    "@superbwarfare:gun_grenade * 1.4",
+    "@superbwarfare:rgo_grenade * 3",
+    "@superbwarfare:hand_grenade * 2.5",
+    "@superbwarfare:mortar_shell * 2"
+  ],
+  "VehicleContainerType": "Huge",
+  "DestroyInfo": {
+    "ParticleType": "Huge",
+    "ExplosionDamage": 120,
+    "ExplosionRadius": 7
+  },
+  "ThirdPersonCameraPos": [
+    0,
+    2,
+    9.5
+  ],
+  "VehicleIcon": "sbwdroneconfig:textures/item/mobile_patriot_launcher_mpl01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/civilian.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 0
+  },
+  "EngineSound": "superbwarfare:truck_engine",
+  "HornSound": "superbwarfare:truck_horn",
+  "TerrainCompat": [
+    [
+      -1.18,
+      0,
+      -3.74
+    ],
+    [
+      -1.18,
+      0,
+      -2.05
+    ],
+    [
+      -1.18,
+      0,
+      2.2
+    ],
+    [
+      -1.18,
+      0,
+      3.91
+    ],
+    [
+      1.18,
+      0,
+      -3.74
+    ],
+    [
+      1.18,
+      0,
+      -2.05
+    ],
+    [
+      1.18,
+      0,
+      2.2
+    ],
+    [
+      1.18,
+      0,
+      3.91
+    ]
+  ],
+  "InertiaRotateRate": 0.3,
+  "KeepChunkLoaded": false,
+  "HasDecoy": false,
+  "Weapons": {},
+  "TurretControllerIndex": -1,
+  "HudType": "@Empty"
+}

@@ -6,12 +6,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,20 +36,17 @@ public final class DroneEngineSoundClient {
     private DroneEngineSoundClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneEngineSoundClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> VehicleEntity.playEngineSound = DroneEngineSoundClient::playEngineSound);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneEngineSoundClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneEngineSoundClient.class);
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         VehicleEntity.playEngineSound = DroneEngineSoundClient::playEngineSound;
 
@@ -142,8 +140,17 @@ public final class DroneEngineSoundClient {
     }
 
     private static ItemStack getActiveMonitor(LocalPlayer player) {
-        ItemStack activeMonitor = SbwCompat.getActiveLinkedMonitor(player);
-        return SbwCompat.isUsingLinkedMonitor(activeMonitor) ? activeMonitor : ItemStack.EMPTY;
+        ItemStack mainHand = player.getMainHandItem();
+        if (SbwCompat.isUsingLinkedMonitor(mainHand)) {
+            return mainHand;
+        }
+
+        ItemStack offhand = player.getOffhandItem();
+        if (SbwCompat.isUsingLinkedMonitor(offhand)) {
+            return offhand;
+        }
+
+        return ItemStack.EMPTY;
     }
 
     private static double resolveListenerDistance(VehicleEntity drone) {
@@ -182,6 +189,7 @@ public final class DroneEngineSoundClient {
     }
 
     private static float getEffectiveDroneVolume(VehicleEntity drone) {
+        if(drone instanceof Fl01Entity)return (float)(.75*AddonConfig.droneEngineVolumeMultiplier()*AddonConfig.droneAirborneVolumeMultiplier());
         float baseVolume = (float) (drone.getEngineSoundVolume() * AddonConfig.droneEngineVolumeMultiplier());
         boolean lucasDrone = usesLucasEngineAudio(drone);
         if (lucasDrone) {
@@ -251,7 +259,7 @@ public final class DroneEngineSoundClient {
     }
 
     private static boolean usesLucasEngineAudio(VehicleEntity drone) {
-        return drone instanceof LucasDroneEntity || drone instanceof Geranium2Entity;
+        return drone instanceof LucasDroneEntity || drone instanceof Geranium2Entity || drone instanceof Fl01Entity;
     }
 
     private static final class DroneVehicleEngineSound extends VehicleSoundInstance {
@@ -343,7 +351,8 @@ public final class DroneEngineSoundClient {
         }
 
         private static SoundEvent resolveSoundEvent(VehicleEntity drone) {
-            if (drone instanceof Geranium2Entity) {
+            if(drone instanceof Fl01Entity)return net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.tryParse("superbwarfare:rocket_engine"));
+            if (drone instanceof Geranium2Entity || drone instanceof Fl01Entity) {
                 return AddonSounds.LUCAS_DRONE_ENGINE.get();
             }
             if (drone instanceof GlideBombEntity) {

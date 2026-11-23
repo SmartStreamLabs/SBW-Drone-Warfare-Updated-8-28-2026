@@ -1,0 +1,215 @@
+{
+  "MaxHealth": 180,
+  "MaxEnergy": 200000,
+  "KeepChunkLoaded": false,
+  "Seats": [],
+  "Weapons": {},
+  "Gravity": 0.04,
+  "RotateOffsetHeight": 0,
+  "Mass": 1.5,
+  "UpStep": 0,
+  "VehicleContainerType": "Small",
+  "VehicleIcon": "superbwarfare:textures/gui/vehicle/type/water.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/water.png",
+  "Type": "Boat",
+  "HudType": "@Empty",
+  "EngineType": "Ship",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 0,
+    "MaxForwardSpeedRate": 0.65,
+    "MaxBackwardSpeedRate": 0.23,
+    "Increment": 0.025,
+    "Decrement": 0.026,
+    "SteeringSpeed": 0.12,
+    "BodyPitchRate": 0,
+    "BodyRollRate": 0,
+    "EngineSoundVolume": 0
+  },
+  "TurretPos": [
+    0,
+    0.11,
+    3.78
+  ],
+  "BarrelPos": [
+    0,
+    0,
+    0
+  ],
+  "TurretPitchRange": [
+    -45,
+    45
+  ],
+  "DestroyInfo": {
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "ExplodeBlocks": false,
+    "ExplodePassengers": false,
+    "SympatheticDetonation": false,
+    "ParticleType": "Small"
+  },
+  "CollisionLevel": {
+    "Level": 0
+  },
+  "TerrainCompat": [],
+  "InertiaRotateRate": 1,
+  "DamageModifiers": [],
+  "OBB": [
+    {
+      "Size": [
+        0.45,
+        0.425,
+        2.8
+      ],
+      "Position": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.3,
+        0.3,
+        0.54
+      ],
+      "Position": [
+        0.0,
+        0.0,
+        3.17
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.31,
+        0.3,
+        0.68
+      ],
+      "Position": [
+        0.0,
+        -0.02,
+        -3.12
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.08,
+        0.35,
+        0.81
+      ],
+      "Position": [
+        0.0,
+        0.735,
+        -0.025
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.725,
+        0.18,
+        1.04
+      ],
+      "Position": [
+        -0.905,
+        -0.225,
+        -2.28
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.725,
+        0.18,
+        1.04
+      ],
+      "Position": [
+        0.905,
+        -0.225,
+        -2.28
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.025,
+        0.19,
+        0.38
+      ],
+      "Position": [
+        0.0,
+        0.32,
+        -3.295
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.025,
+        0.19,
+        0.4
+      ],
+      "Position": [
+        0.0,
+        -0.315,
+        -3.25
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.14,
+        0.165,
+        0.14
+      ],
+      "Position": [
+        0.0,
+        0.555,
+        2.58
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.14,
+        0.165,
+        0.14
+      ],
+      "Position": [
+        0.0,
+        0.555,
+        -2.4
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.12,
+        0.12,
+        0.09
+      ],
+      "Position": [
+        0.0,
+        -0.01,
+        -3.7
+      ],
+      "Part": "Body"
+    },
+    {
+      "Size": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "Position": [
+        0.0,
+        0.11,
+        3.78
+      ],
+      "Part": "Body"
+    }
+  ]
+}

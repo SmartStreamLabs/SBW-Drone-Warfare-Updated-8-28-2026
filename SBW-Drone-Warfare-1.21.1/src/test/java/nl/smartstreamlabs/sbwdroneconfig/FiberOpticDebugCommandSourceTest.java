@@ -43,6 +43,6 @@ class FiberOpticDebugCommandSourceTest {
         );
         String source = Files.readString(mainSource, StandardCharsets.UTF_8);
 
-        assertTrue(source.contains("MinecraftForge.EVENT_BUS.register(FiberOpticDebugCommand.class);"));
+        assertTrue(source.contains("NeoForge.EVENT_BUS.register(FiberOpticDebugCommand.class);"));
     }
 }

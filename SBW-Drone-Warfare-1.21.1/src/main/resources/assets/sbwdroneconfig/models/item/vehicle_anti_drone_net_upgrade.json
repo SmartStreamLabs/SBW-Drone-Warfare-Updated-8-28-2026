@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "sbwdroneconfig:item/anti_drone_net"
+    "layer0": "sbwdroneconfig:item/vehicle_anti_drone_net_upgrade"
   }
 }

@@ -1,0 +1,11 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.client.particle.*;import net.minecraft.client.multiplayer.ClientLevel;import net.minecraft.client.*;import net.minecraft.client.renderer.texture.TextureAtlas;import net.minecraft.world.level.block.Blocks;import net.minecraft.util.Mth;import com.mojang.blaze3d.vertex.VertexConsumer;import org.joml.*;
+/** Irregular thin metal plates, with shaded faces and real 3D tumble. Purely cosmetic. */
+final class Hg01ShardParticle extends TextureSheetParticle{
+ private final float size,angle;private static final float[][] POINTS={{-.65f,-.4f},{.75f,-.25f},{.45f,.7f},{-.4f,.5f}};private final Quaternionf spin=new Quaternionf();
+ Hg01ShardParticle(ClientLevel l,double x,double y,double z,double vx,double vy,double vz,float size,int life,float angle){super(l,x,y,z);this.size=size;this.angle=angle;xd=vx;yd=vy;zd=vz;lifetime=life;hasPhysics=false;setSprite(Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getParticleIcon(Blocks.IRON_BLOCK.defaultBlockState()));}
+ @Override public void tick(){xo=x;yo=y;zo=z;if(++age>=lifetime){remove();return;}x+=xd;y+=yd;z+=zd;xd*=.965;zd*=.965;yd=yd*.98-.025;alpha=Mth.clamp((lifetime-age)/8f,0,1);}
+ public ParticleRenderType getRenderType(){return ParticleRenderType.TERRAIN_SHEET;}
+ @Override public void render(VertexConsumer c,Camera camera,float p){var cam=camera.getPosition();float cx=(float)(Mth.lerp(p,xo,x)-cam.x),cy=(float)(Mth.lerp(p,yo,y)-cam.y),cz=(float)(Mth.lerp(p,zo,z)-cam.z);spin.identity().rotateXYZ(angle+(age+p)*.21f,angle*.7f+(age+p)*.32f,angle*.3f+(age+p)*.13f);Vector3f[] a=new Vector3f[8];for(int side=0;side<2;side++)for(int i=0;i<4;i++)a[side*4+i]=new Vector3f(POINTS[i][0]*size,POINTS[i][1]*size,(side==0?-1:1)*size*.1f).rotate(spin).add(cx,cy,cz);int light=getLightColor(p);face(c,a,new int[]{0,1,2,3},.8f,light);face(c,a,new int[]{7,6,5,4},.48f,light);for(int i=0;i<4;i++)face(c,a,new int[]{i,(i+1)%4,(i+1)%4+4,i+4},.96f,light);}
+ private void face(VertexConsumer c,Vector3f[] p,int[] indices,float shade,int light){for(int i=0;i<4;i++){var v=p[indices[i]];c.vertex(v.x,v.y,v.z).uv(i<2?sprite.getU0():sprite.getU1(),i==0||i==3?sprite.getV0():sprite.getV1()).color(shade,shade,shade*.97f,alpha).uv2(light).endVertex();}}
+}

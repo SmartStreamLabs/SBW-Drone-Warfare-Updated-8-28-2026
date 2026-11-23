@@ -1,6 +1,0 @@
-{
-  "ID": "sbwdroneconfig:heavy_bomber_drone",
-  "MaxHealth": 160,
-  "Type": "Drone",
-  "HasLowHealthWarning": false
-}

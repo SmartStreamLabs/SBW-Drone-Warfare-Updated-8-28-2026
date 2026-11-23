@@ -1,0 +1,73 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "loader": "forge:obj",
+    "model": "sbwdroneconfig:models/item/lp01.obj",
+    "mtl_override": "sbwdroneconfig:models/item/lp01.mtl",
+    "flip_v": false,
+    "automatic_culling": false,
+    "textures": {
+      "particle": "sbwdroneconfig:block/lucas_launch_platform_lp01"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          25,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          -1,
+          0
+        ],
+        "scale": [
+          0.33,
+          0.33,
+          0.33
+        ]
+      },
+      "ground": {
+        "scale": [
+          0.12,
+          0.12,
+          0.12
+        ]
+      },
+      "fixed": {
+        "scale": [
+          0.25,
+          0.25,
+          0.25
+        ]
+      },
+      "firstperson_righthand": {
+        "rotation": [
+          0,
+          30,
+          0
+        ],
+        "scale": [
+          0.15,
+          0.15,
+          0.15
+        ]
+      },
+      "thirdperson_righthand": {
+        "scale": [
+          0.12,
+          0.12,
+          0.12
+        ]
+      }
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/lucas_launch_platform_lp01"
+      }
+    }
+  }
+}

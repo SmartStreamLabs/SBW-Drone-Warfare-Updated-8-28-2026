@@ -1,0 +1,4 @@
+newmtl rd01
+Ka 1 1 1
+Kd 1 1 1
+map_Kd sbwdroneconfig:item/rescue_drone_rd01

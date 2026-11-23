@@ -1,0 +1,11 @@
+{
+  "loader": "forge:obj",
+  "model": "sbwdroneconfig:models/block/fm01_static.obj",
+  "mtl_override": "sbwdroneconfig:models/block/fm01.mtl",
+  "flip_v": true,
+  "automatic_culling": false,
+  "render_type": "minecraft:solid",
+  "textures": {
+    "particle": "sbwdroneconfig:block/fuel_mixer_fm01"
+  }
+}

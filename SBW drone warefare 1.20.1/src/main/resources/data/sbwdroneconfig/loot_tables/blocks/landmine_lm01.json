@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sbwdroneconfig:landmine_lm01",
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:block_state_property",
+                "block": "sbwdroneconfig:landmine_lm01",
+                "properties": {
+                  "stage": "triggered"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

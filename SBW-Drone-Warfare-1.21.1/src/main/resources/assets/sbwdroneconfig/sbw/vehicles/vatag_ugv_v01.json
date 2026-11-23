@@ -1,0 +1,7 @@
+{
+  "Model": {
+    "Model": "sbwdroneconfig:geo/vatag_ugv_v01.geo.json",
+    "Texture": "sbwdroneconfig:textures/entity/vatag_ugv_v01.png",
+    "Animation": "sbwdroneconfig:animations/vatag_ugv_v01.animation.json"
+  }
+}

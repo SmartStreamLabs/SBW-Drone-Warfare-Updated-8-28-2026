@@ -1,0 +1,33 @@
+{
+  "units_per_block": 16,
+  "screen_mesh": "LIVE_FEED_SURFACE",
+  "screen_group": "Screen_Surface",
+  "screen_texture_index": 1,
+  "screen_resolution": [
+    1024,
+    576
+  ],
+  "screen_aspect_ratio": "16:9",
+  "screen_render": "Replace offline material with drone-camera render target. The model itself does not contain a working live feed.",
+  "lid_bone": "Lid",
+  "lid_rest_rotation_degrees": [
+    100,
+    0,
+    0
+  ],
+  "lid_hinge_model_units": [
+    0,
+    7.04,
+    5.76
+  ],
+  "animations": [
+    "animation.dvt01.close_lid",
+    "animation.dvt01.fold_antenna"
+  ],
+  "animation_note": "Rotation keyframes are offsets from the model rest rotation; close_lid rotates from open rest pose to shut.",
+  "base_size_blocks": [
+    1.16,
+    0.46,
+    0.8
+  ]
+}

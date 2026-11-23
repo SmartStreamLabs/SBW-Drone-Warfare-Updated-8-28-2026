@@ -6,35 +6,38 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.CameraType;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.Entity;
 import org.joml.Matrix4f;
 
-import java.lang.reflect.Field;
-
 final class PortableFpvDetectorVideoRenderer {
     private static RenderTarget videoTarget;
     private static int targetWidth;
     private static int targetHeight;
     private static boolean rendering;
+    private static Object cachedLevel;
+    private static java.util.UUID cachedDrone;
+    private static boolean validFrame;
+    private static long nextCaptureNanos;
+    // Bounded diagnostics also used by the native performance check; no per-frame logging.
+    private static long captureCount, captureNanos;
+
     private static long lastFailureMillis;
-    private static Field mainRenderTargetField;
-    private static boolean mainRenderTargetFieldMissing;
 
     private PortableFpvDetectorVideoRenderer() {
     }
 
-    static boolean render(GuiGraphics guiGraphics, PortableFpvDetectorTarget target, int x, int y, int width, int height, float partialTick) {
-        return render(guiGraphics, target, x, y, width, height, partialTick, DroneJammerClient.latestScan().videoEnabled());
+    static boolean render(GuiGraphics guiGraphics, PortableFpvDetectorTarget target, int x, int y, int width, int height) {
+        return render(guiGraphics, target, x, y, width, height, DroneJammerClient.latestScan().videoEnabled());
     }
 
-    static boolean render(GuiGraphics guiGraphics, PortableFpvDetectorTarget target, int x, int y, int width, int height, float partialTick, boolean videoEnabled) {
+    static boolean render(GuiGraphics guiGraphics, PortableFpvDetectorTarget target, int x, int y, int width, int height, boolean videoEnabled) {
         if (rendering || target == null || !target.cameraAvailable() || !videoEnabled) {
             return false;
         }
@@ -51,7 +54,19 @@ final class PortableFpvDetectorVideoRenderer {
 
         width = Math.max(16, width);
         height = Math.max(16, height);
-        ensureTarget(width, height);
+        double scale=Math.min(1d,Math.min(320d/width,180d/height));
+        ensureTarget(Math.max(16,(int)Math.round(width*scale)),Math.max(16,(int)Math.round(height*scale)));
+        if(cachedLevel!=minecraft.level||!target.droneId().equals(cachedDrone)){
+            cachedLevel=minecraft.level;cachedDrone=target.droneId();validFrame=false;nextCaptureNanos=0;
+        }
+        long captureStart=System.nanoTime();
+        if(captureStart<nextCaptureNanos){
+            if(validFrame){guiGraphics.flush();drawTargetTexture(guiGraphics,x,y,width,height);}
+            return validFrame;
+        }
+        // Failure paths are throttled too. Never show an earlier drone's image.
+        nextCaptureNanos=captureStart+1_000_000_000L;
+        validFrame=false;
 
         RenderTarget mainTarget = minecraft.getMainRenderTarget();
         Entity previousCameraEntity = minecraft.getCameraEntity();
@@ -60,7 +75,11 @@ final class PortableFpvDetectorVideoRenderer {
         guiGraphics.flush();
         rendering = true;
         PortableFpvDetectorRenderContext.beginOffscreenRender();
-        MainRenderTargetSwap mainTargetSwap = MainRenderTargetSwap.inactive();
+        // A nested world render must not inherit the GUI's -11000 Z model-view translation.
+        var videoModelView=RenderSystem.getModelViewStack();
+        videoModelView.pushMatrix().identity();
+        RenderSystem.applyModelViewMatrix();
+
         try {
             RenderSystem.backupProjectionMatrix();
             minecraft.options.setCameraType(CameraType.FIRST_PERSON);
@@ -69,62 +88,61 @@ final class PortableFpvDetectorVideoRenderer {
             minecraft.gameRenderer.setRenderHand(false);
             minecraft.gameRenderer.setRenderBlockOutline(false);
 
-            mainTargetSwap = MainRenderTargetSwap.swap(minecraft, mainTarget, videoTarget);
-            if (!mainTargetSwap.active()) {
-                return false;
-            }
+            ((nl.smartstreamlabs.sbwdroneconfig.mixin.WhiteHotTargetAccessor)(Object)minecraft).drone$setVideoTarget(videoTarget);
+            RenderSystem.disableScissor();
+            RenderSystem.depthMask(true);RenderSystem.enableDepthTest();RenderSystem.disableBlend();RenderSystem.setShaderColor(1,1,1,1);
             videoTarget.clear(Minecraft.ON_OSX);
             videoTarget.bindWrite(true);
-            RenderSystem.disableScissor();
-            RenderSystem.viewport(0, 0, width, height);
-            minecraft.gameRenderer.renderLevel(partialTick, System.nanoTime(), new PoseStack());
-            flushLevelRenderBuffers(minecraft);
+            minecraft.gameRenderer.renderLevel(DeltaTracker.ZERO);
         } catch (RuntimeException exception) {
             maybeLogFailure(exception);
             return false;
         } finally {
-            try {
-                videoTarget.unbindWrite();
-                mainTargetSwap.close();
-                DroneClientViewContext.endReadOnlyCameraIntercept();
-                Entity restoredCameraEntity = previousCameraEntity == null ? minecraft.player : previousCameraEntity;
-                minecraft.setCameraEntity(restoredCameraEntity);
-                minecraft.options.setCameraType(previousCameraType);
-                if (minecraft.level != null && restoredCameraEntity != null) {
-                    minecraft.gameRenderer.getMainCamera().setup(
-                            minecraft.level,
-                            restoredCameraEntity,
-                            !previousCameraType.isFirstPerson(),
-                            previousCameraType.isMirrored(),
-                            partialTick
-                    );
-                }
-                minecraft.gameRenderer.setRenderHand(true);
-                minecraft.gameRenderer.setRenderBlockOutline(true);
-                mainTarget.bindWrite(true);
-                RenderSystem.restoreProjectionMatrix();
-                RenderSystem.viewport(0, 0, minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
-                RenderSystem.disableScissor();
-                RenderSystem.disableBlend();
-                RenderSystem.enableDepthTest();
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            } finally {
-                PortableFpvDetectorRenderContext.endOffscreenRender();
-                rendering = false;
+            videoTarget.unbindWrite();
+            ((nl.smartstreamlabs.sbwdroneconfig.mixin.WhiteHotTargetAccessor)(Object)minecraft).drone$setVideoTarget(mainTarget);
+            DroneClientViewContext.endReadOnlyCameraIntercept();
+            Entity restoredCameraEntity = previousCameraEntity == null ? minecraft.player : previousCameraEntity;
+            minecraft.setCameraEntity(restoredCameraEntity);
+            minecraft.options.setCameraType(previousCameraType);
+            if (minecraft.level != null && restoredCameraEntity != null) {
+                minecraft.gameRenderer.getMainCamera().setup(
+                        minecraft.level,
+                        restoredCameraEntity,
+                        !previousCameraType.isFirstPerson(),
+                        previousCameraType.isMirrored(),
+                        0.0F
+                );
             }
+            minecraft.gameRenderer.setRenderHand(true);
+            minecraft.gameRenderer.setRenderBlockOutline(true);
+            mainTarget.bindWrite(true);
+            RenderSystem.restoreProjectionMatrix();
+            RenderSystem.viewport(0, 0, minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
+            RenderSystem.disableScissor();
+            RenderSystem.disableBlend();
+            RenderSystem.enableDepthTest();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            videoModelView.popMatrix();RenderSystem.applyModelViewMatrix();
+            PortableFpvDetectorRenderContext.endOffscreenRender();
+            rendering = false;
         }
 
-        guiGraphics.enableScissor(x, y, x + width, y + height);
-        try {
-            drawTargetTexture(guiGraphics, x, y, width, height);
-        } finally {
-            guiGraphics.disableScissor();
-        }
+        long cost=Math.max(1,System.nanoTime()-captureStart);
+        captureCount++;captureNanos+=cost;
+        // At most 10 camera renders/sec; expensive captures reduce the refresh rate further.
+        // No catch-up loop after a stall or a hidden window.
+        nextCaptureNanos=System.nanoTime()+Math.max(100_000_000L,Math.min(1_000_000_000L,cost*4));
+        validFrame=true;
+
+        drawTargetTexture(guiGraphics, x, y, width, height);
         return true;
     }
 
     static void release() {
+        validFrame=false;cachedLevel=null;cachedDrone=null;nextCaptureNanos=0;
         if (videoTarget != null) {
+            WhiteHotRender.releaseTarget(videoTarget);
+            CameraInterferenceRender.releaseTarget(videoTarget);
             videoTarget.destroyBuffers();
             videoTarget = null;
             targetWidth = 0;
@@ -152,100 +170,16 @@ final class PortableFpvDetectorVideoRenderer {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         Matrix4f matrix = guiGraphics.pose().last().pose();
-        BufferBuilder buffer = Tesselator.getInstance().getBuilder();
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.vertex(matrix, x, y + height, 0.0F).uv(0.0F, 0.0F).endVertex();
-        buffer.vertex(matrix, x + width, y + height, 0.0F).uv(1.0F, 0.0F).endVertex();
-        buffer.vertex(matrix, x + width, y, 0.0F).uv(1.0F, 1.0F).endVertex();
-        buffer.vertex(matrix, x, y, 0.0F).uv(0.0F, 1.0F).endVertex();
-        BufferUploader.drawWithShader(buffer.end());
+        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.addVertex(matrix, x, y + height, 0.0F).setUv(0.0F, 0.0F);
+        buffer.addVertex(matrix, x + width, y + height, 0.0F).setUv(1.0F, 0.0F);
+        buffer.addVertex(matrix, x + width, y, 0.0F).setUv(1.0F, 1.0F);
+        buffer.addVertex(matrix, x, y, 0.0F).setUv(0.0F, 1.0F);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
-    }
-
-    private static void flushLevelRenderBuffers(Minecraft minecraft) {
-        minecraft.renderBuffers().bufferSource().endBatch();
-        minecraft.renderBuffers().crumblingBufferSource().endBatch();
-    }
-
-    private static Field mainRenderTargetField(Minecraft minecraft, RenderTarget expectedMainTarget) {
-        if (mainRenderTargetField != null) {
-            return mainRenderTargetField;
-        }
-        if (mainRenderTargetFieldMissing) {
-            return null;
-        }
-
-        for (Field field : Minecraft.class.getDeclaredFields()) {
-            if (!RenderTarget.class.isAssignableFrom(field.getType())) {
-                continue;
-            }
-            try {
-                field.setAccessible(true);
-                if (field.get(minecraft) == expectedMainTarget) {
-                    mainRenderTargetField = field;
-                    return field;
-                }
-            } catch (ReflectiveOperationException | SecurityException ignored) {
-                // Try the next RenderTarget field.
-            }
-        }
-
-        mainRenderTargetFieldMissing = true;
-        return null;
-    }
-
-    private static final class MainRenderTargetSwap implements AutoCloseable {
-        private static final MainRenderTargetSwap INACTIVE = new MainRenderTargetSwap(null, null, null, false);
-
-        private final Minecraft minecraft;
-        private final Field field;
-        private final RenderTarget original;
-        private final boolean active;
-
-        private MainRenderTargetSwap(Minecraft minecraft, Field field, RenderTarget original, boolean active) {
-            this.minecraft = minecraft;
-            this.field = field;
-            this.original = original;
-            this.active = active;
-        }
-
-        static MainRenderTargetSwap inactive() {
-            return INACTIVE;
-        }
-
-        static MainRenderTargetSwap swap(Minecraft minecraft, RenderTarget original, RenderTarget replacement) {
-            Field field = mainRenderTargetField(minecraft, original);
-            if (field == null) {
-                return inactive();
-            }
-
-            try {
-                field.set(minecraft, replacement);
-                return new MainRenderTargetSwap(minecraft, field, original, true);
-            } catch (ReflectiveOperationException | SecurityException exception) {
-                maybeLogFailure(new IllegalStateException("Unable to route portable FPV detector render target.", exception));
-                return inactive();
-            }
-        }
-
-        boolean active() {
-            return active;
-        }
-
-        @Override
-        public void close() {
-            if (!active) {
-                return;
-            }
-            try {
-                field.set(minecraft, original);
-            } catch (ReflectiveOperationException | SecurityException exception) {
-                maybeLogFailure(new IllegalStateException("Unable to restore Minecraft main render target.", exception));
-            }
-        }
     }
 
     private static void maybeLogFailure(RuntimeException exception) {

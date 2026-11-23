@@ -1,12 +1,16 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record LucasFuelSyncMessage(UUID droneId, int currentFuel, int maxFuel, boolean emptyFuel, boolean lowFuel) {
+public record LucasFuelSyncMessage(UUID droneId, int currentFuel, int maxFuel, boolean emptyFuel, boolean lowFuel) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LucasFuelSyncMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "lucas_fuel_sync"));
+
     public static void encode(LucasFuelSyncMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.droneId);
         buffer.writeVarInt(message.currentFuel);
@@ -25,8 +29,12 @@ public record LucasFuelSyncMessage(UUID droneId, int currentFuel, int maxFuel, b
         );
     }
 
-    public static void handle(LucasFuelSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(LucasFuelSyncMessage message, IPayloadContext context) {
         LucasFuelClient.handleSync(message);
-        contextSupplier.get().setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

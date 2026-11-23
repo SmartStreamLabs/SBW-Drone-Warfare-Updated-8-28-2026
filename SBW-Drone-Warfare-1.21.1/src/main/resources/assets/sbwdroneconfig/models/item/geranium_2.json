@@ -1,10 +1,10 @@
 {
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "textures": {
     "particle": "sbwdroneconfig:item/geranium_2"
   },
   "base": {
-    "loader": "forge:obj",
+    "loader": "neoforge:obj",
     "model": "sbwdroneconfig:models/item/geranium_2.obj",
     "mtl_override": "sbwdroneconfig:models/item/geranium_2.mtl",
     "automatic_culling": false,
@@ -133,5 +133,12 @@
       }
     }
   },
-  "perspectives": {}
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/geranium_2"
+      }
+    }
+  }
 }

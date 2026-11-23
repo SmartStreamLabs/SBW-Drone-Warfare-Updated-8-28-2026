@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "sbwdroneconfig:mu01_tactical_helmet",
+    "sbwdroneconfig:mu01_tactical_vest",
+    "sbwdroneconfig:mu01_combat_trousers",
+    "sbwdroneconfig:mu01_combat_boots"
+  ]
+}

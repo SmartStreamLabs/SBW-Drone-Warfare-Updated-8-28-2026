@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+public record VatagInput(int action,java.util.UUID id,long sequence,int keys,float yaw,float pitch){
+ private static void apply(VatagInput m,net.minecraft.server.level.ServerPlayer p){if(p==null)return;if(m.action==10){CarrierFleet.open(p,0);return;}if(m.action==0)VatagSessions.start(p,m.id);else if(m.action==1)VatagSessions.input(p,m.id,m.sequence,m.keys,m.yaw,m.pitch);else if(m.action==5||m.action==6)VatagSessions.submarineCommand(p,m.id,m.sequence,m.action==6);else if(m.action==7)VatagSessions.waterDetonation(p,m.id,m.sequence,m.keys==1);else if(m.action==8)VatagSessions.deployLandmine(p,m.id,m.sequence);else if(m.action==9)VatagSessions.coupleTrailer(p,m.id,m.sequence);else if(m.action==4)VatagSessions.hgdWeapon(p,m.id,m.sequence);else if(m.action==3)VatagSessions.openCarrierDocks(p,m.id,m.sequence);else if(m.action==2)VatagSessions.stop(p,m.id);}
+ public static void encode(VatagInput m,net.minecraft.network.FriendlyByteBuf b){b.writeByte(m.action);b.writeUUID(m.id);b.writeLong(m.sequence);b.writeByte(m.keys);b.writeFloat(m.yaw);b.writeFloat(m.pitch);}
+ public static VatagInput decode(net.minecraft.network.FriendlyByteBuf b){return new VatagInput(b.readUnsignedByte(),b.readUUID(),b.readLong(),b.readUnsignedByte(),b.readFloat(),b.readFloat());}
+ public static void handle(VatagInput m,java.util.function.Supplier<net.minecraftforge.network.NetworkEvent.Context> s){var c=s.get();c.enqueueWork(()->apply(m,c.getSender()));c.setPacketHandled(true);}
+}

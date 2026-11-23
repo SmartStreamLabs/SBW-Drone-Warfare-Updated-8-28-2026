@@ -1,87 +1,114 @@
 plugins {
-    id 'eclipse'
+    id 'java-library'
+    id 'maven-publish'
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
-    id 'org.spongepowered.mixin' version '0.7.+'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.moddev' version '2.0.80'
 }
 
-version = '1.0.6'
-group = 'nl.smartstreamlabs.sbwdroneconfig'
-def jeiVersion = '15.28.0.160'
+version = mod_version
+group = mod_group_id
+def jeiVersion = '19.39.0.372'
+
 def sbw0891Jar = file(providers.gradleProperty('sbw0891Jar').getOrElse(
-        'C:/Users/Gebruiker/Desktop/SuperbWarfare-0.8.9.1-1.20/build/libs/superbwarfare-0.8.9.1-mc1.20.1-unknown-all.jar'
+        'libs/superbwarfare-0.8.9-final-mc1.21.1-9b5284f4.jar'
 ))
 if (!sbw0891Jar.isFile()) {
-    throw new GradleException("Superb Warfare 0.8.9.1 Forge jar not found: ${sbw0891Jar}. Build the supplied 0.8.9.1 source or pass -Psbw0891Jar=<path>.")
+    throw new GradleException("Superb Warfare 0.8.9-final NeoForge jar not found: ${sbw0891Jar}. Install the supplied 0.8.9-final release or pass -Psbw0891Jar=<path>.")
 }
-def sbw0891Version = sbw0891Jar.name.substring('superbwarfare-'.length(), sbw0891Jar.name.length() - '.jar'.length())
-def kotlinForForgeRuntimeJar = [
-        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/1.20.1/mods/kotlinforforge-4.12.0-all.jar'),
-        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/Forge 1.20.1/mods/kotlinforforge-4.12.0-all.jar')
-].find { it.exists() }
-def simpleCloudsRuntimeJar = [
-        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/1.20.1/mods/simpleclouds-0.7.3+1.20.1-forge-all.jar'),
-        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/Creative-Server/mods/simpleclouds-0.7.3+1.20.1-forge-all.jar')
+
+def curiosRuntimeJar = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/curios-neoforge-9.5.1+1.21.1.jar'),
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/NeoForge 1.21.1/mods/curios-neoforge-9.5.1+1.21.1.jar')
 ].find { it.exists() }
 
+def kotlinForForgeRuntimeJar = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/kotlinforforge-5.12.0-all.jar'),
+        file('C:/Users/Gebruiker/AppData/Roaming/ModrinthApp/profiles/NeoForge 1.21.1/mods/kotlinforforge-5.12.0-all.jar')
+].find { it.exists() }
+
+def configuredSimpleBedrockModelJar = providers.gradleProperty('simpleBedrockModelJar')
+        .map { file(it) }
+        .orNull
+def simpleBedrockModelRuntimeCandidates = [
+        file('C:/Users/Gebruiker/curseforge/minecraft/Instances/1.21.1/mods/simplebedrockmodel-2.5.1.1-neoforge-mc1.21.1.jar'),
+        file('C:/jtmp/SimpleBedrockModel-2.5.1.1/build/libs/simplebedrockmodel-2.5.1.1-neoforge-mc1.21.1.jar')
+]
+if (configuredSimpleBedrockModelJar != null) {
+    simpleBedrockModelRuntimeCandidates.add(0, configuredSimpleBedrockModelJar)
+}
+def simpleBedrockModelRuntimeJar = simpleBedrockModelRuntimeCandidates.find { it.isFile() }
+if (simpleBedrockModelRuntimeJar == null) {
+    throw new GradleException('SimpleBedrockModel 2.5.1.1 for NeoForge 1.21.1 is required by Superb Warfare 0.8.9.1. Install it or pass -PsimpleBedrockModelJar=<path>.')
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+sourceSets.main.resources {
+    srcDir('src/generated/resources')
+    exclude('**/*.bbmodel')
+    exclude('src/generated/**/.cache')
+}
+
 base {
-    archivesName = 'SBW-Drone-Warfare-1.20.1-Forge'
+    archivesName = 'SBW-Drone-Warfare-1.21.1-NeoForge'
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
     withSourcesJar()
 }
 
-minecraft {
-    mappings channel: 'parchment', version: '2023.08.13-1.20.1'
-    copyIdeResources = true
+neoForge {
+    version = neo_version
+
+    parchment {
+        minecraftVersion = parchment_minecraft_version
+        mappingsVersion = parchment_mappings_version
+    }
 
     runs {
+        create('client') {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        create('server') {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        create('data') {
+            data()
+            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources').absolutePath, '--existing', file('src/main/resources').absolutePath
+        }
+
         configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                sbwdroneconfig {
-                    source sourceSets.main
-                }
-            }
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
         }
+    }
 
-        client {
-            property 'forge.enabledGameTestNamespaces', 'sbwdroneconfig'
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', 'sbwdroneconfig'
+    mods {
+        create(mod_id) {
+            sourceSet sourceSets.main
         }
     }
 }
 
 repositories {
-    flatDir {
-        dirs sbw0891Jar.parentFile
-    }
-    if (simpleCloudsRuntimeJar != null) {
-        flatDir {
-            dirs simpleCloudsRuntimeJar.parentFile
-        }
-    }
-    maven {
-        url = 'https://maven.minecraftforge.net'
-    }
+    mavenLocal()
     maven {
         url = 'https://repo.spongepowered.org/repository/maven-public/'
     }
     maven {
         name = 'GeckoLib'
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
-    maven {
-        name = 'Curios'
-        url = 'https://maven.theillusivec4.top/'
+        content {
+            includeGroupByRegex('software\\.bernie.*')
+        }
     }
     maven {
         name = 'JEI'
@@ -91,37 +118,68 @@ repositories {
         name = 'JitPack'
         url = 'https://jitpack.io'
         content {
-            includeGroup 'com.github.mcmodderanchor'
+            includeGroup 'com.github.MCModderAnchor'
         }
     }
     mavenCentral()
 }
 
+configurations {
+    localRuntime
+    runtimeClasspath.extendsFrom localRuntime
+}
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    compileOnly files('libs/optional/refinedstorage-neoforge-2.0.9.jar')
+    implementation 'software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.5'
+    compileOnly "mezz.jei:jei-1.21.1-common-api:${jeiVersion}"
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:${jeiVersion}"
+    localRuntime "mezz.jei:jei-1.21.1-neoforge:${jeiVersion}"
     compileOnly 'org.spongepowered:mixin:0.8.5'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    compileOnly fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.6')
-    runtimeOnly fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.6')
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:${jeiVersion}")
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:${jeiVersion}")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jeiVersion}")
-    runtimeOnly fg.deobf('top.theillusivec4.curios:curios-forge:5.14.1+1.20.1')
-    runtimeOnly fg.deobf('com.github.mcmodderanchor:simplebedrockmodel:2.5.1-forge-mc1.20.1')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    compileOnly fg.deobf("local.superbwarfare:superbwarfare:${sbw0891Version}")
-    runtimeOnly fg.deobf("local.superbwarfare:superbwarfare:${sbw0891Version}")
-    if (kotlinForForgeRuntimeJar != null) {
-        runtimeOnly files(kotlinForForgeRuntimeJar)
+    testImplementation 'com.google.code.gson:gson:2.11.0'
+    compileOnly files(sbw0891Jar)
+    localRuntime files(sbw0891Jar)
+    localRuntime files(simpleBedrockModelRuntimeJar)
+    if (curiosRuntimeJar != null) {
+        localRuntime files(curiosRuntimeJar)
     }
-    if (simpleCloudsRuntimeJar != null) {
-        runtimeOnly fg.deobf('local.simpleclouds:simpleclouds:0.7.3+1.20.1-forge-all')
+    if (kotlinForForgeRuntimeJar != null) {
+        localRuntime files(kotlinForForgeRuntimeJar)
     }
 }
 
-mixin {
-    add sourceSets.main, 'sbwdroneconfig.refmap.json'
-    config 'sbwdroneconfig.mixins.json'
+sourceSets.test.compileClasspath += sourceSets.main.compileClasspath
+sourceSets.test.runtimeClasspath += sourceSets.main.runtimeClasspath
+
+tasks.withType(ProcessResources).configureEach {
+    def replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            sbw_version_range      : sbw_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(
+                'MixinConfigs': 'sbwdroneconfig.mixins.json'
+        )
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -132,30 +190,29 @@ tasks.named('test', Test).configure {
     useJUnitPlatform()
 }
 
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version      : '1.20.1',
-            minecraft_version_range: '[1.20.1,1.21)',
-            forge_version          : '47.2.0',
-            forge_version_range    : '[47,)',
-            loader_version_range   : '[47,)',
-            mod_id                 : 'sbwdroneconfig',
-            mod_name               : 'SBW Drone Warfare',
-            mod_license            : 'GNU GENERAL PUBLIC LICENSE',
-            mod_version            : project.version,
-            mod_authors            : 'Team SmartStreamLabs',
-            mod_description        : '''SBW Drone Warfare is a tactical drone expansion for Superb Warfare. It adds controllable FPV and LUCAS drones, drone inventories and modules, fiber optic links, jammers, radar tools, anti-drone nets, extraction crates, fuel production, battery support, weather camera effects, thermal vision, screenshots, configurable audio, spotlight systems, and a full in-game config GUI.'''
-    ]
-    inputs.properties replaceProperties
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
     }
 }
 
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+// Keep the exact code license and separate provenance documents in release jars.
 tasks.named('jar', Jar).configure {
-    manifest {
-        attributes(
-                'MixinConfigs': 'sbwdroneconfig.mixins.json'
-        )
+    from(projectDir) {
+        include 'LICENSE', 'LICENSE-ASSETS.md', 'THIRD-PARTY-NOTICES.md', 'RIGHTS-REVIEW.md', 'ASSET-RIGHTS-INVENTORY.csv'
     }
 }

@@ -1,0 +1,6 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
+public final class AdcConfig{
+ public static final ModConfigSpec SPEC;public static final ModConfigSpec.DoubleValue RANGE,YAW,PITCH,SPREAD,DAMAGE,HEAT,COOL,RECOVER;public static final ModConfigSpec.IntValue SCAN,CAPACITY,COST,BURST,INTERVAL,PAUSE,MAX_SHELLS,EFFECTS;
+ static{var b=ConfigSchema.builder();b.push("ADC01");RANGE=b.defineInRange("range",96d,16,256);YAW=b.defineInRange("yawDegreesPerTick",6d,.5,20);PITCH=b.defineInRange("elevationDegreesPerTick",4d,.5,15);SPREAD=b.defineInRange("inaccuracy",1.4d,.05,8);DAMAGE=b.defineInRange("directDamage",18d,1,100);SCAN=b.defineInRange("scanIntervalTicks",12,5,100);CAPACITY=b.defineInRange("ammoCapacity",256,1,512);COST=b.defineInRange("ammoItemsPerShot",1,1,8);BURST=b.defineInRange("burstShots",6,1,20);INTERVAL=b.defineInRange("shotIntervalTicks",3,2,20);PAUSE=b.defineInRange("burstPauseTicks",50,10,200);HEAT=b.defineInRange("heatPerShot",10d,1,100);COOL=b.defineInRange("coolingPerTick",.4d,.05,5);RECOVER=b.defineInRange("overheatRecoveryThreshold",35d,0,80);MAX_SHELLS=b.defineInRange("maximumActiveShellsPerLevel",96,8,256);EFFECTS=b.defineInRange("effectDensity",2,0,4);b.pop();SPEC=b.build();}
+}

@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:delivery_drone",
+                   "id":  "sbwdroneconfig:delivery_drone",
                    "count":  1
                }
 }

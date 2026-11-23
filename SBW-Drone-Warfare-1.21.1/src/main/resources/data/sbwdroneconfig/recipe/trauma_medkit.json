@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "LIL",
+    "BMB",
+    "LIL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "B": {
+      "item": "sbwdroneconfig:field_bandage"
+    },
+    "M": {
+      "item": "superbwarfare:medical_kit"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:trauma_medkit",
+    "count": 1
+  }
+}

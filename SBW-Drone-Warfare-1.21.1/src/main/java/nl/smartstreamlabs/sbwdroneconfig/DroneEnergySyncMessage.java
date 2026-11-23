@@ -1,12 +1,16 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record DroneEnergySyncMessage(UUID droneId, int currentEnergy, int maxEnergy, boolean outOfEnergy, boolean lowEnergy) {
+public record DroneEnergySyncMessage(UUID droneId, int currentEnergy, int maxEnergy, boolean outOfEnergy, boolean lowEnergy) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DroneEnergySyncMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "drone_energy_sync"));
+
     public static void encode(DroneEnergySyncMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.droneId);
         buffer.writeVarInt(message.currentEnergy);
@@ -25,8 +29,12 @@ public record DroneEnergySyncMessage(UUID droneId, int currentEnergy, int maxEne
         );
     }
 
-    public static void handle(DroneEnergySyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(DroneEnergySyncMessage message, IPayloadContext context) {
         DroneEnergyClient.handleSync(message);
-        contextSupplier.get().setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

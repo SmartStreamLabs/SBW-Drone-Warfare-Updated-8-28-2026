@@ -1,0 +1,5 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import java.util.*;import org.junit.jupiter.api.Test;import static org.junit.jupiter.api.Assertions.*;
+class DwfBulkLoadTest{
+ @Test void batchRestoreKeepsOldSnapshotsAndRejectsInvalidBatchesBeforeMutation(){var store=new DwfBulkStore<String>(64000000,65536);store.restore("first",64000000);var old=store.snapshot();long revision=store.revision();assertThrows(IllegalArgumentException.class,()->store.restoreBatch(List.of(new DwfBulkStore.Entry<>("new",1),new DwfBulkStore.Entry<>("first",1))));assertEquals(revision,store.revision());var records=new ArrayList<DwfBulkStore.Entry<String>>();for(int i=0;i<1024;i++)records.add(new DwfBulkStore.Entry<>("restored-"+i,1));store.restoreBatch(records);assertEquals(64001024,store.total());int count=0;while(!old.done())count+=old.next(64).size();assertEquals(1,count);var latest=store.snapshot();count=0;while(!latest.done())count+=latest.next(64).size();assertEquals(1025,count);assertEquals(0,store.insert("new",1,true));}
+}

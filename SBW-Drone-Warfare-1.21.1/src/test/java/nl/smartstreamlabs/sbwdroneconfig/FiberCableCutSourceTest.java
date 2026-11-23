@@ -72,11 +72,13 @@ class FiberCableCutSourceTest {
     @Test
     void networkRegistersCutRequestAndAuthoritativeEffectPackets() throws Exception {
         String networkSource = readMainSource("AddonNetwork.java");
+        String requestSource = readMainSource("FiberCableCutRequestMessage.java");
+        String effectSource = readMainSource("FiberCableCutEffectMessage.java");
 
-        assertTrue(networkSource.contains("FiberCableCutRequestMessage.class"));
-        assertTrue(networkSource.contains("NetworkDirection.PLAY_TO_SERVER"));
-        assertTrue(networkSource.contains("FiberCableCutEffectMessage.class"));
-        assertTrue(networkSource.contains("NetworkDirection.PLAY_TO_CLIENT"));
+        assertTrue(networkSource.contains("registrar.playToServer(FiberCableCutRequestMessage.TYPE"));
+        assertTrue(networkSource.contains("registrar.playToClient(FiberCableCutEffectMessage.TYPE"));
+        assertTrue(requestSource.contains("implements CustomPacketPayload"));
+        assertTrue(effectSource.contains("implements CustomPacketPayload"));
     }
 
     private static String readMainSource(String fileName) throws Exception {

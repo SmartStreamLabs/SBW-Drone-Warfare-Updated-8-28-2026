@@ -1,0 +1,17 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "land",
+  "inputs": [
+    "14 superbwarfare:steel_block",
+    "2 superbwarfare:large_motor",
+    "superbwarfare:large_battery_pack",
+    "2 superbwarfare:heavy_armament_module",
+    "6 superbwarfare:small_battery_pack",
+    "2 minecraft:comparator",
+    "2 minecraft:chest",
+    "superbwarfare:monitor"
+  ],
+  "result": {
+    "entity": "sbwdroneconfig:anti_drone_vehicle_adv01"
+  }
+}

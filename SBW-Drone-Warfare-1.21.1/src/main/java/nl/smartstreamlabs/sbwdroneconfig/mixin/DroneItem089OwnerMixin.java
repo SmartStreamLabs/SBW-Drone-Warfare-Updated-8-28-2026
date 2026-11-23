@@ -14,11 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "com.atsuishio.superbwarfare.item.misc.DroneItem")
 public abstract class DroneItem089OwnerMixin {
     @Inject(method = "spawnDeployedEntity", at = @At("RETURN"), remap = false, require = 0)
-    private void sbwdroneconfig$assignOwnerOnPlacement(
-            Level level,
-            Player player,
-            CallbackInfoReturnable<Entity> cir
-    ) {
+    private void sbwdroneconfig$assignOwnerOnPlacement(Level level, Player player, CallbackInfoReturnable<Entity> cir) {
         Entity drone = cir.getReturnValue();
         if (drone != null && player != null) {
             SbwCompat.assignDroneOwner(drone, player);

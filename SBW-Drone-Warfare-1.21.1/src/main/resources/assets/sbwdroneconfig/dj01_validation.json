@@ -1,0 +1,20 @@
+{
+  "elements": 259,
+  "triangles": 6532,
+  "bones": 20,
+  "clips": 3,
+  "closed_outward_solids": true,
+  "intentional_decal_sheets": 6,
+  "unique_hierarchy_references": true,
+  "nondegenerate_faces": true,
+  "uv_bounds_checked": true,
+  "open_trigger_guard": true,
+  "open_optic_sight_corridor": true,
+  "separate_trigger_button_latch_groups": true,
+  "empty_main_and_support_hand_anchors": true,
+  "cosmetic_clips_return_to_bind_pose": true,
+  "matching_texture_state_uv": true,
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "actual_player_hand_pose_tested": false
+}

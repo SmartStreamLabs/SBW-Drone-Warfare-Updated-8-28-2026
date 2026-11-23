@@ -2,15 +2,16 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -22,8 +23,16 @@ public class DroneJammerItem extends Item {
         super(properties);
     }
 
+    @Override public void initializeClient(java.util.function.Consumer<net.neoforged.neoforge.client.extensions.common.IClientItemExtensions> consumer) {
+        consumer.accept(new net.neoforged.neoforge.client.extensions.common.IClientItemExtensions() {
+            private net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer renderer;
+            @Override public net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer getCustomRenderer() {if(renderer==null)renderer=new Pd01ItemRenderer();return renderer;}
+        });
+    }
+
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.drone_jammer.1").withStyle(ChatFormatting.GREEN));
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.drone_jammer.2").withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.drone_jammer.3").withStyle(ChatFormatting.GREEN));
@@ -87,7 +96,7 @@ public class DroneJammerItem extends Item {
     }
 
     public static boolean isActive(ItemStack stack) {
-        return !stack.isEmpty() && stack.is(AddonItems.DRONE_JAMMER.get()) && stack.getOrCreateTag().getBoolean(TAG_ACTIVE);
+        return !stack.isEmpty() && stack.is(AddonItems.DRONE_JAMMER.get()) && AddonStackTags.get(stack).getBoolean(TAG_ACTIVE);
     }
 
     public static ItemStack findActiveJammer(Player player) {
@@ -108,6 +117,12 @@ public class DroneJammerItem extends Item {
         return ItemStack.EMPTY;
     }
 
+    public static boolean isActiveDetectorCarried(Player player) {
+        if(player==null||!player.isAlive())return false;
+        for(int slot=0;slot<9;slot++)if(isActive(player.getInventory().getItem(slot)))return true;
+        return isActive(player.getOffhandItem());
+    }
+
     public static boolean isActiveJammerHeld(Player player) {
         if (player == null) {
             return false;
@@ -123,6 +138,6 @@ public class DroneJammerItem extends Item {
         if (stack.isEmpty() || !stack.is(AddonItems.DRONE_JAMMER.get())) {
             return;
         }
-        stack.getOrCreateTag().putBoolean(TAG_ACTIVE, active);
+        AddonStackTags.update(stack, tag -> tag.putBoolean(TAG_ACTIVE, active));
     }
 }

@@ -2,8 +2,8 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
 import java.lang.reflect.Method;
@@ -12,13 +12,8 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 public class DeliveryDroneModel extends GeoModel<DeliveryDroneEntity> {
-    private static final String[] PROPELLER_BONES = {
-            "delivery_propeller_0",
-            "delivery_propeller_1",
-            "delivery_propeller_2",
-            "delivery_propeller_3"
-    };
-    private static final float[] PROPELLER_DIRECTIONS = {1.0F, -1.0F, -1.0F, 1.0F};
+    private static final String[] PROPELLER_BONES = {"rotor_1","rotor_2","rotor_3","rotor_4","rotor_5","rotor_6"};
+    private static final float[] PROPELLER_DIRECTIONS = {1,-1,1,-1,1,-1};
     private static final Map<Entity, PropellerSpinState> SPIN_STATES = Collections.synchronizedMap(new WeakHashMap<>());
 
     @Override
@@ -45,7 +40,7 @@ public class DeliveryDroneModel extends GeoModel<DeliveryDroneEntity> {
         float angle = spinState.update(drone.tickCount + partialTick, targetSpeed(drone));
 
         for (int index = 0; index < PROPELLER_BONES.length; index++) {
-            CoreGeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
+            GeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
             if (bone != null) {
                 bone.setRotY(angle * PROPELLER_DIRECTIONS[index]);
             }

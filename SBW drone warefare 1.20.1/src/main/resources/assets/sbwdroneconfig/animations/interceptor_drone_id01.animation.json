@@ -1,0 +1,152 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.id01.rotors": {
+      "loop": true,
+      "animation_length": 0.4,
+      "bones": {
+        "rotor_L1": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.2": [
+              0.0,
+              0.0,
+              180.0
+            ],
+            "0.4": [
+              0.0,
+              0.0,
+              360.0
+            ]
+          }
+        },
+        "rotor_L2": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.2": [
+              0.0,
+              0.0,
+              -180.0
+            ],
+            "0.4": [
+              0.0,
+              0.0,
+              -360.0
+            ]
+          }
+        },
+        "rotor_R1": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.2": [
+              0.0,
+              0.0,
+              -180.0
+            ],
+            "0.4": [
+              0.0,
+              0.0,
+              -360.0
+            ]
+          }
+        },
+        "rotor_R2": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.2": [
+              0.0,
+              0.0,
+              180.0
+            ],
+            "0.4": [
+              0.0,
+              0.0,
+              360.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.id01.vertical_display": {
+      "loop": false,
+      "animation_length": 1,
+      "bones": {
+        "flight_attitude": {
+          "rotation": {
+            "0": [
+              -90.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.id01.launch_transition_preview": {
+      "loop": false,
+      "animation_length": 2,
+      "bones": {
+        "flight_attitude": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.65": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "2": [
+              -90.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.id01.service_hatch": {
+      "loop": false,
+      "animation_length": 0.6,
+      "bones": {
+        "service_hatch": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.6": [
+              0.0,
+              0.0,
+              -40.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

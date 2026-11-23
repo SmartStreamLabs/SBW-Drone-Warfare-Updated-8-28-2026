@@ -1,13 +1,17 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record PortableFpvDetectorSelectMessage(UUID targetId) {
+public record PortableFpvDetectorSelectMessage(UUID targetId) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PortableFpvDetectorSelectMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "portable_fpv_detector_select"));
+
     public static void encode(PortableFpvDetectorSelectMessage message, FriendlyByteBuf buffer) {
         buffer.writeBoolean(message.targetId() != null);
         if (message.targetId() != null) {
@@ -19,14 +23,16 @@ public record PortableFpvDetectorSelectMessage(UUID targetId) {
         return new PortableFpvDetectorSelectMessage(buffer.readBoolean() ? buffer.readUUID() : null);
     }
 
-    public static void handle(PortableFpvDetectorSelectMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
+    public static void handle(PortableFpvDetectorSelectMessage message, IPayloadContext context) {
         context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
-            if (player != null) {
+            if (context.player() instanceof ServerPlayer player) {
                 PortableFpvDetectorServer.selectTarget(player, message.targetId());
             }
         });
-        context.setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

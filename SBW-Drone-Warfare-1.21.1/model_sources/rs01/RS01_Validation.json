@@ -1,0 +1,26 @@
+{
+  "meshes": 63,
+  "triangles": 7362,
+  "faces_and_uvs_valid": true,
+  "embedded_textures_match": true,
+  "hierarchy_complete": true,
+  "blade_positive_volume": true,
+  "hollow_handle": true,
+  "grip_anchor_present": true,
+  "preview_animation_valid": true,
+  "model_bounds_blocks": {
+    "min": [
+      -0.163,
+      0.0,
+      -0.045
+    ],
+    "max": [
+      0.163,
+      1.137,
+      0.0659896325
+    ]
+  },
+  "blockbench_ui_tested": false,
+  "minecraft_tested": false,
+  "cleanup_gameplay_implemented": false
+}

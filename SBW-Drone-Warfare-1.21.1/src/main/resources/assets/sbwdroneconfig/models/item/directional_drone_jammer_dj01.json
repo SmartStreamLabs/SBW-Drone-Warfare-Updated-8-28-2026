@@ -1,0 +1,17 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "sbwdroneconfig:item/directional_drone_jammer_dj01"
+  },
+  "base": {
+    "parent": "builtin/entity"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/directional_drone_jammer_dj01"
+      }
+    }
+  }
+}

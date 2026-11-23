@@ -1,0 +1,44 @@
+{
+  "rest_pitch_degrees": 25,
+  "sampled_pose_checks": [
+    {
+      "gun_pitch_degrees": 0,
+      "gun_to_pod_surface_intersections": []
+    },
+    {
+      "gun_pitch_degrees": 10,
+      "gun_to_pod_surface_intersections": []
+    },
+    {
+      "gun_pitch_degrees": 25,
+      "gun_to_pod_surface_intersections": []
+    },
+    {
+      "gun_pitch_degrees": 40,
+      "gun_to_pod_surface_intersections": []
+    },
+    {
+      "gun_pitch_degrees": 55,
+      "gun_to_pod_surface_intersections": []
+    },
+    {
+      "gun_pitch_degrees": 70,
+      "gun_to_pod_surface_intersections": []
+    }
+  ],
+  "rest_bounds_blocks": [
+    [
+      -1.9919999837875366,
+      1.9919999837875366
+    ],
+    [
+      -2.115000009536743,
+      4.252957820892334
+    ],
+    [
+      0.0,
+      4.016168117523193
+    ]
+  ],
+  "minimum_ground_height_blocks": 0.0
+}

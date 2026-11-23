@@ -1,20 +1,24 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record AbandonedFiberCableSyncMessage(
         boolean replaceAll,
         List<AbandonedFiberCableData.CableRecord> cables
-) {
+) implements CustomPacketPayload {
     private static final int HARD_CABLE_LIMIT = 512;
     private static final int HARD_POINT_LIMIT = 2049;
+    public static final CustomPacketPayload.Type<AbandonedFiberCableSyncMessage> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "abandoned_fiber_cable_sync")
+    );
 
     public AbandonedFiberCableSyncMessage {
         cables = List.copyOf(cables);
@@ -66,8 +70,12 @@ public record AbandonedFiberCableSyncMessage(
         return new AbandonedFiberCableSyncMessage(replaceAll, cables);
     }
 
-    public static void handle(AbandonedFiberCableSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        AbandonedFiberCableClient.handleSync(message);
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(AbandonedFiberCableSyncMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> AbandonedFiberCableClient.handleSync(message));
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

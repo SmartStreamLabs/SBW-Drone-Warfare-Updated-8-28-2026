@@ -1,0 +1,17 @@
+{
+  "units_per_block": 16,
+  "main": "Soldier_Skeleton_SK01.bbmodel",
+  "upright_base": "Human_Skeleton_SK01_Base.bbmodel",
+  "distance_lod": "Soldier_Skeleton_SK01_LOD.bbmodel",
+  "rest_pose": "Main and LOD lie supine; base is upright. Root X rotation -90 degrees lays the authored anatomy on its back.",
+  "root": "SK01_Root",
+  "equipment_prefix": "Equipment_",
+  "description": "Original dry, stylized human skeletal remains with removable weathered military equipment. No gore.",
+  "notes": [
+    "Native free-model mesh assets with embedded material atlas.",
+    "Separate skull, mandible, torso, pelvis, limb and finger groups.",
+    "Equipment can be hidden by group; no national insignia.",
+    "No entity code, death events, ragdoll physics or universal skeleton generator is included.",
+    "Restants should be static; use the LOD and distance culling in the mod."
+  ]
+}

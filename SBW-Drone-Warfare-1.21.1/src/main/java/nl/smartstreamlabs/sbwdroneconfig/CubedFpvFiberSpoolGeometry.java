@@ -70,6 +70,12 @@ final class CubedFpvFiberSpoolGeometry {
     static final Vec3 FIBER_CABLE_EXIT = new Vec3(-0.089D, -0.045D, 0.000D);
     static final Vec3 CABLE_EXIT_LOCAL = FIBER_CABLE_EXIT;
 
+    // Cosmetic exit only; the old cable/cutting interaction anchor is preserved.
+    static final Vec3 VISUAL_CABLE_EXIT = new Vec3(0.0D, -0.025D, -0.06528D);
+    static Vec3 visualCableExitWorldPosition(CubedFpvDroneEntity drone, float partialTicks) {
+        return modelOffsetWorldPosition(drone, partialTicks, VISUAL_CABLE_EXIT);
+    }
+
     private CubedFpvFiberSpoolGeometry() {
     }
 

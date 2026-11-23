@@ -23,9 +23,11 @@ public class DroneDetectionSirenScreen extends Screen {
 
     public static void open(OpenSirenConfigMessage message) {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.setScreen(new DroneDetectionSirenScreen(message.blockPos(), message.blacklistedGamertags()));
+        if(minecraft.level!=null && minecraft.level.getBlockEntity(message.blockPos()) instanceof Ds02BlockEntity) minecraft.setScreen(new Ds02Screen(message.blockPos(),message.blacklistedGamertags()));
+        else minecraft.setScreen(new DroneDetectionSirenScreen(message.blockPos(), message.blacklistedGamertags()));
     }
 
+    @Override public void renderBackground(GuiGraphics g,int mx,int my,float partial) {}
     @Override
     protected void init() {
         super.init();
@@ -67,8 +69,7 @@ public class DroneDetectionSirenScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 
         int panelWidth = 220;
         int panelHeight = 150;
@@ -76,13 +77,14 @@ public class DroneDetectionSirenScreen extends Screen {
         int top = 32;
         guiGraphics.fill(left, top, left + panelWidth, top + panelHeight, 0xD0101010);
         guiGraphics.drawCenteredString(font, title, width / 2, top + 8, 0xFFFFFF);
-        guiGraphics.drawString(font, Component.translatable("screen.sbwdroneconfig.siren.input"), left + 10, top + 14, 0xC0C0C0, false);
+        guiGraphics.drawString(font, Component.translatable("screen.sbwdroneconfig.siren.input"), left + 10, top + 22, 0xC0C0C0, false);
         guiGraphics.drawString(font, Component.translatable("screen.sbwdroneconfig.siren.blacklist"), left + 10, top + 80, 0xC0C0C0, false);
 
         int y = top + 92;
         for (int i = 0; i < Math.min(5, blacklistedGamertags.size()); i++) {
             guiGraphics.drawString(font, "- " + blacklistedGamertags.get(i), left + 14, y + i * 11, 0xFFFFFF, false);
         }
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     @Override

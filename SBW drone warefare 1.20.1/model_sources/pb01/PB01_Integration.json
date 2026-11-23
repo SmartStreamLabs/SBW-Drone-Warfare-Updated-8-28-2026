@@ -1,0 +1,58 @@
+{
+  "model": "PROTECTIVE_BUNKER_PB01",
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "up_axis": "+Y",
+  "root": "PB01_Root",
+  "door_group": "Door_Leaf",
+  "door_hinge_units": [
+    23.36,
+    5.44,
+    74.56
+  ],
+  "door_closed_y_degrees": 0,
+  "door_open_y_degrees": -105,
+  "door_animation": "animation.pb01.door_preview",
+  "roof_groups": [
+    "Roof_Front",
+    "Roof_Upper"
+  ],
+  "interior_floor_y_blocks": 0.325,
+  "door_outer_aperture_blocks": {
+    "x": [
+      1.4,
+      2.8
+    ],
+    "y": [
+      0.3,
+      2.86
+    ],
+    "z": [
+      3.35,
+      4.6
+    ]
+  },
+  "anchors": {
+    "Placement_Anchor": [
+      0,
+      0,
+      0
+    ],
+    "Door_Interaction_Anchor": [
+      33.6,
+      24.8,
+      77.6
+    ],
+    "DVT_Mount_Anchor": [
+      -34.4,
+      19.28,
+      43.84
+    ],
+    "Interior_Anchor": [
+      0.0,
+      5.2,
+      0.0
+    ]
+  },
+  "scope": "Native cosmetic Free Model with meshes and a door demonstration. The photo guides the exterior; the rear entrance and interior are original game-art additions. Collision, placement, door interaction, lighting and protection require mod implementation. No real engineering dimensions or protection rating are supplied."
+}

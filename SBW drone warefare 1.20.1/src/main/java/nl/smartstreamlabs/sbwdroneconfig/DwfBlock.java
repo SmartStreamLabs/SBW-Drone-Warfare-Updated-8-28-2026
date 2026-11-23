@@ -1,0 +1,16 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.core.*;import net.minecraft.world.*;import net.minecraft.world.entity.*;import net.minecraft.world.entity.player.Player;import net.minecraft.world.item.*;import net.minecraft.world.level.*;import net.minecraft.world.level.block.*;import net.minecraft.world.level.block.entity.*;import net.minecraft.world.level.block.state.*;import net.minecraft.world.level.block.state.properties.*;import net.minecraft.world.phys.*;import net.minecraft.world.phys.shapes.*;
+public final class DwfBlock extends BaseEntityBlock{
+ public static final DirectionProperty FACING=BlockStateProperties.HORIZONTAL_FACING;public static final IntegerProperty PART=IntegerProperty.create("part",0,DwfGeometry.CELLS.length-1);static final ThreadLocal<Boolean>MUTATING=ThreadLocal.withInitial(()->false);
+ public DwfBlock(Properties p){super(p);registerDefaultState(stateDefinition.any().setValue(FACING,Direction.SOUTH).setValue(PART,0));}
+ @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState>b){b.add(FACING,PART);}
+ public static DwfBlockEntity main(Level level,BlockPos at,BlockState state){var root=DwfGeometry.root(at,state.getValue(FACING),state.getValue(PART));return level.hasChunkAt(root)&&level.getBlockEntity(root)instanceof DwfBlockEntity b?b:null;}
+ @Override public BlockEntity newBlockEntity(BlockPos p,BlockState s){return s.getValue(PART)==0||DwfGeometry.chest(s.getValue(PART))>=0?DwfBlockEntity.create(p,s):null;}
+ @Override public RenderShape getRenderShape(BlockState s){return RenderShape.INVISIBLE;}
+ @Override public VoxelShape getShape(BlockState s,BlockGetter l,BlockPos p,CollisionContext c){return DwfGeometry.shape(s.getValue(FACING),s.getValue(PART));}
+ @Override public VoxelShape getOcclusionShape(BlockState s,BlockGetter l,BlockPos p){return Shapes.empty();}
+ @Override public InteractionResult use(BlockState s,Level l,BlockPos p,Player player,InteractionHand hand,BlockHitResult hit){if(hand!=InteractionHand.MAIN_HAND)return InteractionResult.CONSUME;var b=main(l,p,s);if(b==null)return InteractionResult.FAIL;if(l.isClientSide)return InteractionResult.SUCCESS;if(!b.allowed(player)||player.distanceToSqr(hit.getLocation())>36)return InteractionResult.FAIL;var local=DwfGeometry.local(b.getBlockPos(),b.facing(),hit.getLocation());b.open((net.minecraft.server.level.ServerPlayer)player,local.x<-4?0:local.x>4?1:2);return InteractionResult.CONSUME;}
+ @Override public void onRemove(BlockState s,Level l,BlockPos p,BlockState next,boolean moving){if(!s.is(next.getBlock())&&!l.isClientSide&&!MUTATING.get()){var b=main(l,p,s);if(b!=null)b.dismantle(!l.restoringBlockSnapshots);}super.onRemove(s,l,p,next,moving);}
+ @Override public void playerWillDestroy(Level l,BlockPos p,BlockState s,Player player){var b=main(l,p,s);if(!l.isClientSide&&b!=null)b.dismantle(!player.isCreative()||b.hasContents());super.playerWillDestroy(l,p,s,player);}
+ @Override public void neighborChanged(BlockState s,Level l,BlockPos p,Block changed,BlockPos at,boolean moving){if(l.isClientSide||MUTATING.get()||s.getValue(PART)!=0)return;if(at.equals(p.below())&&!l.getBlockState(at).isFaceSturdy(l,at,Direction.UP)){var b=main(l,p,s);if(b!=null)b.dismantle(!l.restoringBlockSnapshots);}}
+}

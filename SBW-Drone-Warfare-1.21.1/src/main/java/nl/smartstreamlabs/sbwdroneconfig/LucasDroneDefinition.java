@@ -6,9 +6,9 @@ public final class LucasDroneDefinition {
     public static final String ID = "lucas_drone";
     public static final String DISPLAY_NAME = "LUCAS Drone";
 
-    private static final ResourceLocation MODEL = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "geo/lucas_drone.geo.json");
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/entity/lucas_drone.png");
-    private static final ResourceLocation ANIMATION = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "animations/fpv_drone.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "geo/lucas_drone.geo.json");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "textures/entity/lucas_drone.png");
+    private static final ResourceLocation ANIMATION = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "animations/lucas_drone_lc01.animation.json");
 
     private LucasDroneDefinition() {
     }

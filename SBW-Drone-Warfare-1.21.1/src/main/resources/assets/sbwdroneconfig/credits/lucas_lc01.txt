@@ -1,0 +1,1 @@
+LUCAS LC-01 visual replacement. Original mesh and PNG supplied by the user. 123 elements, 7732 triangles, 18 bones. Native scale 16 units/block; no new gameplay variant.

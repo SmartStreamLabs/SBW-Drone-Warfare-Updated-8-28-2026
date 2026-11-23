@@ -1,12 +1,16 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record DroneSpotlightStateMessage(UUID droneId, boolean active) {
+public record DroneSpotlightStateMessage(UUID droneId, boolean active) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DroneSpotlightStateMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "drone_spotlight_state"));
+
     public static void encode(DroneSpotlightStateMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.droneId);
         buffer.writeBoolean(message.active);
@@ -16,8 +20,12 @@ public record DroneSpotlightStateMessage(UUID droneId, boolean active) {
         return new DroneSpotlightStateMessage(buffer.readUUID(), buffer.readBoolean());
     }
 
-    public static void handle(DroneSpotlightStateMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(DroneSpotlightStateMessage message, IPayloadContext context) {
         DroneSpotlightClient.handleSpotlightState(message);
-        contextSupplier.get().setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

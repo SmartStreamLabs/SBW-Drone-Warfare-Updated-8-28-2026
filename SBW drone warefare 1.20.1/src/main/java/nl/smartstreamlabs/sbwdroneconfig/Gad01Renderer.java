@@ -1,0 +1,14 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import com.mojang.blaze3d.vertex.*;import net.minecraft.client.*;import net.minecraft.client.renderer.*;
+public final class Gad01Renderer extends CachedVehicleRenderer<Gad01Entity>{
+ private static com.atsuishio.superbwarfare.entity.projectile.Tm62Entity tm;private static com.atsuishio.superbwarfare.entity.projectile.Blu43Entity blu;
+ public static void clear(){tm=null;blu=null;}
+ public Gad01Renderer(net.minecraft.client.renderer.entity.EntityRendererProvider.Context c){super(c,new Gad01Model());shadowRadius=.7f;}
+ @Override public void vehicleAxis(Gad01Entity e,PoseStack p,float yaw,float partial){var frame=e.getVehicleTransform(partial);var at=frame.transformPosition(new org.joml.Vector3d()).sub(e.getPosition(partial).x,e.getPosition(partial).y,e.getPosition(partial).z);p.translate(at.x,at.y,at.z);p.mulPose(frame.getUnnormalizedRotation(new org.joml.Quaterniond()).get(new org.joml.Quaternionf()));}
+ @Override protected void applyRotations(Gad01Entity e,PoseStack p,float age,float yaw,float partial){}
+ @Override public RenderType getRenderType(Gad01Entity e,net.minecraft.resources.ResourceLocation texture,MultiBufferSource b,float partial){return RenderType.entityCutoutNoCull(getTextureLocation(e));}
+ @Override public void renderCube(PoseStack p,software.bernie.geckolib.cache.object.GeoCube c,VertexConsumer v,int light,int overlay,float r,float g,float b,float a){super.renderCube(p,c,v,light,overlay,r,g,b,a);}
+ @Override public void render(Gad01Entity e,float yaw,float partial,PoseStack p,MultiBufferSource buffers,int light){super.render(e,yaw,partial,p,buffers,light);var m=Minecraft.getInstance();if(m.player==null||e.mineCount()==0)return;if((!e.displayedMine(0).is(AddonItems.LM01.get())&&!e.displayedMine(0).isEmpty()||!e.displayedMine(1).is(AddonItems.LM01.get())&&!e.displayedMine(1).isEmpty())&&(tm==null||tm.level()!=e.level())){tm=new com.atsuishio.superbwarfare.entity.projectile.Tm62Entity(m.player,e.level(),false);blu=new com.atsuishio.superbwarfare.entity.projectile.Blu43Entity(m.player,e.level());}var frame=e.getVehicleTransform(partial);var at=e.getPosition(partial);p.pushPose();p.translate(frame.m30()-at.x,frame.m31()-at.y,frame.m32()-at.z);p.mulPose(frame.getUnnormalizedRotation(new org.joml.Quaterniond()).get(new org.joml.Quaternionf()));
+  for(int i=0;i<2;i++){var stack=e.displayedMine(i);if(!MineRoverEntity.suitable(stack))continue;p.pushPose();p.translate(0,.55,i==0?.255:-.255);if(stack.is(AddonItems.LM01.get())){Lm01Display.render(p,buffers,light,e.level(),.5f);p.popPose();continue;}boolean isTm=stack.getItem() instanceof com.atsuishio.superbwarfare.item.projectile.Tm62Item;net.minecraft.world.entity.Entity mine=isTm?tm:blu;p.mulPose(com.mojang.math.Axis.YP.rotationDegrees(180));m.getEntityRenderDispatcher().getRenderer(mine).render(mine,0,0,p,buffers,light);p.popPose();}p.popPose();
+ }
+}

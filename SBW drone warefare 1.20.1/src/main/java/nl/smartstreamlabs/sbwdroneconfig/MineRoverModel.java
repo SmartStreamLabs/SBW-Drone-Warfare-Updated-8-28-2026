@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import software.bernie.geckolib.model.GeoModel;import software.bernie.geckolib.core.animation.AnimationState;import net.minecraft.resources.ResourceLocation;import net.minecraft.util.Mth;
+public class MineRoverModel extends GeoModel<MineRoverEntity>{
+ private static ResourceLocation id(String s){return new ResourceLocation(SbwDroneRangeConfig.MOD_ID,s);}
+ public ResourceLocation getModelResource(MineRoverEntity e){return id("geo/mine_rover_mr01.geo.json");}public ResourceLocation getTextureResource(MineRoverEntity e){return id("textures/entity/mine_rover_mr01.png");}public ResourceLocation getAnimationResource(MineRoverEntity e){return id("animations/mine_rover_mr01.animation.json");}
+ @Override public void setCustomAnimations(MineRoverEntity e,long instance,AnimationState<MineRoverEntity> state){super.setCustomAnimations(e,instance,state);float p=state.getPartialTick();for(String side:new String[]{"L","R"})for(int k=1;k<=2;k++){float spin=Mth.lerp(p,side.equals("L")?e.getLeftWheelRotO():e.getRightWheelRotO(),side.equals("L")?e.getLeftWheelRot():e.getRightWheelRot());getBone("wheel_spin_"+side+k).ifPresent(b->b.setRotX(spin));if(k==1)getBone("steer_"+side+k).ifPresent(b->b.setRotY(Mth.lerp(p,e.getRudderRotO(),e.getRudderRot())));}getBone("release_gate").ifPresent(b->b.setRotX(-e.gate(p)*.8f));getBone("service_cover").ifPresent(b->b.setRotX(-1.1f*e.servicePose(p)));}
+}

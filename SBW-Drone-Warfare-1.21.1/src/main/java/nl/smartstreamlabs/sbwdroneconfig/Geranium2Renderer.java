@@ -16,12 +16,12 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class Geranium2Renderer extends EntityRenderer<Geranium2Entity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/item/geranium_2.png");
-    private static final ResourceLocation WHITE_TEXTURE = new ResourceLocation("minecraft", "textures/misc/white.png");
+    private final GeraniumPlatformDroneRenderer platformRenderer;
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "textures/item/geranium_2.png");
+    private static final ResourceLocation WHITE_TEXTURE = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/misc/white.png");
     private static final float BODY_TRANSLATION_Y = 0.76F;
     private static final float BODY_TRANSLATION_Z = -0.25F;
     private static final float BODY_VISUAL_SCALE = 1.15F;
@@ -36,6 +36,7 @@ public class Geranium2Renderer extends EntityRenderer<Geranium2Entity> {
 
     public Geranium2Renderer(EntityRendererProvider.Context context) {
         super(context);
+        this.platformRenderer=new GeraniumPlatformDroneRenderer(context);
         this.shadowRadius = 0.9F;
     }
 
@@ -45,6 +46,7 @@ public class Geranium2Renderer extends EntityRenderer<Geranium2Entity> {
             return;
         }
 
+        if(entity.isLp02Fit()){platformRenderer.render(entity,entityYaw,partialTicks,poseStack,buffer,packedLight);return;}
         Player player = Minecraft.getInstance().player;
         CameraType cameraType = Minecraft.getInstance().options.getCameraType();
         boolean firstPersonCamera = cameraType == CameraType.FIRST_PERSON;
@@ -90,16 +92,15 @@ public class Geranium2Renderer extends EntityRenderer<Geranium2Entity> {
         poseStack.scale(ITEM_FIXED_SCALE, ITEM_FIXED_SCALE, ITEM_FIXED_SCALE);
         poseStack.translate(-0.5D, -0.5D, -0.5D);
         Matrix4f matrix = poseStack.last().pose();
-        Matrix3f normal = poseStack.last().normal();
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(WHITE_TEXTURE));
         float baseAngle = (entity.tickCount + partialTicks) * TAIL_PROPELLER_SPIN_DEGREES_PER_TICK;
 
-        renderTailPropellerBlade(consumer, matrix, normal, TAIL_PROPELLER_CENTER, baseAngle, packedLight);
-        renderTailPropellerBlade(consumer, matrix, normal, TAIL_PROPELLER_CENTER, baseAngle + 180.0F, packedLight);
+        renderTailPropellerBlade(consumer, matrix, TAIL_PROPELLER_CENTER, baseAngle, packedLight);
+        renderTailPropellerBlade(consumer, matrix, TAIL_PROPELLER_CENTER, baseAngle + 180.0F, packedLight);
         poseStack.popPose();
     }
 
-    private static void renderTailPropellerBlade(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, double[] center, float angleDegrees, int packedLight) {
+    private static void renderTailPropellerBlade(VertexConsumer consumer, Matrix4f matrix, double[] center, float angleDegrees, int packedLight) {
         double angle = Math.toRadians(angleDegrees);
         double dirX = Math.cos(angle);
         double dirY = Math.sin(angle);
@@ -130,19 +131,18 @@ public class Geranium2Renderer extends EntityRenderer<Geranium2Entity> {
                 z
         );
 
-        putTailPropellerVertex(consumer, matrix, normal, rootLeft, packedLight);
-        putTailPropellerVertex(consumer, matrix, normal, rootRight, packedLight);
-        putTailPropellerVertex(consumer, matrix, normal, tipRight, packedLight);
-        putTailPropellerVertex(consumer, matrix, normal, tipLeft, packedLight);
+        putTailPropellerVertex(consumer, matrix, rootLeft, packedLight);
+        putTailPropellerVertex(consumer, matrix, rootRight, packedLight);
+        putTailPropellerVertex(consumer, matrix, tipRight, packedLight);
+        putTailPropellerVertex(consumer, matrix, tipLeft, packedLight);
     }
 
-    private static void putTailPropellerVertex(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, Vec3 point, int packedLight) {
-        consumer.vertex(matrix, (float) point.x, (float) point.y, (float) point.z)
-                .color(10, 12, 12, 230)
-                .uv(0.5F, 0.5F)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(packedLight)
-                .normal(normal, 0.0F, 0.0F, 1.0F)
-                .endVertex();
+    private static void putTailPropellerVertex(VertexConsumer consumer, Matrix4f matrix, Vec3 point, int packedLight) {
+        consumer.addVertex(matrix, (float) point.x, (float) point.y, (float) point.z)
+                .setColor(10, 12, 12, 230)
+                .setUv(0.5F, 0.5F)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(packedLight)
+                .setNormal(0.0F, 0.0F, 1.0F);
     }
 }

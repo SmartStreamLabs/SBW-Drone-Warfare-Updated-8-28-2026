@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": [" B ", "BLB", " B "], "key": {"B": {"item": "minecraft:bone"}, "L": {"item": "minecraft:leather"}}, "result": {"id": "sbwdroneconfig:soldier_skeleton_sk01", "count": 1}}

@@ -10,12 +10,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -39,13 +39,13 @@ public final class DroneScreenshotClient {
     private DroneScreenshotClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneScreenshotClient::onClientSetup);
         modBus.addListener(DroneScreenshotClient::onRegisterKeyMappings);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneScreenshotClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneScreenshotClient.class);
     }
 
     private static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
@@ -53,10 +53,7 @@ public final class DroneScreenshotClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         Minecraft minecraft = Minecraft.getInstance();
         if (flashTicks > 0) {
@@ -79,14 +76,15 @@ public final class DroneScreenshotClient {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (flashTicks <= 0 || event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) {
+        if (flashTicks <= 0) {
             return;
         }
 
         GuiGraphics guiGraphics = event.getGuiGraphics();
-        int width = event.getWindow().getGuiScaledWidth();
-        int height = event.getWindow().getGuiScaledHeight();
+        Minecraft minecraft = Minecraft.getInstance();
+        int width = minecraft.getWindow().getGuiScaledWidth();
+        int height = minecraft.getWindow().getGuiScaledHeight();
         int alpha = Math.min(0x55, flashTicks * 0x18);
         guiGraphics.fill(0, 0, width, height, (alpha << 24) | 0xFFFFFF);
     }
@@ -126,6 +124,10 @@ public final class DroneScreenshotClient {
             return false;
         }
 
-        return SbwCompat.isUsingLinkedMonitor(SbwCompat.getActiveLinkedMonitor(player));
+        return isUsingLinkedMonitor(player.getMainHandItem()) || isUsingLinkedMonitor(player.getOffhandItem());
+    }
+
+    private static boolean isUsingLinkedMonitor(ItemStack stack) {
+        return SbwCompat.isUsingLinkedMonitor(stack);
     }
 }

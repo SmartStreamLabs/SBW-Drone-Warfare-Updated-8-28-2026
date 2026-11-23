@@ -1,0 +1,29 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "PBP",
+                    "RDR",
+                    "PCP"
+                ],
+    "key":  {
+                "P":  {
+                          "item":  "superbwarfare:large_propeller"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:large_battery_pack"
+                      },
+                "R":  {
+                          "item":  "superbwarfare:large_motor"
+                      },
+                "D":  {
+                          "item":  "superbwarfare:drone"
+                      },
+                "C":  {
+                          "item":  "sbwdroneconfig:extraction_crate"
+                      }
+            },
+    "result":  {
+                   "item":  "sbwdroneconfig:delivery_drone",
+                   "count":  1
+               }
+}

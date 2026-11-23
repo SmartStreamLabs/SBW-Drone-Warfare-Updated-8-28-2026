@@ -1,7 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
-import com.atsuishio.superbwarfare.init.ModItems;
 import com.atsuishio.superbwarfare.tools.EntityFindUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -23,9 +22,8 @@ import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_DAT
 import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_ENTITY;
 import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_ENTITY_TAG;
 import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.MAX_AMMO;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
 
-public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
+public class LucasDroneRenderer extends CachedEntityRenderer<LucasDroneEntity> {
     private String entityNameCache = "";
     private Entity entityCache = null;
     private int attachedTick = Integer.MAX_VALUE;
@@ -38,14 +36,14 @@ public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
 
     @Override
     public RenderType getRenderType(LucasDroneEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
     @Override
-    protected void renderNameTag(LucasDroneEntity entity, Component displayName, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    protected void renderNameTag(LucasDroneEntity entity, Component displayName, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float partialTick) {
         poseStack.pushPose();
         poseStack.translate(0.0D, LucasDroneRenderMath.nameplateOffsetY(), 0.0D);
-        super.renderNameTag(entity, displayName, poseStack, buffer, packedLight);
+        super.renderNameTag(entity, displayName, poseStack, buffer, packedLight, partialTick);
         poseStack.popPose();
     }
 
@@ -54,7 +52,28 @@ public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
         if (DroneClientViewContext.isReadOnlyCameraIntercept(entity)) {
             return;
         }
-
+        if(entity.isLp01Fit()) {
+            boolean fitControlled=SbwCompat.isUsingLinkedMonitorForDrone(Minecraft.getInstance().player,entity);
+            CameraType fitCameraType=Minecraft.getInstance().options.getCameraType();
+            poseStack.pushPose();
+            poseStack.mulPose(Axis.YP.rotationDegrees(-entity.getYaw(partialTicks)));
+            poseStack.mulPose(Axis.XP.rotationDegrees(net.minecraft.util.Mth.lerp(partialTicks,entity.xRotO,entity.getXRot())));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(-entity.getRoll(partialTicks)));
+            // Shared by the airframe and its existing payload visuals.
+            poseStack.translate(0,Lc01VisualPose.PLATFORM_OFFSET_Y,Lc01VisualPose.PLATFORM_OFFSET_Z);
+            poseStack.pushPose();
+            poseStack.mulPose(Axis.YP.rotationDegrees(180));
+            poseStack.translate(0,-0.01,0);
+            if(!fitControlled || fitCameraType!=CameraType.FIRST_PERSON)
+                super.render(entity,entityYaw,partialTicks,poseStack,buffer,packedLight);
+            poseStack.popPose();
+            // Conjugate existing payload coordinates from the legacy 60x representation.
+            float ratio=(float)LucasPlatformLayout.FIT_SCALE/LucasDroneRenderMath.droneVisualScale();
+            poseStack.translate(0,-0.6*ratio,0);poseStack.scale(-ratio,ratio,ratio);
+            if(!fitControlled || (fitCameraType!=CameraType.FIRST_PERSON && fitCameraType!=CameraType.THIRD_PERSON_BACK))
+                renderAttachments(entity,entityYaw,partialTicks,poseStack,buffer,packedLight);
+            poseStack.popPose();return;
+        }
         Player player = Minecraft.getInstance().player;
         CameraType cameraType = Minecraft.getInstance().options.getCameraType();
         boolean firstPersonCamera = cameraType == CameraType.FIRST_PERSON;
@@ -64,12 +83,9 @@ public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
         controllingLinkedDrone = SbwCompat.isUsingLinkedMonitorForDrone(player, entity);
 
         poseStack.pushPose();
-        float droneVisualScale = LucasDroneRenderMath.droneVisualScale(controllingLinkedDrone, firstPersonCamera);
-        poseStack.scale(droneVisualScale, droneVisualScale, droneVisualScale);
-        poseStack.translate(0.0D, LucasDroneRenderMath.bodyTranslationY(), 0.0D);
-        poseStack.mulPose(Axis.YP.rotationDegrees(LucasDroneRenderMath.renderYawDegrees(entity.getYaw(partialTicks))));
-        poseStack.mulPose(Axis.XP.rotationDegrees(LucasDroneRenderMath.renderBodyPitchDegrees(entity.getBodyPitch(partialTicks))));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(LucasDroneRenderMath.renderRollDegrees(entity.getRoll(partialTicks))));
+        var visual=Lc01VisualPose.matrix(entity.getYaw(partialTicks),entity.getBodyPitch(partialTicks),entity.getRoll(partialTicks),false);
+        poseStack.translate(visual.m30(),visual.m31()-.01,visual.m32());
+        poseStack.mulPose(new org.joml.Quaternionf(visual.getNormalizedRotation(new org.joml.Quaterniond())));
 
         if (!LucasDroneRenderMath.shouldHideControlledDroneBody(controllingLinkedDrone, firstPersonCamera)) {
             super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
@@ -87,6 +103,12 @@ public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
             poseStack.popPose();
         }
     }
+
+    @Override public boolean shouldRender(LucasDroneEntity entity,net.minecraft.client.renderer.culling.Frustum frustum,double x,double y,double z){
+        double r=Lc01VisualPose.CULL_RADIUS;
+        return entity.isAlive()&&!entity.isRemoved()&&frustum.isVisible(new net.minecraft.world.phys.AABB(entity.getX()-r,entity.getY()-r,entity.getZ()-r,entity.getX()+r,entity.getY()+r,entity.getZ()+r));
+    }
+    @Override protected void applyRotations(LucasDroneEntity entity,PoseStack pose,float age,float yaw,float partial,float nativeScale){}
 
     private void renderAttachments(LucasDroneEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         var data = entity.getEntityData();
@@ -131,8 +153,9 @@ public class LucasDroneRenderer extends GeoEntityRenderer<LucasDroneEntity> {
         );
         var xLength = displayData.get(9);
         var zLength = displayData.get(10);
+        int ammoCount = SbwCompat.getDroneAmmo(entity);
 
-        for (int index = 0; index < data.get(AMMO); index++) {
+        for (int index = 0; index < ammoCount; index++) {
             float x;
             float z;
             if (data.get(MAX_AMMO) == 1) {

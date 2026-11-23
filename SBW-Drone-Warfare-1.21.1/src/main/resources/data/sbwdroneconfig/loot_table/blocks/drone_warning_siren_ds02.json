@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sbwdroneconfig:drone_warning_siren_ds02",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "sbwdroneconfig:drone_warning_siren_ds02",
+              "properties": {
+                "part": "0"
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

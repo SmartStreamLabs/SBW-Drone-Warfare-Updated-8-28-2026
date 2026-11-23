@@ -1,0 +1,55 @@
+{
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "payload_slots": [
+    {
+      "slot": 1,
+      "bone": "SBW_Mine_Slot_1",
+      "origin_blocks": [
+        0,
+        0.55,
+        -0.255
+      ],
+      "origin_model_units": [
+        0,
+        8.8,
+        -4.08
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 2,
+      "bone": "SBW_Mine_Slot_2",
+      "origin_blocks": [
+        0,
+        0.55,
+        0.255
+      ],
+      "origin_model_units": [
+        0,
+        8.8,
+        4.08
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "slot_semantics": "Two independent inventory slots. For each occupied slot, render the actual corresponding SBW mine ItemStack/model at its named anchor; for an empty slot render nothing. Do not render an additional static mine.",
+  "sbw_asset_status": "Actual SBW mine assets and item IDs were not provided; final item display transform and scale must be fitted to the actual SBW renderer during mod integration.",
+  "wheel_bones": [
+    "wheel_left_front",
+    "wheel_left_rear",
+    "wheel_right_front",
+    "wheel_right_rear"
+  ],
+  "wheel_rotation_axis": "X",
+  "wheel_preview_animation": "animation.gad01.wheels_preview",
+  "model_scope": "Cosmetic exterior game art only. No gameplay, inventory, detonation or mine mechanics implemented."
+}

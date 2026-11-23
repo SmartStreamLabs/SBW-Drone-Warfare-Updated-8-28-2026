@@ -1,0 +1,67 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
+import net.minecraft.core.BlockPos;import net.minecraft.nbt.CompoundTag;import net.minecraft.network.syncher.*;import net.minecraft.server.level.*;import net.minecraft.util.Mth;import net.minecraft.world.*;import net.minecraft.world.entity.*;import net.minecraft.world.entity.player.Player;import net.minecraft.world.item.ItemStack;import net.minecraft.world.level.*;import net.minecraft.world.phys.*;import java.util.*;
+/** One fixed-wing controller with explicit autonomous/manual modes. The monitor handoff reuses native SBW input and camera sessions. */
+public class Fl01Entity extends DroneEntity{
+ private static final net.minecraft.sounds.SoundEvent ENGINE_SOUND=net.minecraft.sounds.SoundEvent.createVariableRangeEvent(net.minecraft.resources.ResourceLocation.tryParse("superbwarfare:a_10a_engine"));
+ private static final EntityDataAccessor<Boolean>PINK=SynchedEntityData.defineId(Fl01Entity.class,EntityDataSerializers.BOOLEAN);private static final EntityDataAccessor<Integer>FUEL=SynchedEntityData.defineId(Fl01Entity.class,EntityDataSerializers.INT);
+ private static final EntityDataAccessor<Boolean>MANUAL=SynchedEntityData.defineId(Fl01Entity.class,EntityDataSerializers.BOOLEAN);
+ private float manualThrottle=.75f;private long lastMouseTick;
+ private Vec3 holdAnchor;private float holdSign;
+ public Vec3 prefetchAnchor(){return holdAnchor==null?position():holdAnchor;}
+ private boolean spent,ready;private int age;private BlockPos pad;private Vec3 target=Vec3.ZERO,origin=Vec3.ZERO;private double cruise;
+ public Fl01Entity(EntityType<? extends DroneEntity>t,Level l){super((EntityType<DroneEntity>)(EntityType<?>)t,l);ready=true;setNoGravity(true);setBoundingBox(makeBoundingBox());}
+ @Override protected void defineSynchedData(SynchedEntityData.Builder builder){super.defineSynchedData(builder);builder.define(PINK,false);builder.define(FUEL,0);builder.define(MANUAL,false);}
+ public boolean manual(){return entityData.get(MANUAL);}
+ public void enableManual(){entityData.set(MANUAL,true);getPersistentData().remove(MissionManager.NO_TICKETS);getPersistentData().remove(MissionManager.TAG);ChunkTicketManager.touchDrone(this,1);}
+ public void platformFuel(int value){entityData.set(FUEL,Math.max(0,Math.min(value,Fl01Config.FUEL.get())));}
+ public boolean pink(){return entityData.get(PINK);}public int fuel(){return entityData.get(FUEL);}public boolean spent(){return spent;}
+ public void launch(Fl01PlatformBlockEntity b,Player p,UUID id){launch(b,p,id,false);}
+ public void launch(Fl01PlatformBlockEntity b,Player p,UUID id,boolean manual){entityData.set(MANUAL,manual);var frame=Fl01Geometry.dock(b.getBlockPos(),b.facing(),3.5);var at=Fl01Geometry.point(frame,Vec3.ZERO);setUUID(id);moveTo(at.x,at.y,at.z,b.facing().toYRot(),-35);yRotO=getYRot();xRotO=getXRot();pad=b.getBlockPos();entityData.set(PINK,Fl01Item.pink(b.drone()));entityData.set(FUEL,b.fuel());target=b.mission().target;cruise=b.mission().cruise.isBlank()?Math.max(at.y+20,target.y):b.mission().altitude;origin=at;SbwCompat.assignDroneOwner(this,p);setDeltaMovement(Vec3.directionFromRotation(-35,getYRot()).scale(.65));DroneExplosionVfx.markPayload(this);}
+ public boolean ignores(BlockPos p,net.minecraft.world.level.block.state.BlockState s){return age<18&&pad!=null&&s.getBlock()instanceof Fl01PlatformBlock&&Fl01PlatformBlock.root(p,s).equals(pad);}
+ @Override public void baseTick(){super.baseTick();if(level().isClientSide)Fl01Effects.step(this);else if(manual()&&!spent)ChunkTicketManager.touchDrone(this,1);}
+ @Override public void travel(){if(level().isClientSide||spent)return;age++;if(fuel()>0)entityData.set(FUEL,fuel()-1);var f=MissionManager.flight(this);boolean active=f!=null&&f.active();boolean powered=fuel()>0&&(manual()||active);
+  Vec3 goal=target;double horizontal=Math.hypot(target.x-getX(),target.z-getZ());if(powered&&horizontal>Math.max(45,Math.abs(getY()-target.y)*1.5))goal=new Vec3(target.x,Math.max(cruise,target.y+8),target.z);
+  Vec3 desired=goal.subtract(position()).normalize();float wantYaw=Mpl01Frames.yaw(desired),wantPitch=Mpl01Frames.pitch(desired);if(age<14){wantYaw=getYRot();wantPitch=-35;}
+  if(manual()){
+   Player pilot=pilot();boolean controlled=accepts(pilot)&&!DroneJammerSystem.isJammed(this);
+   if(controlled&&pilot instanceof ServerPlayer sp){Vec3 anchor=PlayerDroneAnchorManager.getCapturedOriginalPosition(sp);if(anchor==null)anchor=sp.position();double range=Math.min(Fl01Config.RANGE.get(),DroneWeatherEffects.getEffectiveControlRange(sp,this,AddonConfig.droneMaxRange()));if(anchor.distanceToSqr(position())>range*range){SbwCompat.stopUsingMonitor(SbwCompat.getActiveLinkedMonitor(sp));PlayerDroneAnchorManager.release(sp,true);controlled=false;}}
+   if(!controlled){super.processInput((short)0);super.mouseInput(0,0);}else{DroneJammerSystem.beforeDroneTravel(this);DroneWeatherEffects.applyStormEffects(this);if(level().getGameTime()-lastMouseTick>3)super.mouseInput(0,0);}
+   float steering=controlled?(rightInputDown()?1:0)-(leftInputDown()?1:0):0;wantYaw=getYRot()+Mth.clamp(steering*Fl01Config.TURN.get().floatValue()+getMouseMoveSpeedX()*.18f,-Fl01Config.TURN.get().floatValue(),Fl01Config.TURN.get().floatValue());
+   wantPitch=controlled?Mth.clamp(getXRot()+getMouseMoveSpeedY()*.14f+(downInputDown()?1.2f:0)-(upInputDown()?1.2f:0),-45,55):Math.max(0,getXRot());manualThrottle=Mth.clamp(manualThrottle+(controlled&&forwardInputDown()?.02f:0)-(controlled&&backInputDown()?.025f:0),.45f,1f);
+   if(age<14){wantYaw=getYRot();wantPitch=-35;}
+  }
+  if(!powered)wantPitch=35;
+  if(!manual()&&powered&&f.hold){if(holdAnchor==null){holdAnchor=position();var center=new Vec3((BlockPos.containing(holdAnchor).getX()>>4)*16+8,getY(),(BlockPos.containing(holdAnchor).getZ()>>4)*16+8);var dir=Vec3.directionFromRotation(0,getYRot());double radius=.25/Math.toRadians(Math.max(3,Fl01Config.TURN.get()));var left=holdAnchor.add(-dir.z*radius,0,dir.x*radius);var right=holdAnchor.add(dir.z*radius,0,-dir.x*radius);holdSign=left.distanceToSqr(center)<right.distanceToSqr(center)?1:-1;if(Boolean.getBoolean("fl01.trace"))System.out.println("FL01_LOITER anchor="+holdAnchor+" yaw="+getYRot()+" sign="+holdSign);}wantYaw=getYRot()+holdSign*(float)Math.max(3,Fl01Config.TURN.get());wantPitch=0;}else holdAnchor=null;
+  float turn=!manual()&&powered&&f.hold?(float)Math.max(3,Fl01Config.TURN.get()):Fl01Config.TURN.get().floatValue();setYRot(Mth.approachDegrees(getYRot(),wantYaw,turn));setXRot(Mth.approachDegrees(getXRot(),wantPitch,Fl01Config.TURN.get().floatValue()*.6f));setBodyXRot(getXRot());
+  double speed=Math.min(Fl01Config.SPEED.get(),.65+age*.035);if(!manual()&&powered&&f.hold)speed=.25;if(manual()&&powered)speed=Math.max(.25,speed*manualThrottle);if(!powered)speed=Math.max(.5,speed*.8);Vec3 motion=Vec3.directionFromRotation(getXRot(),getYRot()).scale(speed);
+  if(!Hgd01Lasers.loaded((ServerLevel)level(),position(),position().add(motion.scale(10)))){destroy();return;}
+  Vec3 start=position(),end=start.add(motion);var frame=Fl01Geometry.frame(this,1);
+  // Swept nose, fuselage, wing and engine probes; original full model is 12.71 blocks long.
+  for(var local:List.of(new Vec3(0,0,-7.05),new Vec3(-3.32,0,0),new Vec3(3.32,0,0),new Vec3(0,1.5,2),Vec3.ZERO)){
+   Vec3 a=Fl01Geometry.point(frame,local),z=a.add(motion);if(!Hgd01Lasers.loaded((ServerLevel)level(),a,z)){destroy();return;}
+   var hit=level().clip(new ClipContext(a,z,ClipContext.Block.COLLIDER,ClipContext.Fluid.ANY,this){@Override public net.minecraft.world.phys.shapes.VoxelShape getBlockShape(net.minecraft.world.level.block.state.BlockState s,BlockGetter w,BlockPos p){return ignores(p,s)?net.minecraft.world.phys.shapes.Shapes.empty():super.getBlockShape(s,w,p);}});if(hit.getType()!=HitResult.Type.MISS){detonate(hit.getLocation());return;}
+   if(age>18)for(Entity e:level().getEntities(this,new AABB(a,z).inflate(.3),e->e.isAlive()&&!e.isSpectator()&&e.isPickable())){var hitEntity=e.getBoundingBox().inflate(.1).clip(a,z);if(hitEntity.isPresent()){detonate(hitEntity.get());return;}}
+  }
+  setDeltaMovement(motion.add(0,.06,0));hurtMarked=true;
+ }
+ @Override public void move(MoverType type,Vec3 motion){if(level().isClientSide||spent)return;boolean old=noPhysics;noPhysics=true;try{super.move(type,motion);}finally{noPhysics=old;}setOnGround(false);setBoundingBox(makeBoundingBox());}
+ @Override protected AABB makeBoundingBox(){return ready?Fl01Geometry.transform(Fl01Geometry.frame(this,1),Fl01Geometry.MISSILE.bounds):super.makeBoundingBox();}
+ @Override public AABB getBoundingBoxForCulling(){return makeBoundingBox();}
+ @Override public java.util.List<com.atsuishio.superbwarfare.tools.OBB>getOBBs(){var m=Fl01Geometry.frame(this,1);var q=m.getNormalizedRotation(new org.joml.Quaterniond());var result=new ArrayList<com.atsuishio.superbwarfare.tools.OBB>();for(double[]b:new double[][]{{-.7,-.7,-7.05,.7,.7,5.66},{-3.32,-.08,-1.2,3.32,.08,1.2},{-.5,.7,.5,.5,1.706,5.5}}){var c=m.transformPosition(new org.joml.Vector3d((b[0]+b[3])/2,(b[1]+b[4])/2,(b[2]+b[5])/2));result.add(new com.atsuishio.superbwarfare.tools.OBB(c,new org.joml.Vector3d((b[3]-b[0])/2,(b[4]-b[1])/2,(b[5]-b[2])/2),new org.joml.Quaterniond(q),com.atsuishio.superbwarfare.tools.OBB.Part.BODY));}return result;}
+ private Player pilot(){var controller=SbwCompat.getDroneController(this);return controller instanceof Player p?p:null;}
+ private boolean accepts(Player player){UUID owner=SbwCompat.getStoredDroneOwnerUuid(this);return manual()&&player!=null&&player.isAlive()&&!player.isSpectator()&&(owner==null||owner.equals(player.getUUID())||player.hasPermissions(2))&&SbwCompat.isUsingLinkedMonitorForDrone(player,this);}
+ @Override public void processInput(short keys){if(accepts(pilot()))super.processInput(keys);}
+ @Override public void mouseInput(double x,double y){if(accepts(pilot())){lastMouseTick=level().getGameTime();super.mouseInput(x,y);}}@Override public boolean engineRunning(){return !spent&&fuel()>0;}@Override public float getEngineSoundVolume(){return engineRunning()?.75f:0;}@Override public void registerControllers(software.bernie.geckolib.animation.AnimatableManager.ControllerRegistrar c){}
+ @Override public InteractionResult interact(Player p,InteractionHand h){var held=p.getItemInHand(h);UUID owner=SbwCompat.getStoredDroneOwnerUuid(this);if(SbwCompat.isMonitor(held)&&(owner==null||owner.equals(p.getUUID())||p.hasPermissions(2))){if(!level().isClientSide)SbwCompat.linkMonitorToDrone(held,this,false);return InteractionResult.sidedSuccess(level().isClientSide);}return InteractionResult.PASS;}
+ @Override public ItemStack getPickResult(){return new ItemStack(AddonItems.FL01.get());}
+ @Override public void destroy(){detonate(position());}
+ public void detonate(Vec3 at){if(spent||!(level()instanceof ServerLevel l))return;Sk01Deaths.destroyed(this);spent=true;getPersistentData().putBoolean("FlSpent",true);SbwCompat.disconnectControllersForDrone(l,this);ChunkTicketManager.releaseDrone(this);MissionManager.destroyed(this);DroneExplosionVfx.markPayload(this);
+  UUID owner=SbwCompat.getStoredDroneOwnerUuid(this);var attacker=owner==null?null:l.getPlayerByUUID(owner);var type=l.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getHolderOrThrow(com.atsuishio.superbwarfare.init.ModDamageTypes.CUSTOM_EXPLOSION);var source=new net.minecraft.world.damagesource.DamageSource(type,this,attacker);
+  try(var attack=DroneAttackDamage.scope(this);var scope=DroneExplosionVfx.explosionScope(l,this,at.x,at.y,at.z,Fl01Config.RADIUS.get().floatValue(),true)){var explosion=new com.atsuishio.superbwarfare.tools.CustomExplosion.Builder(this).directSource(this).source(this).attacker(attacker).position(at).damageSource(source).damage(Fl01Config.DAMAGE.get().floatValue()).radius(Fl01Config.RADIUS.get().floatValue()).fireTime(0);if(!Fl01Config.BLOCK_DAMAGE.get()||!AddonConfig.enableDroneCrashExplosionDamage())explosion.keepBlock();explosion.explode();}discard();
+ }
+ @Override public void addAdditionalSaveData(CompoundTag n){super.addAdditionalSaveData(n);n.putBoolean("FlManual",manual());n.putFloat("FlThrottle",manualThrottle);n.putBoolean("FlPink",pink());n.putInt("FlFuel",fuel());n.putInt("FlAge",age);n.putBoolean("FlSpent",spent);if(pad!=null)n.putLong("FlPad",pad.asLong());n.putDouble("FlX",target.x);n.putDouble("FlY",target.y);n.putDouble("FlZ",target.z);n.putDouble("FlCruise",cruise);}
+ @Override public void readAdditionalSaveData(CompoundTag n){if(n.contains("Item",10)&&n.getCompound("Item").isEmpty()){n=n.copy();n.remove("Item");}super.readAdditionalSaveData(n);entityData.set(MANUAL,n.getBoolean("FlManual"));manualThrottle=n.contains("FlThrottle")?Mth.clamp(n.getFloat("FlThrottle"),.45f,1f):.75f;entityData.set(PINK,n.getBoolean("FlPink"));entityData.set(FUEL,Math.max(0,Math.min(Fl01Config.FUEL.get(),n.getInt("FlFuel"))));age=Math.max(0,n.getInt("FlAge"));spent=n.getBoolean("FlSpent");pad=n.contains("FlPad")?BlockPos.of(n.getLong("FlPad")):null;target=new Vec3(n.getDouble("FlX"),n.getDouble("FlY"),n.getDouble("FlZ"));cruise=n.getDouble("FlCruise");if(spent)discard();}
+ @Override public net.minecraft.sounds.SoundEvent getEngineSound(){return ENGINE_SOUND;}
+ @Override public Vec3 getCameraPosition(float p,Player who,boolean third,boolean front){return Fl01Geometry.point(Fl01Geometry.frame(this,p),new Vec3(0,third?5:.3,third?(front?-18:18):-7.2));}
+}

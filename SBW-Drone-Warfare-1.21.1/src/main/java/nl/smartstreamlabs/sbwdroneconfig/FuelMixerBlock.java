@@ -1,5 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
@@ -31,12 +34,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class FuelMixerBlock extends BaseEntityBlock {
+    public static final MapCodec<FuelMixerBlock> CODEC = simpleCodec(FuelMixerBlock::new);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    private static final VoxelShape SHAPE = Shapes.block();
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 24, 16);
 
     public FuelMixerBlock(Properties properties) {
         super(properties);
@@ -44,6 +47,8 @@ public class FuelMixerBlock extends BaseEntityBlock {
                 .setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH)
                 .setValue(LIT, false));
     }
+
+    @Override public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) { return Shapes.empty(); }
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
@@ -53,6 +58,11 @@ public class FuelMixerBlock extends BaseEntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -85,12 +95,22 @@ public class FuelMixerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return openFuelMixer(level, pos, player);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = openFuelMixer(level, pos, player);
+        return result.consumesAction() ? ItemInteractionResult.sidedSuccess(level.isClientSide()) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    private InteractionResult openFuelMixer(Level level, BlockPos pos, Player player) {
         if (level.isClientSide()) {
             return InteractionResult.sidedSuccess(true);
         }
         if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof FuelMixerBlockEntity mixer) {
-            NetworkHooks.openScreen(serverPlayer, mixer, pos);
+            serverPlayer.openMenu(mixer, buffer -> buffer.writeBlockPos(pos));
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
@@ -137,7 +157,7 @@ public class FuelMixerBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return level.isClientSide()
-                ? null
+                ? createTickerHelper(blockEntityType, AddonBlockEntities.FUEL_MIXER.get(), FuelMixerBlockEntity::clientTick)
                 : createTickerHelper(blockEntityType, AddonBlockEntities.FUEL_MIXER.get(), FuelMixerBlockEntity::serverTick);
     }
 }

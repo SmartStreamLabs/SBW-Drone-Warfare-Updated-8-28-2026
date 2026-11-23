@@ -1,0 +1,7 @@
+{
+  "Model": {
+    "Model": "sbwdroneconfig:geo/mobile_jammer_truck_mj03.geo.json",
+    "Texture": "sbwdroneconfig:textures/entity/mobile_jammer_truck_mj03.png",
+    "Animation": "sbwdroneconfig:animations/mobile_jammer_truck_mj03.animation.json"
+  }
+}

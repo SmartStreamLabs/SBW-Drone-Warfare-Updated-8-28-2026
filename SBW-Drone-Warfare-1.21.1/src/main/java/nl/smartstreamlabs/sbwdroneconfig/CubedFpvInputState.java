@@ -16,6 +16,7 @@ public final class CubedFpvInputState {
     private CubedFpvInputState() {
     }
 
+    public static void clear(Entity drone){INPUTS.remove(drone.getUUID());applyKeys(drone,(short)0);applyMouseSpeed(drone,0,0);}
     public static void receive(ServerPlayer controller, Entity drone, short keys, double mouseX, double mouseY, int sequence) {
         if (controller == null || !(drone instanceof CubedFpvDroneEntity)) {
             return;

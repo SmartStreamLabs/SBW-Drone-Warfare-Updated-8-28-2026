@@ -1,0 +1,330 @@
+{
+  "asset_name": "Portable FPV Drone Detector PD-01",
+  "identity": "Original fictional exterior game art replacing the existing handheld detector appearance. Not a replica of a named RF product.",
+  "units_per_block": 16,
+  "up_axis": "+Y",
+  "screen_front_axis": "-Z",
+  "grip_anchor_units": [
+    0,
+    1.5,
+    0.62
+  ],
+  "suggested_grip_centering_translation_units": [
+    0,
+    -1.5,
+    -0.62
+  ],
+  "screen_uv_pixels": [
+    210,
+    158,
+    338,
+    238
+  ],
+  "screen_pixel_size": [
+    128,
+    80
+  ],
+  "label_uv_pixels": [
+    394,
+    158,
+    490,
+    170
+  ],
+  "texture_states": {
+    "scanning": "portable_fpv_detector_pd01.png",
+    "standby": "portable_fpv_detector_pd01_standby.png",
+    "alert": "portable_fpv_detector_pd01_alert.png"
+  },
+  "bone_pivots_units": {
+    "pd01_root": [
+      0.0,
+      1.5,
+      0.62
+    ],
+    "shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "front_panel": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rear_panel": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "antenna_mounts": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "speaker": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "hand_strap": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status_indicators": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "screen": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scan_line": [
+      0.0,
+      2.75,
+      -0.945
+    ],
+    "scan_button": [
+      -1.03,
+      1.16,
+      -0.82
+    ],
+    "video_button": [
+      1.03,
+      1.16,
+      -0.82
+    ],
+    "encoder_knob": [
+      0.0,
+      0.98,
+      -0.82
+    ],
+    "power_button": [
+      1.82,
+      3.05,
+      0.0
+    ],
+    "service_port_cover": [
+      -1.82,
+      1.4,
+      0.48
+    ],
+    "antenna_1": [
+      -1.35,
+      4.48,
+      0.13
+    ],
+    "antenna_2": [
+      -0.45,
+      4.48,
+      0.13
+    ],
+    "antenna_3": [
+      0.45,
+      4.48,
+      0.13
+    ],
+    "antenna_4": [
+      1.35,
+      4.48,
+      0.13
+    ],
+    "grip_anchor": [
+      0.0,
+      1.5,
+      0.62
+    ],
+    "screen_center_anchor": [
+      0.0,
+      2.815,
+      -0.945
+    ],
+    "item_center_anchor": [
+      0.0,
+      3.55,
+      0.0
+    ],
+    "front_direction_anchor": [
+      0.0,
+      2.8,
+      -1.5
+    ]
+  },
+  "screen_bone": "screen",
+  "moving_scan_bone": "scan_line",
+  "controls": {
+    "scan_button": "local +Z press",
+    "video_button": "local +Z press",
+    "encoder_knob": "local Z rotation",
+    "power_button": "local -X press"
+  },
+  "integration_requirements": [
+    "Replace existing Portable FPV Drone Detector visuals only. Preserve item ID, recipes, saved data, scanning range, RF/video behaviour, right-click scan toggle and sneak-right-click display GUI.",
+    "Use a mesh-capable renderer. Native BBMODEL is 16 units/block; static OBJ uses blocks.",
+    "Screen front is -Z. Center by the grip anchor when aligning to the existing hand pose; do not enlarge to a full block.",
+    "Keep existing GUI and detector logic. These screen states are decorative textures and implement no real detection/video interception.",
+    "Use identical UV layout for all three atlases. Hide moving_scan_line when inactive or on the alert texture.",
+    "The two status lenses are static coloured geometry; runtime may tint/hide/swap them to reflect existing state.",
+    "The scan/button/encoder clips are cosmetic examples. Antennas and side cover have separate groups, no functional radio internals.",
+    "Test first/third person, both hands and GUI icon in the actual repository. Exact Minecraft display transforms have not been tested.",
+    "Static geometry should be batched; do not create one entity per detail."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "neutral_bounds_units": {
+    "min": [
+      -2.005,
+      -0.335,
+      -1.276
+    ],
+    "max": [
+      2.0,
+      7.3925,
+      1.256
+    ]
+  },
+  "model_dimensions_blocks": [
+    0.2503125,
+    0.48296875,
+    0.15825
+  ],
+  "validation": {
+    "elements": 175,
+    "triangles": 5720,
+    "bones": 23,
+    "clips": 3,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "four_separate_antenna_groups": true,
+    "grip_pivot_checked": true,
+    "dedicated_128x80_screen_uv": true,
+    "three_states_same_uv_and_unchanged_case_pixels": true,
+    "scan_line_inside_screen_at_full_preview_sweep": true,
+    "seamless_preview_loop_endpoints": true,
+    "compact_handheld_envelope": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "pd01_root": [
+      0.0,
+      0.09375,
+      0.03875
+    ],
+    "shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "front_panel": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rear_panel": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "antenna_mounts": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "speaker": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "hand_strap": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "status_indicators": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "screen": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scan_line": [
+      0.0,
+      0.171875,
+      -0.0590625
+    ],
+    "scan_button": [
+      -0.064375,
+      0.0725,
+      -0.05125
+    ],
+    "video_button": [
+      0.064375,
+      0.0725,
+      -0.05125
+    ],
+    "encoder_knob": [
+      0.0,
+      0.06125,
+      -0.05125
+    ],
+    "power_button": [
+      0.11375,
+      0.190625,
+      0.0
+    ],
+    "service_port_cover": [
+      -0.11375,
+      0.0875,
+      0.03
+    ],
+    "antenna_1": [
+      -0.084375,
+      0.28,
+      0.008125
+    ],
+    "antenna_2": [
+      -0.028125,
+      0.28,
+      0.008125
+    ],
+    "antenna_3": [
+      0.028125,
+      0.28,
+      0.008125
+    ],
+    "antenna_4": [
+      0.084375,
+      0.28,
+      0.008125
+    ],
+    "grip_anchor": [
+      0.0,
+      0.09375,
+      0.03875
+    ],
+    "screen_center_anchor": [
+      0.0,
+      0.1759375,
+      -0.0590625
+    ],
+    "item_center_anchor": [
+      0.0,
+      0.221875,
+      0.0
+    ],
+    "front_direction_anchor": [
+      0.0,
+      0.175,
+      -0.09375
+    ]
+  }
+}

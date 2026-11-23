@@ -1,0 +1,129 @@
+{
+  "MaxHealth": 180,
+  "MaxEnergy": 1000000,
+  "OBB": [
+    {
+      "Size": [
+        1,
+        0.6,
+        1.6
+      ],
+      "Position": [
+        0,
+        0.65,
+        0
+      ]
+    }
+  ],
+  "Seats": [],
+  "Weapons": {},
+  "EngineType": "Track",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 12,
+    "WheelRotSpeed": 2.3529411764705883,
+    "WheelDifferential": 0.5,
+    "MaxForwardSpeedRate": 0.28,
+    "MaxBackwardSpeedRate": 0.16,
+    "Increment": 0.02,
+    "Decrement": 0.04,
+    "SteeringSpeed": 0.1,
+    "TrackRotSpeed": 0.2,
+    "TrackDifferential": 0.01,
+    "EngineSoundVolume": 0.25
+  },
+  "TurretPos": [
+    0,
+    1.5015666256375666,
+    -0.0625
+  ],
+  "TurretTurnSpeed": [
+    12.5,
+    10
+  ],
+  "TurretPitchRange": [
+    -12,
+    35
+  ],
+  "BarrelPos": [
+    0,
+    0.71875,
+    0.3125
+  ],
+  "ThirdPersonCameraPos": [
+    0,
+    0,
+    0
+  ],
+  "HasDecoy": false,
+  "UpStep": 0.6,
+  "RotateOffsetHeight": 0.6,
+  "Mass": 1.8,
+  "DamageModifiers": [],
+  "VehicleContainerType": "Medium",
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "SympatheticDetonation": false
+  },
+  "VehicleIcon": "sbwdroneconfig:textures/item/supply_rover_sr01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "EngineSound": "superbwarfare:lav_150_engine",
+  "HudType": "@Empty",
+  "TerrainCompat": [
+    [
+      -0.81,
+      0,
+      -1.125
+    ],
+    [
+      -0.81,
+      0,
+      0
+    ],
+    [
+      -0.81,
+      0,
+      1.125
+    ],
+    [
+      0.81,
+      0,
+      -1.125
+    ],
+    [
+      0.81,
+      0,
+      0
+    ],
+    [
+      0.81,
+      0,
+      1.125
+    ]
+  ],
+  "InertiaRotateRate": 1,
+  "KeepChunkLoaded": false
+}

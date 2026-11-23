@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(targets = "com.atsuishio.superbwarfare.item.Monitor")
@@ -29,6 +28,7 @@ public abstract class MonitorItemMixin {
             CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir
     ) {
         ItemStack stack = player.getItemInHand(hand);
+        if(nl.smartstreamlabs.sbwdroneconfig.InjuryHooks.downed(player)){cir.setReturnValue(InteractionResultHolder.fail(stack));return;}
         if (!SbwCompat.isLinkedMonitor(stack) || SbwCompat.isUsingLinkedMonitor(stack)) {
             return;
         }
@@ -58,18 +58,6 @@ public abstract class MonitorItemMixin {
                 true
         );
         cir.setReturnValue(InteractionResultHolder.fail(stack));
-    }
-
-    @Inject(method = {"inventoryTick", "m_6883_"}, at = @At("TAIL"), remap = false, require = 0)
-    private void sbwdroneconfig$clearInactiveMonitorStackTag(
-            ItemStack itemstack,
-            Level world,
-            Entity entity,
-            int slot,
-            boolean selected,
-            CallbackInfo ci
-    ) {
-        SbwCompat.normalizeInactiveMonitorStack(itemstack);
     }
 
     @Redirect(

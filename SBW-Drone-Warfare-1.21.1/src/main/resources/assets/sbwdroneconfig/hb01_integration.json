@@ -1,0 +1,476 @@
+{
+  "asset_name": "Heavy Bomber HB-01",
+  "reference_identity": "Vampire/Baba Yaga-style six-rotor aircraft, inferred from supplied photo. Exact pictured variant not established.",
+  "dimension_status": "Approximate real-class visual scale only. No authoritative factory dimensions for this exact photo were confirmed. Do not advertise exact certified real-world dimensions.",
+  "scale_basis": "Approximately 2.3 m wide / 2.2 m deep with full rotor sweep. Game art at 16 native units = 1 block = 1 metre. Height and unseen details estimated from photo.",
+  "primary_visual_sources": [
+    "https://mod.gov.ua/en/news/the-vampire-a-drone-that-terrifies-enemies-and-assists-ukrainians",
+    "https://www.canada.ca/en/army/services/line-sight/articles/2024/12/dispatches-from-a-ukrainian-uas-strike-battalion.html"
+  ],
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "up_axis": "+Y",
+  "ground_contact_y_units": 0,
+  "rotors": {
+    "rotor_1": {
+      "pivot_units": [
+        6.219999999999999,
+        13.75,
+        -11.803926253581901
+      ],
+      "axis": "Y",
+      "direction": 1
+    },
+    "rotor_2": {
+      "pivot_units": [
+        12.44,
+        13.75,
+        -8.345967936189213e-16
+      ],
+      "axis": "Y",
+      "direction": -1
+    },
+    "rotor_3": {
+      "pivot_units": [
+        6.219999999999999,
+        13.75,
+        11.803926253581901
+      ],
+      "axis": "Y",
+      "direction": 1
+    },
+    "rotor_4": {
+      "pivot_units": [
+        -6.2200000000000015,
+        13.75,
+        11.8039262535819
+      ],
+      "axis": "Y",
+      "direction": -1
+    },
+    "rotor_5": {
+      "pivot_units": [
+        -12.44,
+        13.75,
+        2.5037903808567636e-15
+      ],
+      "axis": "Y",
+      "direction": 1
+    },
+    "rotor_6": {
+      "pivot_units": [
+        -6.220000000000005,
+        13.75,
+        -11.803926253581896
+      ],
+      "axis": "Y",
+      "direction": -1
+    }
+  },
+  "bone_pivots_units": {
+    "hb01_root": [
+      0.0,
+      11.5,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "body_shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "batteries": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "underframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "camera_pan": [
+      0.0,
+      8.8,
+      -4.9
+    ],
+    "camera_tilt": [
+      0.0,
+      8.3,
+      -5.3
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      6.219999999999999,
+      13.75,
+      -11.803926253581901
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      12.44,
+      13.75,
+      -8.345967936189213e-16
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      6.219999999999999,
+      13.75,
+      11.803926253581901
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -6.2200000000000015,
+      13.75,
+      11.8039262535819
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -12.44,
+      13.75,
+      2.5037903808567636e-15
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      -6.220000000000005,
+      13.75,
+      -11.803926253581896
+    ],
+    "payload_slot_1_anchor": [
+      -1.15,
+      6.9,
+      -1.75
+    ],
+    "payload_slot_2_anchor": [
+      1.15,
+      6.9,
+      -1.75
+    ],
+    "payload_slot_3_anchor": [
+      -1.15,
+      6.9,
+      1.75
+    ],
+    "payload_slot_4_anchor": [
+      1.15,
+      6.9,
+      1.75
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      8.3,
+      -6.5
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      11.5,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      34.0,
+      48.0
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      65.0,
+      0.0
+    ]
+  },
+  "payload_visual_anchors": {
+    "payload_slot_1_anchor": [
+      -1.15,
+      6.9,
+      -1.75
+    ],
+    "payload_slot_2_anchor": [
+      1.15,
+      6.9,
+      -1.75
+    ],
+    "payload_slot_3_anchor": [
+      -1.15,
+      6.9,
+      1.75
+    ],
+    "payload_slot_4_anchor": [
+      1.15,
+      6.9,
+      1.75
+    ]
+  },
+  "production_contains_fixed_payloads": false,
+  "loaded_scene": "HB01_Loaded_Preview.bbmodel",
+  "loaded_scene_warning": "Fictional symbolic exterior display loads in removable PREVIEW_ONLY groups. Not real munition geometry or a functional release mechanism. Do not bake permanently into the default drone.",
+  "monitor_camera_anchor": "monitor_camera_anchor",
+  "integration_requirements": [
+    "Replace existing Heavy Bomber visual model only. Preserve existing IDs, physics, inventory, payload behaviour, camera, damage, controls and recipes.",
+    "Use mesh-capable renderer; cube-only conversion loses geometry.",
+    "Each rotor spins about its own native Y pivot, alternating directions; arms and motor cases stay fixed.",
+    "Four socket locators describe visual payload positions only. Retain existing SBW gameplay and separate runtime payload meshes.",
+    "Payload anchor is a top attachment reference, not a payload center. Apply existing item/entity model origin correctly.",
+    "Full rotor swept envelope is for visual culling and scene clearance, not an automatic giant collision box.",
+    "Ground is Y=0 at the landing pads. Do not copy an obsolete enlarged scale multiplier.",
+    "Camera clips are cosmetic examples, not flight or targeting logic."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "neutral_bounds_units": {
+    "min": [
+      -14.127027107422855,
+      0.0,
+      -15.987934244236707
+    ],
+    "max": [
+      14.127027107422855,
+      15.85,
+      15.987934244236707
+    ]
+  },
+  "model_dimensions_blocks": [
+    1.7658783884278568,
+    0.990625,
+    1.9984917805295883
+  ],
+  "rotor_actual_swept_radius_units": {
+    "rotor_1": 5.796345831642554,
+    "rotor_2": 5.796345831642554,
+    "rotor_3": 5.796345831642554,
+    "rotor_4": 5.796345831642554,
+    "rotor_5": 5.796345831642553,
+    "rotor_6": 5.7963458316425545
+  },
+  "full_rotor_swept_bounds_units": {
+    "min": [
+      -18.236345831642552,
+      0.0,
+      -17.600272085224454
+    ],
+    "max": [
+      18.236345831642552,
+      15.85,
+      17.600272085224454
+    ]
+  },
+  "rotor_swept_dimensions_blocks": [
+    2.279543228955319,
+    0.990625,
+    2.2000340106530567
+  ],
+  "validation": {
+    "elements": 466,
+    "triangles": 13528,
+    "bones": 30,
+    "clips": 2,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "six_independent_two_blade_rotors": true,
+    "rotor_discs_clear_each_other": true,
+    "rotor_discs_clear_fixed_housing": true,
+    "alternating_Y_rotor_channels": true,
+    "seamless_preview_loop_endpoints": true,
+    "approximately_2_28_by_2_20_block_rotor_envelope": true,
+    "four_visual_payload_anchors": true,
+    "no_permanent_payloads_in_production": true,
+    "ground_datum_checked": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "hb01_root": [
+      0.0,
+      0.71875,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "body_shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "batteries": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "underframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "camera_pan": [
+      0.0,
+      0.55,
+      -0.30625
+    ],
+    "camera_tilt": [
+      0.0,
+      0.51875,
+      -0.33125
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      0.38874999999999993,
+      0.859375,
+      -0.7377453908488688
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      0.7775,
+      0.859375,
+      -5.216229960118258e-17
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      0.38874999999999993,
+      0.859375,
+      0.7377453908488688
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -0.3887500000000001,
+      0.859375,
+      0.7377453908488687
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -0.7775,
+      0.859375,
+      1.5648689880354773e-16
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      -0.3887500000000003,
+      0.859375,
+      -0.7377453908488685
+    ],
+    "payload_slot_1_anchor": [
+      -0.071875,
+      0.43125,
+      -0.109375
+    ],
+    "payload_slot_2_anchor": [
+      0.071875,
+      0.43125,
+      -0.109375
+    ],
+    "payload_slot_3_anchor": [
+      -0.071875,
+      0.43125,
+      0.109375
+    ],
+    "payload_slot_4_anchor": [
+      0.071875,
+      0.43125,
+      0.109375
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      0.51875,
+      -0.40625
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      0.71875,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      2.125,
+      3.0
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      4.0625,
+      0.0
+    ]
+  }
+}

@@ -2,13 +2,16 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record DeliveryCrateDeployMessage() implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DeliveryCrateDeployMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "delivery_crate_deploy"));
 
-public record DeliveryCrateDeployMessage() {
     public static void encode(DeliveryCrateDeployMessage message, FriendlyByteBuf buffer) {
     }
 
@@ -16,28 +19,23 @@ public record DeliveryCrateDeployMessage() {
         return new DeliveryCrateDeployMessage();
     }
 
-    public static void handle(DeliveryCrateDeployMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
-            if (player == null) {
-                return;
-            }
+    public static void handle(DeliveryCrateDeployMessage message, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer player)) {
+            return;
+        }
 
-            DeliveryDroneEntity drone = findControlledDeliveryDrone(player);
-            if (drone == null) {
-                player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_no_drone"), true);
-                return;
-            }
+        DeliveryDroneEntity drone = findControlledDeliveryDrone(player);
+        if (drone == null) {
+            player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_no_drone"), true);
+            return;
+        }
 
-            if (!drone.hasMountedExtractionCrate()) {
-                player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_crate_missing"), true);
-                return;
-            }
+        if (!drone.hasMountedExtractionCrate()&&!DeliveryGroundCargo.loaded(drone)) {
+            player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_crate_missing"), true);
+            return;
+        }
 
-            drone.tryDeployMountedExtractionCrate(player);
-        });
-        context.setPacketHandled(true);
+        drone.tryDeployMountedExtractionCrate(player);
     }
 
     private static DeliveryDroneEntity findControlledDeliveryDrone(ServerPlayer player) {
@@ -46,5 +44,10 @@ public record DeliveryCrateDeployMessage() {
             return deliveryDrone;
         }
         return null;
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

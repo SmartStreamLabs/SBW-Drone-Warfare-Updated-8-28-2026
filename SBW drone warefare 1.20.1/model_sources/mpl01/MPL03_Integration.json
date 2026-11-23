@@ -1,0 +1,33 @@
+{
+  "revision": "R03 complete geometry rebuild",
+  "forward_axis": "-Z",
+  "units_per_block": 16,
+  "root": "MPL01_REBUILT_R03",
+  "wheel_bones": [
+    "Wheel_1_L",
+    "Wheel_1_R",
+    "Wheel_2_L",
+    "Wheel_2_R",
+    "Wheel_3_L",
+    "Wheel_3_R",
+    "Wheel_4_L",
+    "Wheel_4_R"
+  ],
+  "seat_anchors": [
+    "Driver_Seat_Anchor",
+    "Operator_Seat_Anchor"
+  ],
+  "launcher_bone": "Launcher_Pitch",
+  "canisters": [
+    "Canister_1",
+    "Canister_2",
+    "Canister_3",
+    "Canister_4"
+  ],
+  "animations": [
+    "animation.mpl01.r03_deploy",
+    "animation.mpl01.r03_wheels",
+    "animation.mpl01.r03_doors"
+  ],
+  "scope": "Exterior Minecraft game art. Approximate photo-based proportions. Connect driving, seats, inventory, projectiles and networking in mod code."
+}

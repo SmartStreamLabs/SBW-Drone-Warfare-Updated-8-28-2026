@@ -39,8 +39,8 @@ final class GlideBombFixedWingFlightController {
     }
 
     static void travel(GlideBombEntity drone) {
-        Player controller = drone.getController();
-        boolean activelyControlled = controller != null && SbwCompat.isUsingLinkedMonitorForDrone(controller, drone);
+        Player controller = SbwCompat.getDroneController(drone) instanceof Player player ? player : null;
+        boolean activelyControlled = MissionManager.powered(drone) || controller != null && SbwCompat.isUsingLinkedMonitorForDrone(controller, drone);
         boolean poweredFlight = !(drone instanceof Geranium2Entity geraniumDrone) || Geranium2FuelSystem.canUsePoweredFlight(geraniumDrone);
         if (drone instanceof Geranium2Entity geraniumDrone && !poweredFlight) {
             Geranium2FuelSystem.forceFuelEmptyIdle(geraniumDrone);
@@ -48,8 +48,9 @@ final class GlideBombFixedWingFlightController {
             return;
         }
         boolean braking = activelyControlled && isBrakeInput(drone);
+        if(MissionManager.owns(drone))braking=MissionManager.braking(drone);
 
-        if (activelyControlled && poweredFlight && !braking) {
+        if (activelyControlled && poweredFlight && !braking && (!MissionManager.owns(drone)||MissionManager.flight(drone).flightTicks<12)) {
             if (drone.beginGlideBombTakeoffAssist()) {
                 drone.setGlideBombThrottle(Math.max(drone.getGlideBombThrottle(), (float) TAKEOFF_THROTTLE_FLOOR));
             }
@@ -114,7 +115,8 @@ final class GlideBombFixedWingFlightController {
         double pitchRadians = Math.toRadians(drone.getXRot());
         double pitchLift = -Math.sin(pitchRadians) * Math.max(blendedSpeed, targetSpeed) * 0.022D * controlAuthority;
         double climbCommand = 0.0D;
-        if (activelyControlled && poweredFlight) {
+        if(MissionManager.powered(drone))climbCommand=MissionManager.climb(drone);
+        else if (activelyControlled && poweredFlight) {
             if (drone.upInputDown()) {
                 climbCommand += AddonConfig.lucasClimbSpeed();
             }
@@ -168,6 +170,7 @@ final class GlideBombFixedWingFlightController {
     }
 
     private static float updateThrottle(GlideBombEntity drone, boolean activelyControlled) {
+        if(MissionManager.owns(drone))return MissionManager.powered(drone)?MissionManager.throttle(drone):0;
         float throttle = drone.getGlideBombThrottle();
         boolean throttleUp = drone.forwardInputDown();
         boolean throttleDown = drone.backInputDown();
@@ -188,6 +191,7 @@ final class GlideBombFixedWingFlightController {
     }
 
     private static void updateOrientation(GlideBombEntity drone, float controlAuthority, double currentSpeed, double maxSpeed) {
+        if(MissionManager.powered(drone))return;
         float yawInput = 0.0F;
         if (drone.leftInputDown()) {
             yawInput += 1.0F;

@@ -1,8 +1,10 @@
 package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.world.entity.Entity;
 
 import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
 import com.atsuishio.superbwarfare.init.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -19,22 +21,14 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_DATA;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_ENTITY;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.DISPLAY_ENTITY_TAG;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.IS_KAMIKAZE;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.MAX_AMMO;
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
 
 public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     private static final float DELIVERY_MAX_HEALTH = 40.0F;
@@ -71,9 +65,25 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     private BlockPos deliveryTarget;
     private CompoundTag mountedCrateData = new CompoundTag();
 
+    @Override public java.util.List<Entity> getOrderedPassengers(){return getPassengers();}
+    // Cargo is a vanilla passenger, not a native SBW operator seat (this airframe has no seats).
+    @Override protected void addPassenger(Entity e){
+        if(e instanceof VatagEntity){if(e.getVehicle()!=this)throw new IllegalStateException("Cargo must startRiding first");((nl.smartstreamlabs.sbwdroneconfig.mixin.DeliveryPassengerAccess)(Object)this).sbwdw$cargoPassengers(com.google.common.collect.ImmutableList.of(e));this.gameEvent(net.minecraft.world.level.gameevent.GameEvent.ENTITY_MOUNT,e);return;}super.addPassenger(e);
+    }
+    @Override protected void removePassenger(Entity e){
+        if(e instanceof VatagEntity){if(e.getVehicle()==this)throw new IllegalStateException("Cargo must stopRiding first");((nl.smartstreamlabs.sbwdroneconfig.mixin.DeliveryPassengerAccess)(Object)this).sbwdw$cargoPassengers(com.google.common.collect.ImmutableList.of());this.gameEvent(net.minecraft.world.level.gameevent.GameEvent.ENTITY_DISMOUNT,e);return;}super.removePassenger(e);
+    }
+    @Override protected boolean canAddPassenger(Entity e){return e instanceof VatagEntity&&!hasMountedExtractionCrate()&&getPassengers().isEmpty();}
+    @Override public void positionRider(Entity e,Entity.MoveFunction move){if(e instanceof VatagEntity)DeliveryGroundCargo.position(this,e,move);else super.positionRider(e,move);}
+    @Override public net.minecraft.world.entity.EntityDimensions getDimensions(net.minecraft.world.entity.Pose pose){return net.minecraft.world.entity.EntityDimensions.scalable(2.5f,2.575f).withEyeHeight(.2975f);}
+    private final DeliveryRotorPart[] rotorParts={new DeliveryRotorPart(this),new DeliveryRotorPart(this),new DeliveryRotorPart(this),new DeliveryRotorPart(this),new DeliveryRotorPart(this),new DeliveryRotorPart(this)};
+    @Override public boolean isMultipartEntity(){return true;}
+    @Override public DeliveryRotorPart[] getParts(){return rotorParts;}
+    @Override public void setId(int id){super.setId(id);if(rotorParts!=null)for(int i=0;i<rotorParts.length;i++)rotorParts[i].setId(id+i+1);}
+    private void positionRotors(){var frame=Dd01VisualPose.matrix(getYaw(1),getBodyPitch(1),getRoll(1));for(int i=0;i<6;i++){double angle=Math.toRadians(i*60);var at=frame.transformPosition(new org.joml.Vector3d(Math.cos(angle)*1.9375,36.5/16d,Math.sin(angle)*1.9375));var part=rotorParts[i];part.setPos(getX()+at.x,getY()+at.y-.08,getZ()+at.z);}}
     public DeliveryDroneEntity(EntityType<? extends DroneEntity> type, Level level) {
         super(type, level);
-        this.setHealth(DELIVERY_MAX_HEALTH);
+        this.setHealth(getMaxHealth());this.refreshDimensions();
     }
 
     @Override
@@ -92,19 +102,19 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAS_EXTRACTION_CRATE, false);
-        this.entityData.define(MOUNTED_CRATE_OCCUPIED_SLOTS, 0);
-        this.entityData.define(HAS_SYNCED_DELIVERY_TARGET, false);
-        this.entityData.define(SYNCED_DELIVERY_TARGET_X, 0);
-        this.entityData.define(SYNCED_DELIVERY_TARGET_Y, 0);
-        this.entityData.define(SYNCED_DELIVERY_TARGET_Z, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HAS_EXTRACTION_CRATE, false);
+        builder.define(MOUNTED_CRATE_OCCUPIED_SLOTS, 0);
+        builder.define(HAS_SYNCED_DELIVERY_TARGET, false);
+        builder.define(SYNCED_DELIVERY_TARGET_X, 0);
+        builder.define(SYNCED_DELIVERY_TARGET_Y, 0);
+        builder.define(SYNCED_DELIVERY_TARGET_Z, 0);
     }
 
     @Override
     public void baseTick() {
-        super.baseTick();
+        super.baseTick();positionRotors();
 
         if (!this.level().isClientSide() && this.level() instanceof ServerLevel serverLevel) {
             tickDeliveryAutopilot(serverLevel);
@@ -116,7 +126,7 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
         ItemStack stack = player.getItemInHand(hand);
         boolean cargoAction = isCargoAction(player);
 
-        if (cargoAction && hasMountedExtractionCrate()) {
+        if (cargoAction && (hasMountedExtractionCrate()||DeliveryGroundCargo.loaded(this))) {
             if (!this.level().isClientSide()) {
                 tryDeployMountedExtractionCrate(player);
             }
@@ -141,31 +151,31 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putBoolean(TAG_HAS_EXTRACTION_CRATE, hasMountedExtractionCrate());
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean(TAG_HAS_EXTRACTION_CRATE, hasMountedExtractionCrate());
         if (hasMountedExtractionCrate() && !mountedCrateData.isEmpty()) {
-            tag.put(TAG_EXTRACTION_CRATE_DATA, mountedCrateData.copy());
+            compound.put(TAG_EXTRACTION_CRATE_DATA, mountedCrateData.copy());
         }
         if (deliveryTarget != null) {
-            tag.putBoolean(TAG_HAS_TARGET, true);
-            tag.putInt(TAG_TARGET_X, deliveryTarget.getX());
-            tag.putInt(TAG_TARGET_Y, deliveryTarget.getY());
-            tag.putInt(TAG_TARGET_Z, deliveryTarget.getZ());
+            compound.putBoolean(TAG_HAS_TARGET, true);
+            compound.putInt(TAG_TARGET_X, deliveryTarget.getX());
+            compound.putInt(TAG_TARGET_Y, deliveryTarget.getY());
+            compound.putInt(TAG_TARGET_Z, deliveryTarget.getZ());
         } else {
-            tag.putBoolean(TAG_HAS_TARGET, false);
+            compound.putBoolean(TAG_HAS_TARGET, false);
         }
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        mountedCrateData = tag.contains(TAG_EXTRACTION_CRATE_DATA, Tag.TAG_COMPOUND)
-                ? tag.getCompound(TAG_EXTRACTION_CRATE_DATA).copy()
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        mountedCrateData = compound.contains(TAG_EXTRACTION_CRATE_DATA, Tag.TAG_COMPOUND)
+                ? compound.getCompound(TAG_EXTRACTION_CRATE_DATA).copy()
                 : new CompoundTag();
-        setMountedExtractionCrate(tag.getBoolean(TAG_HAS_EXTRACTION_CRATE));
-        if (tag.getBoolean(TAG_HAS_TARGET)) {
-            setDeliveryTarget(new BlockPos(tag.getInt(TAG_TARGET_X), tag.getInt(TAG_TARGET_Y), tag.getInt(TAG_TARGET_Z)));
+        setMountedExtractionCrate(compound.getBoolean(TAG_HAS_EXTRACTION_CRATE));
+        if (compound.getBoolean(TAG_HAS_TARGET)) {
+            setDeliveryTarget(new BlockPos(compound.getInt(TAG_TARGET_X), compound.getInt(TAG_TARGET_Y), compound.getInt(TAG_TARGET_Z)));
         } else {
             clearDeliveryTarget();
         }
@@ -195,6 +205,7 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     public boolean tryDeployMountedExtractionCrate(Player player) {
+        if(DeliveryGroundCargo.loaded(this))return DeliveryGroundCargo.release(this,player);
         if (!hasMountedExtractionCrate()) {
             return false;
         }
@@ -206,6 +217,7 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     public boolean tryPickupExtractionCrate(Player player) {
+        if(DeliveryGroundCargo.loaded(this))return false;if(DeliveryGroundCargo.pickup(this,player))return true;
         if (hasMountedExtractionCrate()) {
             player.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_crate_already_attached"), true);
             return false;
@@ -249,6 +261,7 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
             return;
         }
 
+        if(DeliveryGroundCargo.loaded(this)){player.displayClientMessage(Component.translatable("delivery.robot_unload_first"),true);return;}
         mountedCrateData = crateDataFromStack(stack);
         setMountedExtractionCrate(true);
         if (!player.getAbilities().instabuild) {
@@ -268,14 +281,19 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     private void pickupDeliveryDrone(Player player) {
-        ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(AddonItems.DELIVERY_DRONE.get()));
+        if(DeliveryGroundCargo.loaded(this)){player.displayClientMessage(Component.translatable("delivery.robot_unload_first"),true);return;}
+        ItemHandlerHelper.giveItemToPlayer(player, MoistureSystem.pack(this, new ItemStack(AddonItems.DELIVERY_DRONE.get())));
 
         if (hasMountedExtractionCrate()) {
             ItemHandlerHelper.giveItemToPlayer(player, createMountedCrateStack());
             clearMountedExtractionCrate();
         }
 
-        returnInheritedPayloadIfPresent(player);
+        for (int index = 0; index < SbwCompat.getDroneAmmo(this); index++) {
+            if (!SbwCompat.getDroneCurrentItem(this).isEmpty()) {
+                ItemHandlerHelper.giveItemToPlayer(player, SbwCompat.getDroneCurrentItem(this).copy());
+            }
+        }
         clearDeliveryTarget();
 
         player.getInventory().items.stream()
@@ -287,27 +305,6 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
         }
 
         this.discard();
-    }
-
-    private void returnInheritedPayloadIfPresent(Player player) {
-        if (this.getCurrentItem().isEmpty() || this.entityData.get(AMMO) <= 0) {
-            return;
-        }
-
-        ItemStack payload = this.getCurrentItem().copy();
-        payload.setCount(1);
-        ItemHandlerHelper.giveItemToPlayer(player, payload);
-        clearInheritedPayload();
-    }
-
-    private void clearInheritedPayload() {
-        this.setCurrentItem(ItemStack.EMPTY);
-        this.entityData.set(AMMO, 0);
-        this.entityData.set(MAX_AMMO, 1);
-        this.entityData.set(IS_KAMIKAZE, false);
-        this.entityData.set(DISPLAY_ENTITY, "");
-        this.entityData.set(DISPLAY_ENTITY_TAG, new CompoundTag());
-        this.entityData.set(DISPLAY_DATA, List.of(1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -1.0F));
     }
 
     private void tickDeliveryAutopilot(ServerLevel level) {
@@ -366,7 +363,7 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
 
         if (level.setBlock(placementPos, state, 3)) {
             if (level.getBlockEntity(placementPos) instanceof ExtractionCrateBlockEntity crate) {
-                crate.loadContentsOnly(mountedCrateData.copy());
+                crate.loadContentsOnly(mountedCrateData.copy(), level.registryAccess());
                 DroneInventoryContainer droneInventory = new DroneInventoryContainer(this);
                 if (crate.extractAllFromDrone(droneInventory)) {
                     droneInventory.saveToDrone();
@@ -425,10 +422,10 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
         }
 
         BlockState crateState = level.getBlockState(cratePos);
-        CompoundTag crateContents = crate.saveContentsOnly();
-        crate.loadContentsOnly(new CompoundTag());
+        CompoundTag crateContents = crate.saveContentsOnly(level.registryAccess());
+        crate.loadContentsOnly(new CompoundTag(), level.registryAccess());
         if (!level.setBlock(cratePos, Blocks.AIR.defaultBlockState(), 3)) {
-            crate.loadContentsOnly(crateContents.copy());
+            crate.loadContentsOnly(crateContents.copy(), level.registryAccess());
             feedbackPlayer.displayClientMessage(Component.translatable("message.sbwdroneconfig.delivery_crate_pickup_blocked"), true);
             return false;
         }
@@ -469,14 +466,13 @@ public class DeliveryDroneEntity extends CubedFpvDroneEntity {
     }
 
     private static CompoundTag crateDataFromStack(ItemStack stack) {
-        CompoundTag blockEntityTag = stack.getTagElement("BlockEntityTag");
-        return blockEntityTag == null ? new CompoundTag() : blockEntityTag.copy();
+        return stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
     }
 
     private ItemStack createMountedCrateStack() {
         ItemStack stack = new ItemStack(AddonItems.EXTRACTION_CRATE.get());
         if (!mountedCrateData.isEmpty()) {
-            stack.getOrCreateTag().put("BlockEntityTag", mountedCrateData.copy());
+            stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(mountedCrateData.copy()));
         }
         return stack;
     }

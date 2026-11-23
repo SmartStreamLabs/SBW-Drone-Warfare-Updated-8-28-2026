@@ -28,8 +28,8 @@ class LucasDroneDefinitionTest {
 
         assertEquals("lucas_drone", idField.get(null));
         assertEquals("LUCAS Drone", displayNameField.get(null));
-        assertEquals(new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "geo/lucas_drone.geo.json"), modelMethod.invoke(null));
-        assertEquals(new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/entity/lucas_drone.png"), textureMethod.invoke(null));
-        assertEquals(new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "animations/fpv_drone.animation.json"), animationMethod.invoke(null));
+        assertEquals(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "geo/lucas_drone.geo.json"), modelMethod.invoke(null));
+        assertEquals(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "textures/entity/lucas_drone.png"), textureMethod.invoke(null));
+        assertEquals(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "animations/lucas_drone_lc01.animation.json"), animationMethod.invoke(null));
     }
 }

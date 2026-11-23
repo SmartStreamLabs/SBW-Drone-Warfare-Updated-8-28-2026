@@ -3,12 +3,12 @@ package nl.smartstreamlabs.sbwdroneconfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record NetBulkPlacementConfirmMessage(
         ResourceLocation itemId,
@@ -18,7 +18,10 @@ public record NetBulkPlacementConfirmMessage(
         Direction facing,
         ResourceLocation dimension,
         UUID sessionId
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<NetBulkPlacementConfirmMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "net_bulk_placement_confirm"));
+
     public static void encode(NetBulkPlacementConfirmMessage message, FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(message.itemId);
         buffer.writeBlockPos(message.pos1);
@@ -41,14 +44,16 @@ public record NetBulkPlacementConfirmMessage(
         );
     }
 
-    public static void handle(NetBulkPlacementConfirmMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
+    public static void handle(NetBulkPlacementConfirmMessage message, IPayloadContext context) {
         context.enqueueWork(() -> {
-            ServerPlayer sender = context.getSender();
-            if (sender != null) {
+            if (context.player() instanceof ServerPlayer sender) {
                 NetBulkPlacementServer.handleConfirm(sender, message);
             }
         });
-        context.setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

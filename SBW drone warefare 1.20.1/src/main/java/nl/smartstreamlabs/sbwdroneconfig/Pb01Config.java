@@ -1,0 +1,9 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraftforge.common.ForgeConfigSpec;
+public final class Pb01Config{
+ public enum Access{OWNER,TEAM,EVERYONE}
+ public static final ForgeConfigSpec SPEC;public static final ForgeConfigSpec.DoubleValue SUPPORT,CONCRETE,STEEL,FURNITURE,BLAST,FRAGMENT,DOOR_BLAST,DOOR_FRAGMENT,BLAST_WEAR,IMPACT_WEAR;public static final ForgeConfigSpec.BooleanValue DAMAGE;public static final ForgeConfigSpec.EnumValue<Access>DOOR_ACCESS,CHANGE_ACCESS;public static final ForgeConfigSpec.IntValue MAX_BLAST_ZONES;
+ static{var b=ConfigSchema.builder();b.push("PB01");SUPPORT=b.defineInRange("minimumRemainingFoundationFraction",.25,.05,1);CONCRETE=b.defineInRange("concreteDurabilityPerSection",800d,20,100000);STEEL=b.defineInRange("doorDurability",220d,10,100000);FURNITURE=b.defineInRange("interiorDurabilityPerGroup",60d,1,10000);BLAST=b.defineInRange("intactConcreteBlastReduction",.85,0,.99);FRAGMENT=b.defineInRange("intactConcreteProjectileReduction",.94,0,.99);DOOR_BLAST=b.defineInRange("intactDoorBlastReduction",.72,0,.99);DOOR_FRAGMENT=b.defineInRange("intactDoorProjectileReduction",.85,0,.99);BLAST_WEAR=b.defineInRange("durabilityDamagePerExplosionRadius",45d,0,1000);IMPACT_WEAR=b.defineInRange("projectileDurabilityScale",.4,0,10);DAMAGE=b.comment("Structural wear also requires the existing destruction/claim permissions; VISUAL rubble mode never damages PB01.").define("allowStructuralDamage",true);DOOR_ACCESS=b.defineEnum("doorAccess",Access.TEAM);CHANGE_ACCESS=b.defineEnum("modificationAccess",Access.TEAM);MAX_BLAST_ZONES=b.defineInRange("maximumSectionsDamagedPerExplosion",32,1,128);b.pop();SPEC=b.build();}
+ public static double health(int zone){return zone==10?STEEL.get():zone==14?CONCRETE.get()*.4:zone>=11?FURNITURE.get():CONCRETE.get()*(zone==0?2:zone==6||zone==8?1.5:1);}
+ public static boolean terrain(){return DAMAGE.get()&&RubbleConfig.ENABLED.get()&&RubbleConfig.MODE.get()!=RubbleConfig.Mode.VISUAL;}
+}

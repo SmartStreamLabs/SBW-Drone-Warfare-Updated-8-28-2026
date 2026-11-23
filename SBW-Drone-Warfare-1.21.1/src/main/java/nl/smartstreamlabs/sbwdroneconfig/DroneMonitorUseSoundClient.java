@@ -5,9 +5,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class DroneMonitorUseSoundClient {
     private static MonitorUseSoundInstance activeSound;
@@ -15,19 +15,16 @@ public final class DroneMonitorUseSoundClient {
     private DroneMonitorUseSoundClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneMonitorUseSoundClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneMonitorUseSoundClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneMonitorUseSoundClient.class);
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
@@ -36,7 +33,8 @@ public final class DroneMonitorUseSoundClient {
             return;
         }
 
-        boolean shouldPlay = SbwCompat.isUsingLinkedMonitor(SbwCompat.getActiveLinkedMonitor(player));
+        boolean shouldPlay = SbwCompat.isUsingLinkedMonitor(player.getMainHandItem())
+                || SbwCompat.isUsingLinkedMonitor(player.getOffhandItem());
 
         if (!shouldPlay) {
             stopActiveSound();
@@ -81,7 +79,8 @@ public final class DroneMonitorUseSoundClient {
                 return;
             }
 
-            boolean stillUsing = SbwCompat.isUsingLinkedMonitor(SbwCompat.getActiveLinkedMonitor(this.player));
+            boolean stillUsing = SbwCompat.isUsingLinkedMonitor(this.player.getMainHandItem())
+                    || SbwCompat.isUsingLinkedMonitor(this.player.getOffhandItem());
             if (!stillUsing) {
                 stopInternal();
                 return;

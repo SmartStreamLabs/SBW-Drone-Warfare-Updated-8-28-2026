@@ -93,7 +93,7 @@ public final class SbwDronePolyMeshFactory implements BakedModelFactory {
             appendPolyQuads(quads, bounds, poly, positions, normals, uvs, Boolean.TRUE.equals(polyMesh.normalizedUVs()), properties);
         }
 
-        return new GeoCube(
+        GeoCube meshCube = new GeoCube(
                 quads.toArray(GeoQuad[]::new),
                 Vec3.ZERO,
                 Vec3.ZERO,
@@ -101,6 +101,8 @@ public final class SbwDronePolyMeshFactory implements BakedModelFactory {
                 0.0D,
                 false
         );
+        MeshRenderData.register(meshCube);
+        return meshCube;
     }
 
     private static void appendPolyQuads(List<GeoQuad> target, Bounds bounds, double[][] poly, double[] positions, double[] normals, double[] uvs,

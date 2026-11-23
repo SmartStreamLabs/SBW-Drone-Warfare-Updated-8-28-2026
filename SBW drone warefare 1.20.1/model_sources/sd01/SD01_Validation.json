@@ -1,0 +1,24 @@
+{
+  "meshes": 52,
+  "triangles": 14400,
+  "faces_and_uvs_valid": true,
+  "embedded_textures_match": true,
+  "hierarchy_complete": true,
+  "hull_positive_volume": true,
+  "fin_animation_references_valid": true,
+  "model_bounds_blocks": {
+    "min": [
+      -1.63,
+      0.1,
+      -3.7
+    ],
+    "max": [
+      1.63,
+      1.68,
+      3.763
+    ]
+  },
+  "blockbench_ui_tested": false,
+  "minecraft_tested": false,
+  "gameplay_implemented": false
+}

@@ -1,0 +1,2 @@
+Current Geranium aircraft visual resources: Created by the project team; confirmed by the project owner on 2026-11-22. Owner declaration, not independently verified.
+See root LICENSE-ASSETS.md, THIRD-PARTY-NOTICES.md and ASSET-RIGHTS-INVENTORY.csv for exact covered files. No blanket attribution applies to other aircraft/platform or legacy assets.

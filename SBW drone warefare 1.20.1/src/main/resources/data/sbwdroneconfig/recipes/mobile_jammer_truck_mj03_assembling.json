@@ -1,0 +1,17 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "civilian",
+  "inputs": [
+    "8 #forge:storage_blocks/steel",
+    "4 minecraft:chest",
+    "superbwarfare:medium_battery_pack",
+    "6 superbwarfare:wheel",
+    "superbwarfare:large_motor",
+    "sbwdroneconfig:jammer",
+    "4 superbwarfare:small_battery_pack",
+    "2 minecraft:copper_block"
+  ],
+  "result": {
+    "entity": "sbwdroneconfig:mobile_jammer_truck_mj03"
+  }
+}

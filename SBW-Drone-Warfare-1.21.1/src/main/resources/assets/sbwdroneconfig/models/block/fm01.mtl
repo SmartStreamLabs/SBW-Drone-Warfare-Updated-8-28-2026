@@ -1,0 +1,4 @@
+newmtl fm01
+Ka 1 1 1
+Kd 1 1 1
+map_Kd sbwdroneconfig:block/fuel_mixer_fm01

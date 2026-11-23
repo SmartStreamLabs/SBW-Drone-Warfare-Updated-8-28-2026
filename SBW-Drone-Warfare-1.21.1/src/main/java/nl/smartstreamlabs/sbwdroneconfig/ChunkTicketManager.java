@@ -1,159 +1,97 @@
 package nl.smartstreamlabs.sbwdroneconfig;
-
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.world.ForgeChunkManager;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
+import net.neoforged.neoforge.common.world.chunk.TicketController;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.bus.api.*;
+import java.util.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
+/** Supplementary leases only: ordinary remote views use vanilla's throttled player tickets. */
 public final class ChunkTicketManager {
-    private static final Map<DroneKey, DroneTicketState> ACTIVE_TICKETS = new HashMap<>();
-    private static long serverTick;
-
-    private ChunkTicketManager() {
-    }
-
-    public static void registerValidationCallback() {
-        ForgeChunkManager.setForcedChunkLoadingCallback(SbwDroneRangeConfig.MOD_ID, (level, tickets) -> {
-            if (!AddonConfig.enableDroneChunkLoading()) {
-                for (UUID owner : tickets.getEntityTickets().keySet()) {
-                    tickets.removeAllTickets(owner);
-                }
-                return;
-            }
-
-            for (UUID owner : tickets.getEntityTickets().keySet()) {
-                Entity entity = level.getEntity(owner);
-                if (entity == null || !SbwCompat.isDrone(entity)) {
-                    tickets.removeAllTickets(owner);
-                }
-            }
+    private static final TicketType<ChunkPos> TYPE=TicketType.create("sbwdroneconfig:flight",Comparator.comparingLong(ChunkPos::toLong));
+    private record Owner(UUID id, boolean body) {}
+    private static final Map<ServerLevel,DroneChunkLeases<Owner>> LEVELS=new LinkedHashMap<>();
+    private record Area(int x,int z,int radius,Set<Long> chunks) {}
+    private static final Map<Entity,Area> AREAS=new WeakHashMap<>();
+    private static long tick;
+    private ChunkTicketManager() {}
+    private static final TicketController LEGACY=new TicketController(
+        ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,"drone_chunks"), (level,tickets)-> {
+            for(UUID owner:tickets.getEntityTickets().keySet()) tickets.removeAllTickets(owner);
         });
+    public static void registerTicketControllers(RegisterTicketControllersEvent event) { event.register(LEGACY); }
+    private static DroneChunkLeases<Owner> leases(ServerLevel level) {
+        return LEVELS.computeIfAbsent(level,l -> new DroneChunkLeases<>(4096,256));
     }
-
-    public static void touchDrone(Entity drone, int radius) {
-        if (!(drone.level() instanceof ServerLevel serverLevel) || !SbwCompat.isDrone(drone)) {
-            return;
-        }
-
-        DroneKey key = new DroneKey(serverLevel.dimension(), drone.getUUID());
-        DroneTicketState state = ACTIVE_TICKETS.computeIfAbsent(key, ignored -> new DroneTicketState(serverLevel.dimension(), drone.getUUID()));
-        state.lastTouchedTick = serverTick;
-        state.radius = radius;
-        state.level = serverLevel;
-        state.syncTo(serverLevel, new ChunkPos(drone.blockPosition()), radius);
+    public static void touchBody(ServerPlayer player) {
+        leases(player.serverLevel()).touch(new Owner(player.getUUID(),true),Set.of(player.chunkPosition().toLong()),tick);
     }
-
-    @SubscribeEvent
-    public static void onServerLevelTick(TickEvent.LevelTickEvent event) {
-        if (event.phase != TickEvent.Phase.END || event.level.isClientSide() || !(event.level instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        if (!ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID)) {
-            return;
-        }
-
-        serverTick++;
-        Iterator<Map.Entry<DroneKey, DroneTicketState>> iterator = ACTIVE_TICKETS.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<DroneKey, DroneTicketState> entry = iterator.next();
-            DroneTicketState state = entry.getValue();
-            if (!state.dimension.equals(serverLevel.dimension())) {
-                continue;
-            }
-
-            Entity entity = serverLevel.getEntity(state.droneUuid);
-            if (!AddonConfig.enableDroneChunkLoading()
-                    || entity == null
-                    || !entity.isAlive()
-                    || !SbwCompat.isDrone(entity)
-                    || serverTick - state.lastTouchedTick > 10) {
-                state.releaseAll(serverLevel);
-                iterator.remove();
-                continue;
-            }
-
-            state.syncTo(serverLevel, new ChunkPos(entity.blockPosition()), state.radius);
-        }
+    public static void releaseBody(ServerPlayer player) {
+        LEVELS.values().forEach(pool -> pool.release(new Owner(player.getUUID(),true)));
     }
-
-    @SubscribeEvent
-    public static void onEntityLeaveLevel(EntityLeaveLevelEvent event) {
-        if (event.getLevel().isClientSide() || !SbwCompat.isDrone(event.getEntity())) {
-            return;
+    public static void touchDrone(Entity drone,int radius) {
+        if(!(drone.level() instanceof ServerLevel level) || !AddonConfig.enableDroneChunkLoading() || (!SbwCompat.isDrone(drone) && !(drone instanceof VatagEntity) && !(drone instanceof MedicalTrailerEntity))) return;
+        if(MissionManager.tagged(drone))return;
+        if(drone.getPersistentData().getBoolean(MissionManager.NO_TICKETS)){
+            var controller=SbwCompat.getDroneController(drone) instanceof net.minecraft.world.entity.player.Player pl?pl:null;
+            if(controller==null || !SbwCompat.isUsingLinkedMonitorForDrone(controller,drone))return;
+            drone.getPersistentData().remove(MissionManager.NO_TICKETS);
         }
-
-        DroneKey key = new DroneKey(event.getEntity().level().dimension(), event.getEntity().getUUID());
-        DroneTicketState state = ACTIVE_TICKETS.remove(key);
-        if (state != null && event.getLevel() instanceof ServerLevel serverLevel) {
-            state.releaseAll(serverLevel);
+        ChunkPos center=drone.chunkPosition();
+        radius=Math.max(0,Math.min(4,radius));
+        Area area=AREAS.get(drone);
+        if(area==null || area.x!=center.x || area.z!=center.z || area.radius!=radius) {
+            area=new Area(center.x,center.z,radius,DroneChunkGeometry.square(center.x,center.z,radius));
+            AREAS.put(drone,area);
         }
+        leases(level).touch(new Owner(drone.getUUID(),false),area.chunks,tick);
     }
-
-    private record DroneKey(ResourceKey<Level> dimension, UUID droneUuid) {
+    public static void touchAuxiliary(ServerLevel level,UUID id,Set<Long> chunks){if(AddonConfig.enableDroneChunkLoading())leases(level).touch(new Owner(id,false),chunks,tick);}
+    public static void releaseDrone(Entity drone){Owner owner=new Owner(drone.getUUID(),false);LEVELS.values().forEach(pool->pool.release(owner));AREAS.remove(drone);}
+    public static void onDroneBaseTick(Entity entity) {
+        if(!entity.level().isClientSide() && AddonConfig.enableDroneChunkLoading() && SbwCompat.isDrone(entity)
+            && entity.isAlive() && !entity.onGround() && entity.getDeltaMovement().lengthSqr()>0.0025)
+            touchDrone(entity,entity instanceof Id01Entity?1:AddonConfig.droneChunkLoadRadius());
     }
-
-    private static final class DroneTicketState {
-        private final ResourceKey<Level> dimension;
-        private final UUID droneUuid;
-        private long lastTouchedTick;
-        private int radius;
-        private ServerLevel level;
-        private Set<Long> forcedChunks = Collections.emptySet();
-
-        private DroneTicketState(ResourceKey<Level> dimension, UUID droneUuid) {
-            this.dimension = dimension;
-            this.droneUuid = droneUuid;
+    private static DroneChunkLeases.Backend backend(ServerLevel level) {
+        return new DroneChunkLeases.Backend() {
+            public void add(long value) { ChunkPos p=new ChunkPos(value); level.getChunkSource().addRegionTicket(TYPE,p,2,p,true); }
+            public void remove(long value) { ChunkPos p=new ChunkPos(value); level.getChunkSource().removeRegionTicket(TYPE,p,2,p,true); }
+            public boolean ready(long value) { ChunkPos p=new ChunkPos(value); return level.getChunkSource().getChunkNow(p.x,p.z)!=null; }
+        };
+    }
+    @SubscribeEvent(priority=EventPriority.LOWEST) public static void tick(ServerTickEvent.Post event) {
+        tick++;
+        // Global budgets are shared across dimensions; no per-dimension multiplication.
+        int starts=AddonConfig.DRONE_EXTRA_TICKETS_PER_TICK_VALUE.get();
+        int pendingLimit=AddonConfig.DRONE_EXTRA_PENDING_CHUNKS_VALUE.get();
+        for(var entry:LEVELS.entrySet()) {
+            int otherPending=LEVELS.entrySet().stream().filter(e->e.getKey()!=entry.getKey())
+                .mapToInt(e->e.getValue().pending(backend(e.getKey()))).sum();
+            int capacity=Math.max(0,AddonConfig.DRONE_EXTRA_TICKET_LIMIT_VALUE.get()-tickets());
+            starts-=entry.getValue().tick(tick,Math.min(starts,capacity),Math.max(0,pendingLimit-otherPending),backend(entry.getKey()));
         }
-
-        private void syncTo(ServerLevel level, ChunkPos center, int radius) {
-            Set<Long> desired = collectChunks(center, radius);
-            for (long chunk : desired) {
-                if (!forcedChunks.contains(chunk)) {
-                    ChunkPos pos = new ChunkPos(chunk);
-                    ForgeChunkManager.forceChunk(level, SbwDroneRangeConfig.MOD_ID, droneUuid, pos.x, pos.z, true, true);
-                }
-            }
-            for (long chunk : forcedChunks) {
-                if (!desired.contains(chunk)) {
-                    ChunkPos pos = new ChunkPos(chunk);
-                    ForgeChunkManager.forceChunk(level, SbwDroneRangeConfig.MOD_ID, droneUuid, pos.x, pos.z, false, true);
-                }
-            }
-            this.level = level;
-            this.forcedChunks = desired;
-        }
-
-        private void releaseAll(ServerLevel level) {
-            for (long chunk : forcedChunks) {
-                ChunkPos pos = new ChunkPos(chunk);
-                ForgeChunkManager.forceChunk(level, SbwDroneRangeConfig.MOD_ID, droneUuid, pos.x, pos.z, false, true);
-            }
-            forcedChunks = Collections.emptySet();
-        }
-
-        private static Set<Long> collectChunks(ChunkPos center, int radius) {
-            Set<Long> chunks = new HashSet<>();
-            for (int x = center.x - radius; x <= center.x + radius; x++) {
-                for (int z = center.z - radius; z <= center.z + radius; z++) {
-                    chunks.add(ChunkPos.asLong(x, z));
-                }
-            }
-            return chunks;
+        LEVELS.entrySet().removeIf(e->e.getValue().owners()==0 && e.getValue().tickets()==0);
+    }
+    @SubscribeEvent public static void leave(EntityLeaveLevelEvent event) {
+        if(event.getLevel().isClientSide() || (!SbwCompat.isDrone(event.getEntity()) && !(event.getEntity() instanceof VatagEntity))) return;
+        Owner owner=new Owner(event.getEntity().getUUID(),false);
+        LEVELS.values().forEach(pool -> pool.release(owner));
+        AREAS.remove(event.getEntity());
+    }
+    @SubscribeEvent public static void unload(net.neoforged.neoforge.event.level.LevelEvent.Unload event) {
+        if(event.getLevel() instanceof ServerLevel level) {
+            DroneChunkLeases<Owner> pool=LEVELS.remove(level);
+            if(pool!=null) pool.clear(backend(level));
         }
     }
+    @SubscribeEvent public static void stop(ServerStoppingEvent event) {
+        LEVELS.forEach((level,pool)->pool.clear(backend(level))); LEVELS.clear(); AREAS.clear(); tick=0;
+    }
+    public static int tickets() { return LEVELS.values().stream().mapToInt(DroneChunkLeases::tickets).sum(); }
 }

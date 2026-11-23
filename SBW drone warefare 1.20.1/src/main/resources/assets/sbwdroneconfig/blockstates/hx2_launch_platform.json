@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "sbwdroneconfig:block/hx2_launch_platform"
+    }
+  }
+}

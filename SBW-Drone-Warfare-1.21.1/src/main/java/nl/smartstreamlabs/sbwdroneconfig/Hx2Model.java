@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.resources.ResourceLocation;import software.bernie.geckolib.model.GeoModel;import software.bernie.geckolib.animation.AnimationState;
+public class Hx2Model extends GeoModel<Hx2Entity>{
+ private static ResourceLocation id(String s){return ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,s);}
+ @Override public ResourceLocation getModelResource(Hx2Entity e){return id("geo/hx2_drone.geo.json");}@Override public ResourceLocation getTextureResource(Hx2Entity e){return id("textures/entity/hx2_drone.png");}@Override public ResourceLocation getAnimationResource(Hx2Entity e){return id("animations/hx2_drone.animation.json");}
+ @Override public void setCustomAnimations(Hx2Entity e,long instance,AnimationState<Hx2Entity> s){super.setCustomAnimations(e,instance,s);float partial=s.getPartialTick();if(Boolean.getBoolean("hx2.trace"))for(String name:new String[]{"dock_anchor","camera_anchor"})getBone(name).ifPresent(b->b.setTrackingMatrices(true));for(int i=0;i<4;i++){final int n=i;getBone("propeller_"+i).ifPresent(b->b.setRotZ((e.mount()!=null?(e.tickCount+partial)*.9f:e.spin(partial))*(n%2==0?1:-1)));getBone("flap_"+i).ifPresent(b->b.setRotX((float)Math.toRadians(net.minecraft.util.Mth.clamp((e.flying()?net.minecraft.util.Mth.lerp(partial,e.xRotO,e.getXRot()):0)*.25+e.getRoll(partial)*(n==0||n==3?.3:-.3),-18,18))));}}
+}

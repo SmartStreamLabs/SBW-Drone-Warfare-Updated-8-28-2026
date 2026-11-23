@@ -1,0 +1,10 @@
+FPV Drone F-01 visual asset
+Source: user-supplied FPV_Drone_F01.bbmodel and fpv_drone_f01.png, 10 November 2026.
+The supplied package describes these as original model/texture assets authored for Drone Warfare, inspired by the user's reference photograph.
+476 visible elements, 12,060 triangles, 24 bones. The supplied PNG is bundled byte-for-byte.
+This replaces the former external FPV body/rotor geometry and entity texture.
+Runtime rotor aliases preserve the existing wingFL/wingFR/wingBL/wingBR animation; carbon_frame is named main_body for compatibility.
+No new entity/item variant or gameplay change. The source delivery includes the original editable model, metadata and texture.
+
+Current FPV drone world and item visuals: Created by the project team; confirmed by the project owner on 2026-11-22. Owner declaration, not independently verified.
+FPV goggles are a separate asset family; their existing notices are retained.

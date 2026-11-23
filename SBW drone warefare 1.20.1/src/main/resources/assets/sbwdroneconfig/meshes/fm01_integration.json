@@ -1,0 +1,195 @@
+{
+  "asset_name": "Fuel Mixer FM-01",
+  "purpose": "Visual replacement of the existing Fuel Mixer; retain original registry identifiers and saved data.",
+  "units_per_block": 16,
+  "ground_origin": [
+    0,
+    0,
+    0
+  ],
+  "forward_axis": "-Z",
+  "bounds_units": {
+    "min": [
+      -7.65,
+      0.0,
+      -7.4
+    ],
+    "max": [
+      7.65,
+      24,
+      7.4
+    ]
+  },
+  "footprint_blocks": [
+    1,
+    1
+  ],
+  "bone_pivots": {
+    "mixer_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tank": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "drive_bridge": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mixing_rotor": [
+      -1.7,
+      22.0,
+      0.7
+    ],
+    "motor": [
+      0.0,
+      8.65,
+      0.0
+    ],
+    "control_panel": [
+      -0.7104999999999997,
+      3.2670000000000012,
+      0.0
+    ],
+    "pressure_needle": [
+      -3.2,
+      13.489999999999998,
+      -3.48
+    ],
+    "pipework": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "outlet_valve": [
+      -1.7,
+      4.644687500000001,
+      -5.95
+    ],
+    "sight_glass": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "level_float": [
+      -1.7,
+      10.368125,
+      -4.0
+    ]
+  },
+  "animations": {
+    "animation.fm01.mixing": "Play only while machine processes a recipe; shaft spins, gauge needle trembles, liquid surface moves slightly.",
+    "animation.fm01.valve_turn": "Optional 90-degree handwheel turn; bind only if machine has an actual dispensing state."
+  },
+  "model_format": "Blockbench Free Model with cuboids and mesh cylinders.",
+  "renderer_note": "OBJ is static bind pose; animated part groups and pivots are supplied. Use mesh-capable renderer. Do not export blindly as cube-only block JSON. Animation JSON is channel data and requires renderer integration.",
+  "compatibility": {
+    "keep_existing_block_id": true,
+    "keep_existing_item_id": true,
+    "keep_block_entity_type_and_nbt": true,
+    "keep_recipes_inventory_energy_and_gui": true,
+    "migrate_existing_worlds": false,
+    "modify_collision_only_if_needed": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "mixer_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tank": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "drive_bridge": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mixing_rotor": [
+      -0.10625,
+      1.375,
+      0.04375
+    ],
+    "motor": [
+      0.0,
+      0.540625,
+      0.0
+    ],
+    "control_panel": [
+      -0.04440624999999998,
+      0.20418750000000008,
+      0.0
+    ],
+    "pressure_needle": [
+      -0.2,
+      0.8431249999999999,
+      -0.2175
+    ],
+    "pipework": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "outlet_valve": [
+      -0.10625,
+      0.29029296875000005,
+      -0.371875
+    ],
+    "sight_glass": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "level_float": [
+      -0.10625,
+      0.6480078125,
+      -0.25
+    ]
+  },
+  "geometry_revision": 3,
+  "fixes": [
+    "Triangulated all mesh surfaces; no unsupported n-gons.",
+    "Removed extra mesh-origin translation from valve assembly; spokes and ring share center."
+  ],
+  "validation": {
+    "mesh_triangles": 2504,
+    "all_faces_blockbench_renderable": true,
+    "all_meshes_closed_and_outward": true,
+    "all_mesh_origins_zero": true,
+    "valve_center_units": [
+      -1.7,
+      4.644687500000001,
+      -6.55
+    ],
+    "connected_valve_spokes": [
+      "valve_spoke_0",
+      "valve_spoke_120",
+      "valve_spoke_240"
+    ],
+    "verified_closed_lids": [
+      "tank_main_shell",
+      "lid_gasket",
+      "lid_flange",
+      "raised_lid",
+      "filler_cap"
+    ],
+    "blockbench_ui_tested": false
+  }
+}

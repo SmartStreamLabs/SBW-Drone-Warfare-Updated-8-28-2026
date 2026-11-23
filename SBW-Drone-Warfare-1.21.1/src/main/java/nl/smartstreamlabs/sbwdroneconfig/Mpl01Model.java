@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.resources.ResourceLocation;import software.bernie.geckolib.model.GeoModel;import software.bernie.geckolib.animation.AnimationState;
+public final class Mpl01Model extends GeoModel<Mpl01Entity>{
+ private static ResourceLocation id(String p){return ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,p);}
+ public ResourceLocation getModelResource(Mpl01Entity e){return id("geo/mobile_patriot_launcher_mpl01.geo.json");}public ResourceLocation getTextureResource(Mpl01Entity e){return id("textures/entity/mobile_patriot_launcher_mpl01.png");}public ResourceLocation getAnimationResource(Mpl01Entity e){return id("animations/mobile_patriot_launcher_mpl01.animation.json");}
+ @Override public void setCustomAnimations(Mpl01Entity e,long instance,AnimationState<Mpl01Entity> state){super.setCustomAnimations(e,instance,state);float p=state.getPartialTick(),pose=e.pose(p);Mpl01Animation.apply(this,pose*4);for(int i=1;i<=4;i++)for(String side:new String[]{"L","R"}){final int axle=i;getBone("Wheel_"+i+"_"+side).ifPresent(b->{b.setRotX((float)-e.wheel(p));b.setRotY(axle<=2?e.steer(p)*(axle==2?.8f:1):0);});}int at=0;for(String side:new String[]{"L","R"})for(String end:new String[]{"F","B"}){int index=at++;getBone("Jack_"+side+end).ifPresent(b->b.setPosY(b.getPosY()+e.jackOffset(index)*16*Math.min(1,Math.max(0,(pose*4-1)*2))));}for(int i=0;i<4;i++){final int slot=i;getBone("Canister_"+(i+1)+"_cover").ifPresent(b->b.setHidden(e.fired(slot)));}}
+}

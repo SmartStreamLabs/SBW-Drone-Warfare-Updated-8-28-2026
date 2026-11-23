@@ -1,8 +1,8 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.world.entity.Entity;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
 import java.lang.reflect.Method;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 public class LucasDroneModel extends GeoModel<LucasDroneEntity> {
-    private static final String[] PROPELLER_BONES = {"rear_propeller"};
+    private static final String[] PROPELLER_BONES = {"propeller"};
     private static final float[] PROPELLER_DIRECTIONS = {1.0F};
     private static final String CURRENT_ENERGY_TAG = "sbwdroneconfigCurrentEnergy";
     private static final String OUT_OF_ENERGY_TAG = "sbwdroneconfigOutOfEnergy";
@@ -36,13 +36,19 @@ public class LucasDroneModel extends GeoModel<LucasDroneEntity> {
     public void setCustomAnimations(LucasDroneEntity drone, long instanceId, AnimationState<LucasDroneEntity> animationState) {
         super.setCustomAnimations(drone, instanceId, animationState);
 
+        // Cosmetic deflection only; existing entity attitude remains the sole input.
+        float partial=animationState==null?0:animationState.getPartialTick();
+        float pitch=drone.getBodyPitch(partial),roll=drone.getRoll(partial);
+        getBone("elevon_L").ifPresent(b->b.setRotX((float)Math.toRadians(Math.max(-15,Math.min(15,-pitch*.5f+roll*.35f)))));
+        getBone("elevon_R").ifPresent(b->b.setRotX((float)Math.toRadians(Math.max(-15,Math.min(15,-pitch*.5f-roll*.35f)))));
+
         PropellerSpinState spinState = SPIN_STATES.computeIfAbsent(drone, ignored -> new PropellerSpinState());
         float partialTick = animationState == null ? 0.0F : animationState.getPartialTick();
         float targetSpeed = getTargetSpeed(drone);
         float angle = spinState.update(drone.tickCount + partialTick, targetSpeed);
 
         for (int index = 0; index < PROPELLER_BONES.length; index++) {
-            CoreGeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
+            GeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
             if (bone != null) {
                 bone.setRotZ(angle * PROPELLER_DIRECTIONS[index]);
             }
@@ -50,6 +56,7 @@ public class LucasDroneModel extends GeoModel<LucasDroneEntity> {
     }
 
     private static float getTargetSpeed(LucasDroneEntity drone) {
+        if(drone.isLp01Fit() && !drone.isLp01PropellerSafe())return .75F;
         if (isPoweredOff(drone)) {
             return 0.0F;
         }

@@ -1,0 +1,7 @@
+{
+  "Model": {
+    "Model": "sbwdroneconfig:geo/drone_interceptor_launcher_dil01.geo.json",
+    "Texture": "sbwdroneconfig:textures/item/drone_interceptor_launcher_dil01.png",
+    "Animation": "sbwdroneconfig:animations/drone_interceptor_launcher_dil01.animation.json"
+  }
+}

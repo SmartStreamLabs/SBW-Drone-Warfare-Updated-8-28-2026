@@ -10,10 +10,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,6 +55,9 @@ public final class PlayerDroneAnchorManager {
         }
     }
 
+    public static Entity controlledDrone(ServerPlayer player) { var state=ACTIVE_ANCHORS.get(player.getUUID());if(state==null||!state.droneDimension.equals(player.level().dimension()))return null;var drone=player.serverLevel().getEntity(state.droneUuid);return isStillActive(player,drone,state)?drone:null; }
+    static ResourceKey<Level> getCapturedOriginalDimension(ServerPlayer player){var state=ACTIVE_ANCHORS.get(player.getUUID());return state==null?null:state.originalDimension;}
+    static float getCapturedOriginalYaw(ServerPlayer player){var state=ACTIVE_ANCHORS.get(player.getUUID());return state==null?player.getYRot():state.originalYaw;}
     static Vec3 getCapturedOriginalPosition(ServerPlayer player) {
         if (player == null) {
             return null;
@@ -65,8 +68,8 @@ public final class PlayerDroneAnchorManager {
     }
 
     @SubscribeEvent
-    public static void onServerLevelTick(TickEvent.LevelTickEvent event) {
-        if (event.phase != TickEvent.Phase.END || event.level.isClientSide() || !(event.level instanceof ServerLevel serverLevel)) {
+    public static void onServerLevelTick(LevelTickEvent.Post event) {
+        if (event.getLevel().isClientSide() || !(event.getLevel() instanceof ServerLevel serverLevel)) {
             return;
         }
 
@@ -129,7 +132,7 @@ public final class PlayerDroneAnchorManager {
     }
 
     private static boolean isStillActive(ServerPlayer player, Entity drone, AnchorState state) {
-        if (!AddonConfig.enableDronePlayerAnchor() || player == null || drone == null || !drone.isAlive()) {
+        if (!AddonConfig.enableDronePlayerAnchor() || AddonConfig.enableDroneRemoteChunkTracking() || player == null || drone == null || !drone.isAlive()) {
             return false;
         }
         if (serverTick - state.lastTouchedTick > 5) {

@@ -1,0 +1,1 @@
+{"type": "minecraft:block", "pools": [{"rolls": 1, "conditions": [{"condition": "minecraft:block_state_property", "block": "sbwdroneconfig:flamingo_launch_platform", "properties": {"part": "0"}}], "entries": [{"type": "minecraft:item", "name": "sbwdroneconfig:flamingo_launch_platform"}]}]}

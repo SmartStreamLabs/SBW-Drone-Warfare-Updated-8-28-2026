@@ -1,0 +1,1 @@
+Original BT-01 model and texture supplied by user. Production uses BT01_Clean_Airframe (four ordinary pylons, no exhibit racks) to keep existing loads clear. 16 units/block, chosen envelope 12 x 6.5 x 2.2 blocks. The static item OBJ retains its already-baked tail basis; animated world mesh retains the supplied diagonal hierarchy.

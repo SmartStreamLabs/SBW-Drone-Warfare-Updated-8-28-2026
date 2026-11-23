@@ -1,0 +1,68 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "loader": "forge:obj",
+    "model": "sbwdroneconfig:models/item/ds02.obj",
+    "mtl_override": "sbwdroneconfig:models/item/ds02.mtl",
+    "flip_v": true,
+    "automatic_culling": false,
+    "textures": {
+      "particle": "sbwdroneconfig:block/drone_warning_siren_ds02"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          12,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          -6,
+          0
+        ],
+        "scale": [
+          0.18,
+          0.18,
+          0.18
+        ]
+      },
+      "ground": {
+        "scale": [
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      "firstperson_righthand": {
+        "scale": [
+          0.12,
+          0.12,
+          0.12
+        ]
+      },
+      "thirdperson_righthand": {
+        "scale": [
+          0.12,
+          0.12,
+          0.12
+        ]
+      },
+      "fixed": {
+        "scale": [
+          0.17,
+          0.17,
+          0.17
+        ]
+      }
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/drone_warning_siren_ds02"
+      }
+    }
+  }
+}

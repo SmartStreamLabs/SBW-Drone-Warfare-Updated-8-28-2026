@@ -1,0 +1,55 @@
+{
+  "model": "PROTECTIVE_SHELTER_PS01",
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "door_bone": "Door_Hinged",
+  "door_hinge_blocks": [
+    -1.255,
+    1.48,
+    -2.995
+  ],
+  "door_closed_degrees": 0,
+  "door_open_degrees": 90,
+  "door_opening_blocks": {
+    "x": [
+      -1.2,
+      0
+    ],
+    "y": [
+      0.28,
+      2.67
+    ],
+    "z": [
+      -3.1,
+      -2.5
+    ]
+  },
+  "interior_clear_floor_blocks": {
+    "x": [
+      -1.7,
+      1.7
+    ],
+    "z": [
+      -2.5,
+      2.5
+    ],
+    "floor_y": 0.24
+  },
+  "seat_anchors": [
+    "Seat_Anchor_L1",
+    "Seat_Anchor_L2",
+    "Seat_Anchor_L3",
+    "Seat_Anchor_R1",
+    "Seat_Anchor_R2",
+    "Seat_Anchor_R3"
+  ],
+  "lamp_groups": [
+    "Lamp_1",
+    "Lamp_2"
+  ],
+  "animations": [
+    "animation.ps01.door_open"
+  ],
+  "scope": "Photo-referenced cosmetic Minecraft shelter model. Approximate game-art scale, not a structural design or certified protective shelter.",
+  "integration": "Door interaction, moving collision, seating, actual lighting, placement and explosion/shrapnel protection must be implemented server-side in the mod. The model by itself does not provide blast protection."
+}

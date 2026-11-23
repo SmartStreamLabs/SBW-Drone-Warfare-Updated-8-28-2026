@@ -1,0 +1,27 @@
+{
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "hull_center_model_units": [
+    0,
+    9.6,
+    0
+  ],
+  "length_blocks": 7.463,
+  "width_with_fins_blocks": 3.26,
+  "groups": [
+    "SD01_Root",
+    "Hull",
+    "Dorsal_Fin",
+    "Tailplanes_Left",
+    "Tailplanes_Right",
+    "Upper_Aft_Fin",
+    "Lower_Aft_Fin",
+    "Fore_Sensor_Mast",
+    "Aft_Sensor_Mast",
+    "Nose_Sensors",
+    "Surface_Details"
+  ],
+  "animation": "animation.sd01.tailplanes_preview",
+  "scope": "Exterior cosmetic game model inspired by supplied photo. Scale is a chosen Minecraft fit, not measured dimensions of the photographed vehicle.",
+  "integration": "Underwater movement, camera, sonar, lights and DVT-01 feed are not implemented by the model. Fin animation is a preview; map groups to gameplay controls in the mod."
+}

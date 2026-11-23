@@ -1,7 +1,0 @@
-# "uAV" (https://skfb.ly/ory8t) by Phoenix..., CC BY 4.0
-newmtl PickUp_UAV_D
-Ka 1.000000 1.000000 1.000000
-Kd 1.000000 1.000000 1.000000
-Ks 0.000000 0.000000 0.000000
-d 1.000000
-map_Kd sbwdroneconfig:item/delivery_drone

@@ -13,6 +13,13 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 
 public final class FpvGogglesArmorModel extends HumanoidModel<LivingEntity> {
+    private static final int FRAME_COLOR = 0xFF050606;
+    private static final int STRAP_COLOR = 0xFF030404;
+    private static final int LENS_COLOR = 0xFF38474B;
+    private static final int ANTENNA_COLOR = 0xFF090B0B;
+    private static final int GREEN_COLOR = 0xFF1FFF42;
+    private static final int RED_COLOR = 0xFFFF2E26;
+
     private final ModelPart frame;
     private final ModelPart lens;
     private final ModelPart leftStrap;
@@ -74,25 +81,25 @@ public final class FpvGogglesArmorModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
         if (!this.head.visible) {
             return;
         }
         poseStack.pushPose();
         this.head.translateAndRotate(poseStack);
-        render(this.frame, poseStack, buffer, packedLight, packedOverlay, 0.015F, 0.02F, 0.02F, alpha);
-        render(this.leftStrap, poseStack, buffer, packedLight, packedOverlay, 0.01F, 0.012F, 0.012F, alpha);
-        render(this.rightStrap, poseStack, buffer, packedLight, packedOverlay, 0.01F, 0.012F, 0.012F, alpha);
-        render(this.rearBand, poseStack, buffer, packedLight, packedOverlay, 0.01F, 0.012F, 0.012F, alpha);
-        render(this.lens, poseStack, buffer, packedLight, packedOverlay, 0.22F, 0.28F, 0.30F, alpha);
-        render(this.antenna, poseStack, buffer, packedLight, packedOverlay, 0.025F, 0.03F, 0.03F, alpha);
-        render(this.antennaTip, poseStack, buffer, packedLight, packedOverlay, 0.035F, 0.04F, 0.04F, alpha);
-        render(this.leftLight, poseStack, buffer, packedLight, packedOverlay, 0.12F, 1.0F, 0.26F, alpha);
-        render(this.rightLight, poseStack, buffer, packedLight, packedOverlay, 1.0F, 0.18F, 0.15F, alpha);
+        render(this.frame, poseStack, buffer, packedLight, packedOverlay, FRAME_COLOR);
+        render(this.leftStrap, poseStack, buffer, packedLight, packedOverlay, STRAP_COLOR);
+        render(this.rightStrap, poseStack, buffer, packedLight, packedOverlay, STRAP_COLOR);
+        render(this.rearBand, poseStack, buffer, packedLight, packedOverlay, STRAP_COLOR);
+        render(this.lens, poseStack, buffer, packedLight, packedOverlay, LENS_COLOR);
+        render(this.antenna, poseStack, buffer, packedLight, packedOverlay, ANTENNA_COLOR);
+        render(this.antennaTip, poseStack, buffer, packedLight, packedOverlay, ANTENNA_COLOR);
+        render(this.leftLight, poseStack, buffer, packedLight, packedOverlay, GREEN_COLOR);
+        render(this.rightLight, poseStack, buffer, packedLight, packedOverlay, RED_COLOR);
         poseStack.popPose();
     }
 
-    private static void render(ModelPart part, PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        part.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    private static void render(ModelPart part, PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        part.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 }

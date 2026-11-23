@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "ICI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "C": {
+      "item": "superbwarfare:cell"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:empty_jerrycan",
+    "count": 1
+  }
+}

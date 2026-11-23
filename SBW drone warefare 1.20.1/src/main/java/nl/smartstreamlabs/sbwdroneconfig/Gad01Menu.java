@@ -1,0 +1,13 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.world.inventory.*;import net.minecraft.world.entity.player.*;import net.minecraft.world.*;import net.minecraft.world.item.ItemStack;import net.minecraft.network.FriendlyByteBuf;
+public final class Gad01Menu extends AbstractContainerMenu {
+ public final int vehicleId;private final Gad01Entity vehicle;private final Container contents;
+ public Gad01Menu(int id,Inventory inv,FriendlyByteBuf b){this(id,inv,b.readInt(),null);}
+ public Gad01Menu(int id,Inventory inv,Gad01Entity e){this(id,inv,e.getId(),e);}
+ private Gad01Menu(int id,Inventory inv,int entity,Gad01Entity e){super(AddonMenus.GAD01.get(),id);vehicleId=entity;vehicle=e;contents=e==null?new SimpleContainer(3):new SimpleContainer(3){@Override public ItemStack getItem(int s){return e.getItem(s);}@Override public void setItem(int s,ItemStack stack){e.setItem(s,stack);e.setChanged();}@Override public ItemStack removeItem(int s,int n){var stack=e.removeItem(s,n);e.setChanged();return stack;}@Override public ItemStack removeItemNoUpdate(int s){return e.removeItemNoUpdate(s);}@Override public void setChanged(){e.setChanged();}@Override public int getMaxStackSize(){return 1;}};
+  for(int i=0;i<3;i++){final int s=i;addSlot(new Slot(contents,i,i<2?51+i*36:132,31){@Override public boolean mayPlace(ItemStack stack){return s==2?MineRoverEntity.battery(stack):MineRoverEntity.suitable(stack);}@Override public int getMaxStackSize(){return 1;}});}
+  for(int row=0;row<3;row++)for(int col=0;col<9;col++)addSlot(new Slot(inv,col+row*9+9,8+col*18,88+row*18));for(int col=0;col<9;col++)addSlot(new Slot(inv,col,8+col*18,146));
+ }
+ @Override public boolean stillValid(Player p){var e=p.level().getEntity(vehicleId);return e instanceof Gad01Entity g&&g.isAlive()&&!g.isRemoved()&&!g.isWreck()&&g.operator()==null&&p.distanceToSqr(g)<=64&&(p.level().isClientSide||p instanceof net.minecraft.server.level.ServerPlayer sp&&g.permitted(sp));}
+ @Override public ItemStack quickMoveStack(Player p,int index){if(!stillValid(p)||index<0||index>=slots.size())return ItemStack.EMPTY;var source=slots.get(index);if(!source.hasItem())return ItemStack.EMPTY;var stack=source.getItem();var old=stack.copy();if(index<3){if(!moveItemStackTo(stack,3,slots.size(),true))return ItemStack.EMPTY;}else{int from=MineRoverEntity.battery(stack)?2:0,to=MineRoverEntity.battery(stack)?3:2;if(!MineRoverEntity.battery(stack)&&!MineRoverEntity.suitable(stack)||!moveItemStackTo(stack,from,to,false))return ItemStack.EMPTY;}if(stack.isEmpty())source.set(ItemStack.EMPTY);else source.setChanged();source.onTake(p,stack);return old;}
+}

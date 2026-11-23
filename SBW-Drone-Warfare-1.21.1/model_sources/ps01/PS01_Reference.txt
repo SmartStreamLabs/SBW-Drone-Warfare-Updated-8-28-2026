@@ -1,0 +1,5 @@
+Referentie: de door de gebruiker aangeleverde foto van een vrijstaande
+betonnen shelter met gewelfd dak, schuine steunberen en een witte deur.
+De foto is alleen als vormreferentie gebruikt en is niet in het pakket opgenomen.
+Geometrie en textures zijn originele spelassets. Het interieur is een eigen
+uitwerking, omdat dit niet op de aangeleverde foto zichtbaar is.

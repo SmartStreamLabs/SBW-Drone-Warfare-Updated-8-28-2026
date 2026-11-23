@@ -1,12 +1,13 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record AbandonedFiberCableCutRequestMessage(
         UUID cableId,
@@ -14,7 +15,10 @@ public record AbandonedFiberCableCutRequestMessage(
         double hitX,
         double hitY,
         double hitZ
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<AbandonedFiberCableCutRequestMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "abandoned_fiber_cable_cut_request"));
+
     public AbandonedFiberCableCutRequestMessage(UUID cableId, int claimedSegmentIndex, Vec3 hitPosition) {
         this(
                 cableId,
@@ -43,16 +47,20 @@ public record AbandonedFiberCableCutRequestMessage(
         );
     }
 
-    public static void handle(AbandonedFiberCableCutRequestMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
+    public static void handle(AbandonedFiberCableCutRequestMessage message, IPayloadContext context) {
         context.enqueueWork(() -> {
-            ServerPlayer sender = context.getSender();
-            AbandonedFiberCableManager.handleCutRequest(sender, message);
+            if (context.player() instanceof ServerPlayer sender) {
+                AbandonedFiberCableManager.handleCutRequest(sender, message);
+            }
         });
-        context.setPacketHandled(true);
     }
 
     Vec3 claimedHitPosition() {
         return new Vec3(hitX, hitY, hitZ);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

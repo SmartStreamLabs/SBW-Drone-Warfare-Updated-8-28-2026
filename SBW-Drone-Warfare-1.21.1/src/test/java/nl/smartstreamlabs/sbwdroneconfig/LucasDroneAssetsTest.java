@@ -46,45 +46,13 @@ class LucasDroneAssetsTest {
 
     @Test
     void lucasDroneGeometryKeepsTheImportedPolyMeshSilhouette() throws Exception {
-        ClassLoader loader = LucasDroneAssetsTest.class.getClassLoader();
-        try (var stream = loader.getResourceAsStream("assets/sbwdroneconfig/geo/lucas_drone.geo.json")) {
-            assertNotNull(stream, "The LUCAS drone geometry should be packaged.");
-
-            JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            JsonObject geometry = root.getAsJsonArray("minecraft:geometry").get(0).getAsJsonObject();
-            assertEquals("geometry.sbwdroneconfig.lucas_drone", geometry.getAsJsonObject("description").get("identifier").getAsString());
-
-            JsonObject[] detailMesh = {null};
-            JsonObject[] mainBody = {null};
-            JsonObject[] rearPropeller = {null};
-
-            geometry.getAsJsonArray("bones").forEach(element -> {
-                JsonObject bone = element.getAsJsonObject();
-                String name = bone.get("name").getAsString();
-                if ("detail_mesh".equals(name)) {
-                    detailMesh[0] = bone;
-                }
-                if ("main_body".equals(name)) {
-                    mainBody[0] = bone;
-                }
-                if ("rear_propeller".equals(name)) {
-                    rearPropeller[0] = bone;
-                }
-            });
-
-            assertImportedPolyMesh(detailMesh[0], "detail_mesh", 60);
-            assertImportedPolyMesh(mainBody[0], "main_body", 5000);
-            assertNotNull(rearPropeller[0], "The LUCAS drone should include an animatable rear_propeller bone.");
-            assertTrue(rearPropeller[0].has("cubes"), "The rear_propeller bone should define visible fallback cubes for the spin animation.");
-            assertEquals(2, rearPropeller[0].getAsJsonArray("cubes").size(), "The rear_propeller bone should contain a blade strip and a hub cube.");
-            assertTrue(rearPropeller[0].getAsJsonArray("pivot").get(2).getAsDouble() < 0.0D,
-                    "The LUCAS rear propeller should sit behind the fuselage instead of at the nose.");
-            assertTrue(rearPropeller[0].getAsJsonArray("pivot").get(2).getAsDouble() > -0.50D,
-                    "The addon rear propeller should be pulled forward so it attaches to the tail motor instead of floating too far back.");
-
-            JsonObject mainBodyPolyMesh = mainBody[0].getAsJsonObject("poly_mesh");
-            assertEquals(0, countLegacyTailPropellerPolys(mainBodyPolyMesh),
-                    "The imported main body mesh should no longer keep the old tail propeller blades once the addon rear propeller is in place.");
+        try(var stream=getClass().getClassLoader().getResourceAsStream("assets/sbwdroneconfig/geo/lucas_drone.geo.json")){
+            var geometry=JsonParser.parseReader(new InputStreamReader(stream,StandardCharsets.UTF_8)).getAsJsonObject().getAsJsonArray("minecraft:geometry").get(0).getAsJsonObject();
+            assertEquals("geometry.sbwdroneconfig.lucas_drone",geometry.getAsJsonObject("description").get("identifier").getAsString());
+            var map=new java.util.HashMap<String,JsonObject>();geometry.getAsJsonArray("bones").forEach(x->map.put(x.getAsJsonObject().get("name").getAsString(),x.getAsJsonObject()));
+            for(String name:new String[]{"fuselage","nose_section","delta_wing_L","delta_wing_R","engine_exterior","propeller"})assertTrue(map.get(name).getAsJsonObject("poly_mesh").getAsJsonArray("polys").size()>0,name);
+            assertEquals(23.58,map.get("propeller").getAsJsonArray("pivot").get(2).getAsDouble(),1e-8);
+            assertEquals("lc01_root",map.get("engine_exterior").get("parent").getAsString());
         }
     }
 
@@ -105,7 +73,7 @@ class LucasDroneAssetsTest {
 
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
             assertEquals("minecraft:crafting_shaped", root.get("type").getAsString());
-            assertEquals("sbwdroneconfig:lucas_drone", root.getAsJsonObject("result").get("item").getAsString());
+            assertEquals("sbwdroneconfig:lucas_drone", root.getAsJsonObject("result").get("id").getAsString());
             assertEquals("superbwarfare:drone", root.getAsJsonObject("key").getAsJsonObject("D").get("item").getAsString());
         }
 
@@ -142,8 +110,8 @@ class LucasDroneAssetsTest {
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
             assertEquals("LUCAS Drone", root.get("entity.sbwdroneconfig.lucas_drone").getAsString());
             assertEquals("LUCAS Drone", root.get("item.sbwdroneconfig.lucas_drone").getAsString());
-            assertEquals("Low-cost one-way attack drone with the addon FPV control stack.", root.get("tooltip.sbwdroneconfig.lucas_drone.1").getAsString());
-            assertEquals("Uses the same monitor, FPV Goggles, fiber optic, and spotlight systems as the FPV drones, but runs on gasoline.", root.get("tooltip.sbwdroneconfig.lucas_drone.2").getAsString());
+            assertEquals("Gasoline-powered fixed-wing attack drone.", root.get("tooltip.sbwdroneconfig.lucas_drone.1").getAsString());
+            assertEquals("Use a linked Monitor and FPV Goggles; refuel before powered flight.", root.get("tooltip.sbwdroneconfig.lucas_drone.2").getAsString());
         }
     }
 
@@ -169,8 +137,8 @@ class LucasDroneAssetsTest {
         try (var stream = loader.getResourceAsStream("assets/sbwdroneconfig/models/item/gasoline_jerrycan.json")) {
             assertNotNull(stream, "The gasoline jerrycan item model should be packaged.");
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            assertEquals("forge:separate_transforms", root.get("loader").getAsString());
-            assertEquals("forge:obj", root.getAsJsonObject("base").get("loader").getAsString());
+            assertEquals("neoforge:separate_transforms", root.get("loader").getAsString());
+            assertEquals("neoforge:obj", root.getAsJsonObject("base").get("loader").getAsString());
             assertEquals("sbwdroneconfig:models/item/jerrycan.obj", root.getAsJsonObject("base").get("model").getAsString());
             assertEquals("sbwdroneconfig:models/item/gasoline_jerrycan.mtl", root.getAsJsonObject("base").get("mtl_override").getAsString());
         }
@@ -178,8 +146,8 @@ class LucasDroneAssetsTest {
         try (var stream = loader.getResourceAsStream("assets/sbwdroneconfig/models/item/empty_jerrycan.json")) {
             assertNotNull(stream, "The empty jerrycan item model should be packaged.");
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            assertEquals("forge:separate_transforms", root.get("loader").getAsString());
-            assertEquals("forge:obj", root.getAsJsonObject("base").get("loader").getAsString());
+            assertEquals("neoforge:separate_transforms", root.get("loader").getAsString());
+            assertEquals("neoforge:obj", root.getAsJsonObject("base").get("loader").getAsString());
             assertEquals("sbwdroneconfig:models/item/jerrycan.obj", root.getAsJsonObject("base").get("model").getAsString());
             assertEquals("sbwdroneconfig:models/item/empty_jerrycan.mtl", root.getAsJsonObject("base").get("mtl_override").getAsString());
         }
@@ -247,7 +215,7 @@ class LucasDroneAssetsTest {
         try (var stream = loader.getResourceAsStream(resourcePath)) {
             assertNotNull(stream, resourcePath + " should be packaged.");
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-            assertEquals("forge:separate_transforms", root.get("loader").getAsString(),
+            assertEquals("neoforge:separate_transforms", root.get("loader").getAsString(),
                     "Jerrycan items should use a flat generated GUI icon instead of forcing the OBJ into a 16x16 slot.");
             assertEquals(expectedMaterial, root.getAsJsonObject("base").get("mtl_override").getAsString());
 

@@ -20,8 +20,10 @@ public abstract class ChunkMapTrackedEntityMixin {
             method = "updatePlayer",
             at = @At(
                     value = "INVOKE",
-                    target = "Ljava/lang/Math;min(II)I"
+                    target = "Ljava/lang/Math;min(II)I",
+                    remap = false
             ),
+            remap = false,
             require = 0
     )
     private int sbwdroneconfig$extendDroneTrackingRange(int effectiveRange, int clampedViewDistanceRange, ServerPlayer player) {
@@ -32,6 +34,20 @@ public abstract class ChunkMapTrackedEntityMixin {
         }
 
         return Math.max(effectiveRange, forcedRange);
+    }
+
+    @Redirect(remap = false, method = "updatePlayer", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerPlayer;position()Lnet/minecraft/world/phys/Vec3;"))
+    private net.minecraft.world.phys.Vec3 drone$trackingPosition(ServerPlayer player) {
+        return nl.smartstreamlabs.sbwdroneconfig.DvtServer.tracking(player,sbwdroneconfig$getTrackedEntity(),nl.smartstreamlabs.sbwdroneconfig.DroneClientChunkSyncManager.trackingPosition(player));
+    }
+
+    @Redirect(method="updatePlayer",remap=false,at=@At(value="INVOKE",
+            target="Lnet/minecraft/server/level/ChunkMap;isChunkTracked(Lnet/minecraft/server/level/ServerPlayer;II)Z"))
+    private boolean drone$keepCameraEntity(net.minecraft.server.level.ChunkMap map,ServerPlayer player,int x,int z) {
+        // Keep the validated camera actor paired while vanilla's acknowledged chunk batches catch up.
+        if(nl.smartstreamlabs.sbwdroneconfig.DroneClientChunkSyncManager.controls(player,sbwdroneconfig$getTrackedEntity())) return true;
+        return ((DroneChunkMapAccess)map).drone$isChunkTracked(player,x,z);
     }
 
     @Unique

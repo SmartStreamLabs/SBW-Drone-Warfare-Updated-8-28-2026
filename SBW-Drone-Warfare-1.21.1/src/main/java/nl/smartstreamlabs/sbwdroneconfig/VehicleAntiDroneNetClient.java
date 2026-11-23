@@ -1,315 +1,84 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
+/** VC-01 replaces the old translucent five-face vehicle box. Ground nets are separate. */
 public final class VehicleAntiDroneNetClient {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(
-            SbwDroneRangeConfig.MOD_ID,
-            "textures/block/anti_drone_net.png"
-    );
-    private static final int RED = 255;
-    private static final int GREEN = 255;
-    private static final int BLUE = 255;
-    private static final int ACTIVE_STATE_TTL_TICKS = 40;
-    private static final Map<Integer, Long> ACTIVE_VEHICLE_NETS = new HashMap<>();
-
-    private VehicleAntiDroneNetClient() {
+    private static final ResourceLocation METAL=ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,"textures/vc01/vc01_structure.png");
+    private static final ResourceLocation NET=ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID,"textures/vc01/vc01_net_welded.png");
+    private static final Map<Integer,Long> ACTIVE_VEHICLE_NETS=new HashMap<>();
+    private static final Map<Integer,Long> INACTIVE=new HashMap<>();
+    private static final Map<Integer,net.minecraft.nbt.CompoundTag> HEALTH=new HashMap<>();
+    private static ClientLevel world;
+    private VehicleAntiDroneNetClient() {}
+    public static void init(IEventBus bus){bus.addListener(VehicleAntiDroneNetClient::setup);}
+    private static void setup(FMLClientSetupEvent e){NeoForge.EVENT_BUS.register(VehicleAntiDroneNetClient.class);}
+    private static void world(ClientLevel current){if(world!=current){ACTIVE_VEHICLE_NETS.clear();INACTIVE.clear();HEALTH.clear();world=current;}}
+    public static void handleVehicleNetState(VehicleAntiDroneNetStateMessage m){
+        var level=Minecraft.getInstance().level;world(level);if(level==null)return;
+        if(m.active()){if(!m.panels().isEmpty())HEALTH.put(m.entityId(),m.panels());ACTIVE_VEHICLE_NETS.put(m.entityId(),level.getGameTime()+40);INACTIVE.remove(m.entityId());}
+        else{HEALTH.remove(m.entityId());ACTIVE_VEHICLE_NETS.remove(m.entityId());INACTIVE.put(m.entityId(),level.getGameTime()+40);}
     }
-
-    public static void init(IEventBus modBus) {
-        modBus.addListener(VehicleAntiDroneNetClient::onClientSetup);
-    }
-
-    private static void onClientSetup(FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(VehicleAntiDroneNetClient.class);
-    }
-
-    @SubscribeEvent
-    public static void onRenderLevelStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS
-                || !AddonConfig.vehicleAntiDroneNetEnabled()) {
-            return;
-        }
-
-        Minecraft minecraft = Minecraft.getInstance();
-        ClientLevel clientLevel = minecraft.level;
-        if (clientLevel == null) {
-            ACTIVE_VEHICLE_NETS.clear();
-            return;
-        }
-
-        long gameTime = clientLevel.getGameTime();
-        pruneVehicleNetState(clientLevel, gameTime);
-
-        RenderType renderType = RenderType.entityTranslucent(TEXTURE);
-        MultiBufferSource.BufferSource buffers = minecraft.renderBuffers().bufferSource();
-        VertexConsumer quads = buffers.getBuffer(renderType);
-        PoseStack poseStack = event.getPoseStack();
-        Vec3 cameraPosition = event.getCamera().getPosition();
-        int alpha = Mth.clamp((int) Math.round(AddonConfig.vehicleAntiDroneNetOpacity() * 255.0D), 128, 255);
-
-        poseStack.pushPose();
-        poseStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
-        RenderSystem.enableBlend();
-        RenderSystem.disableCull();
-
-        for (Entity entity : clientLevel.entitiesForRendering()) {
-            if (!shouldRenderVehicleNet(clientLevel, entity, gameTime)) {
-                continue;
-            }
-
-            VehicleAntiDroneNetGeometry.NetBox box = VehicleAntiDroneNetGeometry.createBox(
-                    entity,
-                    AddonConfig.vehicleAntiDroneNetHorizontalPadding(),
-                    AddonConfig.vehicleAntiDroneNetTopPadding()
-            );
-            VehicleAntiDroneNetGeometry.Basis basis = VehicleAntiDroneNetGeometry.basis(entity, event.getPartialTick());
-            int packedLight = minecraft.getEntityRenderDispatcher().getPackedLightCoords(entity, event.getPartialTick());
-            renderNetBox(poseStack, quads, basis, box, alpha, packedLight);
-        }
-
-        RenderSystem.enableCull();
-        poseStack.popPose();
-        buffers.endBatch(renderType);
-    }
-
-    public static void handleVehicleNetState(VehicleAntiDroneNetStateMessage message) {
-        Minecraft minecraft = Minecraft.getInstance();
-        ClientLevel clientLevel = minecraft.level;
-        if (clientLevel == null) {
-            ACTIVE_VEHICLE_NETS.clear();
-            return;
-        }
-
-        if (message.active()) {
-            ACTIVE_VEHICLE_NETS.put(message.entityId(), clientLevel.getGameTime() + ACTIVE_STATE_TTL_TICKS);
-        } else {
-            ACTIVE_VEHICLE_NETS.remove(message.entityId());
-        }
-    }
-
-    private static boolean shouldRenderVehicleNet(ClientLevel clientLevel, Entity entity, long gameTime) {
-        if (!SbwCompat.isSbwVehicle(entity)) {
-            return false;
-        }
-
-        Long expiresAt = ACTIVE_VEHICLE_NETS.get(entity.getId());
-        if (expiresAt != null && expiresAt >= gameTime) {
-            return true;
-        }
-
-        return SbwCompat.hasVehicleAntiDroneNetUpgrade(entity);
-    }
-
-    private static void pruneVehicleNetState(ClientLevel clientLevel, long gameTime) {
-        Iterator<Map.Entry<Integer, Long>> iterator = ACTIVE_VEHICLE_NETS.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, Long> entry = iterator.next();
-            if (entry.getValue() < gameTime || clientLevel.getEntity(entry.getKey()) == null) {
-                iterator.remove();
+    @SubscribeEvent public static void clearWorldState(net.neoforged.neoforge.client.event.ClientTickEvent.Post e){world(Minecraft.getInstance().level);}
+    @SubscribeEvent public static void onRenderLevelStage(RenderLevelStageEvent e){
+        if(e.getStage()!=RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES)return;
+        var mc=Minecraft.getInstance();var clientLevel=mc.level;world(clientLevel);
+        if(clientLevel==null||!AddonConfig.vehicleAntiDroneNetEnabled())return;
+        long now=clientLevel.getGameTime();
+        ACTIVE_VEHICLE_NETS.entrySet().removeIf(x->x.getValue()<now||clientLevel.getEntity(x.getKey())==null);
+        INACTIVE.entrySet().removeIf(x->x.getValue()<now||clientLevel.getEntity(x.getKey())==null);
+        HEALTH.keySet().removeIf(id->!ACTIVE_VEHICLE_NETS.containsKey(id));
+        var buffers=mc.renderBuffers().bufferSource();Vec3 camera=e.getCamera().getPosition();
+        RenderType solid=RenderType.entityCutoutNoCull(METAL),net=RenderType.entityCutoutNoCull(NET);
+        var poses=e.getPoseStack();float partial=e.getPartialTick().getGameTimeDeltaPartialTick(false);
+        for(Entity entity:clientLevel.entitiesForRendering()){
+            if(!SbwCompat.isVehicleNetHost(entity)||!entity.isAlive()||INACTIVE.containsKey(entity.getId()))continue;
+            if(!ACTIVE_VEHICLE_NETS.containsKey(entity.getId())&&!SbwCompat.hasVehicleAntiDroneNetUpgrade(entity))continue;
+            var state=HEALTH.remove(entity.getId());if(state!=null)Vc01Panels.receive(entity,state);
+            var profile=Vc01Geometry.profile(entity);if(profile==null)continue;
+            if(entity.position().distanceToSqr(camera)>192*192)continue;
+            int light=mc.getEntityRenderDispatcher().getPackedLightCoords(entity,partial);
+            boolean detailed=entity.position().distanceToSqr(camera)<40*40;
+            for(var branch:profile.branches()){
+                var transform=Vc01Geometry.matrix(entity,branch,partial);
+                if(!e.getFrustum().isVisible(Vc01Geometry.bounds(branch,transform)))continue;
+                Matrix4f local=new Matrix4f(transform);local.m30((float)(transform.m30()-camera.x));local.m31((float)(transform.m31()-camera.y));local.m32((float)(transform.m32()-camera.z));
+                Matrix4f position=new Matrix4f(poses.last().pose()).mul(local);
+                Matrix3f normal=new Matrix3f(position);
+                for(boolean mesh:new boolean[]{false,true}){
+                    var out=buffers.getBuffer(mesh?net:solid);
+                    for(var f:branch.faces()){
+                        if(f.net()!=mesh||!detailed&&f.detail())continue;
+                        double fraction=f.net()?Vc01Panels.health(entity,f.panel()).fraction():1;
+                        if(f.net()&&fraction<=0)continue;
+                        int tint=(int)(255*(.35+.65*fraction));
+                        // One shared buffer per material; immutable fitted faces are reused for every frame.
+                        emit(out,position,normal,f.a(),f.normal(),light,tint);
+                        emit(out,position,normal,f.b(),f.normal(),light,tint);
+                        emit(out,position,normal,f.c(),f.normal(),light,tint);
+                        emit(out,position,normal,f.c(),f.normal(),light,tint);
+                    }
+                }
             }
         }
+        buffers.endBatch(solid);buffers.endBatch(net);
     }
-
-    private static void renderNetBox(
-            PoseStack poseStack,
-            VertexConsumer quads,
-            VehicleAntiDroneNetGeometry.Basis basis,
-            VehicleAntiDroneNetGeometry.NetBox box,
-            int alpha,
-            int packedLight
-    ) {
-        double x0 = box.minX();
-        double x1 = box.maxX();
-        double y0 = box.minY();
-        double y1 = box.maxY();
-        double z0 = box.minZ();
-        double z1 = box.maxZ();
-
-        renderTiledQuad(poseStack, quads, basis,
-                x0, y1, z0,
-                x1, y1, z0,
-                x1, y1, z1,
-                x0, y1, z1,
-                box.width(),
-                box.length(),
-                alpha,
-                packedLight);
-        renderTiledQuad(poseStack, quads, basis,
-                x0, y0, z0,
-                x0, y1, z0,
-                x1, y1, z0,
-                x1, y0, z0,
-                box.height(),
-                box.width(),
-                alpha,
-                packedLight);
-        renderTiledQuad(poseStack, quads, basis,
-                x1, y0, z1,
-                x1, y1, z1,
-                x0, y1, z1,
-                x0, y0, z1,
-                box.height(),
-                box.width(),
-                alpha,
-                packedLight);
-        renderTiledQuad(poseStack, quads, basis,
-                x0, y0, z1,
-                x0, y1, z1,
-                x0, y1, z0,
-                x0, y0, z0,
-                box.height(),
-                box.length(),
-                alpha,
-                packedLight);
-        renderTiledQuad(poseStack, quads, basis,
-                x1, y0, z0,
-                x1, y1, z0,
-                x1, y1, z1,
-                x1, y0, z1,
-                box.height(),
-                box.length(),
-                alpha,
-                packedLight);
-    }
-
-    private static void renderTiledQuad(
-            PoseStack poseStack,
-            VertexConsumer quads,
-            VehicleAntiDroneNetGeometry.Basis basis,
-            double ax,
-            double ay,
-            double az,
-            double bx,
-            double by,
-            double bz,
-            double cx,
-            double cy,
-            double cz,
-            double dx,
-            double dy,
-            double dz,
-            double uLength,
-            double vLength,
-            int alpha,
-            int packedLight
-    ) {
-        Vec3 a = new Vec3(ax, ay, az);
-        Vec3 b = new Vec3(bx, by, bz);
-        Vec3 c = new Vec3(cx, cy, cz);
-        Vec3 d = new Vec3(dx, dy, dz);
-        int uSegments = Math.max(1, (int) Math.ceil(uLength / VehicleAntiDroneNetGeometry.TILE_SIZE));
-        int vSegments = Math.max(1, (int) Math.ceil(vLength / VehicleAntiDroneNetGeometry.TILE_SIZE));
-
-        for (int u = 0; u < uSegments; u++) {
-            double u0 = (double) u / (double) uSegments;
-            double u1 = (double) (u + 1) / (double) uSegments;
-            for (int v = 0; v < vSegments; v++) {
-                double v0 = (double) v / (double) vSegments;
-                double v1 = (double) (v + 1) / (double) vSegments;
-                Vec3 p00 = bilerp(a, b, c, d, u0, v0);
-                Vec3 p10 = bilerp(a, b, c, d, u1, v0);
-                Vec3 p11 = bilerp(a, b, c, d, u1, v1);
-                Vec3 p01 = bilerp(a, b, c, d, u0, v1);
-                float maxU = (float) Math.min(1.0D, uLength / (double) uSegments / VehicleAntiDroneNetGeometry.TILE_SIZE);
-                float maxV = (float) Math.min(1.0D, vLength / (double) vSegments / VehicleAntiDroneNetGeometry.TILE_SIZE);
-                renderQuad(poseStack, quads, basis, p00, p10, p11, p01, maxU, maxV, alpha, packedLight);
-            }
-        }
-    }
-
-    private static void renderQuad(
-            PoseStack poseStack,
-            VertexConsumer quads,
-            VehicleAntiDroneNetGeometry.Basis basis,
-            Vec3 localA,
-            Vec3 localB,
-            Vec3 localC,
-            Vec3 localD,
-            float uMax,
-            float vMax,
-            int alpha,
-            int packedLight
-    ) {
-        Vec3 a = basis.toWorld(localA.x, localA.y, localA.z);
-        Vec3 b = basis.toWorld(localB.x, localB.y, localB.z);
-        Vec3 c = basis.toWorld(localC.x, localC.y, localC.z);
-        Vec3 d = basis.toWorld(localD.x, localD.y, localD.z);
-        Vec3 faceNormal = b.subtract(a).cross(d.subtract(a));
-        if (faceNormal.lengthSqr() < 1.0E-6D) {
-            faceNormal = basis.up();
-        } else {
-            faceNormal = faceNormal.normalize();
-        }
-
-        Matrix4f matrix = poseStack.last().pose();
-        Matrix3f normal = poseStack.last().normal();
-
-        putVertex(quads, matrix, normal, a, 0.0F, 0.0F, alpha, packedLight, faceNormal);
-        putVertex(quads, matrix, normal, b, uMax, 0.0F, alpha, packedLight, faceNormal);
-        putVertex(quads, matrix, normal, c, uMax, vMax, alpha, packedLight, faceNormal);
-        putVertex(quads, matrix, normal, d, 0.0F, vMax, alpha, packedLight, faceNormal);
-
-        Vec3 reverseNormal = faceNormal.scale(-1.0D);
-        putVertex(quads, matrix, normal, d, 0.0F, vMax, alpha, packedLight, reverseNormal);
-        putVertex(quads, matrix, normal, c, uMax, vMax, alpha, packedLight, reverseNormal);
-        putVertex(quads, matrix, normal, b, uMax, 0.0F, alpha, packedLight, reverseNormal);
-        putVertex(quads, matrix, normal, a, 0.0F, 0.0F, alpha, packedLight, reverseNormal);
-    }
-
-    private static Vec3 bilerp(Vec3 a, Vec3 b, Vec3 c, Vec3 d, double u, double v) {
-        Vec3 top = lerp(a, b, u);
-        Vec3 bottom = lerp(d, c, u);
-        return lerp(top, bottom, v);
-    }
-
-    private static Vec3 lerp(Vec3 a, Vec3 b, double progress) {
-        return new Vec3(
-                Mth.lerp(progress, a.x, b.x),
-                Mth.lerp(progress, a.y, b.y),
-                Mth.lerp(progress, a.z, b.z)
-        );
-    }
-
-    private static void putVertex(
-            VertexConsumer quads,
-            Matrix4f matrix,
-            Matrix3f normal,
-            Vec3 point,
-            float u,
-            float v,
-            int alpha,
-            int packedLight,
-            Vec3 faceNormal
-    ) {
-        quads.vertex(matrix, (float) point.x, (float) point.y, (float) point.z)
-                .color(RED, GREEN, BLUE, alpha)
-                .uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(packedLight)
-                .normal(normal, (float) faceNormal.x, (float) faceNormal.y, (float) faceNormal.z)
-                .endVertex();
+    private static void emit(VertexConsumer out,Matrix4f pose,Matrix3f normal,Vc01Geometry.Vertex v,Vec3 n,int light,int tint){
+        out.addVertex(pose,(float)v.p().x,(float)v.p().y,(float)v.p().z).setColor(255,tint,tint,255).setUv(v.u(),v.v()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal((float)(normal.m00()*n.x+normal.m10()*n.y+normal.m20()*n.z),(float)(normal.m01()*n.x+normal.m11()*n.y+normal.m21()*n.z),(float)(normal.m02()*n.x+normal.m12()*n.y+normal.m22()*n.z));
     }
 }

@@ -1,19 +1,18 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import com.atsuishio.superbwarfare.entity.projectile.C4Entity;
-import com.atsuishio.superbwarfare.entity.projectile.Tm62Entity;
 import com.atsuishio.superbwarfare.entity.projectile.FastThrowableProjectile;
 import com.atsuishio.superbwarfare.entity.projectile.JavelinMissileEntity;
 import com.atsuishio.superbwarfare.entity.projectile.MortarShellEntity;
 import com.atsuishio.superbwarfare.entity.projectile.RpgRocketStandardEntity;
 import com.atsuishio.superbwarfare.entity.projectile.RpgRocketTBGEntity;
+import com.atsuishio.superbwarfare.entity.projectile.Tm62Entity;
 import com.atsuishio.superbwarfare.entity.vehicle.DroneEntity;
 import com.atsuishio.superbwarfare.init.ModEntities;
 import com.atsuishio.superbwarfare.init.ModTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,17 +29,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
     public static final int MAX_BOMBS = 4;
     private static final String TM_62_ITEM_ID = "superbwarfare:tm_62";
-    private static final String ANTI_VEHICLE_MORTAR_PAYLOAD_ITEM_ID = "sbwdroneconfig:anti_vehicle_mortar_payload";
     private static final PayloadDefinition[] SUPPORTED_PAYLOADS = new PayloadDefinition[]{
+            new PayloadDefinition("sbwdroneconfig:hand_grenade_hg01","hg01"),
             new PayloadDefinition(TM_62_ITEM_ID, "tm_62"),
-            new PayloadDefinition(ANTI_VEHICLE_MORTAR_PAYLOAD_ITEM_ID, "anti_vehicle_mortar_payload"),
+            new PayloadDefinition("sbwdroneconfig:anti_vehicle_mortar_payload", "anti_vehicle_mortar_payload"),
             new PayloadDefinition("superbwarfare:mortar_shell", "mortar_shell"),
             new PayloadDefinition("superbwarfare:mortar_shell_wp", "mortar_shell_wp"),
             new PayloadDefinition("superbwarfare:rpg_rocket_standard", "rpg_rocket_standard"),
@@ -60,9 +58,18 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
     private static final EntityDataAccessor<Integer> BOMBS_REMAINING =
             SynchedEntityData.defineId(HeavyBomberDroneEntity.class, EntityDataSerializers.INT);
 
+
+    // Client display snapshots only. The real inventory and existing payload/drop rules remain authoritative.
+    private static final java.util.List<EntityDataAccessor<ItemStack>> HB01_VISUAL_PAYLOADS = java.util.List.of(
+            SynchedEntityData.defineId(HeavyBomberDroneEntity.class, EntityDataSerializers.ITEM_STACK),
+            SynchedEntityData.defineId(HeavyBomberDroneEntity.class, EntityDataSerializers.ITEM_STACK),
+            SynchedEntityData.defineId(HeavyBomberDroneEntity.class, EntityDataSerializers.ITEM_STACK),
+            SynchedEntityData.defineId(HeavyBomberDroneEntity.class, EntityDataSerializers.ITEM_STACK));
+    private CompoundTag hb01LastVisualInventory;
+
     public HeavyBomberDroneEntity(EntityType<? extends DroneEntity> type, Level level) {
         super(type, level);
-        this.setHealth(HEAVY_BOMBER_MAX_HEALTH);
+        this.setHealth(getMaxHealth());
     }
 
     @Override
@@ -81,16 +88,18 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(BOMBS_REMAINING, MAX_BOMBS);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BOMBS_REMAINING, MAX_BOMBS);
+        for (var visual : HB01_VISUAL_PAYLOADS) builder.define(visual, ItemStack.EMPTY);
     }
 
     @Override
     public void baseTick() {
-        if (!this.level().isClientSide() && this.getFire()) {
+        if(Dc01Docking.docked(this))Dc01Docking.neutralize(this);
+        if (!this.level().isClientSide() && SbwCompat.getDroneFire(this)) {
             tryDropPayload();
-            this.setFire(false);
+            SbwCompat.setDroneFire(this, false);
         }
 
         super.baseTick();
@@ -103,6 +112,7 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
                     movement.z * SLOW_FLIGHT_HORIZONTAL_DAMPING
             );
         }
+        if (!this.level().isClientSide()) hb01SyncPayloadVisuals();
     }
 
     @Override
@@ -119,16 +129,16 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putInt(TAG_BOMBS_REMAINING, getBombsRemaining());
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt(TAG_BOMBS_REMAINING, getBombsRemaining());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        if (tag.contains(TAG_BOMBS_REMAINING, Tag.TAG_INT)) {
-            setBombsRemaining(tag.getInt(TAG_BOMBS_REMAINING));
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains(TAG_BOMBS_REMAINING, Tag.TAG_INT)) {
+            setBombsRemaining(compound.getInt(TAG_BOMBS_REMAINING));
         }
     }
 
@@ -150,8 +160,8 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
     }
 
     public static int bombsFromStack(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains(TAG_BOMBS_REMAINING, Tag.TAG_INT)) {
+        CompoundTag tag = AddonStackTags.get(stack);
+        if (tag.contains(TAG_BOMBS_REMAINING, Tag.TAG_INT)) {
             return Mth.clamp(tag.getInt(TAG_BOMBS_REMAINING), 0, MAX_BOMBS);
         }
         return MAX_BOMBS;
@@ -161,13 +171,15 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         ItemStack stack = new ItemStack(AddonItems.HEAVY_BOMBER_DRONE.get());
         int clamped = Mth.clamp(bombsRemaining, 0, MAX_BOMBS);
         if (clamped != MAX_BOMBS) {
-            stack.getOrCreateTag().putInt(TAG_BOMBS_REMAINING, clamped);
+            CompoundTag tag = new CompoundTag();
+            tag.putInt(TAG_BOMBS_REMAINING, clamped);
+            AddonStackTags.save(stack, tag);
         }
         return stack;
     }
 
     private boolean tryDropPayload() {
-        Player controller = this.getController();
+        Player controller = SbwCompat.getDroneController(this) instanceof Player player ? player : null;
         if (!(this.level() instanceof ServerLevel level)) {
             return false;
         }
@@ -181,7 +193,8 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
             return false;
         }
 
-        Player owner = this.getController();
+        LivingEntity owner = SbwCompat.getDroneController(this) instanceof LivingEntity living ? living : null;
+        if(loadedPayload.definition().kind().equals("hg01"))return Hg01Payload.dropBomber(this,inventory,loadedPayload.slot(),controller);
         Vec3 dropPos = this.position().add(0.0D, -0.55D, 0.0D);
         Vec3 releaseVelocity = this.getDeltaMovement().add(0.0D, -0.75D, 0.0D);
         Entity payload = createNativePayload(loadedPayload.definition(), owner, level, dropPos, releaseVelocity);
@@ -194,6 +207,7 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         inventory.setItem(loadedPayload.slot(), loadedStack.isEmpty() ? ItemStack.EMPTY : loadedStack);
         inventory.saveToDrone();
 
+        DroneExplosionVfx.markPayload(payload);DroneAttackDamage.mark(payload,this,loadedPayload.definition().itemId());
         level.addFreshEntity(payload);
         level.playSound(null, dropPos.x, dropPos.y, dropPos.z, SoundEvents.DISPENSER_LAUNCH, SoundSource.NEUTRAL, 0.9F, 0.65F);
 
@@ -207,16 +221,16 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         Entity payload = switch (definition.kind()) {
             case "tm_62" -> new Tm62Entity(owner, level, true);
             case "anti_vehicle_mortar_payload" -> {
-                AntiVehicleMortarPayloadEntity mortarPayload = new AntiVehicleMortarPayloadEntity(AddonEntities.ANTI_VEHICLE_MORTAR_PAYLOAD.get(), level);
-                if (owner != null) {
-                    mortarPayload.setOwnerUuid(owner.getUUID());
-                }
-                mortarPayload.setSourceDroneUuid(this.getUUID());
-                mortarPayload.releaseFromDrone(releaseVelocity);
-                yield mortarPayload;
+                var mortarPayload=new AntiVehicleMortarPayloadEntity(AddonEntities.ANTI_VEHICLE_MORTAR_PAYLOAD.get(),level);
+                if(owner!=null)mortarPayload.setOwnerUuid(owner.getUUID());
+                mortarPayload.setSourceDroneUuid(this.getUUID());mortarPayload.releaseFromDrone(releaseVelocity);yield mortarPayload;
             }
             case "mortar_shell" -> new MortarShellEntity(ModEntities.MORTAR_SHELL.get(), level);
-            case "mortar_shell_wp" -> new MortarShellEntity(ModEntities.MORTAR_SHELL.get(), level);
+            case "mortar_shell_wp" -> {
+                MortarShellEntity mortar = new MortarShellEntity(ModEntities.MORTAR_SHELL.get(), level);
+                mortar.setType(MortarShellEntity.Type.WP);
+                yield mortar;
+            }
             case "rpg_rocket_standard" -> new RpgRocketStandardEntity(ModEntities.RPG_ROCKET_STANDARD.get(), level);
             case "rpg_rocket_tbg" -> new RpgRocketTBGEntity(ModEntities.RPG_ROCKET_TBG.get(), level);
             case "c4_bomb" -> new C4Entity(owner, level, false);
@@ -257,7 +271,7 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
             for (PayloadDefinition definition : SUPPORTED_PAYLOADS) {
-                if (stackMatches(stack, definition.itemId())) {
+                if (SbwItemResolver.stackMatches(stack, definition.itemId())) {
                     return new LoadedPayload(slot, definition);
                 }
             }
@@ -270,7 +284,7 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
             for (PayloadDefinition definition : SUPPORTED_PAYLOADS) {
-                if (stackMatches(stack, definition.itemId())) {
+                if (SbwItemResolver.stackMatches(stack, definition.itemId())) {
                     count += stack.getCount();
                     break;
                 }
@@ -279,17 +293,9 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         return count;
     }
 
-    private static boolean stackMatches(ItemStack stack, String itemId) {
-        if (stack == null || stack.isEmpty()) {
-            return false;
-        }
-
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return key != null && itemId.equals(key.toString());
-    }
-
     private void pickupHeavyBomber(Player player) {
-        ItemHandlerHelper.giveItemToPlayer(player, createStackWithBombs(getBombsRemaining()));
+        Hg01Payload.returnOnPickup(this,player);
+        ItemHandlerHelper.giveItemToPlayer(player, MoistureSystem.pack(this, createStackWithBombs(getBombsRemaining())));
 
         player.getInventory().items.stream()
                 .filter(SbwCompat::isMonitor)
@@ -302,6 +308,41 @@ public class HeavyBomberDroneEntity extends CubedFpvDroneEntity {
         this.discard();
     }
 
+
+    /** A bounded read-only display of existing inventory, never another inventory or ammo counter. */
+    public ItemStack hb01VisualPayload(int socket) {
+        return this.entityData.get(HB01_VISUAL_PAYLOADS.get(socket));
+    }
+
+    private void hb01SetVisualPayload(int socket, ItemStack display) {
+        var key = HB01_VISUAL_PAYLOADS.get(socket);
+        if (!ItemStack.matches(this.entityData.get(key), display)) this.entityData.set(key, display);
+    }
+
+    private void hb01SyncPayloadVisuals() {
+        CompoundTag stored = this.getPersistentData().contains("sbwdroneconfigDroneInventory", Tag.TAG_COMPOUND)
+                ? this.getPersistentData().getCompound("sbwdroneconfigDroneInventory") : null;
+        // DroneInventoryContainer replaces this tag on save. No inventory scan or allocation every frame/tick.
+        if (stored == hb01LastVisualInventory) return;
+        hb01LastVisualInventory = stored;
+        DroneInventoryContainer inventory = new DroneInventoryContainer(this);
+        int socket = 0;
+        for (int slot = 0; slot < inventory.getContainerSize() && socket < HB01_VISUAL_PAYLOADS.size(); slot++) {
+            ItemStack stack = inventory.getItem(slot);
+            for (PayloadDefinition definition : SUPPORTED_PAYLOADS) {
+                if (SbwItemResolver.stackMatches(stack, definition.itemId())) {
+                    for (int n = 0; n < stack.getCount() && socket < HB01_VISUAL_PAYLOADS.size(); n++) {
+                        ItemStack display = stack.copy(); display.setCount(1);
+                        hb01SetVisualPayload(socket++, display);
+                    }
+                    break;
+                }
+            }
+        }
+        while (socket < HB01_VISUAL_PAYLOADS.size()) hb01SetVisualPayload(socket++, ItemStack.EMPTY);
+    }
+
+    public static boolean hgSupported(ItemStack stack){for(var d:SUPPORTED_PAYLOADS)if(d.itemId().equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).toString()))return true;return false;}
     private record PayloadDefinition(String itemId, String kind) {
     }
 

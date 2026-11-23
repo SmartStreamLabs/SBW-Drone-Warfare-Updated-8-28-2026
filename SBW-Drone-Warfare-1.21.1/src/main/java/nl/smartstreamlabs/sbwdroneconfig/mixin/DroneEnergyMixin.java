@@ -4,7 +4,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.server.level.ServerLevel;
 import nl.smartstreamlabs.sbwdroneconfig.AntiDroneNetBlock;
-import nl.smartstreamlabs.sbwdroneconfig.CubedFpvInputState;
 import nl.smartstreamlabs.sbwdroneconfig.DroneBatterySystem;
 import nl.smartstreamlabs.sbwdroneconfig.DroneInventorySystem;
 import nl.smartstreamlabs.sbwdroneconfig.DroneJammerSystem;
@@ -23,6 +22,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(targets = "com.atsuishio.superbwarfare.entity.vehicle.DroneEntity")
 public abstract class DroneEnergyMixin {
+    @org.spongepowered.asm.mixin.Shadow(remap=false) public int holdTickX;
+    @org.spongepowered.asm.mixin.Shadow(remap=false) public int holdTickY;
+    @org.spongepowered.asm.mixin.Shadow(remap=false) public int holdTickZ;
     @Inject(
             method = {"baseTick", "m_6075_"},
             at = @At(
@@ -45,6 +47,8 @@ public abstract class DroneEnergyMixin {
     @Inject(method = {"baseTick", "m_6075_"}, at = @At("TAIL"), remap = false, require = 0)
     private void sbwdroneconfig$handleBatteryTick(CallbackInfo ci) {
         Entity drone = (Entity) (Object) this;
+        if(nl.smartstreamlabs.sbwdroneconfig.Dc01Docking.docked(drone)){holdTickX=0;holdTickY=0;holdTickZ=0;}
+        nl.smartstreamlabs.sbwdroneconfig.ChunkTicketManager.onDroneBaseTick(drone);
         AntiDroneNetBlock.onDroneBaseTick(drone);
         DroneWaterDisconnectSystem.onDroneBaseTick(drone);
         DroneBatterySystem.onDroneBaseTick(drone);
@@ -54,10 +58,11 @@ public abstract class DroneEnergyMixin {
         DroneSpotlightSystem.onDroneBaseTick(drone);
     }
 
-    @Inject(method = "travel", at = @At("HEAD"), remap = false, require = 0)
+    @Inject(method = "travel", at = @At("HEAD"), remap = false, require = 1, cancellable = true)
     private void sbwdroneconfig$applyOutOfEnergyFlightLimits(CallbackInfo ci) {
         Entity drone = (Entity) (Object) this;
-        CubedFpvInputState.applyRecentInput(drone);
+        if(nl.smartstreamlabs.sbwdroneconfig.Dc01Docking.docked(drone)){nl.smartstreamlabs.sbwdroneconfig.Dc01Docking.neutralize(drone);ci.cancel();return;}
+        nl.smartstreamlabs.sbwdroneconfig.Dc01Docking.departureInput(drone);
         DroneBatterySystem.beforeDroneTravel(drone);
         DroneJammerSystem.beforeDroneTravel(drone);
         DroneWeatherEffects.applyStormEffects(drone);

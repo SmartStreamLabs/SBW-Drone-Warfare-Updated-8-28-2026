@@ -1,5 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -34,8 +34,8 @@ public final class LaserTowerDroneDefenseSystem {
         if (entity == null) {
             return false;
         }
-        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-        return key != null && LASER_TOWER_ENTITY_ID.equals(key.toString());
+        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        return LASER_TOWER_ENTITY_ID.equals(key.toString());
     }
 
     public static boolean isLaserTowerWrench(ItemStack stack) {

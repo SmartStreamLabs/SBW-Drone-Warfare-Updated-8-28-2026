@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "WIW",
+    "B Y"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:green_wool"
+    },
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "B": {
+      "item": "minecraft:blue_dye"
+    },
+    "Y": {
+      "item": "minecraft:yellow_dye"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:mu01_tactical_helmet",
+    "count": 1
+  }
+}

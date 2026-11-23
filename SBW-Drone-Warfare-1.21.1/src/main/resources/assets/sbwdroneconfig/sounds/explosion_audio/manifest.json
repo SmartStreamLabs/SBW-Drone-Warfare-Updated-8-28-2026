@@ -1,0 +1,194 @@
+[
+  {
+    "asset": "small_near_0.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "695cc74662127f4a3b92d66f6ada417ef57e92e97e4321923b415358ee38e3a0",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:160|360|720:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_near_1.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "33957b6e008d3c34da220689e3b94b20a1ed4c0d9eec8bd6b901b0dcf3c44e8f",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:207|407|767:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_near_2.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "3b17074c483d51ab611563843b8204906e243b4a2b2854ef87cb8f5b1e908203",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:254|454|814:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_mid_0.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "0bc3fb48eeb58aa7ab01d53e68af2be285528b88f5507b6c4b57dfa51256dfd3",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:160|360|720:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_mid_1.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "4b6635463f00e3a28b602e6f7c74776e664586bf2db2ef109628c10b5f94d35e",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:207|407|767:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_mid_2.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "f244350eccf6c9140bca6f6486766c5170060fe60d47c0a94baf501e0248ec5d",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:254|454|814:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_far_0.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "526c922c89f2089938773c3b10fd4689bb066c076e40299c44b9b9b5e65e48a8",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:160|360|720:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_far_1.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "312db45c849f5f4f0b3ae1cc9d07addffd12f086c462da26b1d0a5430359a6b0",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:207|407|767:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_far_2.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "7e5b77d6c8e2e56713dec2d803c27cc4d0e26505eb79e2f7964c2ef74bbe0a83",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:254|454|814:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_veryfar_0.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "deca28830c3a102a6a844536f005d0479e4958191a912a58fc99c987c5020e5a",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:160|360|720:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_veryfar_1.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "c8327cba5502485465d76f30433076707466643114ad951391a5b3441c9b0021",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:207|407|767:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "small_veryfar_2.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "99b4c177a34fea0b197084dbf83096ce4a3dcaa796f57cc825f24bdfb0757d73",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]highpass=f=90,lowpass=f=9000,bass=g=2:f=130:w=0.6,lowpass=f=1700,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:254|454|814:0.40|0.25|0.15[roll];[dry][roll]amix=inputs=2:weights=1 0.25:normalize=0,apad=pad_dur=8,atrim=duration=2.6,afade=t=out:st=1.9000000000000001:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_near_0.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "dc66cd3d4f99757a57c0db1de5819b25348206cff55ca1cfe8951b2905c7bf23",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:440|900|1550|2450|3400:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_near_1.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "5db91b293db105ccc63011326c7cb83de5b8c47521cd3fa141a316631b521ccc",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:487|947|1597|2497|3447:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_near_2.ogg",
+    "input": "dichtbij.mp3",
+    "input_sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b",
+    "output_sha256": "3a0c83b9e896c46c391d96f4ba9ada88c4aa9f1972bb9b4ca1eba4cb0df7afd6",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:534|994|1644|2544|3494:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_mid_0.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "3095be4188c8aa144972a7fc4e8f40e03de2998d7a8c35c9209b5dcbc1632239",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:440|900|1550|2450|3400:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_mid_1.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "07e2bee141113e8069767de520258f8cc9785c7d16ad2f0fe2ff9b43a810c037",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:487|947|1597|2497|3447:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_mid_2.ogg",
+    "input": "afstannd middle batig.mp3",
+    "input_sha256": "926dbb172ee64a0c32e81fa768843da293baf49ff2c90a87ac578a33b142368c",
+    "output_sha256": "4efa98647eed0cc2091aadd3e7d9973aafe29020b3df98c847717b29c3cb7e2f",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:534|994|1644|2544|3494:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_far_0.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "75d37f8a4beb63551d6f3eaecbb7a2de41034bf8ea5593061710ae31d0b493e2",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:440|900|1550|2450|3400:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_far_1.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "18ffa6b88465447b5dc2be55c1c6c66092c8840d882be528502a153e3e8331a8",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:487|947|1597|2497|3447:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_far_2.ogg",
+    "input": "verre afstand.mp3",
+    "input_sha256": "b51e768850cac91adc281b58bf0b298bc06bb2f8098826e215236206351f3ae9",
+    "output_sha256": "0146efe53a4848ff1d889b33fcb40f062fca75d0a8c449b6b80a991a3e4effd8",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:534|994|1644|2544|3494:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_veryfar_0.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "f80759749aa8d7d9cc647ad8394b9c9875a3a6ff98029a700a0e286c59cdfed8",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:440|900|1550|2450|3400:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_veryfar_1.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "e7b41644e020246ea8c567eeb1ca92a4c10e6d670108025d37787237cb401917",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700,equalizer=f=260:t=q:w=0.7:g=0.7[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:487|947|1597|2497|3447:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  },
+  {
+    "asset": "heavy_veryfar_2.ogg",
+    "input": "super ver.mp3",
+    "input_sha256": "1bbb91dd993dc74dec9e4a9c46cc1b406c555974b3709cb409fff4a79a89253e",
+    "output_sha256": "c4df01d6a782cb386f7bfd622b26603324a8ef2c0840b60d13632e01cd9bdd31",
+    "filters": "[0:a]aformat=channel_layouts=mono,aresample=48000,highpass=f=25,asplit=2[attack][tail];[attack]lowpass=f=12000,bass=g=7:f=120:w=0.6,lowpass=f=1700,equalizer=f=370:t=q:w=0.7:g=1.4[dry];[tail]lowpass=f=320,bass=g=5:f=100:w=0.6,aecho=0.8:0.75:534|994|1644|2544|3494:0.70|0.56|0.42|0.30|0.20[roll];[dry][roll]amix=inputs=2:weights=1 0.85:normalize=0,apad=pad_dur=8,atrim=duration=8.0,afade=t=out:st=7.3:d=0.7,loudnorm=I=-20:TP=-5:LRA=11,alimiter=limit=0.56:level=false[out]",
+    "license": "User reports Pixabay Content License; exact asset URL not supplied"
+  }
+]

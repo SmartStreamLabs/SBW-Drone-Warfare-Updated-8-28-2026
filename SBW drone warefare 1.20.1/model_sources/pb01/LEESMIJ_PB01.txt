@@ -1,0 +1,70 @@
+PROTECTIVE BUNKER PB-01 — Drone Warfare
+
+OPENEN IN BLOCKBENCH
+Open PROTECTIVE_BUNKER_PB01.bbmodel via Bestand > Model openen.
+De vier textures zitten ingebed; de losse PNG-bestanden zijn meegeleverd.
+Het bestand bevat één complete bunker met afzonderlijke groepen voor wanden,
+dakdelen, deur, interieur en bevestigingspunten.
+
+ONTWERP
+De buitenkant volgt de aangeleverde foto: brede afgeronde betonnen voorzijde,
+diepe horizontale kijkopening, verhoogde achterbouw en overhangende dakplaat.
+De achteringang en het interieur zijn een eigen interpretatie voor Minecraft;
+ze zijn niet aan de hand van foto's van de echte binnenkant gereconstrueerd.
+Het beton heeft eigen textures met fijne korrel, bekistingslijnen, patina en
+scheurtjes. De oorspronkelijke graffiti en andere gebouwen zijn niet gekopieerd.
+
+INTERIEUR
+De bunker is daadwerkelijk hol. De kijkopeningen lopen door de muren heen.
+Binnen staan vier banken met losse houten latten en een tafel met een leeg
+DVT-01-bevestigingspunt. Er zijn armaturen, kabelbuizen, een schakelkast,
+een korte binnenwand bij de ingang en een uitgangsbord.
+De DVT-01-terminal zelf is niet in dit pakket opgenomen.
+
+SCHAAL
+16 modelelement-eenheden = 1 Minecraft-blok. Y is omhoog; -Z is de voorzijde.
+Totale gesloten modelomvang inclusief achterste trap: circa
+10.9 breed x 4.82 hoog x 11.15 diep (blokken).
+De gekozen spelafmetingen zijn geen opgemeten 1:1 maten van de echte bunker.
+De modelvoet staat op Y=0; de binnenvloer ligt op Y=0,325 blok.
+
+DEUR EN GROEPEN
+Door_Leaf: de deur inclusief beslag. Door_Frame: het vaste kozijn.
+Animation > animation.pb01.door_preview demonstreert openen en sluiten.
+Gesloten: Y-rotatie 0 graden. Open: Y-rotatie -105 graden.
+Gebruik de bestaande groepspivot; roteer niet om het modelmidden.
+Roof_Front en Roof_Upper kunnen apart worden verborgen om binnen te kijken.
+Voor een ruim interieurbeeld kan ook Upper_Walls worden verborgen.
+PB01_Integration.json bevat de exacte assen, draaipunten en aansluitgroepen.
+
+CONTROLE
+Native structuur, geometrie, UVs, ingebedde textures en animatiereferenties
+zijn gecontroleerd. De deur is op zes standen gecontroleerd tegen de hoofd-
+wanden. Kijkopening, open deur en stahoogte zijn met enkele stralen getest.
+De renders zijn uit hetzelfde native model gemaakt. De interieur-overzichts-
+render verbergt expliciet dakdelen en enkele wanden om de indeling te tonen.
+Studiovloer en renderverlichting behoren niet tot het model.
+Dit zijn bestands- en geometriecontroles; geen Blockbench UI- of in-game test.
+Zie PB01_Validation.json en PB01_Motion_Check.json voor details en beperkingen.
+
+INTEGRATIE IN DE MOD
+Dit is een Free Model met meshes. Een passende mesh-renderer of conversie is
+nodig; het bestand is geen rechtstreeks vanilla blockmodel-JSON of prefab.
+Plaatsingspreview, multiblock/structuur, collision, interactie, stoelgebruik,
+werkende verlichting, schade en bescherming moeten in de mod worden gemaakt.
+Een model alleen biedt geen bescherming tegen de schade van explosies.
+Gebruik voor de collision afzonderlijke wanden en daken; vul de binnenruimte
+en de open deur niet met één grote collisionbox.
+De zichtbare lampen zijn modelonderdelen; ze voegen zelf geen spellicht toe.
+
+PAKKET
+Native .bbmodel, vier PNG-textures, presentatie, vijf losse renders,
+integratie- en controle-JSON, bronbestanden en SHA256SUMS.txt.
+Source/build.py gebruikt Python, Pillow en numpy. Daarna kan Source/render.py
+met Blender worden uitgevoerd. Deze bronbestanden schrijven hun uitvoer in
+hun eigen map. finish.py verwacht de volledige projectindeling met renders.
+
+REFERENTIE
+Door gebruiker aangeleverd: Bunkers_atlantikwall_IJmuiden_Netherland_-
+_panoramio_(3).jpg. De referentiefoto is niet opnieuw meegeleverd.
+Cosmetisch spelmodel; geen bouwtekening of werkelijke beschermingsclassificatie.

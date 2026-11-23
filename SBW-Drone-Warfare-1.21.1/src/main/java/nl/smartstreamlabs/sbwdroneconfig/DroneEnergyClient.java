@@ -5,11 +5,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -20,12 +20,12 @@ public final class DroneEnergyClient {
     private DroneEnergyClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(DroneEnergyClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneEnergyClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(DroneEnergyClient.class);
     }
 
     public static void handleSync(DroneEnergySyncMessage message) {
@@ -56,10 +56,7 @@ public final class DroneEnergyClient {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || !isActiveDroneView(minecraft.player)) {
             return;
@@ -70,8 +67,8 @@ public final class DroneEnergyClient {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (!shouldRenderHud() || event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
+        if (!shouldRenderHud()) {
             return;
         }
 
@@ -115,17 +112,18 @@ public final class DroneEnergyClient {
     }
 
     private static Component getDistanceText(ItemStack stack, LocalPlayer player) {
-        if (!stack.hasTag()) {
+        if (!AddonStackTags.has(stack)) {
             return null;
         }
 
-        if (!stack.getTag().contains("PosX") || !stack.getTag().contains("PosY") || !stack.getTag().contains("PosZ")) {
+        var tag = AddonStackTags.get(stack);
+        if (!tag.contains("PosX") || !tag.contains("PosY") || !tag.contains("PosZ")) {
             return null;
         }
 
-        double dx = stack.getTag().getDouble("PosX") - player.getX();
-        double dy = stack.getTag().getDouble("PosY") - player.getY();
-        double dz = stack.getTag().getDouble("PosZ") - player.getZ();
+        double dx = tag.getDouble("PosX") - player.getX();
+        double dy = tag.getDouble("PosY") - player.getY();
+        double dz = tag.getDouble("PosZ") - player.getZ();
         double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
         return Component.translatable(
                 "overlay.sbwdroneconfig.distance",

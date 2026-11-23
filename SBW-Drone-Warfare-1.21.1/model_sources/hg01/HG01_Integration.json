@@ -1,0 +1,13 @@
+{
+  "model_format": "free mesh",
+  "units_per_block": 16,
+  "groups": [
+    "Body",
+    "Top_Housing",
+    "Safety_Lever",
+    "Ring_Assembly"
+  ],
+  "textures_embedded": true,
+  "scope": "Exterior cosmetic game art only. No internal mechanism or gameplay implementation.",
+  "integration": "Use the same model for a held/thrown item or a drone payload. Fit held-item and drone attachment transforms in the mod. No drone mounting hardware is baked into this asset."
+}

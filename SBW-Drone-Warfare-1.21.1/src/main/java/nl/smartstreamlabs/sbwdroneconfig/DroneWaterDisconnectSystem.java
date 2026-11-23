@@ -113,25 +113,29 @@ public final class DroneWaterDisconnectSystem {
     }
 
     private static boolean isTouchingWater(Entity drone) {
+        if(drone instanceof Sd01Entity)return false;
         // Rain should not count as a water crash. Only real water / bubbles should
         // trigger the disconnect-instead-of-explosion path.
         if (drone.isInWaterOrBubble() || drone.isUnderWater()) {
             return true;
         }
 
+        if(Ndc01Monitor.containedLaunch(drone))return false;
         Level level = drone.level();
         if (level == null) {
             return false;
         }
 
-        AABB waterCheckBox = drone.getBoundingBox()
-                .inflate(0.25D, 0.15D, 0.25D)
-                .expandTowards(0.0D, -0.45D, 0.0D);
+        // Small FPVs must touch the actual fluid surface, not an inflated probe half a block below them.
+        AABB waterCheckBox = drone instanceof CubedFpvDroneEntity && !(drone instanceof DeliveryDroneEntity)
+                ? drone.getBoundingBox().deflate(1e-4)
+                : drone.getBoundingBox().inflate(0.25D, 0.15D, 0.25D).expandTowards(0.0D, -0.45D, 0.0D);
         BlockPos min = BlockPos.containing(waterCheckBox.minX, waterCheckBox.minY, waterCheckBox.minZ);
         BlockPos max = BlockPos.containing(waterCheckBox.maxX, waterCheckBox.maxY, waterCheckBox.maxZ);
 
         for (BlockPos scanPos : BlockPos.betweenClosed(min, max)) {
-            if (level.getFluidState(scanPos).is(FluidTags.WATER)) {
+            if (level.getFluidState(scanPos).is(FluidTags.WATER)
+                    && scanPos.getY()+level.getFluidState(scanPos).getHeight(level,scanPos)>waterCheckBox.minY) {
                 return true;
             }
         }

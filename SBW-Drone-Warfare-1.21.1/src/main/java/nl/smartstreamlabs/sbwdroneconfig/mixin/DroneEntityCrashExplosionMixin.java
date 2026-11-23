@@ -3,6 +3,11 @@ package nl.smartstreamlabs.sbwdroneconfig.mixin;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import nl.smartstreamlabs.sbwdroneconfig.DroneCrashExplosionSystem;
+import nl.smartstreamlabs.sbwdroneconfig.DroneExplosionVfx;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Explosion;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import nl.smartstreamlabs.sbwdroneconfig.DroneWaterDisconnectSystem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,6 +25,7 @@ public abstract class DroneEntityCrashExplosionMixin {
     @Inject(method = "destroy", at = @At("HEAD"), remap = false, require = 0, cancellable = true)
     private void sbwdroneconfig$restoreCrashExplosion(CallbackInfo ci) {
         Entity drone = (Entity) (Object) this;
+        if(nl.smartstreamlabs.sbwdroneconfig.Vc01Intercept.triggered(drone)){ci.cancel();return;}
         if (!(drone.level() instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -36,6 +42,22 @@ public abstract class DroneEntityCrashExplosionMixin {
         }
 
         DroneCrashExplosionSystem.handleDroneDestroy(serverLevel, drone);
+    }
+
+
+    @Redirect(method = "destroy", remap = false, at = @At(value = "INVOKE", remap = false,
+            target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFLnet/minecraft/world/level/Level$ExplosionInteraction;)Lnet/minecraft/world/level/Explosion;"), require = 1)
+    private Explosion sbwdroneconfig$initialBurst(Level level, Entity source, double x, double y, double z, float radius, Level.ExplosionInteraction interaction) {
+        try (var scope=DroneExplosionVfx.explosionScope(level,source,x,y,z,radius,DroneExplosionVfx.isAddonEntity((Entity)(Object)this))) {
+            return level.explode(source,x,y,z,radius,interaction);
+        }
+    }
+
+    @ModifyArg(method = "droneDrop", remap = false, at = @At(value = "INVOKE", remap = false,
+            target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"), index = 0, require = 1)
+    private Entity sbwdroneconfig$attributeDrop(Entity payload) {
+        if (DroneExplosionVfx.isAddonEntity((Entity)(Object)this)) {DroneExplosionVfx.markPayload(payload);nl.smartstreamlabs.sbwdroneconfig.DroneAttackDamage.mark(payload,(Entity)(Object)this,net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(nl.smartstreamlabs.sbwdroneconfig.SbwCompat.getDroneCurrentItem((Entity)(Object)this).getItem()).toString());}
+        return payload;
     }
 
     @Unique

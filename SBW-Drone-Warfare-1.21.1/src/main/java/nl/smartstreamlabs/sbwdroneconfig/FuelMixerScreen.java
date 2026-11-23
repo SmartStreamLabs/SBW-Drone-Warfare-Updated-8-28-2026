@@ -25,13 +25,10 @@ public class FuelMixerScreen extends AbstractContainerScreen<FuelMixerMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int left = leftPos;
         int top = topPos;
-        guiGraphics.fill(left, top, left + imageWidth, top + imageHeight, 0xE0101010);
+        guiGraphics.fill(left, top, left + imageWidth, top + imageHeight, 0xFF101010);
         guiGraphics.fill(left + 4, top + 4, left + imageWidth - 4, top + imageHeight - 4, 0xFF2A2E24);
 
-        drawSlot(guiGraphics, left + 44, top + 26);
-        drawSlot(guiGraphics, left + 44, top + 48);
-        drawSlot(guiGraphics, left + 44, top + 70);
-        drawSlot(guiGraphics, left + 130, top + 48);
+        for(var slot:menu.slots)drawSlot(guiGraphics,left+slot.x,top+slot.y);
 
         guiGraphics.fill(left + PROGRESS_X, top + PROGRESS_Y, left + PROGRESS_X + PROGRESS_WIDTH, top + PROGRESS_Y + PROGRESS_HEIGHT, 0xFF111111);
         guiGraphics.fill(left + PROGRESS_X + 1, top + PROGRESS_Y + 1, left + PROGRESS_X + PROGRESS_WIDTH - 1, top + PROGRESS_Y + PROGRESS_HEIGHT - 1, 0xFF4E3A18);
@@ -45,11 +42,12 @@ public class FuelMixerScreen extends AbstractContainerScreen<FuelMixerMenu> {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
         renderFuelMixerHints(guiGraphics, mouseX, mouseY);
     }
+
+    @Override protected void renderLabels(GuiGraphics g,int mx,int my){g.drawString(font,title,titleLabelX,titleLabelY,0xffeeeeee,false);g.drawString(font,playerInventoryTitle,inventoryLabelX,inventoryLabelY,0xffeeeeee,false);}
 
     private static void drawSlot(GuiGraphics guiGraphics, int x, int y) {
         guiGraphics.fill(x - 1, y - 1, x + 17, y + 17, 0xFF050505);

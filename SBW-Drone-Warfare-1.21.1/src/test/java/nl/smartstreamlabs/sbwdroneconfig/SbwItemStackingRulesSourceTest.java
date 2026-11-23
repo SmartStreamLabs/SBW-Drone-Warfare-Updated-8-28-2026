@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SbwItemStackingRulesSourceTest {
-    private static final String[] STACK_SIZE_OVERRIDE_IDS = {
+    private static final String[] STACKABLE_SBW_IDS = {
             "tm_62",
             "ptkm_1r",
             "lunge_mine",
@@ -29,10 +29,10 @@ class SbwItemStackingRulesSourceTest {
     };
 
     @Test
-    void sbwStackingRulesWhitelistStackSizeOverridesAndKeepDamagedStacksSafe() throws Exception {
+    void sbwStackingRulesWhitelistOnlyRequestedItemsAndKeepDamagedStacksSafe() throws Exception {
         String rules = readMainSource("SbwItemStackingRules.java");
 
-        for (String id : STACK_SIZE_OVERRIDE_IDS) {
+        for (String id : STACKABLE_SBW_IDS) {
             assertTrue(rules.contains("\"" + id + "\""), "Missing stack override for superbwarfare:" + id);
         }
         assertTrue(rules.contains("private static final int STACK_SIZE = 64"));
@@ -61,13 +61,11 @@ class SbwItemStackingRulesSourceTest {
 
         assertTrue(rules.contains("canMergeStackableSbwItems"));
         assertTrue(rules.contains("normalizedTagForStacking"));
-        assertTrue(rules.contains("BlockEntityTag"));
-        assertTrue(rules.contains("BlockStateTag"));
-        assertTrue(rules.contains("Energy"));
+        assertTrue(rules.contains("BLOCK_ENTITY_DATA"));
+        assertTrue(rules.contains("BLOCK_STATE"));
         assertTrue(rules.contains("isHarmlessBlockEntityTag"));
-        assertTrue(rules.contains("stack.getItem().getMaxStackSize(stack) > 1"));
         assertTrue(mixin.contains("@Mixin(ItemStack.class)"));
-        assertTrue(mixin.contains("isSameItemSameTags"));
+        assertTrue(mixin.contains("isSameItemSameComponents"));
         assertTrue(mixin.contains("m_150942_"));
         assertTrue(mixin.contains("SbwItemStackingRules.canMergeStackableSbwItems"));
         assertTrue(mixin.contains("cancellable = true"));

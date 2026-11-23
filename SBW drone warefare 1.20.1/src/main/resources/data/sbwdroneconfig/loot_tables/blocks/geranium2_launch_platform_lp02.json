@@ -1,0 +1,1 @@
+{"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "sbwdroneconfig:geranium2_launch_platform_lp02"}], "conditions": [{"condition": "minecraft:block_state_property", "block": "sbwdroneconfig:geranium2_launch_platform_lp02", "properties": {"part": "0"}}, {"condition": "minecraft:survives_explosion"}]}]}

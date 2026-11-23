@@ -1,98 +1,52 @@
 package nl.smartstreamlabs.sbwdroneconfig;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.CameraType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.item.*;
+import net.minecraft.world.phys.*;
+import org.joml.Vector3d;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class DeliveryDroneRenderer extends GeoEntityRenderer<DeliveryDroneEntity> {
-    private static final Vec3 CRATE_CORD_END_OFFSET = new Vec3(0.0D, -0.42D, 0.0D);
-    private static final float BODY_VISUAL_SCALE = 1.0F;
-    private static final float BODY_TRANSLATION_Y = 0.15F;
-    private static final float CRATE_SCALE = 0.62F;
-    private static final float MODEL_YAW_CORRECTION_DEGREES = 180.0F;
-
-    public DeliveryDroneRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new DeliveryDroneModel());
-        this.shadowRadius = 0.55F;
+public class DeliveryDroneRenderer extends CachedEntityRenderer<DeliveryDroneEntity> {
+    public DeliveryDroneRenderer(EntityRendererProvider.Context c){super(c,new DeliveryDroneModel());this.shadowRadius=.55f;}
+    @Override public RenderType getRenderType(DeliveryDroneEntity d,ResourceLocation texture,MultiBufferSource buffers,float partial){return RenderType.entityCutoutNoCull(texture);}
+    @Override protected void applyRotations(DeliveryDroneEntity d,PoseStack p,float age,float yaw,float partial,float nativeScale){} // attitude is applied once below
+    public static void applyVisualPose(DeliveryDroneEntity d,float partial,PoseStack p){
+        var m=Dd01VisualPose.matrix(d.getYaw(partial),d.getBodyPitch(partial),d.getRoll(partial));
+        p.translate(m.m30(),m.m31(),m.m32());p.mulPose(new org.joml.Quaternionf(m.getNormalizedRotation(new org.joml.Quaterniond())));
     }
-
-    @Override
-    public RenderType getRenderType(DeliveryDroneEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(getTextureLocation(animatable));
-    }
-
-    @Override
-    public void render(DeliveryDroneEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        if (DroneClientViewContext.isLocalFpvViewOf(entity)) {
-            return;
+    @Override public void render(DeliveryDroneEntity d,float yaw,float partial,PoseStack p,MultiBufferSource buffers,int light){
+        if(DroneClientViewContext.isLocalFpvViewOf(d))return;
+        var mc=Minecraft.getInstance();boolean first=mc.options.getCameraType()==CameraType.FIRST_PERSON;
+        boolean controlled=SbwCompat.isUsingLinkedMonitorForDrone(mc.player,d);
+        boolean suppressCargo=first||mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK;
+        p.pushPose();applyVisualPose(d,partial,p);
+        if(!CubedFpvDroneRenderMath.shouldHideControlledDroneBody(controlled,first)){
+            // Cancel only Gecko's added .01; native feet remain at Y=0.
+            p.pushPose();p.translate(0,-.01,0);super.render(d,yaw,partial,p,buffers,light);p.popPose();
         }
-
-        Player player = Minecraft.getInstance().player;
-        CameraType cameraType = Minecraft.getInstance().options.getCameraType();
-        boolean firstPersonCamera = cameraType == CameraType.FIRST_PERSON;
-        boolean suppressCargoForCamera = firstPersonCamera || cameraType == CameraType.THIRD_PERSON_BACK;
-        boolean controllingLinkedDrone = SbwCompat.isUsingLinkedMonitorForDrone(player, entity);
-
-        poseStack.pushPose();
-        poseStack.scale(BODY_VISUAL_SCALE, BODY_VISUAL_SCALE, BODY_VISUAL_SCALE);
-        poseStack.translate(0.0D, BODY_TRANSLATION_Y, 0.0D);
-        poseStack.mulPose(Axis.YP.rotationDegrees(renderYawDegrees(entity, partialTicks)));
-        poseStack.mulPose(Axis.XP.rotationDegrees(CubedFpvDroneRenderMath.renderBodyPitchDegrees(entity.getBodyPitch(partialTicks))));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(CubedFpvDroneRenderMath.renderRollDegrees(entity.getRoll(partialTicks))));
-        boolean renderBody = !CubedFpvDroneRenderMath.shouldHideControlledDroneBody(controllingLinkedDrone, firstPersonCamera);
-        if (renderBody) {
-            super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+        if(d.hasMountedExtractionCrate()&&(!controlled||!suppressCargo))renderMountedCrate(d,p,buffers,light);
+        p.popPose();
+    }
+    public static void applyCargoPose(PoseStack p){p.translate(0,Dd01VisualPose.CARGO_CENTER_Y,0);}
+    private void renderMountedCrate(DeliveryDroneEntity d,PoseStack p,MultiBufferSource buffers,int light){
+        p.pushPose();
+        // Existing crate only. NONE avoids fixed-display scaling; ItemRenderer centres its [0,1] block model.
+        applyCargoPose(p);
+        Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(AddonItems.EXTRACTION_CRATE.get()),ItemDisplayContext.NONE,light,OverlayTexture.NO_OVERLAY,p,buffers,d.level(),d.getId());
+        p.popPose();
+    }
+    @Override public boolean shouldRender(DeliveryDroneEntity d,net.minecraft.client.renderer.culling.Frustum frustum,double x,double y,double z){
+        if(!d.isAlive()||d.isRemoved())return false;
+        var m=Dd01VisualPose.matrix(d.getYaw(1),d.getBodyPitch(1),d.getRoll(1));
+        AABB bounds=null;
+        for(int i=0;i<8;i++){
+            var v=m.transformPosition(new Vector3d((i&1)==0?Dd01VisualPose.MIN_X:Dd01VisualPose.MAX_X,(i&2)==0?Dd01VisualPose.MIN_Y:Dd01VisualPose.MAX_Y,(i&4)==0?Dd01VisualPose.MIN_Z:Dd01VisualPose.MAX_Z));
+            var point=new Vec3(d.getX()+v.x,d.getY()+v.y,d.getZ()+v.z);var corner=new AABB(point,point);bounds=bounds==null?corner:bounds.minmax(corner);
         }
-        poseStack.popPose();
-
-        if (entity.hasMountedExtractionCrate() && (!controllingLinkedDrone || !suppressCargoForCamera)) {
-            poseStack.pushPose();
-            applyCargoBaseTransform(entity, partialTicks, poseStack);
-            renderMountedCrate(entity, poseStack, buffer, packedLight);
-            poseStack.popPose();
-        }
-    }
-
-    private static void applyCargoBaseTransform(DeliveryDroneEntity entity, float partialTicks, PoseStack poseStack) {
-        poseStack.translate(0.0D, BODY_TRANSLATION_Y, 0.0D);
-        poseStack.mulPose(Axis.YP.rotationDegrees(renderYawDegrees(entity, partialTicks)));
-        poseStack.mulPose(Axis.XP.rotationDegrees(CubedFpvDroneRenderMath.renderBodyPitchDegrees(entity.getBodyPitch(partialTicks))));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(CubedFpvDroneRenderMath.renderRollDegrees(entity.getRoll(partialTicks))));
-    }
-
-    private static float renderYawDegrees(DeliveryDroneEntity entity, float partialTicks) {
-        return CubedFpvDroneRenderMath.renderYawDegrees(entity.getYaw(partialTicks)) + MODEL_YAW_CORRECTION_DEGREES;
-    }
-
-    private void renderMountedCrate(DeliveryDroneEntity entity, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        poseStack.pushPose();
-        poseStack.translate(0.0D, -0.12D, 0.0D);
-        CubedFpvDroneRenderer.renderCord(poseStack, buffer, CRATE_CORD_END_OFFSET);
-        poseStack.translate(CRATE_CORD_END_OFFSET.x, CRATE_CORD_END_OFFSET.y - 0.12D, CRATE_CORD_END_OFFSET.z);
-        poseStack.scale(CRATE_SCALE, CRATE_SCALE, CRATE_SCALE);
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-        Minecraft.getInstance().getItemRenderer().renderStatic(
-                new ItemStack(AddonItems.EXTRACTION_CRATE.get()),
-                ItemDisplayContext.FIXED,
-                packedLight,
-                OverlayTexture.NO_OVERLAY,
-                poseStack,
-                buffer,
-                entity.level(),
-                entity.getId()
-        );
-        poseStack.popPose();
+        return frustum.isVisible(bounds.inflate(.05));
     }
 }

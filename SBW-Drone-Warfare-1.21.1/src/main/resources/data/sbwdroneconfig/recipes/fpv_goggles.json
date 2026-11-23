@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:fpv_goggles",
+                   "id":  "sbwdroneconfig:fpv_goggles",
                    "count":  1
                }
 }

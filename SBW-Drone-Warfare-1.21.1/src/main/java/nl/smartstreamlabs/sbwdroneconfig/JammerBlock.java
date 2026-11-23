@@ -1,10 +1,12 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class JammerBlock extends BaseEntityBlock {
+    public static final MapCodec<JammerBlock> CODEC = simpleCodec(JammerBlock::new);
     private static final VoxelShape SHAPE = Shapes.block();
 
     public JammerBlock(Properties properties) {
@@ -45,8 +48,19 @@ public class JammerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         return openJammer(level, pos, player);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = openJammer(level, pos, player);
+        return result.consumesAction() ? ItemInteractionResult.sidedSuccess(level.isClientSide()) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     static InteractionResult openJammer(Level level, BlockPos pos, Player player) {
@@ -60,7 +74,6 @@ public class JammerBlock extends BaseEntityBlock {
             serverPlayer.displayClientMessage(Component.translatable("message.sbwdroneconfig.jammer_not_owner"), true);
             return InteractionResult.CONSUME;
         }
-
         if (blockEntity instanceof RadarJammerTowerBlockEntity tower && !tower.canOpenPoweredGui()) {
             serverPlayer.displayClientMessage(Component.translatable("message.sbwdroneconfig.radar_jammer_tower.no_power"), true);
             return InteractionResult.CONSUME;

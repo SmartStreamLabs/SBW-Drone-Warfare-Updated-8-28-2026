@@ -1,0 +1,6 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+@net.neoforged.fml.common.EventBusSubscriber(modid=SbwDroneRangeConfig.MOD_ID)
+public final class Dc01Events {
+ @net.neoforged.bus.api.SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST) public static void interact(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract e){if(Dc01Docking.docked(e.getTarget())){e.setCanceled(true);e.setCancellationResult(net.minecraft.world.InteractionResult.FAIL);if(!e.getLevel().isClientSide)e.getEntity().displayClientMessage(net.minecraft.network.chat.Component.translatable("dc01.use_carrier"),true);}}
+ @net.neoforged.bus.api.SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST) public static void monitor(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem e){if(!SbwCompat.isMonitor(e.getItemStack())||!(e.getEntity() instanceof net.minecraft.server.level.ServerPlayer p))return;var d=SbwCompat.findLinkedDrone(p,e.getItemStack());if(Dc01Docking.docked(d)){e.setCanceled(true);e.setCancellationResult(net.minecraft.world.InteractionResult.FAIL);p.displayClientMessage(net.minecraft.network.chat.Component.translatable("dc01.use_carrier"),true);}}
+}

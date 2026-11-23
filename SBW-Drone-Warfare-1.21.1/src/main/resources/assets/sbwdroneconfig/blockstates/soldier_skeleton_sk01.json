@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sbwdroneconfig:block/soldier_skeleton_sk01"
+    },
+    "facing=south": {
+      "model": "sbwdroneconfig:block/soldier_skeleton_sk01"
+    },
+    "facing=east": {
+      "model": "sbwdroneconfig:block/soldier_skeleton_sk01"
+    },
+    "facing=west": {
+      "model": "sbwdroneconfig:block/soldier_skeleton_sk01"
+    }
+  }
+}

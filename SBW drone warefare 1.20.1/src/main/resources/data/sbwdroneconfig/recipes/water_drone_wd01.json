@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "MBM",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "C": {
+      "item": "superbwarfare:monitor"
+    },
+    "M": {
+      "item": "superbwarfare:large_motor"
+    },
+    "B": {
+      "item": "superbwarfare:medium_battery_pack"
+    }
+  },
+  "result": {
+    "item": "superbwarfare:container",
+    "count": 1,
+    "nbt": "{BlockEntityTag:{EntityType:\"sbwdroneconfig:water_drone_wd01\"}}"
+  }
+}

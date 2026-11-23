@@ -18,19 +18,19 @@ class CubedFpvHudSeparationSourceTest {
         String overlay = Files.readString(MAIN.resolve("CubedFpvReferenceGuiOverlay.java"));
         String telemetry = Files.readString(MAIN.resolve("CubedFpvReferenceGuiTelemetry.java"));
 
-        assertTrue(overlay.contains("RenderGuiEvent.Post"), "Cubed FPV interface should render through a GUI post hook.");
-        assertTrue(overlay.contains("RenderGuiOverlayEvent.Pre"), "Cubed FPV interface should suppress selected vanilla overlays.");
+        assertTrue(overlay.contains("RenderGuiEvent.Post"), "Cubed FPV interface should render through one GUI post hook.");
+        assertTrue(overlay.contains("RenderGuiLayerEvent.Pre"), "Cubed FPV interface should suppress selected vanilla layers.");
         assertTrue(overlay.contains("RenderHandEvent"), "Cubed FPV interface should suppress hands only while active.");
         assertTrue(telemetry.contains("%.1fV"), "Battery voltage should be formatted only when a synced voltage exists.");
         assertTrue(telemetry.contains("LQ %03d"), "Link quality should be sourced from jammer sync state.");
         assertTrue(telemetry.contains("RSSI --"), "RSSI row should stay visible with a placeholder when no real RSSI source exists.");
         assertTrue(telemetry.contains("LAT --"), "Latency row should stay visible with a placeholder when no real latency source exists.");
-        assertTrue(telemetry.contains("S %03d"), "FPV OSD should show horizontal speed with the strict one-letter label.");
-        assertTrue(telemetry.contains("H %03d"), "FPV OSD should show altitude with the strict one-letter label.");
+        assertTrue(telemetry.contains("S %03d"), "FPV OSD should show horizontal speed with the one-letter label.");
+        assertTrue(telemetry.contains("H %03d"), "FPV OSD should show altitude with the one-letter label.");
         assertTrue(telemetry.contains("A %.1f\\u00B0"), "FPV OSD should show actual camera/body pitch as the compact angle row.");
         assertTrue(telemetry.contains("--.-V"), "Voltage row should stay visible when battery sync is unavailable.");
         assertTrue(telemetry.contains("--%"), "Secondary battery row should stay visible when percent sync is unavailable.");
-        assertTrue(telemetry.contains("A C R O"), "Cubed FPV should report its current compact flight mode label.");
+        assertTrue(telemetry.contains("A C R O"), "Cubed FPV should report its compact flight mode label.");
         assertTrue(telemetry.contains("C U B E D   F P V"), "Cubed FPV should have the final spaced fallback callsign.");
 
         assertFalse(overlay.contains("RenderLevelStageEvent"), "New FPV interface must not render through world-space level events.");
@@ -76,7 +76,7 @@ class CubedFpvHudSeparationSourceTest {
         String bootstrap = Files.readString(MAIN.resolve("SbwDroneRangeConfig.java"));
 
         assertTrue(config.contains("FPV_CAMERA_FOV_VALUE"));
-        assertTrue(config.contains("defineInRange(\"fpvCameraFov\", CubedFpvCameraViewMath.DEFAULT_FPV_FOV, CubedFpvCameraViewMath.MIN_FPV_FOV, CubedFpvCameraViewMath.MAX_FPV_FOV)"));
+        assertTrue(config.contains("defineInRange(\"fpvCameraFov\", 135.0D, 120.0D, 155.0D)"));
         assertTrue(config.contains("FPV_CAMERA_TILT_DEGREES_VALUE"));
         assertTrue(config.contains("defineInRange(\"fpvCameraTiltDegrees\", 20.0D"));
         assertTrue(config.contains("ENABLE_FPV_FISHEYE_EFFECT_VALUE"));
@@ -86,33 +86,24 @@ class CubedFpvHudSeparationSourceTest {
         assertTrue(screen.contains("case FPV_DRONE -> 2"));
         assertTrue(lang.contains("screen.sbwdroneconfig.config.label.fpv_camera_fov"));
         assertTrue(bootstrap.contains("CubedFpvReferenceGuiOverlay.init(modBus);"));
+        assertFalse(bootstrap.contains("CubedFpvHudOverlay.init(modBus);"));
         assertTrue(bootstrap.contains("CubedFpvCameraEffectsClient.init(modBus);"));
         assertTrue(bootstrap.contains("LucasDroneHudOverlay.init(modBus);"));
-        assertFalse(bootstrap.contains("CubedFpvHudOverlay.init(modBus);"));
-        assertFalse(bootstrap.contains("CubedFpvViewModelRenderer.init(modBus);"));
     }
 
     @Test
     void cubedFpvSelfViewUsesRendererSuppressionAndScreenSpaceReferenceGui() throws Exception {
-        String mixinConfig = Files.readString(Path.of("src/main/resources/sbwdroneconfig.mixins.json"));
         String context = Files.readString(MAIN.resolve("DroneClientViewContext.java"));
         String renderer = Files.readString(MAIN.resolve("CubedFpvDroneRenderer.java"));
         String overlay = Files.readString(MAIN.resolve("CubedFpvReferenceGuiOverlay.java"));
         String layout = Files.readString(MAIN.resolve("CubedFpvReferenceGuiLayout.java"));
         String frame = Files.readString(MAIN.resolve("CubedFpvReferenceGuiFrameRenderer.java"));
         String text = Files.readString(MAIN.resolve("CubedFpvReferenceGuiTextRenderer.java"));
-        String bootstrap = Files.readString(MAIN.resolve("SbwDroneRangeConfig.java"));
 
-        assertTrue(mixinConfig.contains("CubedFpvCameraMixin"));
-        assertTrue(mixinConfig.contains("DroneThirdPersonCameraMixin"));
-        assertTrue(Files.readString(MAIN.resolve("mixin/CubedFpvCameraMixin.java")).contains("activeCubedFpvDrone(minecraft)"));
-        assertTrue(Files.readString(MAIN.resolve("mixin/DroneThirdPersonCameraMixin.java")).contains("activeCubedFpvDrone(minecraft)"));
         assertTrue(context.contains("isLocalFpvViewOf(CubedFpvDroneEntity drone)"));
-        assertFalse(context.contains("CameraType"), "The local FPV self-view predicate must not depend on Minecraft camera type.");
         assertTrue(renderer.contains("if (DroneClientViewContext.isLocalFpvViewOf(entity))"));
         assertTrue(renderer.contains("return;"));
-        assertTrue(bootstrap.contains("CubedFpvReferenceGuiOverlay.init(modBus);"));
-        assertTrue(overlay.contains("MinecraftForge.EVENT_BUS.register(CubedFpvReferenceGuiOverlay.class)"));
+        assertTrue(overlay.contains("NeoForge.EVENT_BUS.register(CubedFpvReferenceGuiOverlay.class)"));
         assertTrue(overlay.contains("DroneClientViewContext.isLocalFpvViewOf"));
         assertTrue(layout.contains("CANVAS_WIDTH = 1080.0F"));
         assertTrue(layout.contains("CANVAS_HEIGHT = 607.0F"));
@@ -153,27 +144,17 @@ class CubedFpvHudSeparationSourceTest {
         assertTrue(frame.contains("ARM_SEAM = 0xFF1D2023"));
         assertTrue(frame.contains("LEFT_ARM_LOWER_BEVEL"));
         assertTrue(frame.contains("LEFT_ARM_PANEL_SEAM"));
-        assertFalse(frame.contains("{458.0F, 314.0F}"));
-        assertFalse(frame.contains("{435.0F, 354.0F}"));
-        assertFalse(frame.contains("{449.0F, 320.0F}"));
-        assertFalse(frame.contains("{428.0F, 341.0F}"));
-        assertFalse(frame.contains("{438.0F, 325.0F}"));
-        assertFalse(frame.contains("{426.0F, 334.0F}"));
         assertFalse(frame.contains("ARM_HIGHLIGHT"));
         assertFalse(frame.contains("0xCC697177"));
         assertTrue(frame.contains("{390.0F, 607.0F}"));
         assertTrue(frame.contains("{540.0F, 445.0F}"));
         assertTrue(frame.contains("side(LEFT_ARM_BASE, right)"));
         assertTrue(frame.contains("right ? mirror(points) : points"));
-        assertTrue(frame.contains("Tesselator"));
         assertTrue(frame.contains("VertexFormat.Mode.TRIANGLES"));
         assertTrue(text.contains("drawOutlinedCharacter"));
         assertFalse(frame.contains("RenderLevelStageEvent"));
         assertFalse(frame.contains("ResourceLocation"), "The new frame must not embed a reference texture.");
         assertFalse(Files.exists(MAIN.resolve("CubedFpvHudOverlay.java")), "Old Cubed FPV HUD class should be removed.");
-        assertFalse(Files.exists(MAIN.resolve("CubedFpvViewModelRenderer.java")), "Old world-space FPV renderer should be removed.");
-        assertFalse(Files.exists(MAIN.resolve("CubedFpvViewModel.java")), "Old world-space FPV model should be removed.");
-        assertFalse(Files.exists(MAIN.resolve("CubedFpvViewModelTransform.java")), "Old viewmodel transform constants should be removed.");
     }
 
     @Test

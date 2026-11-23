@@ -1,0 +1,29 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "pattern":  [
+                    "CFC",
+                    "BJB",
+                    "CRC"
+                ],
+    "key":  {
+                "C":  {
+                          "item":  "superbwarfare:cell"
+                      },
+                "F":  {
+                          "item":  "superbwarfare:iff"
+                      },
+                "B":  {
+                          "item":  "superbwarfare:battery"
+                      },
+                "J":  {
+                          "item":  "sbwdroneconfig:drone_jammer"
+                      },
+                "R":  {
+                          "item":  "minecraft:comparator"
+                      }
+            },
+    "result":  {
+                   "item":  "sbwdroneconfig:jammer",
+                   "count":  1
+               }
+}

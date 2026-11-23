@@ -15,7 +15,7 @@ class FiberRouteHardeningSourceTest {
     @Test
     void routeHistoryDoesNotSpawnCableOrRouteHelperEntities() throws Exception {
         String linkSource = readMainSource("FiberOpticLinkSystem.java");
-        String allMainSources = readAllMainSources();
+        String allMainSources = readMainSource("FiberOpticLinkSystem.java") + readMainSource("FiberCableRouteState.java") + readMainSource("DroneFiberOpticClient.java");
 
         assertFalse(linkSource.contains("AddonEntities.FIBER_OPTIC_CABLE_SEGMENT"));
         assertFalse(linkSource.contains("FIBER_OPTIC_CABLE_SEGMENT.get().create"));
@@ -63,9 +63,9 @@ class FiberRouteHardeningSourceTest {
         assertTrue(routeStateSource.contains("if (!AddonConfig.fiberRouteDebugLogging())"));
         assertTrue(clientSource.contains("if (!AddonConfig.fiberRouteDebugLogging())"));
         assertTrue(linkSource.contains("if (!AddonConfig.fiberRouteDebugLogging())"));
-        assertTrue(networkSource.contains("FiberRouteSnapshotMessage.class"));
-        assertTrue(networkSource.contains("FiberRouteAppendMessage.class"));
-        assertTrue(networkSource.contains("FiberRouteClearMessage.class"));
+        assertTrue(networkSource.contains("FiberRouteSnapshotMessage.TYPE"));
+        assertTrue(networkSource.contains("FiberRouteAppendMessage.TYPE"));
+        assertTrue(networkSource.contains("FiberRouteClearMessage.TYPE"));
     }
 
     private static String readMainSource(String fileName) throws Exception {

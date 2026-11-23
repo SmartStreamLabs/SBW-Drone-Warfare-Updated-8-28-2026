@@ -1,0 +1,4 @@
+newmtl ds02
+Ka 1 1 1
+Kd 1 1 1
+map_Kd sbwdroneconfig:block/drone_warning_siren_ds02

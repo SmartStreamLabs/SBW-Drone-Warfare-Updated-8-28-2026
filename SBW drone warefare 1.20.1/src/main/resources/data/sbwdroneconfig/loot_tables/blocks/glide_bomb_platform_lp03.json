@@ -1,0 +1,1 @@
+{"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "sbwdroneconfig:glide_bomb_platform_lp03"}], "conditions": [{"condition": "minecraft:block_state_property", "block": "sbwdroneconfig:glide_bomb_platform_lp03", "properties": {"part": "0"}}, {"condition": "minecraft:survives_explosion"}]}]}

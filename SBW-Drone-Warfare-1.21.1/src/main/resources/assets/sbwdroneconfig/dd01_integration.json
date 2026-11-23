@@ -1,0 +1,481 @@
+{
+  "asset_name": "Delivery Drone DD-01",
+  "reference": "Original exterior game art inspired by supplied cargo hexacopter photo; no bag. Not an identified or dimension-certified real aircraft.",
+  "scale_basis": "Gameplay-authored size: 16 native units = 1 Minecraft block = 1 metre. Sized around a full 1-block cube payload.",
+  "units_per_block": 16,
+  "up_axis": "+Y",
+  "forward_axis": "-Z",
+  "ground_contact_y_units": 0,
+  "rotors": {
+    "rotor_1": {
+      "pivot_units": [
+        15.499999999999998,
+        36.5,
+        -26.8467875173176
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 12.1
+    },
+    "rotor_2": {
+      "pivot_units": [
+        31.0,
+        36.5,
+        -1.8982025386783976e-15
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 12.1
+    },
+    "rotor_3": {
+      "pivot_units": [
+        15.499999999999998,
+        36.5,
+        26.8467875173176
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 12.1
+    },
+    "rotor_4": {
+      "pivot_units": [
+        -15.500000000000004,
+        36.5,
+        26.846787517317598
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 12.1
+    },
+    "rotor_5": {
+      "pivot_units": [
+        -31.0,
+        36.5,
+        5.694607616035192e-15
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 12.1
+    },
+    "rotor_6": {
+      "pivot_units": [
+        -15.500000000000014,
+        36.5,
+        -26.84678751731759
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 12.1
+    }
+  },
+  "bone_pivots_units": {
+    "dd01_root": [
+      0.0,
+      32.0,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "body_shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "batteries": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cargo_mount": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cargo_latch": [
+      0.0,
+      25.2,
+      -1.2
+    ],
+    "camera_pan": [
+      0.0,
+      30.1,
+      -10.8
+    ],
+    "camera_tilt": [
+      0.0,
+      29.4,
+      -11.7
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      15.499999999999998,
+      36.5,
+      -26.8467875173176
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      31.0,
+      36.5,
+      -1.8982025386783976e-15
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      15.499999999999998,
+      36.5,
+      26.8467875173176
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -15.500000000000004,
+      36.5,
+      26.846787517317598
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -31.0,
+      36.5,
+      5.694607616035192e-15
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      -15.500000000000014,
+      36.5,
+      -26.84678751731759
+    ],
+    "cargo_center_anchor": [
+      0.0,
+      12.0,
+      0.0
+    ],
+    "cargo_socket_anchor": [
+      0.0,
+      24.2,
+      -1.2
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      29.4,
+      -13.4
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      60.0,
+      78.0
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      108.0,
+      0.0
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      32.0,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "cargo_clearance_box_units": {
+    "min": [
+      -10,
+      2.5,
+      -10
+    ],
+    "max": [
+      10,
+      22.5,
+      10
+    ]
+  },
+  "cargo_clearance_box_blocks": [
+    1.25,
+    1.25,
+    1.25
+  ],
+  "cargo_center_anchor": "cargo_center_anchor",
+  "cargo_center_units": [
+    0,
+    12,
+    0
+  ],
+  "full_block_reference_units": {
+    "min": [
+      -8,
+      4,
+      -8
+    ],
+    "max": [
+      8,
+      20,
+      8
+    ]
+  },
+  "fit_scene": "DD01_Chest_Fit_Scene.bbmodel",
+  "production_contains_cargo": false,
+  "production_contains_bag": false,
+  "monitor_camera_anchor": "monitor_camera_anchor",
+  "camera_direction": [
+    0,
+    0,
+    -1
+  ],
+  "integration_requirements": [
+    "Replace existing delivery drone visual asset only unless gameplay changes are separately requested.",
+    "Use mesh-capable renderer/export. Generic BBMODEL uses native units; static OBJ uses blocks.",
+    "Each rotor rotates around its own native Y pivot, alternating directions. Do not rotate motors or arms.",
+    "Runtime cargo must be separately rendered using the same interpolated drone transform and cargo_center_anchor. The chest reference is not a real inventory implementation.",
+    "cargo_center_anchor origin is the payload center, not its base. A full block cube is centered at Y=12; translate per item model origin before scaling.",
+    "The reserved empty bay is 1.25 blocks in width/depth/height. A double chest (2 blocks wide) does not fit at 1:1 scale.",
+    "Maintain current drone controls, camera, physics, inventory and saved IDs. Anchors and preview clips implement none of these systems.",
+    "Separate render/culling bounds (including rotor swept discs) from collision/damage.",
+    "Preserve grounded foot datum Y=0 and allow enough clearance for the tall frame.",
+    "No bag or chest is baked into the production model. Fitting reference belongs only to the separate fit scene."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "neutral_bounds_units": {
+    "min": [
+      -35.59372037713265,
+      0.0,
+      -36.40168008719301
+    ],
+    "max": [
+      35.59372037713264,
+      41.2,
+      36.40168008719301
+    ]
+  },
+  "model_dimensions_blocks": [
+    4.44921504714158,
+    2.575,
+    4.550210010899126
+  ],
+  "rotor_actual_swept_radius_units": {
+    "rotor_1": 12.098748902262582,
+    "rotor_2": 12.098748902262583,
+    "rotor_3": 12.098748902262582,
+    "rotor_4": 12.098748902262583,
+    "rotor_5": 12.098748902262583,
+    "rotor_6": 12.098748902262582
+  },
+  "full_rotor_swept_bounds_units": {
+    "min": [
+      -43.098748902262585,
+      0.0,
+      -38.94553641958018
+    ],
+    "max": [
+      43.098748902262585,
+      41.2,
+      38.94553641958018
+    ]
+  },
+  "validation": {
+    "elements": 442,
+    "triangles": 13856,
+    "bones": 29,
+    "clips": 3,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "six_rotor_discs_clear_each_other": true,
+    "rotors_clear_central_body": true,
+    "alternating_Y_rotor_channels": true,
+    "seamless_preview_loop_endpoints": true,
+    "clear_1_25_block_cube_checked_by_part_bounds": true,
+    "full_block_chest_fit_checked": true,
+    "no_bag_or_cargo_in_production": true,
+    "ground_datum_checked": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "dd01_root": [
+      0.0,
+      2.0,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "body_shell": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "batteries": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cargo_mount": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cargo_latch": [
+      0.0,
+      1.575,
+      -0.075
+    ],
+    "camera_pan": [
+      0.0,
+      1.88125,
+      -0.675
+    ],
+    "camera_tilt": [
+      0.0,
+      1.8375,
+      -0.73125
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      0.9687499999999999,
+      2.28125,
+      -1.67792421983235
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      1.9375,
+      2.28125,
+      -1.1863765866739985e-16
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      0.9687499999999999,
+      2.28125,
+      1.67792421983235
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -0.9687500000000002,
+      2.28125,
+      1.6779242198323499
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -1.9375,
+      2.28125,
+      3.559129760021995e-16
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      -0.9687500000000009,
+      2.28125,
+      -1.6779242198323494
+    ],
+    "cargo_center_anchor": [
+      0.0,
+      0.75,
+      0.0
+    ],
+    "cargo_socket_anchor": [
+      0.0,
+      1.5125,
+      -0.075
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      1.8375,
+      -0.8375
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      3.75,
+      4.875
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      6.75,
+      0.0
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      2.0,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+}

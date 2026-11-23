@@ -23,7 +23,7 @@ enum NetBulkPlacementKind {
     }
 
     ResourceLocation itemId() {
-        return new ResourceLocation(SbwDroneRangeConfig.MOD_ID, id);
+        return ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, id);
     }
 
     Item item() {

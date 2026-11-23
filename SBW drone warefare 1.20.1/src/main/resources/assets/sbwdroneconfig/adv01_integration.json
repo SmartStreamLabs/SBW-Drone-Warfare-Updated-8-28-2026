@@ -1,0 +1,1893 @@
+{
+  "asset": "Anti-Drone Vehicle ADV-01",
+  "visual_revision": 2,
+  "revision_note": "Deeper roadwheel dishes, layered grille frames, service-panel relief, external looms, roof grates, turret accessories and stronger native colour separation.",
+  "identity": "Original fictional game model visually inspired by the supplied Skyranger/ACSV photograph. No verified factory dimensions or internal weapon engineering.",
+  "units_per_metre": 16,
+  "blocks_per_metre": 1,
+  "scale": "1 block = 1 metre; dimensions are artistic estimates from one photograph",
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "texture_resolution": [
+    4096,
+    4096
+  ],
+  "overall_bounds_metres": {
+    "min": [
+      -1.628,
+      0.0045,
+      -3.55
+    ],
+    "max": [
+      1.628,
+      4.557718425158464,
+      3.349
+    ]
+  },
+  "overall_dimensions_metres": [
+    3.256,
+    4.553218425158464,
+    6.899
+  ],
+  "elements": 1828,
+  "triangles": 136374,
+  "groups": 48,
+  "cosmetic_clips": 4,
+  "crew_seat_count": 2,
+  "interior_note": "Cabin and hidden rear service bays are artist-authored, not verified real interiors.",
+  "default_gun_elevation_degrees": 35,
+  "gun_rotation_convention": "gun_pitch has a +35 degree X bind rotation. Runtime offset = desired elevation - 35 degrees. The high-elevation clip adds +35 degrees, giving 70 degrees total.",
+  "rear_sensor_bind_rotation_degrees": [
+    28,
+    0,
+    0
+  ],
+  "group_pivots_native_units": {
+    "adv01_root": [
+      0,
+      0,
+      0
+    ],
+    "chassis": [
+      0,
+      0,
+      0
+    ],
+    "lower_hull": [
+      0,
+      0,
+      0
+    ],
+    "cab_shell": [
+      0,
+      0,
+      0
+    ],
+    "cab_roof": [
+      0,
+      0,
+      0
+    ],
+    "cab_interior": [
+      0,
+      0,
+      0
+    ],
+    "rear_equipment": [
+      0,
+      0,
+      0
+    ],
+    "rear_frame": [
+      0,
+      0,
+      0
+    ],
+    "stowage": [
+      0,
+      0,
+      0
+    ],
+    "lights": [
+      0,
+      0,
+      0
+    ],
+    "markings": [
+      0,
+      0,
+      0
+    ],
+    "track_left": [
+      0,
+      0,
+      0
+    ],
+    "track_right": [
+      0,
+      0,
+      0
+    ],
+    "driver_hatch": [
+      -18.08,
+      33.44,
+      -19.52
+    ],
+    "commander_hatch": [
+      18.08,
+      33.44,
+      -19.52
+    ],
+    "service_door_left": [
+      -24.0,
+      29.6,
+      44.0
+    ],
+    "service_door_right": [
+      24.0,
+      29.6,
+      44.0
+    ],
+    "turret_yaw": [
+      0,
+      38.88,
+      21.12
+    ],
+    "turret_shell": [
+      0,
+      0,
+      0
+    ],
+    "gun_pitch": [
+      0,
+      47.68,
+      6.4
+    ],
+    "sensor_yaw": [
+      -2.4,
+      50.56,
+      23.04
+    ],
+    "sensor_pitch": [
+      -2.4,
+      53.6,
+      22.72
+    ],
+    "rear_sensor_tilt": [
+      4.8,
+      54.24,
+      33.28
+    ],
+    "driver_seat_anchor": [
+      -9.6,
+      17.04,
+      -19.2
+    ],
+    "operator_seat_anchor": [
+      9.6,
+      17.04,
+      -19.2
+    ],
+    "gun_muzzle_anchor": [
+      0,
+      48.72,
+      -35.68
+    ],
+    "roadwheel_left_1": [
+      -20.8,
+      8.0,
+      -35.52
+    ],
+    "roadwheel_left_2": [
+      -20.8,
+      8.0,
+      -22.08
+    ],
+    "roadwheel_left_3": [
+      -20.8,
+      8.0,
+      -8.64
+    ],
+    "roadwheel_left_4": [
+      -20.8,
+      8.0,
+      4.8
+    ],
+    "roadwheel_left_5": [
+      -20.8,
+      8.0,
+      18.24
+    ],
+    "roadwheel_left_6": [
+      -20.8,
+      8.0,
+      31.68
+    ],
+    "front_idler_left": [
+      -20.8,
+      11.2,
+      -46.88
+    ],
+    "rear_idler_left": [
+      -20.8,
+      12.16,
+      43.36
+    ],
+    "roadwheel_right_1": [
+      20.8,
+      8.0,
+      -35.52
+    ],
+    "roadwheel_right_2": [
+      20.8,
+      8.0,
+      -22.08
+    ],
+    "roadwheel_right_3": [
+      20.8,
+      8.0,
+      -8.64
+    ],
+    "roadwheel_right_4": [
+      20.8,
+      8.0,
+      4.8
+    ],
+    "roadwheel_right_5": [
+      20.8,
+      8.0,
+      18.24
+    ],
+    "roadwheel_right_6": [
+      20.8,
+      8.0,
+      31.68
+    ],
+    "front_idler_right": [
+      20.8,
+      11.2,
+      -46.88
+    ],
+    "rear_idler_right": [
+      20.8,
+      12.16,
+      43.36
+    ],
+    "vehicle_origin_anchor": [
+      0,
+      0,
+      0
+    ],
+    "drive_camera_anchor": [
+      0,
+      30.08,
+      -38.24
+    ],
+    "aim_camera_anchor": [
+      -2.4,
+      53.84,
+      18.08
+    ],
+    "entry_anchor_left": [
+      -28.48,
+      0.64,
+      -14.4
+    ],
+    "entry_anchor_right": [
+      28.48,
+      0.64,
+      -14.4
+    ],
+    "rear_service_anchor": [
+      0,
+      25.6,
+      55.04
+    ]
+  },
+  "group_bind_rotations_degrees": {
+    "adv01_root": [
+      0,
+      0,
+      0
+    ],
+    "chassis": [
+      0,
+      0,
+      0
+    ],
+    "lower_hull": [
+      0,
+      0,
+      0
+    ],
+    "cab_shell": [
+      0,
+      0,
+      0
+    ],
+    "cab_roof": [
+      0,
+      0,
+      0
+    ],
+    "cab_interior": [
+      0,
+      0,
+      0
+    ],
+    "rear_equipment": [
+      0,
+      0,
+      0
+    ],
+    "rear_frame": [
+      0,
+      0,
+      0
+    ],
+    "stowage": [
+      0,
+      0,
+      0
+    ],
+    "lights": [
+      0,
+      0,
+      0
+    ],
+    "markings": [
+      0,
+      0,
+      0
+    ],
+    "track_left": [
+      0,
+      0,
+      0
+    ],
+    "track_right": [
+      0,
+      0,
+      0
+    ],
+    "driver_hatch": [
+      0,
+      0,
+      0
+    ],
+    "commander_hatch": [
+      0,
+      0,
+      0
+    ],
+    "service_door_left": [
+      0,
+      0,
+      0
+    ],
+    "service_door_right": [
+      0,
+      0,
+      0
+    ],
+    "turret_yaw": [
+      0,
+      0,
+      0
+    ],
+    "turret_shell": [
+      0,
+      0,
+      0
+    ],
+    "gun_pitch": [
+      35,
+      0,
+      0
+    ],
+    "sensor_yaw": [
+      0,
+      0,
+      0
+    ],
+    "sensor_pitch": [
+      0,
+      0,
+      0
+    ],
+    "rear_sensor_tilt": [
+      28,
+      0,
+      0
+    ],
+    "driver_seat_anchor": [
+      0,
+      0,
+      0
+    ],
+    "operator_seat_anchor": [
+      0,
+      0,
+      0
+    ],
+    "gun_muzzle_anchor": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_1": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_2": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_3": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_4": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_5": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_left_6": [
+      0,
+      0,
+      0
+    ],
+    "front_idler_left": [
+      0,
+      0,
+      0
+    ],
+    "rear_idler_left": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_1": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_2": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_3": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_4": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_5": [
+      0,
+      0,
+      0
+    ],
+    "roadwheel_right_6": [
+      0,
+      0,
+      0
+    ],
+    "front_idler_right": [
+      0,
+      0,
+      0
+    ],
+    "rear_idler_right": [
+      0,
+      0,
+      0
+    ],
+    "vehicle_origin_anchor": [
+      0,
+      0,
+      0
+    ],
+    "drive_camera_anchor": [
+      0,
+      0,
+      0
+    ],
+    "aim_camera_anchor": [
+      0,
+      0,
+      0
+    ],
+    "entry_anchor_left": [
+      0,
+      0,
+      0
+    ],
+    "entry_anchor_right": [
+      0,
+      0,
+      0
+    ],
+    "rear_service_anchor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "anchor_raw_positions_metres": {
+    "driver_seat_anchor": [
+      -0.6,
+      1.065,
+      -1.2
+    ],
+    "operator_seat_anchor": [
+      0.6,
+      1.065,
+      -1.2
+    ],
+    "gun_muzzle_anchor": [
+      0.0,
+      3.045,
+      -2.23
+    ],
+    "vehicle_origin_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "drive_camera_anchor": [
+      0.0,
+      1.88,
+      -2.39
+    ],
+    "aim_camera_anchor": [
+      -0.15,
+      3.365,
+      1.13
+    ],
+    "entry_anchor_left": [
+      -1.78,
+      0.04,
+      -0.9
+    ],
+    "entry_anchor_right": [
+      1.78,
+      0.04,
+      -0.9
+    ],
+    "rear_service_anchor": [
+      0.0,
+      1.6,
+      3.44
+    ]
+  },
+  "anchor_world_positions_bind_pose_metres": {
+    "driver_seat_anchor": [
+      -0.6,
+      1.065,
+      -1.2
+    ],
+    "operator_seat_anchor": [
+      0.6,
+      1.065,
+      -1.2
+    ],
+    "gun_muzzle_anchor": [
+      0.0,
+      4.541750910482036,
+      -1.7170874081172305
+    ],
+    "aim_camera_anchor": [
+      -0.15,
+      3.365,
+      1.13
+    ],
+    "vehicle_origin_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "drive_camera_anchor": [
+      0.0,
+      1.88,
+      -2.39
+    ],
+    "entry_anchor_left": [
+      -1.78,
+      0.04,
+      -0.9
+    ],
+    "entry_anchor_right": [
+      1.78,
+      0.04,
+      -0.9
+    ],
+    "rear_service_anchor": [
+      0.0,
+      1.6,
+      3.44
+    ]
+  },
+  "group_world_matrices_bind_pose": {
+    "adv01_root": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "chassis": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "lower_hull": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "cab_shell": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "cab_roof": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "driver_hatch": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "commander_hatch": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "cab_interior": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "driver_seat_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "operator_seat_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_equipment": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "service_door_left": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "service_door_right": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_frame": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "stowage": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "lights": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "markings": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "track_left": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_1": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_2": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_3": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_4": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_5": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_left_6": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "front_idler_left": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_idler_left": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "track_right": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_1": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_2": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_3": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_4": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_5": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "roadwheel_right_6": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "front_idler_right": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_idler_right": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "turret_yaw": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "turret_shell": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "gun_pitch": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8191520442889918,
+        -0.573576436351046,
+        0.7683574825592232
+      ],
+      [
+        0.0,
+        0.573576436351046,
+        0.8191520442889918,
+        -1.636918598041714
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "gun_muzzle_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8191520442889918,
+        -0.573576436351046,
+        0.7683574825592232
+      ],
+      [
+        0.0,
+        0.573576436351046,
+        0.8191520442889918,
+        -1.636918598041714
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sensor_yaw": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sensor_pitch": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "aim_camera_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_sensor_tilt": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.882947592858927,
+        -0.4694715627858908,
+        1.3733085108028904
+      ],
+      [
+        0.0,
+        0.4694715627858908,
+        0.882947592858927,
+        -1.3480395909907381
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "vehicle_origin_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "drive_camera_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "entry_anchor_left": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "entry_anchor_right": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rear_service_anchor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "track_shoes_per_side": 92,
+  "road_wheels_per_side": 6,
+  "seat_anchor_convention": "Anchors lie on cushion tops. Actual Minecraft passenger offset and pose require integration and testing.",
+  "scope": "Editable art, 4 cosmetic rig clips, camera/muzzle/seat anchors. No driving, radar, ammunition, targeting, damage or multiplayer code.",
+  "blockbench_ui_tested": false,
+  "minecraft_tested": false,
+  "real_dimensions_verified": false,
+  "full_motion_collision_envelope_verified": false,
+  "material_bake_pending": false,
+  "unique_packed_uv_atlas": true,
+  "contact_shading": "Local AO baked into base colour in bind pose, maximum darkening 43%; studio light and ground shadows are not baked.",
+  "weathering": "Restrained paint grain, broken convex wear, irregular lower-body dust and localized contact shadow; no large rust or arbitrary damage.",
+  "orm_texture": "anti_drone_vehicle_adv01_orm.png",
+  "orm_channels": {
+    "R": "ambient occlusion",
+    "G": "roughness",
+    "B": "metallic"
+  },
+  "native_material_note": "BBMODEL embeds the colour atlas. ORM is an optional separate renderer map; native Generic Model does not automatically use it.",
+  "geometry_hierarchy_preserved_after_bake": true
+}

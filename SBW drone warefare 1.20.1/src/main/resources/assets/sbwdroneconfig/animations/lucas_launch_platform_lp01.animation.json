@@ -1,0 +1,39 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.lucas_platform.release_clamps": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 0.65,
+      "bones": {
+        "clamp_left": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.65": [
+              0,
+              0,
+              32
+            ]
+          }
+        },
+        "clamp_right": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.65": [
+              0,
+              0,
+              -32
+            ]
+          }
+        }
+      }
+    }
+  }
+}

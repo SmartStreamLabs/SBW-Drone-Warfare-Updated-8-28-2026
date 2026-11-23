@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,half=lower": {
+      "model": "sbwdroneconfig:block/ndz01",
+      "y": 0
+    },
+    "facing=north,half=upper": {
+      "model": "sbwdroneconfig:block/ndz01_upper",
+      "y": 0
+    },
+    "facing=east,half=lower": {
+      "model": "sbwdroneconfig:block/ndz01",
+      "y": 90
+    },
+    "facing=east,half=upper": {
+      "model": "sbwdroneconfig:block/ndz01_upper",
+      "y": 90
+    },
+    "facing=south,half=lower": {
+      "model": "sbwdroneconfig:block/ndz01",
+      "y": 180
+    },
+    "facing=south,half=upper": {
+      "model": "sbwdroneconfig:block/ndz01_upper",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "sbwdroneconfig:block/ndz01",
+      "y": 270
+    },
+    "facing=west,half=upper": {
+      "model": "sbwdroneconfig:block/ndz01_upper",
+      "y": 270
+    }
+  }
+}

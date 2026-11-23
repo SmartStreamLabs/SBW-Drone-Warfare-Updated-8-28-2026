@@ -1,0 +1,148 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.adv01.turret_scan_preview": {
+      "loop": false,
+      "animation_length": 3,
+      "bones": {
+        "turret_yaw": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              60.0,
+              0.0
+            ],
+            "2": [
+              0.0,
+              -60.0,
+              0.0
+            ],
+            "3": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.adv01.high_elevation_preview": {
+      "loop": false,
+      "animation_length": 2,
+      "bones": {
+        "gun_pitch": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              35.0,
+              0.0,
+              0.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.adv01.hatches_preview": {
+      "loop": false,
+      "animation_length": 2,
+      "bones": {
+        "driver_hatch": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              105.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "commander_hatch": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              -105.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.adv01.service_doors_preview": {
+      "loop": false,
+      "animation_length": 2,
+      "bones": {
+        "service_door_left": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              90.0,
+              0.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "service_door_right": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              -90.0,
+              0.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

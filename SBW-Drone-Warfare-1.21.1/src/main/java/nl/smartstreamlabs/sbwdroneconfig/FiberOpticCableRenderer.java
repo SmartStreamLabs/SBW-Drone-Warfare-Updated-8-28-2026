@@ -11,10 +11,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public final class FiberOpticCableRenderer {
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(FiberOpticCableRenderer.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(FiberOpticCableRenderer.class);
     }
 
     @SubscribeEvent
@@ -94,8 +94,8 @@ public final class FiberOpticCableRenderer {
                 continue;
             }
 
-            float partialTicks = event.getPartialTick();
-            Vec3 dynamicSpoolPoint = FiberOpticCableRenderMath.toCubedFpvSpoolAttachment(drone, partialTicks);
+            float partialTicks = event.getPartialTick().getGameTimeDeltaPartialTick(true);
+            Vec3 dynamicSpoolPoint = CubedFpvFiberSpoolGeometry.visualCableExitWorldPosition(drone, partialTicks);
             List<Vec3> routePoints = resolveRoutePoints(state, drone, dynamicSpoolPoint);
             if (!isRouteInRenderRange(cameraPos, routePoints, dynamicSpoolPoint, maxRenderDistance)) {
                 continue;
@@ -370,10 +370,9 @@ public final class FiberOpticCableRenderer {
     }
 
     private static void putVertex(VertexConsumer consumer, Matrix4f matrix, Vec3 point, int red, int green, int blue, int alpha, int packedLight) {
-        consumer.vertex(matrix, (float) point.x, (float) point.y, (float) point.z)
-                .color(red, green, blue, alpha)
-                .uv2(packedLight)
-                .endVertex();
+        consumer.addVertex(matrix, (float) point.x, (float) point.y, (float) point.z)
+                .setColor(red, green, blue, alpha)
+                .setLight(packedLight);
     }
 
     private static CableRenderStyle resolveCableRenderStyle() {

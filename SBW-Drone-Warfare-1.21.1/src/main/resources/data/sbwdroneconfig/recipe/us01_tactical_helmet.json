@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "ISI",
+    "W W",
+    "   "
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "item": "minecraft:brown_wool"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:us01_tactical_helmet",
+    "count": 1
+  }
+}

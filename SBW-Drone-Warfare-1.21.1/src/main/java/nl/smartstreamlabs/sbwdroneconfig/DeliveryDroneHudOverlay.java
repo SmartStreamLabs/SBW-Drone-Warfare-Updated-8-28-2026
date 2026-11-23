@@ -7,13 +7,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.Locale;
 import java.util.Set;
@@ -30,7 +30,6 @@ public final class DeliveryDroneHudOverlay {
     private static final int RED = 0xFFFF5A5A;
     private static final int SHADOW = 0xB0000000;
     private static final int BACKDROP = 0x33000000;
-    private static final int BACKDROP_STRONG = 0x4C000000;
     private static final int LINE_FAINT = 0x6685E8FF;
     private static final int LINE_SOFT = 0x9A85E8FF;
     private static final long TRANSIENT_NOTICE_MS = 2_600L;
@@ -76,12 +75,12 @@ public final class DeliveryDroneHudOverlay {
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(DeliveryDroneHudOverlay.class);
+        NeoForge.EVENT_BUS.register(DeliveryDroneHudOverlay.class);
         SbwDroneRangeConfig.LOGGER.info("[SBW Drone Warfare] Registered Delivery Drone HUD {}", HUD_ID);
     }
 
     @SubscribeEvent
-    public static void onRenderGui(RenderGuiEvent.Post event) {
+    public static void onRenderGui(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
         Minecraft minecraft = Minecraft.getInstance();
         DeliveryDroneEntity drone = DroneClientViewContext.activeDeliveryDrone(minecraft);
         if (!DroneClientViewContext.isLocalDeliveryViewOf(drone)) {
@@ -89,7 +88,7 @@ public final class DeliveryDroneHudOverlay {
             return;
         }
 
-        Snapshot snapshot = Snapshot.collect(drone, event.getPartialTick());
+        Snapshot snapshot = Snapshot.collect(drone, event.getPartialTick().getGameTimeDeltaPartialTick(true));
         updateSessionState(drone.getUUID(), snapshot);
         updateSmoothedVisuals(snapshot);
 
@@ -116,11 +115,11 @@ public final class DeliveryDroneHudOverlay {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlayPre(RenderGuiOverlayEvent.Pre event) {
-        if (!shouldReplaceDefaultSbwHud() || event.getOverlay() == null) {
+    public static void onRenderGuiOverlayPre(RenderGuiLayerEvent.Pre event) { if(DroneOsdClient.ownsFullView())return;
+        if (!shouldReplaceDefaultSbwHud() || event.getName() == null) {
             return;
         }
-        if (HIDDEN_OVERLAYS.contains(event.getOverlay().id().getPath())) {
+        if (HIDDEN_OVERLAYS.contains(event.getName().getPath())) {
             event.setCanceled(true);
         }
     }
@@ -302,6 +301,7 @@ public final class DeliveryDroneHudOverlay {
 
         drawBackdrop(graphics, x - 8, y - 8, width + 14, 54, BACKDROP);
         drawText(graphics, font, "CARGO BAY", x, y, CYAN);
+        if(snapshot.robotMounted){drawText(graphics,font,"GROUND ROBOT",x,y+14,CYAN);drawText(graphics,font,"Y: DEPLOY",x,y+29,WHITE);return;}
         if (!snapshot.cargoMounted) {
             drawText(graphics, font, "EMPTY", x, y + 14, MUTED);
             renderCargoSegments(graphics, x, y + 29, width - 18, 0, DeliveryDroneEntity.MOUNTED_CRATE_SLOT_CAPACITY, MUTED);
@@ -616,6 +616,7 @@ public final class DeliveryDroneHudOverlay {
     }
 
     private record Snapshot(
+            boolean robotMounted,
             boolean cargoMounted,
             int cargoSlots,
             int cargoCapacity,
@@ -661,6 +662,7 @@ public final class DeliveryDroneHudOverlay {
             String status = status(cargoMounted, hasTarget, distance, hasBattery, battery, hardJammed);
 
             return new Snapshot(
+                    DeliveryGroundCargo.loaded(drone),
                     cargoMounted,
                     occupiedSlots,
                     drone.getMountedCargoSlotCapacity(),

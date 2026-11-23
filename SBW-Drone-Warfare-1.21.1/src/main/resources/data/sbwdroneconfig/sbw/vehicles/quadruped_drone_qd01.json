@@ -1,0 +1,206 @@
+{
+  "MaxHealth": 100,
+  "MaxEnergy": 300000,
+  "OBB": [
+    {
+      "Size": [
+        0.44,
+        0.235,
+        0.78
+      ],
+      "Position": [
+        0,
+        0.825,
+        0
+      ]
+    },
+    {
+      "Size": [
+        0.34,
+        0.32,
+        0.34
+      ],
+      "Position": [
+        0,
+        0.32,
+        0
+      ],
+      "Transform": "Turret",
+      "Rotation": "Turret",
+      "Part": "Turret"
+    },
+    {
+      "Size": [
+        0.09,
+        0.29,
+        0.12
+      ],
+      "Position": [
+        -0.62,
+        0.3,
+        -0.465
+      ]
+    },
+    {
+      "Size": [
+        0.09,
+        0.29,
+        0.12
+      ],
+      "Position": [
+        -0.62,
+        0.3,
+        0.565
+      ]
+    },
+    {
+      "Size": [
+        0.09,
+        0.29,
+        0.12
+      ],
+      "Position": [
+        0.62,
+        0.3,
+        -0.465
+      ]
+    },
+    {
+      "Size": [
+        0.09,
+        0.29,
+        0.12
+      ],
+      "Position": [
+        0.62,
+        0.3,
+        0.565
+      ]
+    }
+  ],
+  "Seats": [],
+  "Weapons": {
+    "Cannon": {
+      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/gun_7_62mm.png",
+      "DefaultFireMode": "Auto",
+      "AvailableFireModes": "Auto",
+      "Spread": 0.5,
+      "CrosshairColor": "0x66FF00",
+      "Projectile": "superbwarfare:projectile",
+      "RPM": 600,
+      "Damage": 9.5,
+      "BypassesArmor": 0.3,
+      "Velocity": 30,
+      "RecoilTime": 22,
+      "RecoilForce": 0.1,
+      "HeatPerShoot": 4,
+      "NaturalCooldown": 1,
+      "ShootAnimationTime": 2,
+      "AmmoType": "@RifleAmmo",
+      "ShootPos": {
+        "Transform": "Barrel",
+        "Positions": [
+          [
+            0,
+            0.1,
+            1.26
+          ]
+        ],
+        "Directions": [
+          "Barrel"
+        ]
+      },
+      "Crosshair": "@VehicleCommonGun",
+      "Name": "weapon.superbwarfare.7_62mm_coax",
+      "SoundInfo": {
+        "Fire1P": "superbwarfare:coax_fire_1p",
+        "Fire3P": "superbwarfare:m_60_fire_3p",
+        "Fire3PFar": "superbwarfare:m_60_far",
+        "Fire3PVeryFar": "superbwarfare:m_60_veryfar",
+        "Change": "superbwarfare:into_cannon"
+      },
+      "SoundRadius": 12,
+      "Magazine": 100,
+      "NormalReloadTime": 60,
+      "EmptyReloadTime": 80
+    }
+  },
+  "EngineType": "Track",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 8,
+    "WheelRotSpeed": 2.3529411764705883,
+    "WheelDifferential": 0.5,
+    "MaxForwardSpeedRate": 0.12,
+    "MaxBackwardSpeedRate": 0.08,
+    "Increment": 0.014,
+    "Decrement": 0.035,
+    "SteeringSpeed": 0.12,
+    "TrackRotSpeed": 0.2,
+    "TrackDifferential": 0.01,
+    "EngineSoundVolume": 0
+  },
+  "TurretPos": [
+    0,
+    1.08,
+    0
+  ],
+  "TurretTurnSpeed": [
+    12.5,
+    10
+  ],
+  "TurretPitchRange": [
+    -12,
+    35
+  ],
+  "BarrelPos": [
+    0,
+    0.35,
+    0
+  ],
+  "ThirdPersonCameraPos": [
+    0,
+    0,
+    0
+  ],
+  "HasDecoy": false,
+  "UpStep": 0.5,
+  "RotateOffsetHeight": 0,
+  "Mass": 0.12,
+  "DamageModifiers": [],
+  "VehicleContainerType": "Small",
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "SympatheticDetonation": false
+  },
+  "VehicleIcon": "sbwdroneconfig:textures/item/quadruped_drone_qd01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "HudType": "@Empty",
+  "TerrainCompat": [],
+  "InertiaRotateRate": 1,
+  "KeepChunkLoaded": false,
+  "Gravity": 0.04
+}

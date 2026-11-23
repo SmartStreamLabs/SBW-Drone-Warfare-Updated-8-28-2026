@@ -1,0 +1,12 @@
+{
+  "ID": "sbwdroneconfig:flamingo_fl01",
+  "MaxHealth": 18,
+  "MaxEnergy": 0,
+  "Mass": 0.002,
+  "VehicleContainerType": "Empty",
+  "SendHitParticles": false,
+  "Type": "Drone",
+  "HasLowHealthWarning": false,
+  "SelfHurtPercent": 0,
+  "Gravity": 0.0
+}

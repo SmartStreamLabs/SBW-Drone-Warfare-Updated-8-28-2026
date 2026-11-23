@@ -7,6 +7,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -53,8 +54,23 @@ public class AntiDroneNetBlock extends IronBarsBlock {
         BlockPos min = BlockPos.containing(jammerRangeBox.minX, jammerRangeBox.minY, jammerRangeBox.minZ);
         BlockPos max = BlockPos.containing(jammerRangeBox.maxX, jammerRangeBox.maxY, jammerRangeBox.maxZ);
 
+        int previousChunkX = Integer.MIN_VALUE;
+        int previousChunkZ = Integer.MIN_VALUE;
+        LevelChunk availableChunk = null;
         for (BlockPos scanPos : BlockPos.betweenClosed(min, max)) {
-            BlockState scanState = serverLevel.getBlockState(scanPos);
+            int chunkX = scanPos.getX() >> 4;
+            int chunkZ = scanPos.getZ() >> 4;
+            if (chunkX != previousChunkX || chunkZ != previousChunkZ) {
+                previousChunkX = chunkX;
+                previousChunkZ = chunkZ;
+                availableChunk = serverLevel.getChunkSource().getChunkNow(chunkX, chunkZ);
+            }
+            // The detection margin can reach an unfinished neighbour before the drone does.
+            // Inspect it on a later tick; a trap scan must never generate or wait for terrain.
+            if (availableChunk == null) {
+                continue;
+            }
+            BlockState scanState = availableChunk.getBlockState(scanPos);
             if (!isAntiDroneNetTrapBlock(scanState)) {
                 continue;
             }
@@ -67,7 +83,12 @@ public class AntiDroneNetBlock extends IronBarsBlock {
                 continue;
             }
 
-            AntiDroneNetEffectSystem.jamDrone(serverLevel, drone, Vec3.atCenterOf(scanPos), "block " + scanPos.toShortString());
+            AntiDroneNetEffectSystem.jamDrone(
+                    serverLevel,
+                    drone,
+                    Vec3.atCenterOf(scanPos),
+                    "block " + scanPos.toShortString()
+            );
             return;
         }
     }
@@ -91,5 +112,4 @@ public class AntiDroneNetBlock extends IronBarsBlock {
         }
         return new AABB(pos);
     }
-
 }

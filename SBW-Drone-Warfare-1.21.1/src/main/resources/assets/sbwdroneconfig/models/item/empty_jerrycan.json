@@ -1,10 +1,10 @@
 {
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "textures": {
     "particle": "sbwdroneconfig:item/empty_jerrycan_icon"
   },
   "base": {
-    "loader": "forge:obj",
+    "loader": "neoforge:obj",
     "model": "sbwdroneconfig:models/item/jerrycan.obj",
     "mtl_override": "sbwdroneconfig:models/item/empty_jerrycan.mtl",
     "automatic_culling": false,

@@ -1,0 +1,14 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import net.minecraft.client.model.geom.ModelPart;import net.minecraft.world.entity.*;import net.minecraft.world.entity.player.Player;import org.joml.*;import java.lang.Math;
+public final class Dil01Pose {
+ private static java.lang.ref.WeakReference<LivingEntity> holder=new java.lang.ref.WeakReference<>(null);private static final Matrix4f correction=new Matrix4f(),itemFrame=new Matrix4f();private static boolean valid;public static boolean firstHand;private static final java.util.Map<ModelPart,Float> scales=new java.util.WeakHashMap<>();
+ private static void restore(ModelPart p){var old=scales.remove(p);if(old!=null)p.yScale=old;}
+ public static void capture(LivingEntity p){if(holder.get()!=p){holder=new java.lang.ref.WeakReference<>(p);valid=false;}}
+ public static void pose(Player p,ModelPart head,ModelPart left,ModelPart right){restore(left);restore(right);if(firstHand||!Dil01Item.is(p.getMainHandItem())||p.isSleeping())return;capture(p);boolean mainRight=p.getMainArm()==HumanoidArm.RIGHT;float sign=mainRight?1:-1;var main=mainRight?right:left;var support=mainRight?left:right;var a=new Vector3f(main.x,main.y,main.z);var b=new Vector3f(support.x,support.y,support.z);var solved=Dil01HeldPose.solve(head.yRot,head.xRot,mainRight,com.atsuishio.superbwarfare.data.gun.GunData.from(p.getMainHandItem()).zooming.get(),a,b,head.y);
+  arm(main,new Vector3f(-sign,10,-2),new Vector3f(solved.main()).sub(a));arm(support,new Vector3f(sign,10,-2),new Vector3f(solved.support()).sub(b));var attachment=new Matrix4f().translate(main.x/16,main.y/16,main.z/16).rotateZYX(main.zRot,main.yRot,main.xRot).scale(main.xScale,main.yScale,main.zScale).rotateX(-(float)Math.PI/2).rotateY((float)Math.PI).translate(sign/16,.125f,-.625f);correction.set(attachment).invert().mul(solved.item());itemFrame.set(solved.item());valid=true;
+ }
+ private static void arm(ModelPart p,Vector3f local,Vector3f target){scales.put(p,p.yScale);p.yScale=(float)Math.sqrt(Math.max(1,target.lengthSquared()-5))/10;local.y*=p.yScale;var r=new Quaternionf().rotationTo(local.normalize(),target.normalize()).getEulerAnglesZYX(new Vector3f());p.xRot=r.x;p.yRot=r.y;p.zRot=r.z;}
+ public static boolean apply(com.mojang.blaze3d.vertex.PoseStack p){var h=holder.get();if(!valid||h==null||!Dil01Item.is(h.getMainHandItem()))return false;p.last().pose().mul(correction);p.last().normal().mul(new Matrix3f(correction));return true;}
+ public static void third(Player player,net.minecraft.world.item.ItemStack stack,com.mojang.blaze3d.vertex.PoseStack pose,net.minecraft.client.renderer.MultiBufferSource buffers,int light){if(!valid||holder.get()!=player)return;pose.pushPose();pose.last().pose().mul(itemFrame);pose.last().normal().mul(new Matrix3f(itemFrame));Dil01ItemRenderer.instance().nativeModel(stack,pose,buffers,light,net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);pose.popPose();}
+ private Dil01Pose(){}
+}

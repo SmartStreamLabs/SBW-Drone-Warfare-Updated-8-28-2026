@@ -13,6 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,8 +34,8 @@ public class BayraktarTb2Item extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.ukrainian_bayraktar_tb2.1").withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.ukrainian_bayraktar_tb2.2").withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.sbwdroneconfig.ukrainian_bayraktar_tb2.3").withStyle(ChatFormatting.DARK_GREEN));

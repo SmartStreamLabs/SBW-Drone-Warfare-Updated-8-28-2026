@@ -54,15 +54,11 @@ class LucasUavHudRedesignSourceTest {
     @Test
     void cubedFpvHudRemainsSeparate() throws Exception {
         String lucas = Files.readString(MAIN.resolve("LucasDroneHudOverlay.java"));
-        String cubedOverlay = Files.readString(MAIN.resolve("CubedFpvReferenceGuiOverlay.java"));
         String cubedTelemetry = Files.readString(MAIN.resolve("CubedFpvReferenceGuiTelemetry.java"));
 
         assertFalse(lucas.contains("CubedFpvDroneEntity"));
-        assertFalse(lucas.contains("LINK: FIBER"));
-        assertTrue(cubedOverlay.contains("CubedFpvReferenceGuiTelemetry"));
+        assertFalse(lucas.contains("C U B E D   F P V"));
         assertTrue(cubedTelemetry.contains("F I B E R"));
         assertTrue(cubedTelemetry.contains("%.1fV"));
-        assertFalse(cubedOverlay.contains("MODE: MANUAL"));
-        assertFalse(cubedOverlay.contains("DISTANCE TO TARGET"));
     }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "RCR",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "item": "superbwarfare:container",
+    "count": 1,
+    "nbt": "{BlockEntityTag:{EntityType:\"sbwdroneconfig:ground_assault_drone_gad01\"}}"
+  }
+}

@@ -1,14 +1,13 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record PortableFpvDetectorScanMessage(
         int range,
@@ -16,7 +15,10 @@ public record PortableFpvDetectorScanMessage(
         UUID selectedTargetId,
         boolean detectorActive,
         boolean videoEnabled
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PortableFpvDetectorScanMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "portable_fpv_detector_scan"));
+
     public PortableFpvDetectorScanMessage {
         targets = targets == null ? List.of() : List.copyOf(targets);
     }
@@ -52,8 +54,12 @@ public record PortableFpvDetectorScanMessage(
         return new PortableFpvDetectorScanMessage(range, targets, selectedTargetId, detectorActive, videoEnabled);
     }
 
-    public static void handle(PortableFpvDetectorScanMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        contextSupplier.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DroneJammerClient.handleDetectorScan(message)));
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(PortableFpvDetectorScanMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> DroneJammerClient.handleDetectorScan(message));
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

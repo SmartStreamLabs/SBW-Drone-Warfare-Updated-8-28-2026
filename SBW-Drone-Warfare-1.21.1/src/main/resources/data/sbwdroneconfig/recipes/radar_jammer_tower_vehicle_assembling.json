@@ -1,17 +1,17 @@
 {
-  "type": "superbwarfare:vehicle_assembling",
-  "category": "misc",
-  "inputs": [
-    "sbwdroneconfig:jammer",
-    "superbwarfare:charging_station",
-    "superbwarfare:artillery_indicator",
-    "superbwarfare:iff",
-    "2 superbwarfare:large_battery_pack",
-    "minecraft:redstone_block",
-    "2 minecraft:observer",
-    "4 minecraft:smooth_stone"
-  ],
-  "result": {
-    "item": "sbwdroneconfig:radar_jammer_tower"
-  }
+    "type":  "superbwarfare:vehicle_assembling",
+    "category":  "misc",
+    "inputs":  [
+                   "sbwdroneconfig:jammer",
+                   "superbwarfare:charging_station",
+                   "superbwarfare:artillery_indicator",
+                   "superbwarfare:iff",
+                   "2 superbwarfare:large_battery_pack",
+                   "2 superbwarfare:cell",
+                   "2 superbwarfare:monitor",
+                   "4 minecraft:smooth_stone"
+               ],
+    "result":  {
+                   "item":  "sbwdroneconfig:radar_jammer_tower"
+               }
 }

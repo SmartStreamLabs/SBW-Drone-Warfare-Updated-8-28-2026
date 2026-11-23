@@ -1,12 +1,16 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record DroneJamSyncMessage(UUID droneId, float jamProgress, boolean hardJammed) {
+public record DroneJamSyncMessage(UUID droneId, float jamProgress, boolean hardJammed) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DroneJamSyncMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "drone_jam_sync"));
+
     public static void encode(DroneJamSyncMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.droneId);
         buffer.writeFloat(message.jamProgress);
@@ -21,8 +25,12 @@ public record DroneJamSyncMessage(UUID droneId, float jamProgress, boolean hardJ
         );
     }
 
-    public static void handle(DroneJamSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(DroneJamSyncMessage message, IPayloadContext context) {
         DroneJamOverlayClient.handleSync(message);
-        contextSupplier.get().setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "revision": "R03 complete geometry rebuild",
+  "native_model_name": "MPL01_COMPLETE_REBUILD_R03",
+  "meshes": 1524,
+  "triangles": 51364,
+  "groups": 40,
+  "textures": 4,
+  "shared_mesh_UUIDs_with_R02": 0,
+  "native_sha256": "fb8de50afd192fde50b00fc14453addb039bb3521f7c6d93092edd9c16a6db8e",
+  "pose": {
+    "travel_bounds_blocks": [
+      [
+        -1.9700000286102295,
+        1.9700000286102295
+      ],
+      [
+        -5.224999904632568,
+        5.377999782562256
+      ],
+      [
+        0.01442991103976965,
+        4.203856468200684
+      ]
+    ],
+    "deployed_bounds_blocks": [
+      [
+        -2.7699999809265137,
+        2.7699999809265137
+      ],
+      [
+        -6.620360374450684,
+        5.377999782562256
+      ],
+      [
+        0.01442991103976965,
+        8.565054893493652
+      ]
+    ],
+    "deployed_foot_min_height_blocks": 0.019999980926513672
+  },
+  "checks": [
+    "Complete unique outliner references",
+    "Finite nondegenerate triangle geometry",
+    "UV bounds and embedded textures",
+    "Valid bone references and animation values",
+    "Ground clearance of deployed feet",
+    "Independent mesh IDs from previous geometry"
+  ]
+}

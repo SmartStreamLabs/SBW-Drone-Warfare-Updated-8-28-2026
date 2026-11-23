@@ -1,12 +1,11 @@
 {
-  "parent": "minecraft:block/cube",
+  "loader": "neoforge:obj",
+  "model": "sbwdroneconfig:models/block/fm01_static.obj",
+  "mtl_override": "sbwdroneconfig:models/block/fm01.mtl",
+  "flip_v": true,
+  "automatic_culling": false,
+  "render_type": "minecraft:solid",
   "textures": {
-    "particle": "sbwdroneconfig:block/fuel_mixer_side",
-    "north": "sbwdroneconfig:block/fuel_mixer_front",
-    "east": "sbwdroneconfig:block/fuel_mixer_side",
-    "south": "sbwdroneconfig:block/fuel_mixer_side",
-    "west": "sbwdroneconfig:block/fuel_mixer_side",
-    "up": "sbwdroneconfig:block/fuel_mixer_top",
-    "down": "sbwdroneconfig:block/fuel_mixer_bottom"
+    "particle": "sbwdroneconfig:block/fuel_mixer_fm01"
   }
 }

@@ -15,10 +15,8 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
-
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
 
 public class LucasDroneEntity extends DroneEntity {
     private static final EntityDataAccessor<Float> LUCAS_THROTTLE = SynchedEntityData.defineId(LucasDroneEntity.class, EntityDataSerializers.FLOAT);
@@ -29,21 +27,32 @@ public class LucasDroneEntity extends DroneEntity {
     private static final String TAG_LUCAS_STALLING = "sbwdroneconfigLucasStalling";
     private static final String TAG_LUCAS_AIRSPEED = "sbwdroneconfigLucasAirspeed";
     private static final String TAG_LUCAS_FUEL = "sbwdroneconfigLucasFuel";
+    private static final EntityDataAccessor<java.util.Optional<net.minecraft.core.BlockPos>> LP01_FIT=SynchedEntityData.defineId(LucasDroneEntity.class,EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    public boolean isLp01Fit(){return this.entityData.get(LP01_FIT).isPresent();}
+    public void setLp01Mount(net.minecraft.core.BlockPos anchor){this.entityData.set(LP01_FIT,java.util.Optional.of(anchor.immutable()));}
+    public boolean isLp01PropellerSafe(){
+        var anchor=this.entityData.get(LP01_FIT);
+        if(anchor.isEmpty())return true;
+        var p=anchor.get();
+        // Conservative rotor clearance around the original platform, using coordinates only. No chunk lookup.
+        return ((net.minecraft.world.entity.Entity)this).distanceToSqr(p.getX()+.5,p.getY()+.5,p.getZ()+.5)>25;
+    }
     private static final float LUCAS_EYE_HEIGHT = 0.45F;
     private int lucasTakeoffAssistTicksRemaining;
     private boolean lucasControlSessionActive;
 
     public LucasDroneEntity(EntityType<? extends DroneEntity> type, Level level) {
-        super(type, level);
+        super((EntityType<DroneEntity>) type, level);
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LUCAS_THROTTLE, 0.0F);
-        this.entityData.define(LUCAS_STALLING, false);
-        this.entityData.define(LUCAS_AIRSPEED, 0.0F);
-        this.entityData.define(LUCAS_FUEL, 0.0F);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LUCAS_THROTTLE, 0.0F)
+                .define(LUCAS_STALLING, false)
+                .define(LUCAS_AIRSPEED, 0.0F)
+                .define(LUCAS_FUEL, 0.0F)
+                .define(LP01_FIT,java.util.Optional.empty());
     }
 
     @Override
@@ -58,9 +67,9 @@ public class LucasDroneEntity extends DroneEntity {
             if (!this.level().isClientSide()) {
                 ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(AddonItems.LUCAS_DRONE.get()));
 
-                for (int index = 0; index < this.entityData.get(AMMO); index++) {
-                    if (!this.getCurrentItem().isEmpty()) {
-                        ItemHandlerHelper.giveItemToPlayer(player, this.getCurrentItem().copy());
+                for (int index = 0; index < SbwCompat.getDroneAmmo(this); index++) {
+                    if (!SbwCompat.getDroneCurrentItem(this).isEmpty()) {
+                        ItemHandlerHelper.giveItemToPlayer(player, SbwCompat.getDroneCurrentItem(this).copy());
                     }
                 }
 
@@ -81,6 +90,11 @@ public class LucasDroneEntity extends DroneEntity {
     }
 
     @Override
+    public void baseTick() {
+        super.baseTick();
+    }
+
+    @Override
     public @Nullable ItemStack getPickResult() {
         return new ItemStack(AddonItems.LUCAS_DRONE.get());
     }
@@ -88,6 +102,8 @@ public class LucasDroneEntity extends DroneEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("sbwdroneconfigLp01Fit",isLp01Fit());
+        this.entityData.get(LP01_FIT).ifPresent(p->compound.putLong("sbwdroneconfigLp01Mount",p.asLong()));
         compound.putFloat(TAG_LUCAS_THROTTLE, getLucasThrottle());
         compound.putBoolean(TAG_LUCAS_STALLING, isLucasStalling());
         compound.putFloat(TAG_LUCAS_AIRSPEED, getLucasAirspeed());
@@ -97,6 +113,7 @@ public class LucasDroneEntity extends DroneEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.entityData.set(LP01_FIT,compound.getBoolean("sbwdroneconfigLp01Fit") && compound.contains("sbwdroneconfigLp01Mount")?java.util.Optional.of(net.minecraft.core.BlockPos.of(compound.getLong("sbwdroneconfigLp01Mount"))):java.util.Optional.empty());
         if (compound.contains(TAG_LUCAS_THROTTLE)) {
             setLucasThrottle(compound.getFloat(TAG_LUCAS_THROTTLE));
         }
@@ -111,17 +128,19 @@ public class LucasDroneEntity extends DroneEntity {
         }
     }
 
+    @Override public void destroy(){if(MissionManager.suppressDestroy(this))return;MissionManager.destroyed(this);super.destroy();}
+
     @Override
     public void travel() {
         LucasFuelSystem.beforeLucasTravel(this);
         DroneJammerSystem.beforeDroneTravel(this);
         DroneWeatherEffects.applyStormEffects(this);
         FiberOpticLinkSystem.beforeDroneTravel(this);
-        LucasFixedWingFlightController.travel(this);
+        if(!MissionManager.beforeTravel(this))LucasFixedWingFlightController.travel(this);
         FiberOpticLinkSystem.afterDroneTravel(this);
+        MissionManager.afterTravel(this);
     }
 
-    @Override
     protected float getEyeHeight(Pose pose, EntityDimensions dimensions) {
         return LUCAS_EYE_HEIGHT;
     }

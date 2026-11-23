@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "model": "PROTECTIVE_SHELTER_PS01",
+  "mesh_count": 444,
+  "triangles": 11130,
+  "textures": 4,
+  "group_count": 22,
+  "door_clearance": {
+    "door_sweep_angles_degrees": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90
+    ],
+    "door_leaf_concrete_intersections": [],
+    "bounds_blocks": [
+      [
+        -3.0999999046325684,
+        3.0999999046325684
+      ],
+      [
+        -3.174999952316284,
+        3.9049999713897705
+      ],
+      [
+        0.0,
+        3.7552902698516846
+      ]
+    ]
+  },
+  "native_sha256": "5ec177b259006b09d4d68c4c922f5515ca60403de84078e3785f3e2e9bea20ed",
+  "checks": [
+    "Unique mesh and group IDs",
+    "Complete outliner references",
+    "Finite nondegenerate triangles",
+    "UVs within texture bounds",
+    "Embedded PNGs match separate files",
+    "Valid animation bone links",
+    "Door leaf/concrete sweep from 0 to 90 degrees in 5-degree steps"
+  ]
+}

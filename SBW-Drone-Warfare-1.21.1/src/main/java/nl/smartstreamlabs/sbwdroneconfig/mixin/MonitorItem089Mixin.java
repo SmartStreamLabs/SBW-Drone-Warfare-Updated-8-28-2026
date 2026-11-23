@@ -30,6 +30,7 @@ public abstract class MonitorItem089Mixin {
             CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir
     ) {
         ItemStack stack = player.getItemInHand(hand);
+        if(nl.smartstreamlabs.sbwdroneconfig.InjuryHooks.downed(player)){cir.setReturnValue(InteractionResultHolder.fail(stack));return;}
         if (!SbwCompat.isLinkedMonitor(stack) || SbwCompat.isUsingLinkedMonitor(stack)) {
             return;
         }

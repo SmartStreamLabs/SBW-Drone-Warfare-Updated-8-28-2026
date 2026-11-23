@@ -1,6 +1,7 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +30,11 @@ public class DroneDetectionSirenBlockEntity extends BlockEntity {
     private final Set<String> whitelistedGamertags = new LinkedHashSet<>();
 
     public DroneDetectionSirenBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AddonBlockEntities.DRONE_DETECTION_SIREN.get(), pos, blockState);
+        this(AddonBlockEntities.DRONE_DETECTION_SIREN.get(),pos,blockState);
+    }
+
+    protected DroneDetectionSirenBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type,BlockPos pos,BlockState blockState){
+        super(type,pos,blockState);
     }
 
     public void setOwnerUuid(UUID ownerUuid) {
@@ -126,8 +131,8 @@ public class DroneDetectionSirenBlockEntity extends BlockEntity {
         }
     }
 
-    private boolean hasDetectedDrone(ServerLevel level, BlockPos pos) {
-        if (!net.minecraftforge.fml.ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID)) {
+    protected boolean hasDetectedDrone(ServerLevel level, BlockPos pos) {
+        if (!net.neoforged.fml.ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID)) {
             return false;
         }
 
@@ -225,19 +230,8 @@ public class DroneDetectionSirenBlockEntity extends BlockEntity {
     }
 
     private void playAlarm(ServerLevel level, BlockPos pos) {
-        SoundEvent sound = AddonSounds.DRONE_DETECTION_SIREN.get();
-        for (ServerPlayer player : level.players()) {
-            player.connection.send(new ClientboundSoundPacket(
-                    net.minecraft.core.Holder.direct(sound),
-                    SoundSource.BLOCKS,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
-                    2.2F,
-                    1.0F,
-                    level.random.nextLong()
-            ));
-        }
+        // Native spatial dispatch: source stays at the siren; volume 2.2 gives a 35.2-block range.
+        level.playSound(null, pos, AddonSounds.DRONE_DETECTION_SIREN.get(), SoundSource.BLOCKS, 2.2F, 1.0F);
     }
 
     private void setActive(ServerLevel level, BlockState state, boolean active) {
@@ -256,8 +250,8 @@ public class DroneDetectionSirenBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         if (ownerUuid != null) {
             tag.putUUID("Owner", ownerUuid);
         }
@@ -269,8 +263,8 @@ public class DroneDetectionSirenBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         ownerUuid = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
         activeTicksRemaining = tag.getInt("ActiveTicksRemaining");
         nextAlarmSoundTick = tag.getLong("NextAlarmSoundTick");

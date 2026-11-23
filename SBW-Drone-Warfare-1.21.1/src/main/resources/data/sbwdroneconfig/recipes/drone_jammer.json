@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:drone_jammer",
+                   "id":  "sbwdroneconfig:drone_jammer",
                    "count":  1
                }
 }

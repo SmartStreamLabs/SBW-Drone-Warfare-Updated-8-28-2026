@@ -1,0 +1,3 @@
+package nl.smartstreamlabs.sbwdroneconfig.mixin;
+import net.minecraft.client.renderer.GameRenderer;import org.spongepowered.asm.mixin.Mixin;import org.spongepowered.asm.mixin.gen.Accessor;
+@Mixin(GameRenderer.class)public interface DvtGameRenderAccess {@Accessor("postEffect")net.minecraft.client.renderer.PostChain dvt$post();@Accessor("postEffect")void dvt$post(net.minecraft.client.renderer.PostChain value);@Accessor("renderHand")boolean dvt$hand();@Accessor("renderBlockOutline")boolean dvt$outline();@Accessor("renderDistance")float dvt$distance();@Accessor("renderDistance")void dvt$distance(float value);}

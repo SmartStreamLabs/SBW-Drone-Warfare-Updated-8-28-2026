@@ -1,0 +1,17 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "land",
+  "inputs": [
+    "6 #c:storage_blocks/steel",
+    "8 superbwarfare:wheel",
+    "superbwarfare:large_motor",
+    "superbwarfare:medium_battery_pack",
+    "4 superbwarfare:small_battery_pack",
+    "2 minecraft:chest",
+    "16 superbwarfare:steel_ingot",
+    "superbwarfare:light_armament_module"
+  ],
+  "result": {
+    "entity": "sbwdroneconfig:medical_trailer_mt01"
+  }
+}

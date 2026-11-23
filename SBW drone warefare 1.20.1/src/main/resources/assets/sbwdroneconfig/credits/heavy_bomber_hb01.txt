@@ -1,0 +1,1 @@
+Original HB-01 visual assets supplied by user. 466 elements, 13528 triangles, 30 bones; 16 model units/block. Approximate authored game scale, not certified factory dimensions. No PREVIEW_ONLY loads in production.

@@ -1,0 +1,68 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "loader": "forge:obj",
+    "model": "sbwdroneconfig:models/item/lp02.obj",
+    "mtl_override": "sbwdroneconfig:models/item/lp02.mtl",
+    "flip_v": false,
+    "automatic_culling": false,
+    "textures": {
+      "particle": "sbwdroneconfig:block/geranium2_launch_platform_lp02"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          25,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          -1,
+          0
+        ],
+        "scale": [
+          0.18,
+          0.18,
+          0.18
+        ]
+      },
+      "ground": {
+        "scale": [
+          0.08,
+          0.08,
+          0.08
+        ]
+      },
+      "fixed": {
+        "scale": [
+          0.15,
+          0.15,
+          0.15
+        ]
+      },
+      "firstperson_righthand": {
+        "scale": [
+          0.09,
+          0.09,
+          0.09
+        ]
+      },
+      "thirdperson_righthand": {
+        "scale": [
+          0.09,
+          0.09,
+          0.09
+        ]
+      }
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/geranium2_launch_platform_lp02"
+      }
+    }
+  }
+}

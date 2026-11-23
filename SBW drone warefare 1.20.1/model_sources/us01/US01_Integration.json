@@ -1,0 +1,88 @@
+{
+  "name": "US Army Combat Set US-01",
+  "scope": "Photo-inspired cosmetic game clothing, not an authenticated issue-uniform reproduction.",
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "up_axis": "+Y",
+  "body_bones": {
+    "head": [
+      0,
+      24,
+      0
+    ],
+    "body": [
+      0,
+      24,
+      0
+    ],
+    "right_arm": [
+      -5,
+      22,
+      0
+    ],
+    "left_arm": [
+      5,
+      22,
+      0
+    ],
+    "right_leg": [
+      -2,
+      12,
+      0
+    ],
+    "left_leg": [
+      2,
+      12,
+      0
+    ]
+  },
+  "variants": [
+    "CLASSIC: 4-unit arms",
+    "SLIM: 3-unit arms"
+  ],
+  "optional_groups": [
+    "Neck_Scarf_Optional",
+    "Chest_Holster_Optional",
+    "Hydration_Pack_Optional"
+  ],
+  "textures_embedded": true,
+  "example_skin": "Hidden, non-exported reference. All groups named REF_* and REFERENCE_PLAYER_HIDE_FOR_EXPORT must be excluded from armor rendering/export. The player supplies the actual head, eyes and skin.",
+  "revision": "REV02",
+  "eyewear": "Completely removed, including its geometry, texture and group.",
+  "integration": "Free Model meshes. Attach clothing bones to the existing player pose using the supplied pivots; convert absolute mesh coordinates to bone-local coordinates if required by the renderer. Clothing registration, equipment slots, item icons, armor values and multiplayer are not implemented by this asset.",
+  "notes": [
+    "The scarf deliberately leaves the upper face open.",
+    "The holster is a closed cosmetic pouch; no functional weapon model or item is included.",
+    "The optional rear pack is an original interpretation because the back is not visible in the supplied reference.",
+    "The demonstration animation is a fitting aid, not an in-game player animation replacement."
+  ],
+  "equipment_slot_groups": {
+    "head": [
+      "Helmet",
+      "Headset",
+      "Neck_Scarf_Optional"
+    ],
+    "chest": [
+      "Uniform_Torso",
+      "Plate_Carrier",
+      "Front_Pouches",
+      "Chest_Holster_Optional",
+      "Hydration_Pack_Optional",
+      "right_Sleeve",
+      "left_Sleeve",
+      "right_Glove",
+      "left_Glove"
+    ],
+    "legs": [
+      "Battle_Belt",
+      "right_Trousers",
+      "left_Trousers",
+      "right_Knee_Pad",
+      "left_Knee_Pad"
+    ],
+    "feet": [
+      "right_Boot",
+      "left_Boot"
+    ]
+  }
+}

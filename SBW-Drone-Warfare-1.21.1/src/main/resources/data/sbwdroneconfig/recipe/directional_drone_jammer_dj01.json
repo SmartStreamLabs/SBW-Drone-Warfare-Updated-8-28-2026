@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "RMR",
+    "SBS"
+  ],
+  "key": {
+    "S": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "C": {
+      "item": "superbwarfare:cell"
+    },
+    "R": {
+      "item": "minecraft:comparator"
+    },
+    "M": {
+      "item": "superbwarfare:monitor"
+    },
+    "B": {
+      "item": "superbwarfare:battery"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:directional_drone_jammer_dj01",
+    "count": 1
+  }
+}

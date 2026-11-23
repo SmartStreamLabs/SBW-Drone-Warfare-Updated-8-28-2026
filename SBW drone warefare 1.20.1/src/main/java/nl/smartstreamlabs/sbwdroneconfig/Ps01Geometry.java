@@ -1,0 +1,32 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import com.google.gson.*;import java.util.*;import java.io.*;import net.minecraft.core.*;import net.minecraft.world.phys.*;import net.minecraft.world.phys.shapes.*;
+/** Offline solid-mesh voxelisation at 1/16 block. Only reusable shapes, never a filled interior box. */
+public final class Ps01Geometry{
+ public static final int[][] BODY,DOOR,SUPPORT;public static final double[][] SEATS;private static final List<AABB> FIXED,SHIELD;private static final List<AABB>[] LEAF;private static final VoxelShape[][] BODY_SHAPES;private static final VoxelShape[][][] DOOR_SHAPES;public static final double[] HINGE=new double[3];public static final int DOOR_TICKS;private static final float[][] KEYS;private static final float LENGTH;
+ static{try(var r=new InputStreamReader(Objects.requireNonNull(Ps01Geometry.class.getResourceAsStream("/assets/sbwdroneconfig/ps01/collision.json")),java.nio.charset.StandardCharsets.UTF_8)){
+  var j=JsonParser.parseReader(r).getAsJsonObject();for(int i=0;i<3;i++)HINGE[i]=j.getAsJsonArray("hinge").get(i).getAsDouble();try(var clip=new InputStreamReader(Objects.requireNonNull(Ps01Geometry.class.getResourceAsStream("/assets/sbwdroneconfig/ps01/ps01.json")),java.nio.charset.StandardCharsets.UTF_8)){var anim=JsonParser.parseReader(clip).getAsJsonObject();LENGTH=anim.get("duration").getAsFloat();DOOR_TICKS=Math.round(LENGTH*20);var keys=anim.getAsJsonArray("keys");KEYS=new float[keys.size()][2];for(int i=0;i<keys.size();i++){KEYS[i][0]=keys.get(i).getAsJsonObject().get("time").getAsFloat();KEYS[i][1]=keys.get(i).getAsJsonObject().get("angle").getAsFloat();}}BODY=ints(j.getAsJsonArray("body_cells"));DOOR=ints(j.getAsJsonArray("door_cells"));SUPPORT=ints(j.getAsJsonArray("support"));SEATS=values(j.getAsJsonArray("seats"));FIXED=boxes(j.getAsJsonArray("static"));SHIELD=boxes(j.getAsJsonArray("shield"));LEAF=new List[20];for(int i=0;i<19;i++)LEAF[i]=boxes(j.getAsJsonArray("door").get(i).getAsJsonArray());LEAF[19]=List.of();BODY_SHAPES=new VoxelShape[4][BODY.length];DOOR_SHAPES=new VoxelShape[4][DOOR.length][20];for(var f:Direction.Plane.HORIZONTAL){int q=quarter(f);for(int i=0;i<BODY.length;i++)BODY_SHAPES[q][i]=shape(FIXED,BODY[i],f);for(int i=0;i<DOOR.length;i++){var fixed=shape(FIXED,DOOR[i],f);for(int a=0;a<20;a++)DOOR_SHAPES[q][i][a]=Shapes.or(fixed,shape(LEAF[a],DOOR[i],f)).optimize();}}
+ }catch(IOException e){throw new ExceptionInInitializerError(e);}}
+ private static int[][] ints(JsonArray a){int[][] out=new int[a.size()][3];for(int i=0;i<a.size();i++)for(int k=0;k<3;k++)out[i][k]=a.get(i).getAsJsonArray().get(k).getAsInt();return out;}
+ private static double[][] values(JsonArray a){double[][] out=new double[a.size()][3];for(int i=0;i<a.size();i++)for(int k=0;k<3;k++)out[i][k]=a.get(i).getAsJsonArray().get(k).getAsDouble();return out;}
+ private static List<AABB> boxes(JsonArray a){var out=new ArrayList<AABB>();for(var v:a){var b=v.getAsJsonArray();out.add(new AABB(b.get(0).getAsDouble(),b.get(1).getAsDouble(),b.get(2).getAsDouble(),b.get(3).getAsDouble(),b.get(4).getAsDouble(),b.get(5).getAsDouble()));}return List.copyOf(out);}
+ public static float angle(float progress){float time=Math.max(0,Math.min(1,progress))*LENGTH;for(int i=1;i<KEYS.length;i++)if(time<=KEYS[i][0]){float t=(time-KEYS[i-1][0])/(KEYS[i][0]-KEYS[i-1][0]);return KEYS[i-1][1]+t*(KEYS[i][1]-KEYS[i-1][1]);}return KEYS[KEYS.length-1][1];}
+ public static int quarter(Direction f){return(f.get2DDataValue()+2)%4;}
+ public static double[] rotate(Direction f,double x,double z){for(int n=0;n<quarter(f);n++){double t=x;x=-z;z=t;}return new double[]{x,z};}
+ public static Vec3 point(BlockPos root,Direction f,double x,double y,double z){var r=rotate(f,x,z);return new Vec3(root.getX()+.5+r[0],root.getY()+y,root.getZ()+.5+r[1]);}
+ public static Vec3 local(BlockPos root,Direction f,Vec3 p){double x=p.x-root.getX()-.5,z=p.z-root.getZ()-.5;for(int n=0;n<quarter(f);n++){double t=x;x=z;z=-t;}return new Vec3(x,p.y-root.getY(),z);}
+ public static BlockPos cell(BlockPos root,Direction f,int[] c){var r=rotate(f,c[0],c[2]);return root.offset((int)r[0],c[1],(int)r[1]);}
+ public static BlockPos root(BlockPos p,Direction f,int[] c){var r=rotate(f,c[0],c[2]);return p.offset(-(int)r[0],-c[1],-(int)r[1]);}
+ public static AABB box(BlockPos root,Direction f,AABB b){double x0=1e9,z0=1e9,x1=-1e9,z1=-1e9;for(double x:new double[]{b.minX,b.maxX})for(double z:new double[]{b.minZ,b.maxZ}){var r=rotate(f,x,z);x0=Math.min(x0,r[0]);x1=Math.max(x1,r[0]);z0=Math.min(z0,r[1]);z1=Math.max(z1,r[1]);}return new AABB(root.getX()+.5+x0,root.getY()+b.minY,root.getZ()+.5+z0,root.getX()+.5+x1,root.getY()+b.maxY,root.getZ()+.5+z1);}
+ public static AABB bounds(BlockPos root,Direction f){return box(root,f,new AABB(-3.1,0,-4.3,3.1,3.76,3.175));}
+ public static boolean inside(BlockPos root,Direction f,Vec3 p){var v=local(root,f,p);return v.x>-1.7&&v.x<1.7&&v.z>-2.5&&v.z<2.5&&v.y>=.2&&v.y<3.5;}
+ private static VoxelShape shape(List<AABB> boxes,int[] c,Direction f){var result=Shapes.empty();var root=BlockPos.ZERO;var cell=cell(root,f,c);for(var b:boxes){var w=box(root,f,b);double x0=Math.max(0,w.minX-cell.getX()),x1=Math.min(1,w.maxX-cell.getX()),y0=Math.max(0,w.minY-cell.getY()),y1=Math.min(1,w.maxY-cell.getY()),z0=Math.max(0,w.minZ-cell.getZ()),z1=Math.min(1,w.maxZ-cell.getZ());if(x1>x0&&y1>y0&&z1>z0)result=Shapes.or(result,Shapes.box(x0,y0,z0,x1,y1,z1));}return result.optimize();}
+ public static VoxelShape collision(Direction f,boolean door,int part,int step){return door?DOOR_SHAPES[quarter(f)][part][Math.max(0,Math.min(19,step))]:BODY_SHAPES[quarter(f)][part];}
+ public static List<AABB> leaf(int step){return LEAF[Math.max(0,Math.min(19,step))];}
+ public static boolean leafAt(Vec3 p,int step){for(var b:leaf(step))if(b.inflate(.025).contains(p))return true;return false;}
+ public static boolean intersects(List<AABB> boxes,Vec3 a,Vec3 b){for(var box:boxes)if(box.contains(a)||box.clip(a,b).isPresent())return true;return false;}
+ public static boolean shellBetween(Vec3 a,Vec3 b){return intersects(SHIELD,a,b);}
+ /** Strongest single barrier, never compounded for multiple panels. */
+ public static double cover(Vec3 source,Vec3 target,int doorStep,double shell,double door){double result=0;if(shell>0&&intersects(SHIELD,source,target))result=shell;if(door>result&&intersects(leaf(doorStep),source,target))result=door;return result;}
+ public static boolean lamp(int[] c){return c[0]==0&&c[1]==3&&(c[2]==-1||c[2]==1);}
+ private Ps01Geometry(){}
+}

@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "sbwdroneconfig:landmine_lm01",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "superbwarfare:steel_ingot"
+      },
+      "count": 3
+    },
+    {
+      "ingredient": {
+        "item": "superbwarfare:high_energy_explosives"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:stone_pressure_plate"
+      },
+      "count": 1
+    }
+  ],
+  "ticks": 300,
+  "category": "Payloads and weapons"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "W W",
+    "I I",
+    "   "
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "W": {
+      "item": "minecraft:brown_wool"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:us01_combat_boots",
+    "count": 1
+  }
+}

@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
 public abstract class CubedFpvCameraMixin {
-    @Shadow
-    protected abstract void setPosition(Vec3 position);
+    @Shadow(remap = false)
+    protected abstract void setPosition(double x, double y, double z);
 
-    @Inject(method = "setup", at = @At("TAIL"), require = 0)
+    @Inject(method = "setup", at = @At("TAIL"), require = 0, remap = false)
     private void sbwdronewarfare$moveCubedFpvCamera(BlockGetter level, Entity entity, boolean detached, boolean mirror, float partialTick, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.options.getCameraType() != CameraType.FIRST_PERSON) {
@@ -32,6 +32,7 @@ public abstract class CubedFpvCameraMixin {
             return;
         }
 
-        this.setPosition(CubedFpvCameraViewMath.fpvCameraPosition(drone, partialTick));
+        Vec3 position = CubedFpvCameraViewMath.fpvCameraPosition(drone, partialTick);
+        this.setPosition(position.x, position.y, position.z);
     }
 }

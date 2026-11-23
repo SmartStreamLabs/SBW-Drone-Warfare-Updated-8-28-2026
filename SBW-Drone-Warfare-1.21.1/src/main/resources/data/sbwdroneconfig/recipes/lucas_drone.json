@@ -26,7 +26,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:lucas_drone",
+                   "id":  "sbwdroneconfig:lucas_drone",
                    "count":  1
                }
 }

@@ -47,7 +47,7 @@ class FiberOpticModuleAssetsTest {
     void bundlesFiberOpticUpgradeRecipes() {
         ClassLoader loader = FiberOpticModuleAssetsTest.class.getClassLoader();
         assertNotNull(loader.getResource("data/sbwdroneconfig/recipes/fiber_optic_spool_upgrade.json"));
-        assertNotNull(loader.getResource("data/sbwdroneconfig/recipes/fiber_optic_spool_upgrade_vehicle_assembling.json"));
+        assertNotNull(loader.getResource("data/sbwdroneconfig/recipe/fiber_optic_spool_upgrade_vehicle_assembling.json"));
     }
 
     @Test
@@ -58,8 +58,8 @@ class FiberOpticModuleAssetsTest {
 
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
             assertEquals("Fiber Optic Spool Upgrade", root.get("item.sbwdroneconfig.fiber_optic_spool_upgrade").getAsString());
-            assertEquals("Install into the drone inventory to switch the FPV link from wireless to fiber optic.", root.get("tooltip.sbwdroneconfig.fiber_optic_spool_upgrade.1").getAsString());
-            assertEquals("The link disconnects if the cable snaps.", root.get("tooltip.sbwdroneconfig.fiber_optic_spool_upgrade.2").getAsString());
+            assertEquals("Switches a compatible drone from wireless to a physical fiber link.", root.get("tooltip.sbwdroneconfig.fiber_optic_spool_upgrade.1").getAsString());
+            assertEquals("Install in the drone inventory before connecting.", root.get("tooltip.sbwdroneconfig.fiber_optic_spool_upgrade.2").getAsString());
             assertEquals("Fiber optic cable snapped: FPV control disconnected.", root.get("message.sbwdroneconfig.fiber_optic_cable_broken").getAsString());
             assertEquals("Fiber optic spool destroyed: link reverted to wireless.", root.get("message.sbwdroneconfig.fiber_optic_spool_destroyed").getAsString());
         }
@@ -93,7 +93,7 @@ class FiberOpticModuleAssetsTest {
     @Test
     void vehicleAssemblingRecipePlacesFiberOpticUpgradeInMiscCategory() throws Exception {
         ClassLoader loader = FiberOpticModuleAssetsTest.class.getClassLoader();
-        try (var stream = loader.getResourceAsStream("data/sbwdroneconfig/recipes/fiber_optic_spool_upgrade_vehicle_assembling.json")) {
+        try (var stream = loader.getResourceAsStream("data/sbwdroneconfig/recipe/fiber_optic_spool_upgrade_vehicle_assembling.json")) {
             assertNotNull(stream, "The Fiber Optic Spool Upgrade should have a Vehicle Assembling Table recipe.");
 
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
@@ -101,11 +101,11 @@ class FiberOpticModuleAssetsTest {
             assertEquals("misc", root.get("category").getAsString());
 
             var inputs = root.getAsJsonArray("inputs");
-            assertEquals(6, inputs.size(), "The Vehicle Assembling recipe should keep the Fiber Optic upgrade in the misc tab with a compact material list.");
+            assertEquals(6, inputs.size(), "The Vehicle Assembling recipe should keep the Fiber Optic upgrade in the misc tab with a compact SBW electronics list.");
             assertTrue(inputs.asList().stream().anyMatch(element -> "3 minecraft:string".equals(element.getAsString())));
             assertTrue(inputs.asList().stream().anyMatch(element -> "minecraft:glass_pane".equals(element.getAsString())));
-            assertTrue(inputs.asList().stream().anyMatch(element -> "2 minecraft:redstone".equals(element.getAsString())));
-            assertTrue(inputs.asList().stream().anyMatch(element -> "2 minecraft:copper_ingot".equals(element.getAsString())));
+            assertTrue(inputs.asList().stream().anyMatch(element -> "2 superbwarfare:longer_wire".equals(element.getAsString())));
+            assertTrue(inputs.asList().stream().anyMatch(element -> "2 superbwarfare:copper_plate".equals(element.getAsString())));
             assertTrue(inputs.asList().stream().anyMatch(element -> "superbwarfare:cell".equals(element.getAsString())));
             assertTrue(inputs.asList().stream().anyMatch(element -> "superbwarfare:monitor".equals(element.getAsString())));
 

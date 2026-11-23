@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CMC",
+    "EDE",
+    "TBT"
+  ],
+  "key": {
+    "C": {
+      "item": "superbwarfare:cell"
+    },
+    "M": {
+      "item": "superbwarfare:monitor"
+    },
+    "E": {
+      "item": "superbwarfare:missile_engine"
+    },
+    "D": {
+      "item": "superbwarfare:drone"
+    },
+    "T": {
+      "item": "superbwarfare:tm_62"
+    },
+    "B": {
+      "item": "superbwarfare:large_battery_pack"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:geranium_2",
+    "count": 1
+  }
+}

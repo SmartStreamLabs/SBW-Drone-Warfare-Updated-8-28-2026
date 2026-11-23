@@ -11,7 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public final class Geranium2FuelSystem {
     private static final String TAG_LOW_WARNING_SENT = "sbwdroneconfigGeranium2LowFuelWarningSent";
@@ -76,7 +76,7 @@ public final class Geranium2FuelSystem {
 
         if (engineActive && drone.getGeraniumFuel() > 0.0F) {
             double drain = drone.onGround() ? AddonConfig.lucasFuelDrainIdle() : AddonConfig.lucasFuelDrainFlying();
-            if (activelyControlled && (drone.upInputDown() || drone.hasGlideBombTakeoffAssist())) {
+            if (MissionManager.powered(drone) && MissionManager.climb(drone)>0 || activelyControlled && (drone.upInputDown() || drone.hasGlideBombTakeoffAssist())) {
                 drain += AddonConfig.lucasFuelDrainClimb();
             }
             drainFuel(drone, drain);
@@ -168,7 +168,7 @@ public final class Geranium2FuelSystem {
     }
 
     private static ServerPlayer getController(Geranium2Entity drone) {
-        Entity controller = drone.getController();
+        Entity controller = SbwCompat.getDroneController(drone);
         return controller instanceof ServerPlayer serverPlayer ? serverPlayer : null;
     }
 }

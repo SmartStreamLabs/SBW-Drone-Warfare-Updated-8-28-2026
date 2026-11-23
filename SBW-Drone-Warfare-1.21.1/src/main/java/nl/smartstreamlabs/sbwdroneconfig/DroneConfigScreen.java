@@ -201,17 +201,24 @@ public class DroneConfigScreen extends Screen {
 
     private void addCategoryWidgets(int x, int y, int width) {
         switch (selectedCategory) {
+            case DISTANCE_WAR -> addDoubleSlider(x,y,width,Component.translatable("screen.sbwdroneconfig.config.label.distance_war_volume"),0,1,()->draft.distanceWarVolume,value->draft.distanceWarVolume=value,DroneConfigScreen::multiplierText);
             case DRONE -> {
                 addIntSlider(x, y, width, Component.translatable("screen.sbwdroneconfig.config.label.drone_max_range"),
-                        16, 5000, () -> draft.droneMaxRange, value -> draft.droneMaxRange = value, value -> blocks(value));
+                        1, 30000, () -> draft.droneMaxRange, value -> draft.droneMaxRange = value, value -> blocks(value));
                 addToggle(x, y + CONTROL_SPACING, width, Component.translatable("screen.sbwdroneconfig.config.label.chunk_loading"),
                         () -> draft.enableDroneChunkLoading, value -> draft.enableDroneChunkLoading = value);
                 addIntSlider(x, y + CONTROL_SPACING * 2, width, Component.translatable("screen.sbwdroneconfig.config.label.chunk_radius"),
                         0, 4, () -> draft.droneChunkLoadRadius, value -> draft.droneChunkLoadRadius = value, value -> chunks(value));
-                addToggle(x, y + CONTROL_SPACING * 3, width, Component.translatable("screen.sbwdroneconfig.config.label.player_anchor"),
+                addToggle(x, y + CONTROL_SPACING * 3, width, Component.translatable("screen.sbwdroneconfig.config.label.remote_tracking"),
+                        () -> draft.enableDroneRemoteChunkTracking, value -> draft.enableDroneRemoteChunkTracking = value);
+                addToggle(x, y + CONTROL_SPACING * 4, width, Component.translatable("screen.sbwdroneconfig.config.label.player_anchor"),
                         () -> draft.enableDronePlayerAnchor, value -> draft.enableDronePlayerAnchor = value);
-                addToggle(x, y + CONTROL_SPACING * 4, width, Component.translatable("screen.sbwdroneconfig.config.label.crash_damage"),
+                addToggle(x, y + CONTROL_SPACING * 5, width, Component.translatable("screen.sbwdroneconfig.config.label.crash_damage"),
                         () -> draft.enableDroneCrashExplosionDamage, value -> draft.enableDroneCrashExplosionDamage = value);
+                addToggle(x, y + CONTROL_SPACING * 5, width, Component.translatable("screen.sbwdroneconfig.config.label.hide_player_on_minimap"),
+                        () -> draft.hidePlayerOnMinimapDuringDroneControl, value -> draft.hidePlayerOnMinimapDuringDroneControl = value);
+                addToggle(x, y + CONTROL_SPACING * 6, width, Component.translatable("screen.sbwdroneconfig.config.label.show_drone_marker"),
+                        () -> draft.showDroneMarkerInstead, value -> draft.showDroneMarkerInstead = value);
             }
             case LUCAS_FLIGHT -> {
                 if (categoryPage == 0) {
@@ -363,13 +370,17 @@ public class DroneConfigScreen extends Screen {
 
     private void addFpvCameraPage(int x, int y, int width) {
         addDoubleSlider(x, y, width, Component.translatable("screen.sbwdroneconfig.config.label.fpv_camera_fov"),
-                CubedFpvCameraViewMath.MIN_FPV_FOV, CubedFpvCameraViewMath.MAX_FPV_FOV, () -> draft.fpvCameraFov, value -> draft.fpvCameraFov = value, DroneConfigScreen::degreesText);
+                120.0D, 155.0D, () -> draft.fpvCameraFov, value -> draft.fpvCameraFov = value, DroneConfigScreen::degreesText);
         addDoubleSlider(x, y + CONTROL_SPACING, width, Component.translatable("screen.sbwdroneconfig.config.label.fpv_camera_tilt"),
                 0.0D, 45.0D, () -> draft.fpvCameraTiltDegrees, value -> draft.fpvCameraTiltDegrees = value, DroneConfigScreen::degreesText);
         addToggle(x, y + CONTROL_SPACING * 2, width, Component.translatable("screen.sbwdroneconfig.config.label.fpv_fisheye_effect"),
                 () -> draft.enableFpvFisheyeEffect, value -> draft.enableFpvFisheyeEffect = value);
         addToggle(x, y + CONTROL_SPACING * 3, width, Component.translatable("screen.sbwdroneconfig.config.label.fpv_camera_vibration"),
                 () -> draft.enableFpvCameraVibration, value -> draft.enableFpvCameraVibration = value);
+        addToggle(x, y + CONTROL_SPACING * 4, width, Component.translatable("screen.sbwdroneconfig.config.label.hide_player_on_minimap"),
+                () -> draft.hidePlayerOnMinimapDuringDroneControl, value -> draft.hidePlayerOnMinimapDuringDroneControl = value);
+        addToggle(x, y + CONTROL_SPACING * 5, width, Component.translatable("screen.sbwdroneconfig.config.label.show_drone_marker"),
+                () -> draft.showDroneMarkerInstead, value -> draft.showDroneMarkerInstead = value);
     }
 
     private void addSharedFpvDronePage(int x, int y, int width) {
@@ -388,7 +399,7 @@ public class DroneConfigScreen extends Screen {
                 () -> draft.droneAirborneVolumeMultiplier, value -> draft.droneAirborneVolumeMultiplier = value, DroneConfigUiMath::toPercentLabel);
 
         addIntSlider(rightColumnX, y, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.drone_max_range"),
-                16, 5000, () -> draft.droneMaxRange, value -> draft.droneMaxRange = value, DroneConfigScreen::blocks);
+                1, 30000, () -> draft.droneMaxRange, value -> draft.droneMaxRange = value, DroneConfigScreen::blocks);
         addToggle(rightColumnX, y + CONTROL_SPACING, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.chunk_loading"),
                 () -> draft.enableDroneChunkLoading, value -> draft.enableDroneChunkLoading = value);
         addToggle(rightColumnX, y + CONTROL_SPACING * 2, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.crash_damage"),
@@ -462,6 +473,10 @@ public class DroneConfigScreen extends Screen {
                 () -> draft.lucasCanHover, value -> draft.lucasCanHover = value);
         addDoubleSlider(rightColumnX, y + lucasSpacing * 2, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.lucas_hud_scale"),
                 0.60D, 1.50D, () -> draft.lucasHudScale, value -> draft.lucasHudScale = value, DroneConfigUiMath::toPercentLabel);
+        addToggle(rightColumnX, y + lucasSpacing * 3, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.hide_player_on_minimap"),
+                () -> draft.hidePlayerOnMinimapDuringDroneControl, value -> draft.hidePlayerOnMinimapDuringDroneControl = value);
+        addToggle(rightColumnX, y + lucasSpacing * 4, columnWidth, Component.translatable("screen.sbwdroneconfig.config.label.show_drone_marker"),
+                () -> draft.showDroneMarkerInstead, value -> draft.showDroneMarkerInstead = value);
     }
 
     private void saveAndClose() {
@@ -496,7 +511,7 @@ public class DroneConfigScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(guiGraphics);
+        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         drawPanels(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         drawText(guiGraphics);

@@ -28,6 +28,7 @@ class CubedFpvDroneAssetsTest {
         assertNotNull(loader.getResource("assets/sbwdroneconfig/sounds/entity/cubed_fpv_drone_engine.ogg"));
         assertNotNull(loader.getResource("data/sbwdroneconfig/recipes/cubed_fpv_drone.json"));
         assertNotNull(loader.getResource("data/sbwdroneconfig/recipes/cubed_fpv_drone_vehicle_assembling.json"));
+        assertNotNull(loader.getResource("data/sbwdroneconfig/sbw/vehicles/cubed_fpv_drone.json"));
     }
 
     @Test
@@ -127,7 +128,7 @@ class CubedFpvDroneAssetsTest {
             assertEquals("misc", root.get("category").getAsString());
 
             var inputs = root.getAsJsonArray("inputs");
-            assertEquals(5, inputs.size(), "The Vehicle Assembling recipe should stay compact and use Superb Warfare drone components.");
+            assertEquals(5, inputs.size(), "The Vehicle Assembling recipe should use SBW drone parts instead of only vanilla materials.");
             assertTrue(inputs.asList().stream().anyMatch(element -> "4 superbwarfare:propeller".equals(element.getAsString())));
             assertTrue(inputs.asList().stream().anyMatch(element -> "2 superbwarfare:motor".equals(element.getAsString())));
             assertTrue(inputs.asList().stream().anyMatch(element -> "superbwarfare:battery".equals(element.getAsString())));
@@ -137,6 +138,19 @@ class CubedFpvDroneAssetsTest {
             JsonObject result = root.getAsJsonObject("result");
             assertEquals("sbwdroneconfig:cubed_fpv_drone", result.get("item").getAsString());
             assertFalse(result.has("entity"), "The FPV drone Vehicle Assembling recipe should output the addon item, not spawn an entity directly.");
+        }
+    }
+
+    @Test
+    void cubedDroneVehicleConfigKeepsFpvFragile() throws Exception {
+        ClassLoader loader = CubedFpvDroneAssetsTest.class.getClassLoader();
+        try (var stream = loader.getResourceAsStream("data/sbwdroneconfig/sbw/vehicles/cubed_fpv_drone.json")) {
+            assertNotNull(stream, "The Cubed FPV drone should have SBW vehicle data so its health is not inherited as a tanky default.");
+
+            JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
+            assertEquals("sbwdroneconfig:cubed_fpv_drone", root.get("ID").getAsString());
+            assertEquals(1.0D, root.get("MaxHealth").getAsDouble(), 0.001D);
+            assertEquals("Drone", root.get("Type").getAsString());
         }
     }
 

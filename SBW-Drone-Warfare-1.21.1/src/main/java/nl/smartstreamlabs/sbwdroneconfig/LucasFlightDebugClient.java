@@ -7,9 +7,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -18,19 +18,16 @@ public final class LucasFlightDebugClient {
     private LucasFlightDebugClient() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(LucasFlightDebugClient::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(LucasFlightDebugClient.class);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(LucasFlightDebugClient.class);
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay() == null || !"hotbar".equals(event.getOverlay().id().getPath())) {
-            return;
-        }
+    public static void onRenderGuiOverlay(RenderGuiEvent.Post event) {
         if (LucasDroneHudOverlay.shouldRenderForCurrentView()) {
             return;
         }

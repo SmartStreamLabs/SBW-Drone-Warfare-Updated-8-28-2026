@@ -1,0 +1,100 @@
+{
+  "MaxHealth": 140,
+  "MaxEnergy": 500000,
+  "KeepChunkLoaded": false,
+  "Seats": [],
+  "Weapons": {},
+  "Gravity": 0.04,
+  "RotateOffsetHeight": 0,
+  "Mass": 0.35,
+  "UpStep": 0,
+  "VehicleContainerType": "Small",
+  "VehicleIcon": "sbwdroneconfig:textures/item/water_drone_wd01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/water.png",
+  "Type": "Boat",
+  "HudType": "@Empty",
+  "EngineType": "Ship",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 18,
+    "MaxForwardSpeedRate": 0.65,
+    "MaxBackwardSpeedRate": 0.23,
+    "Increment": 0.025,
+    "Decrement": 0.026,
+    "SteeringSpeed": 0.12,
+    "BodyPitchRate": 0,
+    "BodyRollRate": 0,
+    "EngineSoundVolume": 0
+  },
+  "TurretPos": [
+    0,
+    0.79,
+    -0.62
+  ],
+  "BarrelPos": [
+    0,
+    0.615,
+    0.162
+  ],
+  "TurretPitchRange": [
+    -50,
+    50
+  ],
+  "DestroyInfo": {
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "ExplodeBlocks": false,
+    "ExplodePassengers": false,
+    "SympatheticDetonation": false,
+    "ParticleType": "Small"
+  },
+  "CollisionLevel": {
+    "Level": 3,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0,
+        0,
+        true
+      ],
+      [
+        0.15,
+        0.09,
+        false
+      ]
+    ]
+  },
+  "TerrainCompat": [],
+  "InertiaRotateRate": 1,
+  "DamageModifiers": [],
+  "OBB": [
+    {
+      "Size": [
+        0.82,
+        0.4,
+        2.4
+      ],
+      "Position": [
+        0,
+        -0.05,
+        -0.05
+      ]
+    },
+    {
+      "Size": [
+        0.65,
+        0.35,
+        0.9
+      ],
+      "Position": [
+        0,
+        0.55,
+        -0.5
+      ]
+    }
+  ]
+}

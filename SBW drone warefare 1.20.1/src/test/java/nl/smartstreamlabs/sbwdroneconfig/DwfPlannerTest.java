@@ -1,0 +1,6 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import org.junit.jupiter.api.*;import static org.junit.jupiter.api.Assertions.*;import java.util.*;import net.minecraft.world.item.*;import net.minecraft.world.item.crafting.Ingredient;
+class DwfPlannerTest{
+ @BeforeAll static void boot(){net.minecraft.SharedConstants.tryDetectVersion();net.minecraft.server.Bootstrap.bootStrap();}
+ @Test void aSimpleRecipeDoesNotScanEveryStoredNbtVariant(){var input=new DwfStorage(64000000,65536,items->{});for(int i=0;i<65536;i++){var item=new ItemStack(Items.IRON_INGOT);item.getOrCreateTag().putInt("Variant",i);input.insert(item,i==0?64:1,false);}var recipe=new DwfRecipes.Entry(new net.minecraft.resources.ResourceLocation("dwfqa","prefix"),new ItemStack(Items.STICK),List.of(new DwfRecipes.Requirement(Ingredient.of(Items.IRON_INGOT),1)),20,"Components");long revision=input.counts.revision();var planner=new DwfPlanner(recipe,input,Runnable::run);int steps=0;while(!planner.complete()&&steps++<20)planner.step();assertTrue(planner.complete(),"Feasible prefix must finish without scanning 65536 variants");assertNotNull(planner.result());assertEquals(1,planner.result().values().stream().mapToLong(Long::longValue).sum());assertEquals(revision,input.counts.revision(),"Preparation must not consume items");}
+}

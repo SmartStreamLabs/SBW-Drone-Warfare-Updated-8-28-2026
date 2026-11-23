@@ -1,0 +1,2101 @@
+{
+  "AddonConfig:drone.enableDroneRemoteChunkTracking": {
+    "unit": ""
+  },
+  "AddonConfig:drone.droneExtraTicketsPerTick": {
+    "unit": "tickets/tick"
+  },
+  "AddonConfig:drone.droneExtraPendingChunks": {
+    "unit": "chunks"
+  },
+  "AddonConfig:drone.droneExtraTicketLimit": {
+    "unit": "tickets"
+  },
+  "AddonConfig:drone.droneMaxRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:drone.droneVisualTrackingRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:drone.droneSpeedMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:drone.enableDroneChunkLoading": {
+    "unit": ""
+  },
+  "AddonConfig:drone.droneChunkLoadRadius": {
+    "unit": "chunks"
+  },
+  "AddonConfig:drone.experimentalDroneClientChunkCenterSync": {
+    "unit": ""
+  },
+  "AddonConfig:drone.enableDronePlayerAnchor": {
+    "unit": ""
+  },
+  "AddonConfig:drone.enableDroneCrashExplosionDamage": {
+    "unit": ""
+  },
+  "AddonConfig:drone.hidePlayerOnMinimapDuringDroneControl": {
+    "unit": ""
+  },
+  "AddonConfig:drone.showDroneMarkerInstead": {
+    "unit": ""
+  },
+  "AddonConfig:lucas.lucasTakeoffAssistTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:lucas.lucasTakeoffForwardBoost": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasTakeoffUpBoost": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasMinSpeed": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasMaxSpeed": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasAcceleration": {
+    "unit": "response"
+  },
+  "AddonConfig:lucas.lucasDrag": {
+    "unit": "×/tick"
+  },
+  "AddonConfig:lucas.lucasTurnRate": {
+    "unit": "degrees/tick"
+  },
+  "AddonConfig:lucas.lucasPitchRate": {
+    "unit": "response"
+  },
+  "AddonConfig:lucas.lucasClimbSpeed": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasDescendSpeed": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:lucas.lucasLiftStrength": {
+    "unit": "lift"
+  },
+  "AddonConfig:lucas.lucasRollVisualAmount": {
+    "unit": "degrees"
+  },
+  "AddonConfig:lucas.lucasMinLiftSpeed": {
+    "unit": "blocks/tick",
+    "requires": [
+      "AddonConfig:lucas.lucasStallEnabled"
+    ]
+  },
+  "AddonConfig:lucas.lucasStallGravity": {
+    "unit": "pull",
+    "requires": [
+      "AddonConfig:lucas.lucasStallEnabled"
+    ]
+  },
+  "AddonConfig:lucas.lucasStallEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:lucas.lucasMaxFuel": {
+    "unit": "fuel"
+  },
+  "AddonConfig:lucas.lucasFuelDrainIdle": {
+    "unit": "fuel/tick"
+  },
+  "AddonConfig:lucas.lucasFuelDrainFlying": {
+    "unit": "fuel/tick"
+  },
+  "AddonConfig:lucas.lucasFuelDrainClimb": {
+    "unit": "fuel/tick"
+  },
+  "AddonConfig:lucas.lucasLowFuelWarningPercent": {
+    "unit": "%"
+  },
+  "AddonConfig:lucas.lucasCanFlyWithoutFuel": {
+    "unit": ""
+  },
+  "AddonConfig:lucas.lucasHudScale": {
+    "unit": "×"
+  },
+  "AddonConfig:fuelMixer.fuelMixerProcessTime": {
+    "unit": "ticks"
+  },
+  "AddonConfig:fuelMixer.gasolineJerrycanFuelAmount": {
+    "unit": "fuel"
+  },
+  "AddonConfig:battery.enableBatterySystem": {
+    "unit": ""
+  },
+  "AddonConfig:battery.maxEnergy": {
+    "unit": "FE"
+  },
+  "AddonConfig:battery.energyUsePerTick": {
+    "unit": "FE/tick"
+  },
+  "AddonConfig:battery.idleEnergyUsePerTick": {
+    "unit": "FE/tick"
+  },
+  "AddonConfig:battery.lowEnergyThreshold": {
+    "unit": "FE"
+  },
+  "AddonConfig:battery.returnHomeOnEmpty": {
+    "unit": ""
+  },
+  "AddonConfig:battery.batteryTransferRate": {
+    "unit": "FE"
+  },
+  "AddonConfig:droneSiren.enableDroneSiren": {
+    "unit": ""
+  },
+  "AddonConfig:droneSiren.droneSirenRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:droneSiren.droneSirenRedstoneOutput": {
+    "unit": ""
+  },
+  "AddonConfig:droneSiren.droneSirenCooldownTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:droneSiren.detectFriendlyDrones": {
+    "unit": ""
+  },
+  "AddonConfig:droneSiren.ignoredDroneOwnerNames": {
+    "unit": "player names"
+  },
+  "AddonConfig:droneSiren.ignoredDroneOwnerUUIDs": {
+    "unit": "UUIDs"
+  },
+  "AddonConfig:droneSiren.ignoreOwnerlessDrones": {
+    "unit": ""
+  },
+  "AddonConfig:droneSiren.ignoredDroneNames": {
+    "unit": "names"
+  },
+  "AddonConfig:droneSiren.ignoreUnnamedDrones": {
+    "unit": ""
+  },
+  "AddonConfig:droneSiren.blacklistMatchCaseInsensitive": {
+    "unit": ""
+  },
+  "AddonConfig:droneJammer.enableDroneJammer": {
+    "unit": ""
+  },
+  "AddonConfig:droneJammer.jammerRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:droneJammer.jammerBuildUpTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:droneJammer.jammerRecoveryTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:droneJammer.hardJamThreshold": {
+    "unit": "fraction"
+  },
+  "AddonConfig:droneJammer.controlInterferenceThreshold": {
+    "unit": "fraction"
+  },
+  "AddonConfig:droneJammer.overlayStartThreshold": {
+    "unit": "fraction"
+  },
+  "AddonConfig:droneJammer.debugJammer": {
+    "unit": ""
+  },
+  "AddonConfig:droneJammer.affectFriendlyDrones": {
+    "unit": ""
+  },
+  "AddonConfig:droneJammer.droneRadarBeepEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:droneJammer.droneRadarBeepVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorScanIntervalTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorMaximumTargets": {
+    "unit": "targets"
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorVideoEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorDetectOwnDrones": {
+    "unit": ""
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorRequireLineOfSight": {
+    "unit": ""
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorHudEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:portableFpvDetector.portableFpvDetectorShowSignalPercent": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.enableFiberOpticMode": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberOpticCableLength": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberOpticCableBreakDelayTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:fiberOptic.fiberOpticExtraBatteryDrainMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:fiberOptic.normalJammersAffectFiberOptic": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.antiDroneNetCutsFiber": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.vehicleAntiDroneNetEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.vehicleAntiDroneNetStopsDrones": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementMaxWidth": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementMaxHeight": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementMaxBlocks": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementMaximumReach": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementAllOrNothing": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementSkipBlocked": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementBlocksPerTick": {
+    "unit": "blocks/tick"
+  },
+  "AddonConfig:fiberOptic.netBulkPlacementUndoSeconds": {
+    "unit": "s"
+  },
+  "AddonConfig:fiberOptic.debugFiberOptic": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableMaxRenderDistance": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberRouteHistoryEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberRoutePointSpacing": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberRouteMinimumTurnDistance": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberRouteTurnAngleThreshold": {
+    "unit": "degrees"
+  },
+  "AddonConfig:fiberOptic.fiberRouteMaximumPoints": {
+    "unit": "points"
+  },
+  "AddonConfig:fiberOptic.fiberRouteDebugLogging": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCanBeCutByOwner": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCanBeCutByOtherPlayers": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCutRequiresShears": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCutReach": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberCableInteractionRadius": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberCableCutLineOfSightRequired": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableSegmentHealth": {
+    "unit": "health points"
+  },
+  "AddonConfig:fiberOptic.fiberCableSegmentHitboxSize": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberCableCanBeDamagedByPlayers": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCanBeDamagedByProjectiles": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableCanBeDamagedByExplosions": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableProjectileRaycastBreak": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableBreaksWhenAnySegmentDestroyed": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.debugFiberCableSegments": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableVisualThickness": {
+    "unit": "blocks"
+  },
+  "AddonConfig:fiberOptic.fiberCableVisualAlpha": {
+    "unit": "fraction"
+  },
+  "AddonConfig:fiberOptic.fiberCableVisualColor": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.maxVisibleFiberCables": {
+    "unit": "cables"
+  },
+  "AddonConfig:fiberOptic.fiberRouteCornerSmoothing": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.fiberCableDebugVisualThickness": {
+    "unit": "blocks",
+    "requires": [
+      "AddonConfig:fiberOptic.debugFiberCableRender"
+    ]
+  },
+  "AddonConfig:fiberOptic.debugFiberCableRender": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.renderRedDebugCable": {
+    "unit": "",
+    "requires": [
+      "AddonConfig:fiberOptic.debugFiberCableRender"
+    ]
+  },
+  "AddonConfig:fiberOptic.keepDetachedFiberCableOnDroneDeath": {
+    "unit": ""
+  },
+  "AddonConfig:fiberOptic.detachedFiberCableLifetimeTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:spotlight.enableSpotlightModule": {
+    "unit": ""
+  },
+  "AddonConfig:spotlight.spotlightRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:spotlight.spotlightEnergyCostPerSecond": {
+    "unit": "FE/s"
+  },
+  "AddonConfig:spotlight.spotlightRequiresModule": {
+    "unit": ""
+  },
+  "AddonConfig:spotlight.spotlightVisibleToOtherPlayers": {
+    "unit": ""
+  },
+  "AddonConfig:spotlight.spotlightAutoOffWhenBatteryEmpty": {
+    "unit": ""
+  },
+  "AddonConfig:spotlight.spotlightRealLightEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:spotlight.spotlightLightRange": {
+    "unit": "blocks",
+    "requires": [
+      "AddonConfig:spotlight.spotlightRealLightEnabled"
+    ]
+  },
+  "AddonConfig:spotlight.spotlightLightLevel": {
+    "unit": "light level",
+    "requires": [
+      "AddonConfig:spotlight.spotlightRealLightEnabled"
+    ]
+  },
+  "AddonConfig:spotlight.spotlightLightUpdateIntervalTicks": {
+    "unit": "ticks",
+    "requires": [
+      "AddonConfig:spotlight.spotlightRealLightEnabled"
+    ]
+  },
+  "AddonConfig:weather.weatherEffectsEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:payload.fpvPayloadAttachmentX": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.fpvPayloadAttachmentY": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.fpvPayloadAttachmentZ": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.fpvPayloadCordLength": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.debugPayloadMounts": {
+    "unit": ""
+  },
+  "AddonConfig:payload.fpvPayloadGrenadeRotationPitch": {
+    "unit": "degrees"
+  },
+  "AddonConfig:payload.fpvPayloadGrenadeRotationRoll": {
+    "unit": "degrees"
+  },
+  "AddonConfig:payload.fpvPayloadGrenadeRotationYaw": {
+    "unit": "degrees"
+  },
+  "AddonConfig:payload.antiVehicleMortarVehicleDamage": {
+    "unit": "health points"
+  },
+  "AddonConfig:payload.antiVehicleMortarEntityDamage": {
+    "unit": "health points"
+  },
+  "AddonConfig:payload.antiVehicleMortarExplosionRadius": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.antiVehicleMortarBlockDamageRadius": {
+    "unit": "blocks"
+  },
+  "AddonConfig:payload.antiVehicleMortarPayloadCooldownTicks": {
+    "unit": "ticks"
+  },
+  "AddonConfig:VC01Protection.enabled": {
+    "unit": ""
+  },
+  "AddonConfig:VC01Protection.maximumReduction": {
+    "unit": "fraction"
+  },
+  "AddonConfig:VC01Protection.panelHealth": {
+    "unit": "health points"
+  },
+  "AddonConfig:VC01Protection.panelDamageScale": {
+    "unit": "×"
+  },
+  "AddonConfig:VC01Protection.repairIronBars": {
+    "unit": "items"
+  },
+  "AddonConfig:DroneVehicleDamage.explosiveVehicleMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:DroneVehicleDamage.unprotectedVehicleDamageScale": {
+    "unit": "×"
+  },
+  "AddonConfig:DroneVehicleDamage.droneOverrides": {
+    "unit": "ID=factor"
+  },
+  "AddonConfig:DroneVehicleDamage.payloadOverrides": {
+    "unit": "ID=factor"
+  },
+  "AddonConfig:thermalVision.enableThermalVision": {
+    "unit": ""
+  },
+  "AddonConfig:thermalVision.thermalVisionKeybindEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:droneScreenshot.enableDroneScreenshotSound": {
+    "unit": ""
+  },
+  "AddonConfig:fpvCamera.fpvCameraFov": {
+    "unit": "degrees"
+  },
+  "AddonConfig:fpvCamera.fpvCameraTiltDegrees": {
+    "unit": "degrees"
+  },
+  "AddonConfig:fpvCamera.enableFpvCameraVibration": {
+    "unit": ""
+  },
+  "AddonConfig:audio.droneEngineVolumeMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.lucasEngineVolumeMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.droneMonitorHumVolumeMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.droneAirborneVolumeMultiplier": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.cubedFpvExternalVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.cubedFpvNearVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.cubedFpvMidVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.cubedFpvFarVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.lucasExternalVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.lucasNearVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.lucasMidVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.lucasFarVolume": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.fpvInternalAudioGain": {
+    "unit": "×"
+  },
+  "AddonConfig:audio.droneDopplerEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:audio.droneDopplerStrength": {
+    "unit": "×",
+    "requires": [
+      "AddonConfig:audio.droneDopplerEnabled"
+    ]
+  },
+  "AddonConfig:audio.droneAudioOcclusion": {
+    "unit": ""
+  },
+  "AddonConfig:audio.maxAudibleCubedFpvDrones": {
+    "unit": "drones"
+  },
+  "AddonConfig:audio.maxAudibleLucasDrones": {
+    "unit": "drones"
+  },
+  "AddonConfig:laserDefenseTower.laserDefenseTowerDroneRange": {
+    "unit": "blocks"
+  },
+  "AddonConfig:laserDefenseTower.laserDefenseTowerWhitelistEnabled": {
+    "unit": ""
+  },
+  "AddonConfig:radarTowerMount.maxBatteryCapacity": {
+    "unit": "FE"
+  },
+  "AddonConfig:radarTowerMount.chargingStationChargeRate": {
+    "unit": "FE/tick"
+  },
+  "AddonConfig:radarTowerMount.jammerEnergyDrainRate": {
+    "unit": "FE/tick"
+  },
+  "AddonConfig:radarTowerMount.minimumEnergyToActivate": {
+    "unit": "FE"
+  },
+  "VehicleDriveConfig:defaults.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:defaults.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:defaults.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:defaults.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:defaults.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:defaults.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.vatag_ugv_v01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.supply_rover_sr01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mine_rover_mr01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_jammer_truck_mj03.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.drone_carrier_dc01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.water_drone_wd01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.naval_drone_carrier_ndc01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.naval_drone_carrier_ndc01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.naval_drone_carrier_ndc01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.naval_drone_carrier_ndc01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.naval_drone_carrier_ndc01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.quadruped_drone_qd01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.heavy_ground_drone_hgd01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.anti_drone_vehicle_adv01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.mobile_patriot_launcher_mpl01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.forwardSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.reverseSpeedMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.accelerationMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.brakingMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.turningMultiplier": {
+    "unit": "×"
+  },
+  "VehicleDriveConfig:types.ground_assault_drone_gad01.engineEnergyMultiplier": {
+    "unit": "×"
+  },
+  "Sk01Config:enabled": {
+    "unit": ""
+  },
+  "Sk01Config:defaultModel": {
+    "unit": "resource ID",
+    "activation": "NEW_OBJECTS"
+  },
+  "Sk01Config:globalScale": {
+    "unit": "×",
+    "activation": "NEW_OBJECTS"
+  },
+  "Sk01Config:automaticCleanup": {
+    "unit": ""
+  },
+  "Sk01Config:cleanupAfterSeconds": {
+    "unit": "s",
+    "requires": [
+      "Sk01Config:automaticCleanup"
+    ]
+  },
+  "Sk01Config:cleanupWithRS01": {
+    "unit": ""
+  },
+  "Sk01Config:globalWorkUnitsPerTick": {
+    "unit": "units/tick"
+  },
+  "Sk01Config:globalWorkMicrosecondsPerTick": {
+    "unit": "µs/tick"
+  },
+  "Sk01ClientConfig:renderDistance": {
+    "unit": "blocks"
+  },
+  "Sk01ClientConfig:lodDistance": {
+    "unit": "blocks"
+  },
+  "Sk01ClientConfig:maximumDrawnRemains": {
+    "unit": "models"
+  },
+  "DwfConfig:inputItemCapacity": {
+    "unit": "items"
+  },
+  "DwfConfig:outputItemCapacity": {
+    "unit": "items"
+  },
+  "DwfConfig:inputVariantCapacity": {
+    "unit": "variants"
+  },
+  "DwfConfig:outputVariantCapacity": {
+    "unit": "variants"
+  },
+  "DwfConfig:globalWorkUnitsPerTick": {
+    "unit": "units/tick"
+  },
+  "DwfConfig:globalWorkMicrosecondsPerTick": {
+    "unit": "µs/tick"
+  },
+  "DwfConfig:globalRecipeChecksPerTick": {
+    "unit": "checks/tick"
+  },
+  "DwfConfig:globalTransportUpdatesPerTick": {
+    "unit": "updates/tick"
+  },
+  "DwfConfig:globalCompletionsPerTick": {
+    "unit": "products/tick"
+  },
+  "DwfConfig:automationInputInsert": {
+    "unit": ""
+  },
+  "DwfConfig:automationInputExtract": {
+    "unit": ""
+  },
+  "DwfConfig:automationOutputInsert": {
+    "unit": ""
+  },
+  "DwfConfig:automationOutputExtract": {
+    "unit": ""
+  },
+  "DwfConfig:machineSoundVolume": {
+    "unit": "×"
+  },
+  "MissionConfig:maxMissions": {
+    "unit": "missions"
+  },
+  "MissionConfig:chunkBudget": {
+    "unit": "chunks"
+  },
+  "MissionConfig:chunkRadius": {
+    "unit": "chunks"
+  },
+  "MissionConfig:ticketStartsPerTick": {
+    "unit": "tickets/tick"
+  },
+  "MissionConfig:maxPendingChunks": {
+    "unit": "chunks"
+  },
+  "MissionConfig:missionDistanceBlocks": {
+    "unit": "blocks"
+  },
+  "MissionConfig:maxDurationTicks": {
+    "unit": "ticks"
+  },
+  "MissionConfig:maxChunkWaitTicks": {
+    "unit": "ticks"
+  },
+  "MissionConfig:continueWhenOwnerOffline": {
+    "unit": ""
+  },
+  "VehicleProfilesConfig:defaults.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:defaults.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.superbwarfare_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.superbwarfare_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_cubed_fpv_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_cubed_fpv_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_lucas_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_lucas_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_delivery_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_delivery_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_glide_bomb.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_glide_bomb.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_geranium_2.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_geranium_2.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_heavy_bomber_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_heavy_bomber_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_ukrainian_bayraktar_tb2.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_ukrainian_bayraktar_tb2.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_interceptor_drone_id01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_interceptor_drone_id01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_rescue_drone_rd01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_rescue_drone_rd01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_vatag_ugv_v01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_vatag_ugv_v01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_supply_rover_sr01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_supply_rover_sr01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mine_rover_mr01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mine_rover_mr01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_medical_trailer_mt01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_medical_trailer_mt01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mobile_jammer_truck_mj03.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mobile_jammer_truck_mj03.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_drone_carrier_dc01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_drone_carrier_dc01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_water_drone_wd01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_water_drone_wd01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_naval_drone_carrier_ndc01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_naval_drone_carrier_ndc01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_submarine_drone_sd01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_submarine_drone_sd01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_quadruped_drone_qd01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_quadruped_drone_qd01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_heavy_ground_drone_hgd01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_heavy_ground_drone_hgd01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_anti_drone_vehicle_adv01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_anti_drone_vehicle_adv01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mobile_patriot_launcher_mpl01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_mobile_patriot_launcher_mpl01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_hx2_drone.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_hx2_drone.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_flamingo_fl01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_flamingo_fl01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_ground_assault_drone_gad01.hullHealthMultiplier": {
+    "unit": "×"
+  },
+  "VehicleProfilesConfig:types.sbwdroneconfig_ground_assault_drone_gad01.incomingDamageMultiplier": {
+    "unit": "×"
+  },
+  "Adv01Config:ADV01.radarRange": {
+    "unit": "blocks"
+  },
+  "Adv01Config:ADV01.automaticFireRange": {
+    "unit": "blocks"
+  },
+  "Adv01Config:ADV01.radarScanIntervalTicks": {
+    "unit": "ticks"
+  },
+  "Adv01Config:ADV01.radarRequiresLineOfSight": {
+    "unit": ""
+  },
+  "Adv01Config:ADV01.roundsPerMinute": {
+    "unit": "rounds/min"
+  },
+  "Adv01Config:ADV01.magazineCapacity": {
+    "unit": "rounds"
+  },
+  "Adv01Config:ADV01.reloadTicks": {
+    "unit": "ticks"
+  },
+  "Adv01Config:ADV01.maximumActiveShellsPerLevel": {
+    "unit": "shells"
+  },
+  "Adv01Config:ADV01.airburstExplosionDamage": {
+    "unit": "health points"
+  },
+  "Adv01Config:ADV01.spread": {
+    "unit": "spread"
+  },
+  "Adv01Config:ADV01.airburstProximityRadius": {
+    "unit": "blocks"
+  },
+  "Adv01Config:ADV01.heatPerShot": {
+    "unit": "heat"
+  },
+  "Adv01Config:ADV01.coolingPerTick": {
+    "unit": "heat/tick"
+  },
+  "Adv01Config:ADV01.nonDroneVehicleDamageScale": {
+    "unit": "×"
+  },
+  "AdcConfig:ADC01.range": {
+    "unit": "blocks"
+  },
+  "AdcConfig:ADC01.yawDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "AdcConfig:ADC01.elevationDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "AdcConfig:ADC01.inaccuracy": {
+    "unit": "spread"
+  },
+  "AdcConfig:ADC01.directDamage": {
+    "unit": "health points"
+  },
+  "AdcConfig:ADC01.scanIntervalTicks": {
+    "unit": "ticks"
+  },
+  "AdcConfig:ADC01.ammoCapacity": {
+    "unit": "items"
+  },
+  "AdcConfig:ADC01.ammoItemsPerShot": {
+    "unit": "items/shot"
+  },
+  "AdcConfig:ADC01.burstShots": {
+    "unit": "shots"
+  },
+  "AdcConfig:ADC01.shotIntervalTicks": {
+    "unit": "ticks"
+  },
+  "AdcConfig:ADC01.burstPauseTicks": {
+    "unit": "ticks"
+  },
+  "AdcConfig:ADC01.heatPerShot": {
+    "unit": "heat"
+  },
+  "AdcConfig:ADC01.coolingPerTick": {
+    "unit": "heat/tick"
+  },
+  "AdcConfig:ADC01.overheatRecoveryThreshold": {
+    "unit": "heat"
+  },
+  "AdcConfig:ADC01.maximumActiveShellsPerLevel": {
+    "unit": "shells"
+  },
+  "AdcConfig:ADC01.effectDensity": {
+    "unit": ""
+  },
+  "Mpl01Config:radarIntervalTicks": {
+    "unit": "ticks"
+  },
+  "Mpl01Config:deploymentTicks": {
+    "unit": "ticks"
+  },
+  "Mpl01Config:reloadTicks": {
+    "unit": "ticks"
+  },
+  "Mpl01Config:missileLifetimeTicks": {
+    "unit": "ticks"
+  },
+  "Mpl01Config:maximumActiveMissilesPerLevel": {
+    "unit": "missiles"
+  },
+  "Mpl01Config:trailQuality": {
+    "unit": ""
+  },
+  "Mpl01Config:gameTargetRange": {
+    "unit": "blocks"
+  },
+  "Mpl01Config:gameMissileBlocksPerTick": {
+    "unit": "blocks/tick"
+  },
+  "Mpl01Config:gameExplosionDamage": {
+    "unit": "health points"
+  },
+  "Mpl01Config:gameExplosionRadius": {
+    "unit": "blocks"
+  },
+  "Mpl01Config:gameTurnDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "Mpl01Config:gameProximityFuse": {
+    "unit": "blocks"
+  },
+  "Mpl01Config:environmentalDamage": {
+    "unit": ""
+  },
+  "DefenseConfig:radarRange": {
+    "unit": "blocks"
+  },
+  "DefenseConfig:scanIntervalTicks": {
+    "unit": "ticks"
+  },
+  "DefenseConfig:maximumContacts": {
+    "unit": "contacts"
+  },
+  "DefenseConfig:linkRange": {
+    "unit": "blocks"
+  },
+  "DefenseConfig:maximumLaunchersPerRadar": {
+    "unit": "launchers"
+  },
+  "DefenseConfig:automaticAssignmentIntervalTicks": {
+    "unit": "ticks"
+  },
+  "DefenseConfig:maximumConcurrentMissilesPerTarget": {
+    "unit": "missiles"
+  },
+  "Ps01Config:structureDurability": {
+    "unit": "durability"
+  },
+  "Ps01Config:doorDurability": {
+    "unit": "durability"
+  },
+  "Ps01Config:durabilityDamagePerExplosionRadius": {
+    "unit": "durability/block"
+  },
+  "Ps01Config:projectileDurabilityScale": {
+    "unit": "×"
+  },
+  "Ps01Config:intactStructureBlastReduction": {
+    "unit": "fraction"
+  },
+  "Ps01Config:intactStructureProjectileReduction": {
+    "unit": "fraction"
+  },
+  "Ps01Config:intactDoorBlastReduction": {
+    "unit": "fraction"
+  },
+  "Ps01Config:intactDoorProjectileReduction": {
+    "unit": "fraction"
+  },
+  "Pb01Config:PB01.concreteDurabilityPerSection": {
+    "unit": "durability"
+  },
+  "Pb01Config:PB01.doorDurability": {
+    "unit": "durability"
+  },
+  "Pb01Config:PB01.durabilityDamagePerExplosionRadius": {
+    "unit": "durability/block"
+  },
+  "Pb01Config:PB01.projectileDurabilityScale": {
+    "unit": "×"
+  },
+  "Pb01Config:PB01.intactConcreteBlastReduction": {
+    "unit": "fraction"
+  },
+  "Pb01Config:PB01.intactConcreteProjectileReduction": {
+    "unit": "fraction"
+  },
+  "Pb01Config:PB01.intactDoorBlastReduction": {
+    "unit": "fraction"
+  },
+  "Pb01Config:PB01.intactDoorProjectileReduction": {
+    "unit": "fraction"
+  },
+  "Ps01Config:maximumSheltersPerExplosion": {
+    "unit": "shelters"
+  },
+  "Pb01Config:PB01.minimumRemainingFoundationFraction": {
+    "unit": "fraction"
+  },
+  "Pb01Config:PB01.interiorDurabilityPerGroup": {
+    "unit": "durability"
+  },
+  "Pb01Config:PB01.allowStructuralDamage": {
+    "unit": ""
+  },
+  "Pb01Config:PB01.doorAccess": {
+    "unit": ""
+  },
+  "Pb01Config:PB01.modificationAccess": {
+    "unit": ""
+  },
+  "Pb01Config:PB01.maximumSectionsDamagedPerExplosion": {
+    "unit": "sections"
+  },
+  "UfMusicConfig:UF01Music.defaultRangeBlocks": {
+    "unit": "blocks",
+    "activation": "NEW_OBJECTS"
+  },
+  "UfMusicConfig:UF01Music.publicControls": {
+    "unit": ""
+  },
+  "PilotMapConfig:hideDronePilotsOnXaeroMaps": {
+    "unit": ""
+  },
+  "Us01Config:US01_REV02.showNeckScarf": {
+    "unit": ""
+  },
+  "Us01Config:US01_REV02.showClosedChestHolster": {
+    "unit": ""
+  },
+  "Us01Config:US01_REV02.showHydrationPack": {
+    "unit": ""
+  },
+  "ExplosionAudioConfig:explosionAudio.volume": {
+    "unit": "×"
+  },
+  "ExplosionAudioConfig:explosionAudio.maxDistance": {
+    "unit": "blocks"
+  },
+  "ExplosionAudioConfig:explosionAudio.distanceDelay": {
+    "unit": ""
+  },
+  "ExplosionAudioConfig:explosionAudio.propagationSpeed": {
+    "unit": "blocks/s",
+    "requires": [
+      "ExplosionAudioConfig:explosionAudio.distanceDelay"
+    ]
+  },
+  "ExplosionAudioConfig:explosionAudio.maxEffects": {
+    "unit": "effects"
+  },
+  "Ds02Config:audibleRangeBlocks": {
+    "unit": "blocks"
+  },
+  "DroneOsdConfig:visible": {
+    "unit": ""
+  },
+  "DroneOsdConfig:scale": {
+    "unit": "×"
+  },
+  "CameraInterferenceConfig:effectStrength": {
+    "unit": "×"
+  },
+  "CameraInterferenceConfig:frameStutters": {
+    "unit": ""
+  },
+  "UniformArmorConfig:refreshWearersPerTick": {
+    "unit": "wearers/tick"
+  },
+  "UniformArmorConfig:mu01.helmetBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.vestBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.trousersBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.bootsBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.armorMultiplier": {
+    "unit": "×",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.durabilityMultiplier": {
+    "unit": "×",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:mu01.wearAffectsResistance": {
+    "unit": "",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.helmetBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.vestBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.trousersBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.bootsBulletResistance": {
+    "unit": "attribute",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.armorMultiplier": {
+    "unit": "×",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.durabilityMultiplier": {
+    "unit": "×",
+    "activation": "QUEUED"
+  },
+  "UniformArmorConfig:us01.wearAffectsResistance": {
+    "unit": "",
+    "activation": "QUEUED"
+  },
+  "Fl01Config:flamingo_gameplay.speed": {
+    "unit": "blocks/tick"
+  },
+  "Fl01Config:flamingo_gameplay.turnDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "Fl01Config:flamingo_gameplay.rangeBlocks": {
+    "unit": "blocks"
+  },
+  "Fl01Config:flamingo_gameplay.fuelTicks": {
+    "unit": "ticks"
+  },
+  "Fl01Config:flamingo_gameplay.explosionDamage": {
+    "unit": "health points"
+  },
+  "Fl01Config:flamingo_gameplay.explosionRadius": {
+    "unit": "blocks"
+  },
+  "Fl01Config:flamingo_gameplay.blockDamage": {
+    "unit": ""
+  },
+  "Id01Config:minimumForwardSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Id01Config:flightSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Id01Config:acceleration": {
+    "unit": "blocks/tick²"
+  },
+  "Id01Config:turnDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "Id01Config:radarRange": {
+    "unit": "blocks"
+  },
+  "Id01Config:contactBlastRadius": {
+    "unit": "blocks"
+  },
+  "Id01Config:contactDamage": {
+    "unit": "health points"
+  },
+  "Id01Config:returnReserve": {
+    "unit": "FE"
+  },
+  "Id01Config:maxFlightTicks": {
+    "unit": "ticks"
+  },
+  "Rd01Config:maximumFlightSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Rd01Config:maximumVerticalSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Rd01Config:maximumAcceleration": {
+    "unit": "blocks/tick²"
+  },
+  "Rd01Config:winchSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Rd01Config:pickupDistance": {
+    "unit": "blocks"
+  },
+  "Gad01Config:driveSpeedMultiplier": {
+    "unit": "×"
+  },
+  "Gad01Config:obstacleStepHeight": {
+    "unit": "blocks"
+  },
+  "Gad01Config:oneMineDamageScale": {
+    "unit": "×"
+  },
+  "Gad01Config:twoMineDamageScale": {
+    "unit": "×"
+  },
+  "Gad01Config:twoMineRadiusScale": {
+    "unit": "×"
+  },
+  "Qd01Config:qd01.speedMultiplier": {
+    "unit": "×"
+  },
+  "Hgd01Config:HGD01.driveSpeedMultiplier": {
+    "unit": "×"
+  },
+  "Hgd01Config:HGD01.laserRange": {
+    "unit": "blocks"
+  },
+  "Hgd01Config:HGD01.laserDamage": {
+    "unit": "health points"
+  },
+  "Hgd01Config:HGD01.laserEnergyPerEmitterPulse": {
+    "unit": "FE/pulse"
+  },
+  "Hgd01Config:HGD01.laserPulseTicks": {
+    "unit": "ticks"
+  },
+  "Hx2Config:minimumSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Hx2Config:maximumSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Hx2Config:acceleration": {
+    "unit": "blocks/tick²"
+  },
+  "Hx2Config:turnRate": {
+    "unit": "degrees/tick"
+  },
+  "Hx2Config:pitchRate": {
+    "unit": "degrees/tick"
+  },
+  "Hx2Config:energyCapacity": {
+    "unit": "FE"
+  },
+  "Hx2Config:flightEnergyPerTick": {
+    "unit": "FE/tick"
+  },
+  "Hx2Config:controlRange": {
+    "unit": "blocks"
+  },
+  "Hx2Config:flightLifetimeTicks": {
+    "unit": "ticks"
+  },
+  "Hx2Config:explosionPower": {
+    "unit": "blocks"
+  },
+  "Sd01Config:movement.forwardSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Sd01Config:movement.reverseSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Sd01Config:movement.verticalSpeed": {
+    "unit": "blocks/tick"
+  },
+  "Sd01Config:movement.acceleration": {
+    "unit": "blocks/tick²"
+  },
+  "Sd01Config:movement.turnDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "Sd01Config:movement.cameraDegreesPerTick": {
+    "unit": "degrees/tick"
+  },
+  "Sd01Config:connection.range": {
+    "unit": "blocks"
+  },
+  "Sd01Config:connection.submergedRangeMultiplier": {
+    "unit": "×"
+  },
+  "Sd01Config:connection.ordinaryRfJammersAffectSubmarine": {
+    "unit": ""
+  },
+  "Sd01Config:connection.onLinkLoss": {
+    "unit": ""
+  },
+  "Sd01Config:connection.onEmptyBattery": {
+    "unit": ""
+  },
+  "Sd01Config:energy.driveCostPerSecond": {
+    "unit": "FE/s"
+  },
+  "Sd01Config:energy.depthHoldCostPerSecond": {
+    "unit": "FE/s"
+  },
+  "Sd01Config:energy.lightsCostPerSecond": {
+    "unit": "FE/s"
+  },
+  "Sd01Config:sensors.lightRange": {
+    "unit": "blocks"
+  },
+  "Sd01Config:sensors.sonarRange": {
+    "unit": "blocks"
+  },
+  "Sd01Config:sensors.sonarCooldownTicks": {
+    "unit": "ticks"
+  },
+  "Sd01Config:sensors.sonarEnergy": {
+    "unit": "FE/pulse"
+  },
+  "Sd01Config:sensors.depthColumnLimit": {
+    "unit": "blocks"
+  },
+  "Ndc01Config:speedMultiplier": {
+    "unit": "×"
+  },
+  "Ndc01Config:health": {
+    "unit": "health points"
+  },
+  "Ndc01Config:energyCapacityFE": {
+    "unit": "FE"
+  },
+  "Ndc01Config:propulsionFEPerSecond": {
+    "unit": "FE/s"
+  },
+  "Ndc01Config:idleFEPerSecond": {
+    "unit": "FE/s"
+  },
+  "Ndc01Config:launchEnergyFE": {
+    "unit": "FE"
+  },
+  "Mj03Config:jammerEnergyPerTick": {
+    "unit": "FE/tick"
+  },
+  "Dj01Config:enabled": {
+    "unit": ""
+  },
+  "Dj01Config:maxDistance": {
+    "unit": "blocks"
+  },
+  "Dj01Config:coneDegrees": {
+    "unit": "degrees"
+  },
+  "Dj01Config:energyPerTick": {
+    "unit": "FE/tick"
+  },
+  "Dj01Config:affectOwnDrones": {
+    "unit": ""
+  },
+  "Dj01Config:affectAlliedDrones": {
+    "unit": ""
+  },
+  "DvtConfig:width": {
+    "unit": "pixels"
+  },
+  "DvtConfig:framesPerSecond": {
+    "unit": "frames/s"
+  },
+  "DvtConfig:maxFeeds": {
+    "unit": "feeds"
+  },
+  "Hg01Config:fuseTicks": {
+    "unit": "ticks"
+  },
+  "Hg01Config:damage": {
+    "unit": "health points"
+  },
+  "Hg01Config:radius": {
+    "unit": "blocks"
+  },
+  "Hg01Config:smokeStrength": {
+    "unit": "×"
+  },
+  "Hg01Config:smokeLifeTicks": {
+    "unit": "ticks"
+  },
+  "Lm01Config:armingDelayTicks": {
+    "unit": "ticks"
+  },
+  "Lm01Config:triggerPlayers": {
+    "unit": ""
+  },
+  "Lm01Config:triggerLivingMobs": {
+    "unit": ""
+  },
+  "Lm01Config:triggerGroundVehicles": {
+    "unit": ""
+  },
+  "Lm01Config:explosionDamage": {
+    "unit": "health points"
+  },
+  "Lm01Config:explosionRadius": {
+    "unit": "blocks"
+  },
+  "Lm01Config:worldDamage": {
+    "unit": ""
+  },
+  "Lm01Config:maxExplosionsPerServerTick": {
+    "unit": "explosions/tick"
+  },
+  "Lm01Config:explosionWorkMicroseconds": {
+    "unit": "µs/tick"
+  },
+  "InjuryConfig:enabled": {
+    "unit": ""
+  },
+  "InjuryConfig:damageSources.projectiles": {
+    "unit": ""
+  },
+  "InjuryConfig:damageSources.explosions": {
+    "unit": ""
+  },
+  "InjuryConfig:damageSources.droneImpacts": {
+    "unit": ""
+  },
+  "InjuryConfig:damageSources.additionalTypes": {
+    "unit": "resource IDs"
+  },
+  "InjuryConfig:damageSources.excludedTypes": {
+    "unit": "resource IDs"
+  },
+  "InjuryConfig:severity.lightHit": {
+    "unit": "health points"
+  },
+  "InjuryConfig:severity.severeHit": {
+    "unit": "health points"
+  },
+  "InjuryConfig:severity.accumulatedSevere": {
+    "unit": "health points"
+  },
+  "InjuryConfig:severity.accumulationWindowTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:severity.downBeforeDeath": {
+    "unit": ""
+  },
+  "InjuryConfig:bleeding.lightDamage": {
+    "unit": "health points"
+  },
+  "InjuryConfig:bleeding.heavyDamage": {
+    "unit": "health points"
+  },
+  "InjuryConfig:bleeding.intervalTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:movement.crawlBlocksPerTick": {
+    "unit": "blocks/tick"
+  },
+  "InjuryConfig:movement.recoveryTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:treatment.bandageTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:treatment.assistedMedkitTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:treatment.selfMedkitTicks": {
+    "unit": "ticks"
+  },
+  "InjuryConfig:treatment.selfTreatSevere": {
+    "unit": ""
+  },
+  "InjuryConfig:treatment.medkitHealthRestored": {
+    "unit": "health points"
+  },
+  "InjuryClientConfig:showMedicalHud": {
+    "unit": ""
+  },
+  "InjuryClientConfig:effectStrength": {
+    "unit": "×"
+  },
+  "InjuryClientConfig:medicalAudioVolume": {
+    "unit": "×"
+  },
+  "DistanceWarConfig:enabled": {
+    "unit": ""
+  },
+  "DistanceWarConfig:minIntervalSeconds": {
+    "unit": "s"
+  },
+  "DistanceWarConfig:maxIntervalSeconds": {
+    "unit": "s"
+  },
+  "DistanceWarConfig:volume": {
+    "unit": "×"
+  },
+  "DistanceWarConfig:minSourceDistance": {
+    "unit": "blocks"
+  },
+  "DistanceWarConfig:maxSourceDistance": {
+    "unit": "blocks"
+  },
+  "DistanceWarConfig:activeDimensions": {
+    "unit": "resource IDs"
+  },
+  "DistanceWarClientConfig:volume": {
+    "unit": "×"
+  },
+  "RubbleConfig:enabled": {
+    "unit": ""
+  },
+  "RubbleConfig:mode": {
+    "unit": ""
+  },
+  "RubbleConfig:respectSbwBlockDestruction": {
+    "unit": ""
+  },
+  "RubbleConfig:workBudgetPerLevelTick": {
+    "unit": "units/tick"
+  },
+  "RubbleConfig:maxBlocksPerBlast": {
+    "unit": "blocks"
+  },
+  "RubbleConfig:maxQueuedBlasts": {
+    "unit": "jobs"
+  },
+  "RubbleConfig:maxMovingPiecesPerLevel": {
+    "unit": "pieces"
+  },
+  "RubbleConfig:maxLocalRadius": {
+    "unit": "blocks"
+  },
+  "RubbleConfig:maxCollapseChain": {
+    "unit": "steps"
+  },
+  "RubbleConfig:stoneSpan": {
+    "unit": "blocks"
+  },
+  "RubbleConfig:maxUnitsPerPile": {
+    "unit": "units"
+  },
+  "RubbleConfig:ticksToClearOneUnit": {
+    "unit": "ticks/unit"
+  },
+  "RubbleConfig:toolDamagePerUnit": {
+    "unit": "durability/unit"
+  },
+  "RubbleConfig:clearingSelectionRadius": {
+    "unit": "blocks"
+  },
+  "RubbleConfig:recoveryFraction": {
+    "unit": "fraction"
+  },
+  "RubbleConfig:maximumFallingImpactDamage": {
+    "unit": "health points"
+  },
+  "RubbleConfig:glassRadiusMultiplier": {
+    "unit": "×"
+  },
+  "RubbleConfig:visualIntensity": {
+    "unit": "×"
+  },
+  "RubbleConfig:loadProfiles": {
+    "unit": "ID=factor,factor"
+  },
+  "SecurityCraftBlastConfig:enabled": {
+    "unit": ""
+  },
+  "SecurityCraftBlastConfig:reinforcedResistanceMultiplier": {
+    "unit": "×"
+  },
+  "SecurityCraftBlastConfig:materialResistanceOverrides": {
+    "unit": "category=resistance"
+  },
+  "SecurityCraftBlastConfig:blockResistanceOverrides": {
+    "unit": "ID=resistance"
+  },
+  "SecurityCraftBlastConfig:materialMappings": {
+    "unit": "ID=ID"
+  },
+  "RubbleClientConfig:globalExplosionParticleLimit": {
+    "unit": "particles"
+  },
+  "RubbleClientConfig:maxTemporaryRubbleParticles": {
+    "unit": "particles"
+  },
+  "RubbleClientConfig:debrisCullDistance": {
+    "unit": "blocks"
+  },
+  "RubbleClientConfig:dust": {
+    "unit": ""
+  },
+  "RubbleClientConfig:materialShards": {
+    "unit": ""
+  },
+  "RubbleClientConfig:explosionSmoke": {
+    "unit": ""
+  },
+  "RubbleClientConfig:explosionDetail": {
+    "unit": "×"
+  },
+  "MoistureConfig:moisture.enabled": {
+    "unit": ""
+  },
+  "MoistureConfig:moisture.cameraDroplets": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.permanentDamage": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.ordinaryRainPerSecond": {
+    "unit": "percentage points/s",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.thunderRainPerSecond": {
+    "unit": "percentage points/s",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.dryPerSecond": {
+    "unit": "percentage points/s",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.warningPercent": {
+    "unit": "%",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.cameraFaultPercent": {
+    "unit": "%",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.motorFaultPercent": {
+    "unit": "%",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.damagePercent": {
+    "unit": "%",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.damageIntervalSeconds": {
+    "unit": "s",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.damageFraction": {
+    "unit": "fraction",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureClientConfig:cameraDroplets": {
+    "unit": ""
+  },
+  "MoistureClientConfig:lightweightDroplets": {
+    "unit": ""
+  },
+  "MoistureConfig:moisture.models.superbwarfare_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_cubed_fpv_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_heavy_bomber_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_delivery_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_rescue_drone_rd01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_lucas_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_geranium_2": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_glide_bomb": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_ukrainian_bayraktar_tb2": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_hx2_drone": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_interceptor_drone_id01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_quadruped_drone_qd01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_heavy_ground_drone_hgd01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_ground_assault_drone_gad01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_vatag_ugv_v01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_supply_rover_sr01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_mine_rover_mr01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_drone_carrier_dc01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_water_drone_wd01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_naval_drone_carrier_ndc01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_submarine_drone_sd01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_anti_drone_vehicle_adv01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_mobile_patriot_launcher_mpl01": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  },
+  "MoistureConfig:moisture.models.sbwdroneconfig_mobile_jammer_truck_mj03": {
+    "unit": "",
+    "requires": [
+      "MoistureConfig:moisture.enabled"
+    ]
+  }
+}

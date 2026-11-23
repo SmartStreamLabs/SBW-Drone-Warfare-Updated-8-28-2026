@@ -1,0 +1,15 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "land",
+  "inputs": [
+    "18 superbwarfare:steel_block",
+    "2 superbwarfare:large_motor",
+    "superbwarfare:large_battery_pack",
+    "4 minecraft:dispenser",
+    "4 minecraft:comparator",
+    "superbwarfare:monitor"
+  ],
+  "result": {
+    "entity": "sbwdroneconfig:mobile_patriot_launcher_mpl01"
+  }
+}

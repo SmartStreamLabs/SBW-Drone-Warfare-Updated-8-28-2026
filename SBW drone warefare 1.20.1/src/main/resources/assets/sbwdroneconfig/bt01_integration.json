@@ -1,0 +1,757 @@
+{
+  "asset_name": "Bayraktar TB2 BT-01",
+  "scope": "Original exterior game art, not an engineering replica or operational aircraft model.",
+  "dimension_basis": {
+    "manufacturer_pdf": "https://cdn.baykartech.com/media/upload/userFormUpload/sOQikTjeCwcpFTiNLoVok27Zr8Yulmy9.pdf",
+    "manufacturer_page": "https://baykartech.com/en/uav/bayraktar-tb2/",
+    "chosen_pdf_metres": {
+      "wingspan": 12.0,
+      "length": 6.5,
+      "height": 2.2
+    },
+    "manufacturer_webpage_length_metres": 6.4,
+    "caveat": "Official PDF gives 6.5 m length; current webpage gives 6.4 m. The model deliberately follows the PDF. Hidden shapes, prop diameter and exhibit racks are photo-based artistic estimates, not confirmed engineering geometry."
+  },
+  "units_per_block": 16,
+  "metres_per_block": 1,
+  "forward_axis": "-Z",
+  "up_axis": "+Y",
+  "ground_contact_y_units": 0,
+  "bind_pose": "Horizontal on fixed tricycle gear. Only diagonal tail_hinge_basis_L/R have nonzero bind rotations; their moving meshes are inverse-basis-authored so visible bind pose is correct.",
+  "bone_pivots_units": {
+    "bt01_root": [
+      0.0,
+      20.0,
+      0.0
+    ],
+    "fuselage": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "nose_section": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "surface_details": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "engine_cowl": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pylons": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "propeller": [
+      0.0,
+      21.0,
+      30.6
+    ],
+    "wing_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "flap_L": [
+      -22.0,
+      21.118,
+      6.15
+    ],
+    "aileron_L": [
+      -70.0,
+      22.03,
+      5.6
+    ],
+    "tail_boom_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_panel_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_hinge_basis_L": [
+      -20.5,
+      20.2,
+      49.13
+    ],
+    "ruddervator_L": [
+      -20.5,
+      20.2,
+      49.13
+    ],
+    "wing_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "flap_R": [
+      22.0,
+      21.118,
+      6.15
+    ],
+    "aileron_R": [
+      70.0,
+      22.03,
+      5.6
+    ],
+    "tail_boom_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_panel_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_hinge_basis_R": [
+      20.5,
+      20.2,
+      49.13
+    ],
+    "ruddervator_R": [
+      20.5,
+      20.2,
+      49.13
+    ],
+    "camera_pan": [
+      0.0,
+      15.1,
+      -24.5
+    ],
+    "camera_tilt": [
+      0.0,
+      12.5,
+      -24.5
+    ],
+    "nose_steering": [
+      0.0,
+      6.0,
+      -31.0
+    ],
+    "wheel_front": [
+      0.0,
+      2.8,
+      -31.0
+    ],
+    "wheel_L": [
+      -15.2,
+      3.4,
+      8.0
+    ],
+    "wheel_R": [
+      15.2,
+      3.4,
+      8.0
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      12.5,
+      -27.8
+    ],
+    "payload_pylon_L1_anchor": [
+      -20.0,
+      16.0,
+      1.5
+    ],
+    "payload_pylon_L2_anchor": [
+      -30.0,
+      16.0,
+      1.5
+    ],
+    "payload_pylon_R1_anchor": [
+      20.0,
+      16.0,
+      1.5
+    ],
+    "payload_pylon_R2_anchor": [
+      30.0,
+      16.0,
+      1.5
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      20.0,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      61.0,
+      140.0
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      170.0,
+      0.0
+    ],
+    "reference_rack_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "reference_rack_R": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "bone_bind_rotations": {
+    "bt01_root": [
+      0,
+      0,
+      0
+    ],
+    "fuselage": [
+      0,
+      0,
+      0
+    ],
+    "nose_section": [
+      0,
+      0,
+      0
+    ],
+    "surface_details": [
+      0,
+      0,
+      0
+    ],
+    "engine_cowl": [
+      0,
+      0,
+      0
+    ],
+    "landing_gear": [
+      0,
+      0,
+      0
+    ],
+    "pylons": [
+      0,
+      0,
+      0
+    ],
+    "propeller": [
+      0,
+      0,
+      0
+    ],
+    "wing_L": [
+      0,
+      0,
+      0
+    ],
+    "flap_L": [
+      0,
+      0,
+      0
+    ],
+    "aileron_L": [
+      0,
+      0,
+      0
+    ],
+    "tail_boom_L": [
+      0,
+      0,
+      0
+    ],
+    "tail_panel_L": [
+      0,
+      0,
+      0
+    ],
+    "tail_hinge_basis_L": [
+      0,
+      0,
+      36.1932073055647
+    ],
+    "ruddervator_L": [
+      0,
+      0,
+      0
+    ],
+    "wing_R": [
+      0,
+      0,
+      0
+    ],
+    "flap_R": [
+      0,
+      0,
+      0
+    ],
+    "aileron_R": [
+      0,
+      0,
+      0
+    ],
+    "tail_boom_R": [
+      0,
+      0,
+      0
+    ],
+    "tail_panel_R": [
+      0,
+      0,
+      0
+    ],
+    "tail_hinge_basis_R": [
+      0,
+      0,
+      143.8067926944353
+    ],
+    "ruddervator_R": [
+      0,
+      0,
+      0
+    ],
+    "camera_pan": [
+      0,
+      0,
+      0
+    ],
+    "camera_tilt": [
+      0,
+      0,
+      0
+    ],
+    "nose_steering": [
+      0,
+      0,
+      0
+    ],
+    "wheel_front": [
+      0,
+      0,
+      0
+    ],
+    "wheel_L": [
+      0,
+      0,
+      0
+    ],
+    "wheel_R": [
+      0,
+      0,
+      0
+    ],
+    "monitor_camera_anchor": [
+      0,
+      0,
+      0
+    ],
+    "payload_pylon_L1_anchor": [
+      0,
+      0,
+      0
+    ],
+    "payload_pylon_L2_anchor": [
+      0,
+      0,
+      0
+    ],
+    "payload_pylon_R1_anchor": [
+      0,
+      0,
+      0
+    ],
+    "payload_pylon_R2_anchor": [
+      0,
+      0,
+      0
+    ],
+    "aircraft_center_anchor": [
+      0,
+      0,
+      0
+    ],
+    "ground_reference_anchor": [
+      0,
+      0,
+      0
+    ],
+    "chase_camera_anchor": [
+      0,
+      0,
+      0
+    ],
+    "overhead_camera_anchor": [
+      0,
+      0,
+      0
+    ],
+    "reference_rack_L": [
+      0,
+      0,
+      0
+    ],
+    "reference_rack_R": [
+      0,
+      0,
+      0
+    ]
+  },
+  "propeller": {
+    "bone": "propeller",
+    "pivot_units": [
+      0,
+      21,
+      30.6
+    ],
+    "axis": "Z",
+    "blade_count": 2,
+    "actual_swept_radius_units": 12.525255486416237
+  },
+  "wheel_bones": {
+    "wheel_front": {
+      "axis": "X",
+      "pivot_units": [
+        0,
+        2.8,
+        -31
+      ]
+    },
+    "wheel_L": {
+      "axis": "X",
+      "pivot_units": [
+        -15.2,
+        3.4,
+        8
+      ]
+    },
+    "wheel_R": {
+      "axis": "X",
+      "pivot_units": [
+        15.2,
+        3.4,
+        8
+      ]
+    }
+  },
+  "steering_bone": "nose_steering",
+  "controls": [
+    "aileron_L",
+    "aileron_R",
+    "flap_L",
+    "flap_R",
+    "ruddervator_L",
+    "ruddervator_R"
+  ],
+  "tail_control_note": "Ruddervator local X lies along the diagonal span through a tail_hinge_basis parent; preserve this basis on export. Other fixed/moving geometry must not inherit the diagonal transform.",
+  "camera_anchor": "monitor_camera_anchor",
+  "payload_visual_anchors": {
+    "payload_pylon_L1_anchor": [
+      -20,
+      16,
+      1.5
+    ],
+    "payload_pylon_L2_anchor": [
+      -30,
+      16,
+      1.5
+    ],
+    "payload_pylon_R1_anchor": [
+      20,
+      16,
+      1.5
+    ],
+    "payload_pylon_R2_anchor": [
+      30,
+      16,
+      1.5
+    ]
+  },
+  "optional_rack_groups": [
+    "reference_rack_L",
+    "reference_rack_R"
+  ],
+  "clean_model": "BT01_Clean_Airframe.bbmodel",
+  "integration_requirements": [
+    "Use native mesh-capable renderer. BBMODEL is 16 units/block; static OBJ uses blocks.",
+    "Replace existing TB2 visuals only unless explicitly requested otherwise. Preserve IDs, saved data, flight physics, weapons/inventory, camera and damage.",
+    "Do not rescale down to the previous asset; chosen authored envelope is 12 x 6.5 x 2.2 blocks.",
+    "Rotate only the propeller about its local Z pivot, wheels about local X, nose steering about local Y. Landing gear is fixed; do not add retraction.",
+    "Preserve diagonal tail hinge basis when animating ruddervators.",
+    "Reference rack groups are removable visual exhibit hardware, not a functioning payload launcher or new weapon. Clean alternate removes those groups while retaining four ordinary pylons.",
+    "Payload locators are top visual interfaces; use existing game payload meshes and behaviour. No fixed munitions or micro-drones are baked into either model.",
+    "Use full swept propeller clearance for culling; do not derive a giant collision/damage box from 12 m render span.",
+    "All provided clips are cosmetic examples, not actual flight control, targeting or guidance logic."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "neutral_bounds_units": {
+    "min": [
+      -96.0,
+      0.0,
+      -52.0
+    ],
+    "max": [
+      96.0,
+      35.2,
+      52.0
+    ]
+  },
+  "model_dimensions_blocks": [
+    12.0,
+    2.2,
+    6.5
+  ],
+  "propeller_swept_bounds_units": {
+    "min": [
+      -12.525255486416237,
+      8.474744513583763,
+      30.4594
+    ],
+    "max": [
+      12.525255486416237,
+      33.525255486416235,
+      30.740600000000004
+    ]
+  },
+  "validation": {
+    "elements": 544,
+    "triangles": 29012,
+    "bones": 39,
+    "clips": 4,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "exact_192_unit_wingspan": true,
+    "exact_104_unit_length": true,
+    "exact_35_2_unit_height": true,
+    "ground_datum_checked": true,
+    "mirror_symmetry_primary_airframe": true,
+    "diagonal_tail_hinge_basis_checked": true,
+    "tail_bind_pose_checked": true,
+    "two_blade_Z_propeller": true,
+    "swept_propeller_clear_of_fixed_airframe": true,
+    "three_wheel_X_pivots": true,
+    "four_visual_pylon_anchors": true,
+    "clean_alternate_without_display_racks": true,
+    "seamless_preview_loop_endpoints": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "bt01_root": [
+      0.0,
+      1.25,
+      0.0
+    ],
+    "fuselage": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "nose_section": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "surface_details": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "engine_cowl": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pylons": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "propeller": [
+      0.0,
+      1.3125,
+      1.9125
+    ],
+    "wing_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "flap_L": [
+      -1.375,
+      1.319875,
+      0.384375
+    ],
+    "aileron_L": [
+      -4.375,
+      1.376875,
+      0.35
+    ],
+    "tail_boom_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_panel_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_hinge_basis_L": [
+      -1.28125,
+      1.2625,
+      3.070625
+    ],
+    "ruddervator_L": [
+      -1.28125,
+      1.2625,
+      3.070625
+    ],
+    "wing_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "flap_R": [
+      1.375,
+      1.319875,
+      0.384375
+    ],
+    "aileron_R": [
+      4.375,
+      1.376875,
+      0.35
+    ],
+    "tail_boom_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_panel_R": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tail_hinge_basis_R": [
+      1.28125,
+      1.2625,
+      3.070625
+    ],
+    "ruddervator_R": [
+      1.28125,
+      1.2625,
+      3.070625
+    ],
+    "camera_pan": [
+      0.0,
+      0.94375,
+      -1.53125
+    ],
+    "camera_tilt": [
+      0.0,
+      0.78125,
+      -1.53125
+    ],
+    "nose_steering": [
+      0.0,
+      0.375,
+      -1.9375
+    ],
+    "wheel_front": [
+      0.0,
+      0.175,
+      -1.9375
+    ],
+    "wheel_L": [
+      -0.95,
+      0.2125,
+      0.5
+    ],
+    "wheel_R": [
+      0.95,
+      0.2125,
+      0.5
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      0.78125,
+      -1.7375
+    ],
+    "payload_pylon_L1_anchor": [
+      -1.25,
+      1.0,
+      0.09375
+    ],
+    "payload_pylon_L2_anchor": [
+      -1.875,
+      1.0,
+      0.09375
+    ],
+    "payload_pylon_R1_anchor": [
+      1.25,
+      1.0,
+      0.09375
+    ],
+    "payload_pylon_R2_anchor": [
+      1.875,
+      1.0,
+      0.09375
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      1.25,
+      0.0
+    ],
+    "ground_reference_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      3.8125,
+      8.75
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      10.625,
+      0.0
+    ],
+    "reference_rack_L": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "reference_rack_R": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "obj_diagonal_tail_basis_baked_in_bind_pose": true,
+  "obj_tail_rig_note": "Static OBJ vertices are already in visible world bind pose. Inverse-bake into a local tail hinge basis before applying that parent rotation; do not rotate the baked OBJ geometry a second time."
+}

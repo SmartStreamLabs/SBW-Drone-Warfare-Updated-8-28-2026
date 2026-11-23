@@ -6,9 +6,9 @@ public final class DeliveryDroneDefinition {
     public static final String ID = "delivery_drone";
     public static final String DISPLAY_NAME = "Delivery Drone";
 
-    private static final ResourceLocation MODEL = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "geo/delivery_drone.geo.json");
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/entity/delivery_drone.png");
-    private static final ResourceLocation ANIMATION = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "animations/fpv_drone.animation.json");
+    private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "geo/delivery_drone.geo.json");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "textures/entity/delivery_drone.png");
+    private static final ResourceLocation ANIMATION = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "animations/delivery_drone_dd01.animation.json");
 
     private DeliveryDroneDefinition() {
     }

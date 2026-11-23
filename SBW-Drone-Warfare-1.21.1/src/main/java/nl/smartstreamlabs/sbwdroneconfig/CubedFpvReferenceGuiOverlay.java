@@ -5,14 +5,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.Locale;
 import java.util.Set;
@@ -82,7 +82,7 @@ public final class CubedFpvReferenceGuiOverlay {
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(CubedFpvReferenceGuiOverlay.class);
+        NeoForge.EVENT_BUS.register(CubedFpvReferenceGuiOverlay.class);
         SbwDroneRangeConfig.LOGGER.info(
                 "[SBW Drone Warfare] Registered Cubed FPV GUI: {}\nClass: {}",
                 GUI_BUILD_ID,
@@ -91,21 +91,22 @@ public final class CubedFpvReferenceGuiOverlay {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            CubedFpvReferenceGuiTelemetry.onClientTick();
-            suppressActionBarMessage();
-        }
+    public static void onClientTick(ClientTickEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
+        CubedFpvReferenceGuiTelemetry.onClientTick();
+        suppressActionBarMessage();
     }
 
     @SubscribeEvent
-    public static void onRenderGui(RenderGuiEvent.Post event) {
+    public static void onRenderGui(RenderGuiEvent.Post event) { if(DroneOsdClient.ownsFullView())return;
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null) {
             return;
         }
 
-        CubedFpvReferenceGuiTelemetry.Snapshot telemetry = CubedFpvReferenceGuiTelemetry.collect(minecraft, event.getPartialTick());
+        CubedFpvReferenceGuiTelemetry.Snapshot telemetry = CubedFpvReferenceGuiTelemetry.collect(
+                minecraft,
+                event.getPartialTick().getGameTimeDeltaPartialTick(true)
+        );
         if (telemetry == null) {
             return;
         }
@@ -131,13 +132,13 @@ public final class CubedFpvReferenceGuiOverlay {
     }
 
     @SubscribeEvent
-    public static void onRenderGuiOverlayPre(RenderGuiOverlayEvent.Pre event) {
-        if (!shouldReplaceDefaultSbwHud() || event.getOverlay() == null) {
+    public static void onRenderGuiOverlayPre(RenderGuiLayerEvent.Pre event) { if(DroneOsdClient.ownsFullView())return;
+        if (!shouldReplaceDefaultSbwHud() || event.getName() == null) {
             return;
         }
 
         suppressActionBarMessage();
-        if (HIDDEN_OVERLAYS.contains(event.getOverlay().id().getPath())) {
+        if (HIDDEN_OVERLAYS.contains(event.getName().getPath())) {
             event.setCanceled(true);
         }
     }

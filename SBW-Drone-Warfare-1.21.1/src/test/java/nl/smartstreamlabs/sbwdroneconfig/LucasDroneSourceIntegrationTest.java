@@ -79,7 +79,7 @@ class LucasDroneSourceIntegrationTest {
                 "The fixed-wing controller should gate powered takeoff/climb/throttle on LUCAS fuel.");
         assertTrue(controllerSource.contains("LucasFuelSystem.isOutOfFuel(drone)"),
                 "The fixed-wing controller should let fuel-empty LUCAS drones glide down instead of powering through.");
-        assertTrue(networkSource.contains("LucasFuelSyncMessage.class"),
+        assertTrue(networkSource.contains("LucasFuelSyncMessage.TYPE"),
                 "The addon network channel should register the LUCAS fuel sync packet.");
         assertTrue(mainSource.contains("LucasFuelClient.init(modBus);"),
                 "Client setup should register the LUCAS fuel HUD.");
@@ -191,9 +191,9 @@ class LucasDroneSourceIntegrationTest {
     void lucasDroneItemUsesTheLucasEntityRegistrationForDeployment() throws Exception {
         String source = readJavaSource("LucasDroneItem.java");
 
-        assertTrue(source.contains("AddonEntities.LUCAS_DRONE.get().spawn"),
-                "The LUCAS drone item should deploy the dedicated LUCAS drone entity.");
-        assertTrue(source.contains("public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced)"),
+        assertTrue(source.contains("LucasPlatformBlock.interact")&&!source.contains("AddonEntities.LUCAS_DRONE.get().spawn"),
+                "The LUCAS item must delegate exclusively to its launch platform.");
+        assertTrue(source.contains("public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced)"),
                 "The LUCAS drone item should override appendHoverText for its dedicated tooltip lines.");
         assertTrue(source.contains("tooltipComponents.add(Component.translatable(\"tooltip.sbwdroneconfig.lucas_drone.1\").withStyle(ChatFormatting.GRAY));"),
                 "The first LUCAS drone tooltip line should be added to the item hover text in gray.");
@@ -207,7 +207,7 @@ class LucasDroneSourceIntegrationTest {
         String lucasSource = readJavaSource("LucasDroneItem.java");
         String langSource = readProjectFile("src", "main", "resources", "assets", "sbwdroneconfig", "lang", "en_us.json");
 
-        assertTrue(fpvSource.contains("public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced)"),
+        assertTrue(fpvSource.contains("public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced)"),
                 "The FPV drone item should expose a dedicated hover tooltip override.");
         assertTrue(fpvSource.contains("tooltip.sbwdroneconfig.cubed_fpv_drone.1"),
                 "The FPV drone item should include a monitor control tooltip line.");
@@ -229,8 +229,8 @@ class LucasDroneSourceIntegrationTest {
     void lucasDroneModelTargetsItsDedicatedRearPropellerAnimationBone() throws Exception {
         String source = readJavaSource("LucasDroneModel.java");
 
-        assertTrue(source.contains("private static final String[] PROPELLER_BONES = {\"rear_propeller\"};"),
-                "The LUCAS drone should animate only the dedicated rear_propeller bone so the nose mesh does not spin.");
+        assertTrue(source.contains("private static final String[] PROPELLER_BONES = {\"propeller\"};"),
+                "The LUCAS drone should animate only the dedicated propeller bone so the nose mesh does not spin.");
         assertTrue(source.contains("bone.setRotZ(angle * PROPELLER_DIRECTIONS[index]);"),
                 "The LUCAS drone propeller animation should spin around the pusher prop axis with a Z rotation.");
     }
@@ -339,6 +339,7 @@ class LucasDroneSourceIntegrationTest {
         String creativeTabsSource = readJavaSource("AddonCreativeTabs.java");
         String renderersSource = readJavaSource("AddonEntityRenderers.java");
         String compatSource = readJavaSource("SbwCompat.java");
+        String droneAccessSource = readJavaSource("SbwDroneAccess.java");
         String entitiesSource = readJavaSource("AddonEntities.java");
         String inventorySystemSource = readJavaSource("DroneInventorySystem.java");
 
@@ -346,8 +347,9 @@ class LucasDroneSourceIntegrationTest {
                 "The LUCAS drone item should be exposed on the addon creative tab.");
         assertTrue(renderersSource.contains("event.registerEntityRenderer(AddonEntities.LUCAS_DRONE.get(), LucasDroneRenderer::new);"),
                 "The LUCAS drone entity should register its dedicated renderer.");
-        assertTrue(compatSource.contains("SbwDroneRangeConfig.LUCAS_DRONE_ENTITY_ID.equals(key.toString())"),
-                "Shared addon compatibility should treat the LUCAS drone as a supported drone entity.");
+        assertTrue(compatSource.contains("isSupportedDrone(entity)")
+                        && droneAccessSource.contains("SbwDroneRangeConfig.LUCAS_DRONE_ENTITY_ID"),
+                "Shared addon compatibility should treat the LUCAS drone as a supported drone entity through the compat adapter.");
         assertTrue(entitiesSource.contains(".sized(3.2F, 0.35F)"),
                 "The LUCAS drone entity should use a flatter fixed-wing hitbox registration that is closer to the aircraft.");
         assertTrue(inventorySystemSource.contains("screen.sbwdroneconfig.lucas_drone_inventory"),

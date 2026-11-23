@@ -1,0 +1,50 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.ds02.alarm_beacon": {
+      "loop": true,
+      "animation_length": 1.25,
+      "bones": {
+        "beacon_rotor": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.625": [
+              0,
+              180,
+              0
+            ],
+            "1.25": [
+              0,
+              360,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.ds02.open_service_door": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 0.75,
+      "bones": {
+        "cabinet_door": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.75": [
+              0,
+              -105,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

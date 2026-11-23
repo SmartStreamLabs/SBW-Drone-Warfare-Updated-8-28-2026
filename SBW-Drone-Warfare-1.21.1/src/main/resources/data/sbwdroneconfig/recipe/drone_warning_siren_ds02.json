@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "ISI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "C": {
+      "item": "superbwarfare:copper_plate"
+    },
+    "S": {
+      "item": "sbwdroneconfig:drone_detection_siren"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:drone_warning_siren_ds02",
+    "count": 1
+  }
+}

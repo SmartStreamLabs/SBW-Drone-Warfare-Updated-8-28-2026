@@ -1,0 +1,15 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "misc",
+  "inputs": [
+    "8 #c:storage_blocks/steel",
+    "4 minecraft:smooth_stone",
+    "2 minecraft:piston",
+    "superbwarfare:large_motor",
+    "4 superbwarfare:copper_plate",
+    "4 minecraft:iron_bars"
+  ],
+  "result": {
+    "item": "sbwdroneconfig:geranium2_launch_platform_lp02"
+  }
+}

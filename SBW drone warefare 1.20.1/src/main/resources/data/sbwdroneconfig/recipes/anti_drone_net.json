@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ISI",
+    "CFC",
+    "IRI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_bars"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "C": {
+      "item": "superbwarfare:cell"
+    },
+    "F": {
+      "item": "superbwarfare:iff"
+    },
+    "R": {
+      "item": "superbwarfare:copper_plate"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:anti_drone_net",
+    "count": 4
+  }
+}

@@ -1,14 +1,18 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record CubedFpvInputMessage(UUID droneUuid, short keys, double mouseX, double mouseY, int sequence) {
+public record CubedFpvInputMessage(UUID droneUuid, short keys, double mouseX, double mouseY, int sequence) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<CubedFpvInputMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "cubed_fpv_input"));
+
     public static CubedFpvInputMessage decode(FriendlyByteBuf buffer) {
         return new CubedFpvInputMessage(
                 buffer.readUUID(),
@@ -27,23 +31,23 @@ public record CubedFpvInputMessage(UUID droneUuid, short keys, double mouseX, do
         buffer.writeVarInt(message.sequence);
     }
 
-    public static void handle(CubedFpvInputMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> {
-            ServerPlayer sender = context.getSender();
-            if (sender == null || message.droneUuid == null) {
-                return;
-            }
+    public static void handle(CubedFpvInputMessage message, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer sender) || message.droneUuid == null) {
+            return;
+        }
 
-            Entity drone = sender.serverLevel().getEntity(message.droneUuid);
-            if (drone instanceof GlideBombEntity
-                    || !(drone instanceof CubedFpvDroneEntity)
-                    || !SbwCompat.isUsingLinkedMonitorForDrone(sender, drone)) {
-                return;
-            }
+        Entity drone = sender.serverLevel().getEntity(message.droneUuid);
+        if (drone instanceof GlideBombEntity
+                || !(drone instanceof CubedFpvDroneEntity)
+                || !SbwCompat.isUsingLinkedMonitorForDrone(sender, drone)) {
+            return;
+        }
 
-            CubedFpvInputState.receive(sender, drone, message.keys, message.mouseX, message.mouseY, message.sequence);
-        });
-        context.setPacketHandled(true);
+        CubedFpvInputState.receive(sender, drone, message.keys, message.mouseX, message.mouseY, message.sequence);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

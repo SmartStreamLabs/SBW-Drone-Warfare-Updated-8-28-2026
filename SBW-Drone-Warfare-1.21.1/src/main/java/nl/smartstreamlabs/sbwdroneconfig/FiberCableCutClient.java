@@ -8,11 +8,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public final class FiberCableCutClient {
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(FiberCableCutClient.class);
+        NeoForge.EVENT_BUS.register(FiberCableCutClient.class);
     }
 
     @SubscribeEvent
@@ -113,7 +113,8 @@ public final class FiberCableCutClient {
                 continue;
             }
 
-            Vec3 dynamicSpoolPoint = FiberOpticCableRenderMath.toCubedFpvSpoolAttachment(drone, minecraft.getFrameTime());
+            float partialTick = partialTick(minecraft);
+            Vec3 dynamicSpoolPoint = FiberOpticCableRenderMath.toCubedFpvSpoolAttachment(drone, partialTick);
             List<Vec3> interactionPoints = List.of(FiberOpticCableRenderMath.buildCutInteractionPoints(routeState.points(), dynamicSpoolPoint));
             Optional<FiberCableHitTest.Result> hit = FiberCableHitTest.closestHit(cameraPosition, lookDirection, reach, radius, interactionPoints);
             if (hit.isEmpty()) {
@@ -123,7 +124,7 @@ public final class FiberCableCutClient {
             FiberCableHitTest.Result result = hit.get();
             double distanceFromPlayer = minecraft.player == null
                     ? result.distanceFromOrigin()
-                    : minecraft.player.getEyePosition(minecraft.getFrameTime()).distanceTo(result.closestPointOnCable());
+                    : minecraft.player.getEyePosition(partialTick).distanceTo(result.closestPointOnCable());
             ClientCutTarget candidate = new ClientCutTarget(
                     fiberState.droneEntityId(),
                     routeState.sessionId(),
@@ -155,6 +156,7 @@ public final class FiberCableCutClient {
         Vec3 lookDirection = new Vec3(lookVector.x(), lookVector.y(), lookVector.z());
         double reach = AddonConfig.fiberCableCutReach();
         double radius = AddonConfig.fiberCableInteractionRadius();
+        float partialTick = partialTick(minecraft);
 
         AbandonedClientCutTarget bestTarget = null;
         for (AbandonedFiberCableData.CableRecord cable : AbandonedFiberCableClient.cables()) {
@@ -173,7 +175,7 @@ public final class FiberCableCutClient {
             FiberCableHitTest.Result result = hit.get();
             double distanceFromPlayer = minecraft.player == null
                     ? result.distanceFromOrigin()
-                    : minecraft.player.getEyePosition(minecraft.getFrameTime()).distanceTo(result.closestPointOnCable());
+                    : minecraft.player.getEyePosition(partialTick).distanceTo(result.closestPointOnCable());
             AbandonedClientCutTarget candidate = new AbandonedClientCutTarget(
                     cable.cableId(),
                     result.segmentIndex(),
@@ -194,6 +196,12 @@ public final class FiberCableCutClient {
 
     private static boolean isHoldingShears(LocalPlayer player, InteractionHand hand) {
         return player != null && hand != null && player.getItemInHand(hand).is(Items.SHEARS);
+    }
+
+    private static float partialTick(Minecraft minecraft) {
+        return minecraft == null || minecraft.getTimer() == null
+                ? 1.0F
+                : minecraft.getTimer().getGameTimeDeltaPartialTick(true);
     }
 
     record ClientCutTarget(

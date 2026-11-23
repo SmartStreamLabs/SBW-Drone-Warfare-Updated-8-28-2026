@@ -23,7 +23,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:extraction_crate",
+                   "id":  "sbwdroneconfig:extraction_crate",
                    "count":  1
                }
 }

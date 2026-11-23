@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "RJR",
+    "ITI"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_block"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "R": {
+      "item": "superbwarfare:small_battery_pack"
+    },
+    "J": {
+      "item": "sbwdroneconfig:jammer"
+    },
+    "T": {
+      "item": "minecraft:tripwire_hook"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:mobile_jammer_truck_mj03",
+    "count": 1
+  }
+}

@@ -1,0 +1,489 @@
+{
+  "cubed_fpv_drone_engine": {
+    "subtitle": "subtitles.sbwdroneconfig.cubed_fpv_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:entity/cubed_fpv_drone_engine",
+        "stream": true
+      }
+    ]
+  },
+  "cubed_fpv_drone_engine_near": {
+    "subtitle": "subtitles.sbwdroneconfig.cubed_fpv_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:entity/cubed_fpv_drone_engine",
+        "stream": true,
+        "volume": 1.0,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "cubed_fpv_drone_engine_mid": {
+    "subtitle": "subtitles.sbwdroneconfig.cubed_fpv_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:entity/cubed_fpv_drone_engine",
+        "stream": true,
+        "volume": 0.78,
+        "pitch": 0.92
+      }
+    ]
+  },
+  "cubed_fpv_drone_engine_far": {
+    "subtitle": "subtitles.sbwdroneconfig.cubed_fpv_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:entity/cubed_fpv_drone_engine",
+        "stream": true,
+        "volume": 0.52,
+        "pitch": 0.82
+      }
+    ]
+  },
+  "lucas_drone_engine": {
+    "subtitle": "subtitles.sbwdroneconfig.lucas_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:lucas_drone_engine",
+        "stream": true
+      }
+    ]
+  },
+  "delivery_drone_engine": {
+    "subtitle": "subtitles.sbwdroneconfig.delivery_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:entity/delivery_drone_engine",
+        "stream": true
+      }
+    ]
+  },
+  "glide_bomb_engine": {
+    "subtitle": "subtitles.sbwdroneconfig.glide_bomb_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:glide_bomb_engine",
+        "stream": true
+      }
+    ]
+  },
+  "lucas_drone_engine_near": {
+    "subtitle": "subtitles.sbwdroneconfig.lucas_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:lucas_drone_engine",
+        "stream": true,
+        "volume": 1.0,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "lucas_drone_engine_mid": {
+    "subtitle": "subtitles.sbwdroneconfig.lucas_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:lucas_drone_engine",
+        "stream": true,
+        "volume": 0.82,
+        "pitch": 0.86
+      }
+    ]
+  },
+  "lucas_drone_engine_far": {
+    "subtitle": "subtitles.sbwdroneconfig.lucas_drone_engine",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:lucas_drone_engine",
+        "stream": true,
+        "volume": 0.9,
+        "pitch": 0.92
+      }
+    ]
+  },
+  "drone_close_explosion": {
+    "subtitle": "subtitles.sbwdroneconfig.drone_close_explosion",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": true,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "drone_distant_explosion": {
+    "subtitle": "subtitles.sbwdroneconfig.drone_distant_explosion",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": true,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "drone_5000_block_explosion": {
+    "subtitle": "subtitles.sbwdroneconfig.drone_5000_block_explosion",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": true,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "drone_detection_siren": {
+    "subtitle": "block.sbwdroneconfig.drone_detection_siren",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:block/drone_detection_siren",
+        "stream": true
+      }
+    ]
+  },
+  "drone_radar_beep": {
+    "subtitle": "subtitles.sbwdroneconfig.drone_radar_beep",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:drone_radar_beep",
+        "stream": false
+      }
+    ]
+  },
+  "radar_jammer_tower_loop": {
+    "subtitle": "subtitles.sbwdroneconfig.radar_jammer_tower_loop",
+    "sounds": [
+      {
+        "name": "superbwarfare:radar/radar_search_idle",
+        "volume": 0.85,
+        "pitch": 0.95
+      }
+    ]
+  },
+  "explosion_audio_small_near_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_near_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_near_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_mid_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_mid_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_mid_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_far_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_far_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_far_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_veryfar_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_veryfar_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_small_veryfar_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_near_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_near_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_near_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_close_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_mid_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_mid_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_mid_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_far_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_far_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_far_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_veryfar_0": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_veryfar_1": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "explosion_audio_heavy_veryfar_2": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:explosion_audio/drone_distant_user",
+        "stream": false,
+        "pitch": 1.0,
+        "volume": 1.0
+      }
+    ]
+  },
+  "drone_warning_siren_ds02_alarm": {
+    "subtitle": "subtitles.sbwdroneconfig.ds02",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:block/drone_warning_siren_ds02",
+        "stream": false,
+        "attenuation_distance": 512
+      }
+    ]
+  },
+  "wd01_drive": {
+    "subtitle": "subtitles.sbwdroneconfig.wd01_drive",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:wd01_drive",
+        "attenuation_distance": 64,
+        "stream": false
+      }
+    ]
+  },
+  "injury_heartbeat": {
+    "subtitle": "subtitles.sbwdroneconfig.injury_heartbeat",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:injury_heartbeat",
+        "attenuation_distance": 4
+      }
+    ]
+  },
+  "distance_war_boom": {
+    "subtitle": "subtitles.sbwdroneconfig.distance_war_boom",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:distance_war/distant_war_01",
+        "stream": false,
+        "preload": true
+      }
+    ]
+  },
+  "distance_war_02": {
+    "subtitle": "subtitles.sbwdroneconfig.distance_war_boom",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:distance_war/distant_war_02",
+        "stream": false,
+        "preload": true
+      }
+    ]
+  },
+  "distance_war_03": {
+    "subtitle": "subtitles.sbwdroneconfig.distance_war_boom",
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:distance_war/distant_war_03",
+        "stream": false,
+        "preload": true
+      }
+    ]
+  },
+  "uf01_music": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:music/flag_music",
+        "stream": true
+      }
+    ]
+  },
+  "monitor_drone_link_success": {
+    "sounds": [
+      {
+        "name": "sbwdroneconfig:monitor_drone_link_success",
+        "stream": false
+      }
+    ]
+  },
+  "dwf01_motor": {
+    "sounds": [
+      {
+        "name": "superbwarfare:radar/radar_search_idle",
+        "volume": 0.25,
+        "attenuation_distance": 48
+      }
+    ]
+  }
+}

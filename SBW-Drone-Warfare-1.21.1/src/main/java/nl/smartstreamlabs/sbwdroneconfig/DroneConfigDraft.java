@@ -1,11 +1,15 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 final class DroneConfigDraft {
+    double distanceWarVolume;
     int droneMaxRange;
     boolean enableDroneChunkLoading;
+    boolean enableDroneRemoteChunkTracking;
     int droneChunkLoadRadius;
     boolean enableDronePlayerAnchor;
     boolean enableDroneCrashExplosionDamage;
+    boolean hidePlayerOnMinimapDuringDroneControl;
+    boolean showDroneMarkerInstead;
     int lucasTakeoffAssistTicks;
     double lucasTakeoffForwardBoost;
     double lucasTakeoffUpBoost;
@@ -100,11 +104,15 @@ final class DroneConfigDraft {
     }
 
     void apply() {
+        DistanceWarClientConfig.VOLUME.set(distanceWarVolume);DistanceWarClientConfig.SPEC.save();
         AddonConfig.DRONE_MAX_RANGE_VALUE.set(droneMaxRange);
         AddonConfig.ENABLE_DRONE_CHUNK_LOADING_VALUE.set(enableDroneChunkLoading);
+        AddonConfig.ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE.set(enableDroneRemoteChunkTracking);
         AddonConfig.DRONE_CHUNK_LOAD_RADIUS_VALUE.set(droneChunkLoadRadius);
         AddonConfig.ENABLE_DRONE_PLAYER_ANCHOR_VALUE.set(enableDronePlayerAnchor);
         AddonConfig.ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE.set(enableDroneCrashExplosionDamage);
+        AddonConfig.HIDE_PLAYER_ON_MINIMAP_DURING_DRONE_CONTROL_VALUE.set(hidePlayerOnMinimapDuringDroneControl);
+        AddonConfig.SHOW_DRONE_MARKER_INSTEAD_VALUE.set(showDroneMarkerInstead);
         AddonConfig.LUCAS_TAKEOFF_ASSIST_TICKS_VALUE.set(lucasTakeoffAssistTicks);
         AddonConfig.LUCAS_TAKEOFF_FORWARD_BOOST_VALUE.set(lucasTakeoffForwardBoost);
         AddonConfig.LUCAS_TAKEOFF_UP_BOOST_VALUE.set(lucasTakeoffUpBoost);
@@ -198,12 +206,16 @@ final class DroneConfigDraft {
 
     void resetCategory(DroneConfigCategory category) {
         switch (category) {
+            case DISTANCE_WAR -> distanceWarVolume=1;
             case DRONE -> {
                 droneMaxRange = AddonConfig.DRONE_MAX_RANGE_VALUE.getDefault();
                 enableDroneChunkLoading = AddonConfig.ENABLE_DRONE_CHUNK_LOADING_VALUE.getDefault();
+                enableDroneRemoteChunkTracking = AddonConfig.ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE.getDefault();
                 droneChunkLoadRadius = AddonConfig.DRONE_CHUNK_LOAD_RADIUS_VALUE.getDefault();
                 enableDronePlayerAnchor = AddonConfig.ENABLE_DRONE_PLAYER_ANCHOR_VALUE.getDefault();
                 enableDroneCrashExplosionDamage = AddonConfig.ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE.getDefault();
+                hidePlayerOnMinimapDuringDroneControl = AddonConfig.HIDE_PLAYER_ON_MINIMAP_DURING_DRONE_CONTROL_VALUE.getDefault();
+                showDroneMarkerInstead = AddonConfig.SHOW_DRONE_MARKER_INSTEAD_VALUE.getDefault();
             }
             case LUCAS_FLIGHT -> {
                 lucasTakeoffAssistTicks = AddonConfig.LUCAS_TAKEOFF_ASSIST_TICKS_VALUE.getDefault();
@@ -305,6 +317,7 @@ final class DroneConfigDraft {
                 droneAirborneVolumeMultiplier = AddonConfig.DRONE_AIRBORNE_VOLUME_MULTIPLIER_VALUE.getDefault();
                 droneMaxRange = AddonConfig.DRONE_MAX_RANGE_VALUE.getDefault();
                 enableDroneChunkLoading = AddonConfig.ENABLE_DRONE_CHUNK_LOADING_VALUE.getDefault();
+                enableDroneRemoteChunkTracking = AddonConfig.ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE.getDefault();
                 enableDroneCrashExplosionDamage = AddonConfig.ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE.getDefault();
             }
             case GLIDE_BOMB -> {
@@ -336,11 +349,15 @@ final class DroneConfigDraft {
     }
 
     private void loadFromCurrentConfig() {
+        distanceWarVolume=DistanceWarClientConfig.VOLUME.get();
         droneMaxRange = AddonConfig.droneMaxRange();
         enableDroneChunkLoading = AddonConfig.enableDroneChunkLoading();
+        enableDroneRemoteChunkTracking = AddonConfig.enableDroneRemoteChunkTracking();
         droneChunkLoadRadius = AddonConfig.droneChunkLoadRadius();
         enableDronePlayerAnchor = AddonConfig.enableDronePlayerAnchor();
         enableDroneCrashExplosionDamage = AddonConfig.enableDroneCrashExplosionDamage();
+        hidePlayerOnMinimapDuringDroneControl = AddonConfig.hidePlayerOnMinimapDuringDroneControl();
+        showDroneMarkerInstead = AddonConfig.showDroneMarkerInstead();
         lucasTakeoffAssistTicks = AddonConfig.lucasTakeoffAssistTicks();
         lucasTakeoffForwardBoost = AddonConfig.lucasTakeoffForwardBoost();
         lucasTakeoffUpBoost = AddonConfig.lucasTakeoffUpBoost();

@@ -1,0 +1,1 @@
+Original PD-01 mesh and three complete atlases supplied by the user. Native units: 16 per block; all 175 parts / 5720 triangles / 23 bones retained. Scan-line motion is visual only.

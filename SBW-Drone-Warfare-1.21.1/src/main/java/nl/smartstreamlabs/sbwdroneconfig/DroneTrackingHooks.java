@@ -1,7 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +17,11 @@ public final class DroneTrackingHooks {
     }
 
     public static int getForcedTrackingRangeBlocks(ServerPlayer player, Entity trackedEntity) {
+        if(Dc01Docking.carrier(trackedEntity)!=null&&VatagSessions.controlling(player,Dc01Docking.carrier(trackedEntity)))return getDesiredTrackingRangeBlocks();
+        if(trackedEntity instanceof Rd01Entity && Rd01Sessions.controlling(player,trackedEntity))return getDesiredTrackingRangeBlocks();
+        if(trackedEntity instanceof Rd01HarnessEntity h && h.parent()!=null && Rd01Sessions.controlling(player,h.parent()))return getDesiredTrackingRangeBlocks();
+        if(trackedEntity instanceof MedicalTrailerEntity)return RescueCoupling.trackedBy(player,trackedEntity)?getDesiredTrackingRangeBlocks():0;
+        if(trackedEntity instanceof VatagEntity)return VatagSessions.controlling(player,trackedEntity)?getDesiredTrackingRangeBlocks():0;
         if (!isTrackableDroneForPlayer(player, trackedEntity)) {
             return 0;
         }
@@ -26,8 +30,11 @@ public final class DroneTrackingHooks {
             return getDesiredTrackingRangeBlocks();
         }
 
-        int visualRange = getNearbyPlayerTrackingRangeBlocks();
-        return isWithinTrackingRange(player, trackedEntity, visualRange) ? visualRange : 0;
+        if (isWithinTrackingRange(player, trackedEntity, getNearbyPlayerTrackingRangeBlocks())) {
+            return getNearbyPlayerTrackingRangeBlocks();
+        }
+
+        return 0;
     }
 
     public static int getDesiredTrackingRangeBlocks() {
@@ -39,12 +46,15 @@ public final class DroneTrackingHooks {
     }
 
     private static boolean isTrackableDroneForPlayer(ServerPlayer player, Entity trackedEntity) {
-        return player != null
-                && trackedEntity != null
-                && trackedEntity.isAlive()
-                && !trackedEntity.isRemoved()
-                && player.level() == trackedEntity.level()
-                && SbwCompat.isDrone(trackedEntity);
+        if (player == null || trackedEntity == null || !trackedEntity.isAlive() || trackedEntity.isRemoved()) {
+            return false;
+        }
+
+        if (player.level() != trackedEntity.level()) {
+            return false;
+        }
+
+        return SbwCompat.isDrone(trackedEntity);
     }
 
     private static boolean isWithinTrackingRange(ServerPlayer player, Entity trackedEntity, int rangeBlocks) {
@@ -57,8 +67,7 @@ public final class DroneTrackingHooks {
             return false;
         }
 
-        CompoundTag tag = stack.getTag();
-        if (!SbwCompat.isUsingLinkedMonitor(stack) || tag == null || !tag.contains(SbwCompat.TAG_LINKED_DRONE)) {
+        if (!SbwCompat.isUsingLinkedMonitor(stack) || !AddonStackTags.get(stack).contains(SbwCompat.TAG_LINKED_DRONE)) {
             return false;
         }
 

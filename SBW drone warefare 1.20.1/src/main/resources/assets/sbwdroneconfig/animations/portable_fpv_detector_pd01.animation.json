@@ -1,0 +1,80 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.pd01.scan_sweep": {
+      "loop": true,
+      "animation_length": 1.6,
+      "bones": {
+        "scan_line": {
+          "position": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.8": [
+              0.0,
+              0.62,
+              0.0
+            ],
+            "1.6": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.pd01.button_press": {
+      "loop": false,
+      "animation_length": 0.28,
+      "bones": {
+        "scan_button": {
+          "position": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.1": [
+              0.0,
+              0.0,
+              0.055
+            ],
+            "0.28": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.pd01.encoder_preview": {
+      "loop": true,
+      "animation_length": 2,
+      "bones": {
+        "encoder_knob": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              180.0
+            ],
+            "2": [
+              0.0,
+              0.0,
+              360.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

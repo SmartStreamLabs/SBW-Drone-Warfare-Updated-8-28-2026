@@ -20,7 +20,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:anti_drone_net_panel",
+                   "id":  "sbwdroneconfig:anti_drone_net_panel",
                    "count":  4
                }
 }

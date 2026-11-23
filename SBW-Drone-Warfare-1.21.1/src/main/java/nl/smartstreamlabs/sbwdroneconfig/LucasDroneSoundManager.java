@@ -6,9 +6,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,30 +19,27 @@ import java.util.Set;
 
 public final class LucasDroneSoundManager {
     private static final Map<Integer, LucasDroneEngineSoundInstance> ACTIVE_SOUNDS = new HashMap<>();
-    private static final ResourceLocation PRIMARY_SOUND_RESOURCE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "sounds/lucas_drone_engine.ogg");
-    private static final ResourceLocation FAR_SOUND_RESOURCE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "sounds/lucas_drone_engine.ogg");
+    private static final ResourceLocation PRIMARY_SOUND_RESOURCE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "sounds/lucas_drone_engine.ogg");
+    private static final ResourceLocation FAR_SOUND_RESOURCE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "sounds/lucas_drone_engine.ogg");
     private static boolean resourceAvailabilityLogged;
 
     private LucasDroneSoundManager() {
     }
 
-    public static void init(net.minecraftforge.eventbus.api.IEventBus modBus) {
+    public static void init(net.neoforged.bus.api.IEventBus modBus) {
         modBus.addListener(LucasDroneSoundManager::onClientSetup);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             Minecraft minecraft = Minecraft.getInstance();
-            net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(LucasDroneSoundManager.class);
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(LucasDroneSoundManager.class);
             logSoundResourceAvailability(minecraft);
         });
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
 
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;

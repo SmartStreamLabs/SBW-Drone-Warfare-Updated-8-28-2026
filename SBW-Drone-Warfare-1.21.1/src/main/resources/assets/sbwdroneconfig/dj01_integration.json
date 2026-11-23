@@ -1,0 +1,184 @@
+{
+  "asset": "Directional Drone Jammer DJ-01",
+  "identity": "Original fictional handheld exterior game prop inspired by supplied photo. No real product dimensions or functioning electronics.",
+  "units_per_block": 16,
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "dimensions_blocks": [
+    0.2372778175,
+    0.62348528125,
+    0.9841313706249999
+  ],
+  "bounds_blocks": {
+    "min": [
+      -0.1225,
+      -0.177,
+      -0.702131370625
+    ],
+    "max": [
+      0.1147778175,
+      0.44648528125,
+      0.282
+    ]
+  },
+  "elements": 259,
+  "triangles": 6532,
+  "bones": 20,
+  "clips": 3,
+  "anchor_positions_blocks": {
+    "main_hand_anchor": [
+      0,
+      -0.035,
+      0.195
+    ],
+    "support_hand_anchor": [
+      0,
+      -0.015,
+      -0.3
+    ],
+    "aim_anchor": [
+      0,
+      0.405,
+      -0.7
+    ],
+    "item_origin_anchor": [
+      0,
+      0,
+      0
+    ],
+    "rear_sling_anchor": [
+      0.061,
+      0.11,
+      0.215
+    ]
+  },
+  "bone_pivots_units": {
+    "dj01_root": [
+      0,
+      0,
+      0
+    ],
+    "housing": [
+      0,
+      0,
+      0
+    ],
+    "front_panel": [
+      0,
+      0,
+      0
+    ],
+    "cooling": [
+      0,
+      0,
+      0
+    ],
+    "top_rail": [
+      0,
+      0,
+      0
+    ],
+    "optic": [
+      0,
+      0,
+      0
+    ],
+    "main_grip": [
+      0,
+      0,
+      0
+    ],
+    "support_grip": [
+      0,
+      0,
+      0
+    ],
+    "trigger_guard": [
+      0,
+      0,
+      0
+    ],
+    "controls": [
+      0,
+      0,
+      0
+    ],
+    "battery_cover": [
+      0,
+      0,
+      0
+    ],
+    "sling_loop": [
+      0,
+      0,
+      0
+    ],
+    "trigger": [
+      0,
+      1.36,
+      1.36
+    ],
+    "power_button": [
+      -1.792,
+      4.0,
+      2.64
+    ],
+    "battery_latch": [
+      0,
+      2.56,
+      4.08
+    ],
+    "main_hand_anchor": [
+      0,
+      -0.56,
+      3.12
+    ],
+    "support_hand_anchor": [
+      0,
+      -0.24,
+      -4.8
+    ],
+    "aim_anchor": [
+      0,
+      6.48,
+      -11.2
+    ],
+    "item_origin_anchor": [
+      0,
+      0,
+      0
+    ],
+    "rear_sling_anchor": [
+      0.976,
+      1.76,
+      3.44
+    ]
+  },
+  "suggested_main_hand_centering_units": [
+    0,
+    0.56,
+    -3.12
+  ],
+  "screen_uv_pixels": [
+    272,
+    112,
+    400,
+    176
+  ],
+  "texture_states": {
+    "standby": "directional_jammer_dj01.png",
+    "active": "directional_jammer_dj01_active.png"
+  },
+  "integration_notes": [
+    "Use the main/support hand anchors to fit to the existing Minecraft/SBW item renderer. Actual hand poses need in-game checking.",
+    "Aim is -Z; the open optic aperture is centred near Y=0.405 block, Z=0.032 block.",
+    "Trigger, power button and battery latch have separate cosmetic groups/clips.",
+    "The model implements no jamming, battery use, projectile, attack, range or gameplay behaviour.",
+    "Status display textures are decorative; attach only to real existing item state.",
+    "Use a mesh-capable renderer and cache/batch geometry. Static rendered GUI icons are included separately.",
+    "Do not change drone range, flight controls, existing jammer behaviour or fiber logic while adding the visual asset."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "minecraft_integrated": false
+}

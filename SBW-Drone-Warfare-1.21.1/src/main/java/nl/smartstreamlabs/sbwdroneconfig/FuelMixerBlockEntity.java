@@ -1,6 +1,7 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,6 +25,13 @@ public class FuelMixerBlockEntity extends RandomizableContainerBlockEntity {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
     private int progress;
+    public net.minecraft.world.phys.AABB getRenderBoundingBox() { return new net.minecraft.world.phys.AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX()+1, worldPosition.getY()+1.5, worldPosition.getZ()+1); }
+    private long fm01VisualTicks;
+    public static void clientTick(Level level, BlockPos pos, BlockState state, FuelMixerBlockEntity mixer) {
+        if (state.getValue(FuelMixerBlock.LIT)) mixer.fm01VisualTicks++;
+    }
+    public float fm01Time(float partial) { return (fm01VisualTicks % 40 + (getBlockState().getValue(FuelMixerBlock.LIT) ? partial : 0))/20f; }
+
     private final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int index) {
@@ -180,17 +188,17 @@ public class FuelMixerBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        ContainerHelper.saveAllItems(tag, this.items);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ContainerHelper.saveAllItems(tag, this.items, registries);
         tag.putInt("Progress", progress);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, this.items);
+        ContainerHelper.loadAllItems(tag, this.items, registries);
         this.progress = tag.getInt("Progress");
     }
 }

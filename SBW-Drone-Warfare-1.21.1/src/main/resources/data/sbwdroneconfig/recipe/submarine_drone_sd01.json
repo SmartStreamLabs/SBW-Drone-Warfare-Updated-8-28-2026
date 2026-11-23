@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "BCB",
+    "IRI"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_block"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "B": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "R": {
+      "item": "superbwarfare:small_battery_pack"
+    }
+  },
+  "result": {
+    "id": "superbwarfare:container",
+    "count": 1,
+    "components": {
+      "minecraft:block_entity_data": {
+        "id": "superbwarfare:container",
+        "EntityType": "sbwdroneconfig:submarine_drone_sd01"
+      }
+    }
+  }
+}

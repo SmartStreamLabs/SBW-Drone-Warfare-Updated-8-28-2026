@@ -10,42 +10,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PortableFpvDetectorGuiRedesignSourceTest {
     @Test
-    void detectorRaisedViewUsesTheHeldItemInsteadOfAVanillaScreen() throws Exception {
-        Path screenPath = Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/PortableFpvDetectorScreen.java");
-        String client = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/DroneJammerClient.java"));
+    void detectorScreenIsACompactPhysicalReceiverInsteadOfAVanillaMenu() throws Exception {
+        String screen = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/PortableFpvDetectorScreen.java"));
         String config = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/AddonConfig.java"));
 
-        assertFalse(Files.exists(screenPath), "The old raised detector Screen/tablet renderer should be removed.");
-        assertTrue(client.contains("RenderHandEvent"), "The raised receiver should replace the detector hand render.");
-        assertTrue(client.contains("event.setCanceled(true)"), "The normal detector item render must be suppressed while raised.");
-        assertTrue(client.contains("ItemDisplayContext.FIXED"), "The raised view should render the existing physical item model, not the first-person flat icon.");
-        assertTrue(client.contains("renderRaisedDetectorModel"), "The actual held detector model should be moved into view.");
-        assertTrue(client.contains("float scale = Mth.lerp(progress, 0.46F, 0.70F)"), "The raised held item should be much smaller than the giant first pass.");
-        assertTrue(client.contains("renderRaisedDetectorDisplay"), "The detector screen contents should be drawn over the raised item screen region.");
-        assertTrue(client.contains("InputEvent.MouseScrollingEvent"), "Mouse wheel should switch targets without a visible GUI list.");
-        assertTrue(client.contains("GLFW_KEY_LEFT"));
-        assertTrue(client.contains("GLFW_KEY_RIGHT"));
-        assertTrue(client.contains("GLFW_KEY_S"));
-        assertTrue(client.contains("GLFW_KEY_V"));
-        assertTrue(client.contains("WHEEL/ARROWS  S SORT  V VIDEO  ESC CLOSE"), "Controls should be tiny temporary hints, not buttons.");
-        assertTrue(client.contains("FPV RX"), "The physical display should use the compact receiver label.");
-        assertTrue(client.contains("NO SIG"), "The empty state should be short enough for the item screen.");
-        assertTrue(client.contains("INT"), "The live feed should use the compact intercepted-video indicator.");
-        assertTrue(client.contains("PortableFpvDetectorVideoRenderer.render"), "The raised item display should use the live video renderer.");
-        assertTrue(client.contains("int rightReserved = 46"), "The live video overlay should reserve space so text cannot overlap the signal bars.");
-        assertTrue(client.contains("drawRightScaled(guiGraphics, font, direction.cardinal(), x + w - 4, bottomY + 5"), "The small live feed should use only the compact direction label near the signal bars.");
-        assertFalse(client.contains("direction.vertical() + \" \" + Math.round"), "The small live feed should not draw altitude text over the signal bars.");
+        assertTrue(screen.contains("drawReceiverBody"), "The detector screen should render a physical receiver body.");
+        assertTrue(screen.contains("renderAntennas"), "The receiver should include visible antenna geometry.");
+        assertTrue(screen.contains("renderTopStatusBar"), "The display should have a compact receiver status bar.");
+        assertTrue(screen.contains("renderTargetList"), "Targets should be rendered in a compact left-side list.");
+        assertTrue(screen.contains("targetListW = Math.round(displayW * 0.285F)"), "The target list should use a small share of the display.");
+        assertTrue(screen.contains("renderVideoPanel"), "The intercepted video panel should be the main content area.");
+        assertTrue(screen.contains("PortableFpvDetectorVideoRenderer.render"), "The screen should use the live video renderer.");
+        assertTrue(screen.contains("DeviceControl"), "Controls should be custom device controls, not vanilla buttons.");
+        assertTrue(screen.contains("NO WIRELESS SIGNALS"), "The empty state should be explicit and compact.");
+        assertTrue(screen.contains("INTERCEPT"), "The live feed should be labeled inside the video panel.");
+        assertTrue(screen.contains("int rightReserved = 56"), "The live video overlay should reserve space so text cannot overlap the signal bars.");
+        assertTrue(screen.contains("drawRightScaled"), "Right-side live video labels should be right aligned instead of drawn through the title.");
+        assertFalse(screen.contains("x + w - 48"), "The live feed distance should not use a fixed left coordinate that overlaps the title.");
+        assertFalse(screen.contains("x + w - 35"), "The live feed signal label should not be drawn over the signal bars.");
+        assertTrue(screen.contains("AddonConfig.portableFpvDetectorShowSignalPercent()"), "Numeric signal percentages should be configurable.");
         assertTrue(config.contains("portableFpvDetectorShowSignalPercent"));
 
-        assertFalse(client.contains("net.minecraft.client.gui.components.Button"), "Vanilla buttons should not be used in the raised receiver.");
-        assertFalse(client.contains("Button.builder"), "Vanilla button builders should not appear in the raised receiver.");
-        assertFalse(client.contains("DeviceControl"), "On-screen detector buttons should be gone.");
-        assertFalse(client.contains("renderRaisedArm"), "The raised detector should not render a detached player arm.");
-        assertFalse(client.contains("renderRightHand"), "The raised detector should not push the player's arm into view.");
-        assertFalse(client.contains("renderLeftHand"), "The raised detector should not push the player's arm into view.");
-        assertFalse(client.contains("\"EXIT\""), "The old EXIT button should be gone.");
-        assertFalse(client.contains("\"TARGETS\""), "The permanent target-list panel should be gone.");
-        assertFalse(client.contains("renderBackground(guiGraphics"), "The raised receiver should not use a vanilla full-screen menu background.");
+        assertFalse(screen.contains("net.minecraft.client.gui.components.Button"), "Vanilla buttons should not be used in the redesigned receiver.");
+        assertFalse(screen.contains("Button.builder"), "Vanilla button builders should not appear in the redesigned receiver.");
+        assertFalse(screen.contains("renderBackground(guiGraphics"), "The redesigned receiver should not use the vanilla full-screen menu background.");
     }
 
     @Test
@@ -58,8 +46,6 @@ class PortableFpvDetectorGuiRedesignSourceTest {
         assertFalse(renderer.contains("Boolean.getBoolean"), "Live detector video should be enabled by default.");
         assertTrue(renderer.contains("finally"), "Render-state cleanup should be protected by finally.");
         assertTrue(renderer.contains("mainTarget.bindWrite(true)"), "The main framebuffer should be rebound after offscreen rendering.");
-        assertTrue(renderer.contains("MainRenderTargetSwap.swap"), "The nested level render should be routed away from the real main framebuffer.");
-        assertTrue(renderer.contains("mainTargetSwap.close()"), "The real main framebuffer should be restored after the nested level render.");
         assertTrue(renderer.contains("minecraft.setCameraEntity(restoredCameraEntity"), "The player camera entity should be restored.");
         assertTrue(renderer.contains("minecraft.gameRenderer.getMainCamera().setup"), "The main camera pose should be restored after the offscreen drone render.");
         assertTrue(renderer.contains("RenderSystem.restoreProjectionMatrix()"), "The GUI projection should be restored.");

@@ -3,11 +3,9 @@ package nl.smartstreamlabs.sbwdroneconfig;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@Mod.EventBusSubscriber(modid = SbwDroneRangeConfig.MOD_ID)
 public final class LaserTowerWrenchEvents {
     private LaserTowerWrenchEvents() {
     }

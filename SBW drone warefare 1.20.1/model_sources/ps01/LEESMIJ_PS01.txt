@@ -1,0 +1,55 @@
+PROTECTIVE SHELTER PS-01 — BLOCKBENCH MODEL
+
+OPEN PROTECTIVE_SHELTER_PS01.bbmodel IN BLOCKBENCH.
+De modelnaam is PROTECTIVE_SHELTER_PS01 en de hoofdgroep PS01_Root.
+Alle vier textures zijn ingebed. De losse PNG's zitten ook in dit pakket.
+Het is een Free Model met meshes. Vanilla block/item-JSON-export ondersteunt
+de geometrie niet rechtstreeks; gebruik de renderer van de mod.
+
+VORM EN DETAILS
+Gebaseerd op de door de gebruiker aangeleverde foto van een betonnen shelter.
+Gewelfd dak met echte binnenkant, dikke wanden, acht schuine steunberen,
+gietnaden, bevestigingsdetails, verhoogd plateau en lage instap.
+Vooruitstekend betonnen deurkozijn met witte stalen deur, scharnieren,
+afdichtingen, handgreep en regenrand.
+Bruikbare binnenruimte met twee banken, zes zitankers, twee plafondarmaturen,
+ventilatieroosters en oppervlaktebekabeling.
+Beton, poriën, verwering, deurverf en identificatieplaatje zijn zelf gemaakt.
+
+DEUR
+Groep: Door_Hinged.
+Animatie: animation.ps01.door_open.
+Frame 0 = gesloten, 1,6 seconde = 90 graden geopend.
+De demo blijft op de laatste pose staan. Voor sluiten kan de mod de beweging
+omkeren of de pose zelf aansturen. Het draaipunt is in de groep opgenomen.
+De deurbladbeweging is elke 5 graden gecontroleerd op snijden door het beton.
+
+SCHAAL
+16 modelunits = 1 blok; +Y omhoog en -Z is de ingang.
+Totale voetafdruk inclusief plateau en instap circa 6,20 x 7,08 blokken.
+Hoogte circa 3,76 blokken; hoofdvolume circa 4,00 x 5,78 blokken.
+Vrije vloerbreedte binnen circa 3,40 blokken; diepte circa 5,00 blokken.
+Deuropening circa 1,20 x 2,39 blokken, boven een lage drempel.
+Dit zijn benaderde Minecraft-spelverhoudingen op basis van de foto.
+
+GROEPEN VOOR DE MOD
+Foundation, Shell_Walls, Shell_Roof, Front_Facade, Rear_Facade, Buttresses,
+Door_Frame, Door_Hinged, Door_Hardware_Fixed, Benches, Interior_Fittings,
+Exterior_Fittings en Markings.
+Seat_Anchor_L1 t/m L3 en Seat_Anchor_R1 t/m R3 zijn lege zitankers.
+Lamp_1 en Lamp_2 zijn afzonderlijke lampgroepen.
+PS01_Integration.json bevat de deur-, ingang- en interieurgegevens.
+
+INTEGRATIE
+Dit pakket levert het model. Interactie, plaatsingspreview, collision,
+bewegende deurcollision, zitten, echte verlichting, schade en bescherming
+tegen explosies/scherven moeten nog in de mod worden geprogrammeerd.
+Een enkele massieve hitbox zou de ingang en het interieur blokkeren; bouw
+collision rond de daadwerkelijke wanden, vloer en het dak.
+Het model is spelkunst en geen bouwkundig ontwerp of gecertificeerde shelter.
+
+PREVIEWS
+Gesloten, open, achteraanzicht, deurdetail en interieur zijn rechtstreeks
+uit het meegeleverde model gerenderd. De studiobelichting en brandende
+lampweergave zijn bedoeld om het interieur zichtbaar te presenteren.
+Broncode staat in source. Validatiegegevens en SHA256-checksums zijn bijgevoegd.

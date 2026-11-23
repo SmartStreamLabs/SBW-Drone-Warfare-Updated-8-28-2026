@@ -1,0 +1,40 @@
+{
+  "DefaultZoom": 1.4,
+  "Spread": 5,
+  "Magazine": 1,
+  "Weight": 10,
+  "EmptyReloadTime": 78,
+  "Damage": 650,
+  "ExplosionDamage": 120,
+  "ExplosionRadius": 9,
+  "Headshot": 0,
+  "ZoomReload": false,
+  "SeekTime": 20,
+  "SeekAngle": 10,
+  "SeekRange": 256,
+  "CanGuidedByRadar": false,
+  "AffectedByStealthTarget": false,
+  "MaxTargetHeight": 64,
+  "SeekType": "None",
+  "GunType": "DirectLauncher",
+  "Projectile": "superbwarfare:javelin_missile",
+  "AvailableFireModes": [
+    "Dir"
+  ],
+  "AmmoType": "superbwarfare:javelin_missile",
+  "Icon": "sbwdroneconfig:textures/item/drone_interceptor_launcher_dil01_icon.png",
+  "AvailablePerks": [],
+  "SoundInfo": {
+    "Fire1P": "superbwarfare:javelin_fire_1p",
+    "Fire3P": "superbwarfare:javelin_fire_3p",
+    "Fire3PFar": "superbwarfare:javelin_far",
+    "ReloadEmpty": "superbwarfare:javelin_reload_empty",
+    "Locking": "superbwarfare:javelin_locking",
+    "Locked": "superbwarfare:javelin_locked",
+    "CancellableSounds": [
+      "superbwarfare:javelin_reload_empty",
+      "superbwarfare:javelin_locking",
+      "superbwarfare:javelin_locked"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "Item": "sbwdroneconfig:hand_grenade_hg01",
+  "Entity": "sbwdroneconfig:hand_grenade_hg01",
+  "IsKamikaze": false,
+  "Count": 1,
+  "Data": {
+    "Armed": false
+  },
+  "Scale": [
+    1,
+    1,
+    1
+  ],
+  "Offset": [
+    0,
+    0,
+    0
+  ],
+  "Rotation": [
+    0,
+    0,
+    0
+  ],
+  "TickCount": 0
+}

@@ -1,0 +1,147 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.wd01.propellers_preview": {
+      "loop": true,
+      "animation_length": 1,
+      "bones": {
+        "propeller_port": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              360.0
+            ]
+          }
+        },
+        "propeller_starboard": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              0.0,
+              -360.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.wd01.camera_preview": {
+      "loop": false,
+      "animation_length": 1.5,
+      "bones": {
+        "camera_yaw": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.5": [
+              0.0,
+              35.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              -35.0,
+              0.0
+            ],
+            "1.5": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "camera_pitch": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.5": [
+              -12.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              12.0,
+              0.0,
+              0.0
+            ],
+            "1.5": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.wd01.steering_preview": {
+      "loop": false,
+      "animation_length": 1.2,
+      "bones": {
+        "rudder_port": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.4": [
+              0.0,
+              25.0,
+              0.0
+            ],
+            "0.8": [
+              0.0,
+              -25.0,
+              0.0
+            ],
+            "1.2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "rudder_starboard": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.4": [
+              0.0,
+              25.0,
+              0.0
+            ],
+            "0.8": [
+              0.0,
+              -25.0,
+              0.0
+            ],
+            "1.2": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

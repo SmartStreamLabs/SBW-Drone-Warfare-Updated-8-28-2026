@@ -1,8 +1,8 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.world.entity.Entity;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
 import java.lang.reflect.Method;
@@ -42,7 +42,7 @@ public class CubedFpvDroneModel extends GeoModel<CubedFpvDroneEntity> {
         float angle = spinState.update(drone.tickCount + partialTick, targetSpeed);
 
         for (int index = 0; index < PROPELLER_BONES.length; index++) {
-            CoreGeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
+            GeoBone bone = getAnimationProcessor().getBone(PROPELLER_BONES[index]);
             if (bone != null) {
                 bone.setRotY(angle * PROPELLER_DIRECTIONS[index]);
             }
@@ -50,6 +50,8 @@ public class CubedFpvDroneModel extends GeoModel<CubedFpvDroneEntity> {
     }
 
     private static float getTargetSpeed(CubedFpvDroneEntity drone) {
+        if(drone.getPersistentData().getBoolean("sbwdroneconfigDockPreview"))return .75f;
+        if(Dc01Docking.docked(drone))return isPoweredOff(drone)?0:.75f;
         if (isPoweredOff(drone)) {
             return 0.0F;
         }

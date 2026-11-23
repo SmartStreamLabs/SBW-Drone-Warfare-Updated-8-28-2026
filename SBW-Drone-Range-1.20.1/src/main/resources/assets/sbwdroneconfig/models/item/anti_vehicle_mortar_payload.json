@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "sbwdroneconfig:item/anti_vehicle_mortar_payload"
-  }
-}

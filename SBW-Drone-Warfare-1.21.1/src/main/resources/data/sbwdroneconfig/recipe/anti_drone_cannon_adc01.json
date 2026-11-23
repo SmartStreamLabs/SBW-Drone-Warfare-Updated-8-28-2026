@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SAS",
+    "BMB",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "superbwarfare:steel_block"
+    },
+    "A": {
+      "item": "superbwarfare:heavy_armament_module"
+    },
+    "B": {
+      "item": "superbwarfare:small_battery_pack"
+    },
+    "M": {
+      "item": "superbwarfare:large_motor"
+    }
+  },
+  "result": {
+    "id": "sbwdroneconfig:anti_drone_cannon_adc01",
+    "count": 1
+  }
+}

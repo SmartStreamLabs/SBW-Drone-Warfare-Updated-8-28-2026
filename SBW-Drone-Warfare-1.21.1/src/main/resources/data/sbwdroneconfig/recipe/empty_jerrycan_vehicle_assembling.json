@@ -1,0 +1,11 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "misc",
+  "inputs": [
+    "5 superbwarfare:steel_ingot",
+    "superbwarfare:cell"
+  ],
+  "result": {
+    "item": "sbwdroneconfig:empty_jerrycan"
+  }
+}

@@ -23,6 +23,7 @@ class VehicleAntiDroneNetUpgradeSourceTest {
         assertTrue(tabs.contains("VEHICLE_ANTI_DRONE_NET_UPGRADE"));
         assertTrue(lang.contains("item.sbwdroneconfig.vehicle_anti_drone_net_upgrade"));
         assertTrue(Files.exists(Path.of("src/main/resources/assets/sbwdroneconfig/models/item/vehicle_anti_drone_net_upgrade.json")));
+        assertTrue(Files.exists(Path.of("src/main/resources/data/sbwdroneconfig/recipe/vehicle_anti_drone_net_upgrade.json")));
         assertTrue(Files.exists(Path.of("src/main/resources/data/sbwdroneconfig/recipes/vehicle_anti_drone_net_upgrade.json")));
     }
 
@@ -31,7 +32,7 @@ class VehicleAntiDroneNetUpgradeSourceTest {
         String compat = read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/SbwCompat.java");
         String method = methodBody(compat, "public static boolean hasVehicleAntiDroneNetUpgrade");
 
-        assertTrue(method.contains("isSbwVehicle(vehicle)"));
+        assertTrue(method.contains("isVehicleNetHost(vehicle)"));
         assertTrue(method.contains("for (int slot = 0; slot < size; slot++)"));
         assertTrue(method.contains("getVehicleItem(vehicle, slot)"));
         assertFalse(method.contains("getInventory()"));
@@ -46,21 +47,21 @@ class VehicleAntiDroneNetUpgradeSourceTest {
         assertTrue(block.contains("AntiDroneNetEffectSystem.jamDrone"));
         assertTrue(block.contains("VehicleAntiDroneNetCollisionSystem.tryJamVehicleNet"));
         assertTrue(collision.contains("SbwCompat::hasVehicleAntiDroneNetUpgrade"));
-        assertTrue(collision.contains("VehicleAntiDroneNetGeometry.intersectsSweptShell"));
-        assertTrue(collision.contains("AntiDroneNetEffectSystem.jamDrone"));
+        assertTrue(collision.contains("Vc01Sweep.hit"));
+        assertTrue(read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/Vc01Intercept.java").contains("AntiDroneNetEffectSystem.jamDrone"));
     }
 
     @Test
     void clientPreviewIsRenderOnlyAndUsesTheSharedGeometry() throws IOException {
         String client = read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/VehicleAntiDroneNetClient.java");
 
-        assertTrue(client.contains("RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS"));
+        assertTrue(client.contains("RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES"));
         assertTrue(client.contains("ACTIVE_VEHICLE_NETS"));
         assertTrue(client.contains("handleVehicleNetState"));
-        assertTrue(client.contains("RenderType.entityTranslucent(TEXTURE)"));
-        assertTrue(client.contains("renderTiledQuad"));
-        assertTrue(client.contains("textures/block/anti_drone_net.png"));
-        assertTrue(client.contains("VehicleAntiDroneNetGeometry.createBox"));
+        assertTrue(client.contains("RenderType.entityCutoutNoCull(NET)"));
+        assertTrue(client.contains("Vc01Geometry.matrix"));
+        assertTrue(client.contains("textures/vc01/vc01_net_welded.png"));
+        assertTrue(client.contains("Vc01Geometry.profile"));
         assertTrue(client.contains("clientLevel.entitiesForRendering()"));
         assertFalse(client.contains("RenderType.lines()"));
         assertFalse(client.contains("renderLineBox"));
@@ -68,31 +69,6 @@ class VehicleAntiDroneNetUpgradeSourceTest {
         assertFalse(client.contains("addFreshEntity"));
         assertFalse(client.contains("setBlock"));
         assertFalse(client.contains("ArmorStand"));
-    }
-
-    @Test
-    void vehicleNetUsesSbwHullBoundsNotPlayerOrTurretBounds() throws IOException {
-        String geometry = read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/VehicleAntiDroneNetGeometry.java");
-        String client = read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/VehicleAntiDroneNetClient.java");
-        String collision = read("src/main/java/nl/smartstreamlabs/sbwdroneconfig/VehicleAntiDroneNetCollisionSystem.java");
-
-        assertTrue(geometry.contains("getOBBs"));
-        assertTrue(geometry.contains("getVertices"));
-        assertTrue(geometry.contains("\"BODY\""));
-        assertTrue(geometry.contains("\"MAIN_ENGINE\""));
-        assertTrue(geometry.contains("\"SUB_ENGINE\""));
-        assertTrue(geometry.contains("\"TURRET\""));
-        assertTrue(geometry.contains("partName.contains(\"WHEEL\")"));
-        assertTrue(geometry.contains("\"INTERACTIVE\""));
-        assertTrue(geometry.contains("\"EMPTY\""));
-        assertTrue(geometry.contains("new NetBox(minX, maxX, minY, maxY, minZ, maxZ)"));
-        assertTrue(geometry.contains("public record VehicleBodyBounds"));
-        assertFalse(geometry.contains("Player"));
-        assertFalse(geometry.contains("passenger"));
-        assertFalse(geometry.contains("getPassengers"));
-
-        assertTrue(client.contains("VehicleAntiDroneNetGeometry.createBox"));
-        assertTrue(collision.contains("VehicleAntiDroneNetGeometry.createBox"));
     }
 
     @Test
@@ -105,11 +81,11 @@ class VehicleAntiDroneNetUpgradeSourceTest {
         assertTrue(network.contains("VehicleAntiDroneNetStateMessage"));
         assertTrue(network.contains("syncVehicleAntiDroneNetState"));
         assertTrue(mod.contains("VehicleAntiDroneNetSyncSystem.class"));
-        assertTrue(sync.contains("TickEvent.LevelTickEvent"));
-        assertTrue(sync.contains("SbwCompat::hasVehicleAntiDroneNetUpgrade"));
+        assertTrue(sync.contains("LevelTickEvent.Post"));
+        assertTrue(sync.contains("SbwCompat.hasVehicleAntiDroneNetUpgrade"));
         assertTrue(sync.contains("AddonNetwork.sendVehicleAntiDroneNetState"));
         assertTrue(sync.contains("player.distanceToSqr(vehicle)"));
-        assertTrue(message.contains("PLAY_TO_CLIENT") || network.contains("NetworkDirection.PLAY_TO_CLIENT"));
+        assertTrue(message.contains("implements CustomPacketPayload"));
     }
 
     private static String read(String path) throws IOException {

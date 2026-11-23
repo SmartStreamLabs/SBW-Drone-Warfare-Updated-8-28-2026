@@ -1,1 +1,2 @@
-"Geranium-2" (https://skfb.ly/pztpW) by Karosio is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/).
+Current Geranium aircraft visual resources: Created by the project team; confirmed by the project owner on 2026-11-22. Owner declaration, not independently verified.
+See root LICENSE-ASSETS.md, THIRD-PARTY-NOTICES.md and ASSET-RIGHTS-INVENTORY.csv for exact covered files. No blanket attribution applies to other aircraft/platform or legacy assets.

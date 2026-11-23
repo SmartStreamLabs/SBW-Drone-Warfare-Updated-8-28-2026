@@ -1,0 +1,73 @@
+US ARMY COMBAT SET US-01 — REV02
+
+DEZE VERSIE HERKENNEN
+De modelnaam in Blockbench eindigt op CLASSIC_REV02 of SLIM_REV02.
+De native bestanden in dit ZIP-pakket hebben ook REV02 in de bestandsnaam.
+De losse download kan zijn bestaande bestandsnaam behouden; controleer de
+modelnaam na openen. Dit pakket bevat de opnieuw opgebouwde modellen.
+
+AANGEPAST
+Beide armvlaggen en hun patchpanelen zitten op de buitenzijde van de
+bovenarmen. De gedempte borstpatch is behouden zoals in de referentiefoto.
+De bril is volledig verwijderd: geen brilgroep, montuur, glazen of lenstexture.
+De helm is opnieuw gevormd met een gebogen voorrand, hogere uitsparing bij
+de oren, lagere nekzijde, randafwerking, nieuwe montagedetails en klittenband.
+Camouflagekleuren zijn minder fel. Vest, pouches, stiksels, radio, rugtas,
+kniebeschermers, veters, zool en leerpanelen hebben aanvullende details.
+De richting van onjuist gerichte oppervlakken is hersteld. Alle gesloten
+meshonderdelen zijn op positieve buitenwaartse orientatie gecontroleerd.
+
+OPENEN
+Open CLASSIC_REV02 voor het normale spelersmodel met armen van 4 eenheden.
+Gebruik SLIM_REV02 voor het smalle model met armen van 3 eenheden.
+Alle vijf textures zijn ingebed; de losse PNG-bestanden zijn meegeleverd.
+De vijfde texture is uitsluitend de voorbeeldskin voor de pasvormreferentie.
+
+EIGEN SPELERSSKIN
+Het gezicht en de ogen zijn geen kledinggeometrie of kledingtexture.
+De huid in de renders is een voorbeeld. REFERENCE_PLAYER_HIDE_FOR_EXPORT en
+alle REF_* groepen zijn verborgen en staan op export=false. Sluit ze volledig
+uit bij armor-rendering. De echte speler levert het hoofd en zijn eigen skin.
+De zichtbare oogopening is zonder bril volledig open gehouden.
+
+GROEPEN EN SCHALING
+16 modelelement-eenheden = 1 blok; Y omhoog en -Z vooruit.
+De groepen head, body, right_arm, left_arm, right_leg en left_leg hebben
+eigen draaipunten. Meshposities zijn absolute modelcoordinaten. Trek indien
+nodig de pivot af en zet assen om voor een renderer met lokale botcoordinaten.
+US01_Integration.json bevat de pivots, slotindeling en optionele onderdelen.
+Sjaal, gesloten borstholster en ruguitrusting kunnen apart worden verborgen.
+De ruguitrusting is een eigen interpretatie: de oorspronkelijke foto toont
+de achterkant niet. De holster is een decoratieve gesloten tas, geen wapen.
+
+ANIMATIE EN INTEGRATIE
+animation.us01.fit_walk_preview is een pasvormvoorbeeld. Koppel de kleding
+in de mod aan de echte spelerspose. Controleer lopen, bukken, zitten, kruipen,
+zwemmen en itemgebruik in de uiteindelijke renderer.
+Dit is een Free Model met meshes. Een geschikte renderer of conversie is
+nodig; dit bestand is geen direct installeerbaar Minecraft-armoritem.
+Armorregistratie, bescherming, recepten, icons en networking zijn niet door
+het model geimplementeerd. Static geometry kan per lichaamsdeel worden
+samengevoegd om het aantal draw calls te beperken.
+
+CONTROLE
+Beide bestanden zijn op geometrie, IDs, hiërarchie, UVs, textures, animaties,
+referentieonderdelen, plaatsing van armvlaggen en ontbreken van de bril getest.
+De helm is gecontroleerd tegen het voorbeeldhoofd; enkele stralen controleren
+de vrije oogopening. Zie de JSON-controleverslagen voor de precieze scope.
+Blender-previews verbergen achterwaarts gerichte vlakken om windingproblemen
+zichtbaar te maken. De studiolichtopstelling en vloer horen niet bij de kleding.
+Er is geen Blockbench UI-test of volledige Minecraft-pasvormtest uitgevoerd.
+
+INHOUD
+Classic en Slim native modellen; vijf PNG-textures; negen renders;
+presentatie; integratie- en controle-JSON; bronbestanden; SHA256SUMS.txt.
+De bronnen gebruiken Python, Pillow en numpy; render.py gebruikt Blender.
+De bronnen schrijven uitvoer in hun eigen map. finish.py verwacht de volledige
+projectindeling met renders. Bronbestanden gebruiken de oorspronkelijke native
+bestandsnamen; de modelnamen en het ZIP-pakket bevatten de REV02-markering.
+
+REFERENTIE
+Door gebruiker aangeleverde 71K9li4IQ-L.jpg en correcties in de screenshot.
+Dit is foto-geinspireerde cosmetische spelkleding, geen gecertificeerde
+reproductie van een bepaalde officieel uitgegeven uniformset.

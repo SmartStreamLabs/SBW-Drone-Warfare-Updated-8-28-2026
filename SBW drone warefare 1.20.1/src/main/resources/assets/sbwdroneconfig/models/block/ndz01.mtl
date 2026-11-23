@@ -1,0 +1,11 @@
+newmtl metal
+Kd 1 1 1
+Ka 0 0 0
+d 1
+map_Kd sbwdroneconfig:block/ndz01_metal
+
+newmtl front
+Kd 1 1 1
+Ka 0 0 0
+d 1
+map_Kd sbwdroneconfig:block/ndz01_sign_front_atlas

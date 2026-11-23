@@ -1,30 +1,99 @@
 {
-  "parent": "sbwdroneconfig:block/fuel_mixer",
-  "display": {
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "loader": "neoforge:obj",
+    "model": "sbwdroneconfig:models/block/fm01_full.obj",
+    "mtl_override": "sbwdroneconfig:models/block/fm01.mtl",
+    "flip_v": true,
+    "automatic_culling": false,
+    "render_type": "minecraft:solid",
+    "textures": {
+      "particle": "sbwdroneconfig:block/fuel_mixer_fm01"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          25,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          -2,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "ground": {
+        "translation": [
+          0,
+          2,
+          0
+        ],
+        "scale": [
+          0.3,
+          0.3,
+          0.3
+        ]
+      },
+      "fixed": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "translation": [
+          0,
+          -2,
+          0
+        ]
+      },
+      "thirdperson_righthand": {
+        "rotation": [
+          75,
+          45,
+          0
+        ],
+        "translation": [
+          0,
+          2,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.4,
+          0.4
+        ]
+      },
+      "firstperson_righthand": {
+        "rotation": [
+          0,
+          45,
+          0
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.4,
+          0.4
+        ]
+      }
+    }
+  },
+  "perspectives": {
     "gui": {
-      "rotation": [30, 225, 0],
-      "translation": [0, 0, 0],
-      "scale": [0.625, 0.625, 0.625]
-    },
-    "ground": {
-      "rotation": [0, 0, 0],
-      "translation": [0, 3, 0],
-      "scale": [0.25, 0.25, 0.25]
-    },
-    "fixed": {
-      "rotation": [0, 180, 0],
-      "translation": [0, 0, 0],
-      "scale": [0.5, 0.5, 0.5]
-    },
-    "thirdperson_righthand": {
-      "rotation": [75, 45, 0],
-      "translation": [0, 2.5, 0],
-      "scale": [0.375, 0.375, 0.375]
-    },
-    "firstperson_righthand": {
-      "rotation": [0, 45, 0],
-      "translation": [0, 0, 0],
-      "scale": [0.4, 0.4, 0.4]
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/fuel_mixer"
+      }
     }
   }
 }

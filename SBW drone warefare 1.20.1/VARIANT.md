@@ -1,0 +1,1 @@
+Target Minecraft 1.20.1 Forge, Superb Warfare 0.8.9. Addon 1.0.9-audio.3-sbw089final. Install exactly one matching addon JAR on client and server. Strict metadata rejects other SBW versions; protocol 23-sbw089final. Existing audio.2 behavior, audio assets and VFX retained.

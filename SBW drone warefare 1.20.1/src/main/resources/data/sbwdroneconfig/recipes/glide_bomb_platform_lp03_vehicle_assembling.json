@@ -1,0 +1,15 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "misc",
+  "inputs": [
+    "6 #forge:storage_blocks/steel",
+    "4 minecraft:smooth_stone",
+    "2 minecraft:sticky_piston",
+    "superbwarfare:large_motor",
+    "4 superbwarfare:copper_plate",
+    "2 minecraft:iron_bars"
+  ],
+  "result": {
+    "item": "sbwdroneconfig:glide_bomb_platform_lp03"
+  }
+}

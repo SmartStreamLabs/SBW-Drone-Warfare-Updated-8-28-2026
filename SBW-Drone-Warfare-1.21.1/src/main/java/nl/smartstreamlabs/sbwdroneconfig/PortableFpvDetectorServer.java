@@ -1,11 +1,11 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,6 +22,7 @@ public final class PortableFpvDetectorServer {
         registerAdapter(new BuiltInDetectorAdapter());
     }
 
+    public static UUID selectedForNt01(ServerPlayer player){return SELECTED_TARGETS.get(player.getUUID());}
     private PortableFpvDetectorServer() {
     }
 
@@ -41,7 +42,7 @@ public final class PortableFpvDetectorServer {
         if (player == null || !player.isAlive()) {
             return;
         }
-        if (!DroneJammerItem.isActiveJammerHeld(player)) {
+        if (!DroneJammerItem.isActiveDetectorCarried(player)) {
             clear(player);
             return;
         }
@@ -92,6 +93,7 @@ public final class PortableFpvDetectorServer {
     }
 
     private static void sendScan(ServerPlayer player, List<PortableFpvDetectorTarget> targets, UUID selectedTargetId) {
+        DroneOsdServer.preview(player,targets,selectedTargetId);
         AddonNetwork.sendPortableFpvDetectorScan(player, new PortableFpvDetectorScanMessage(
                 AddonConfig.portableFpvDetectorRange(),
                 targets,
@@ -102,7 +104,7 @@ public final class PortableFpvDetectorServer {
     }
 
     private static boolean canUseDetector(ServerPlayer player) {
-        return player != null && player.isAlive() && DroneJammerItem.isActiveJammerHeld(player);
+        return player != null && player.isAlive() && AddonConfig.enableDroneJammer() && DroneJammerItem.isActiveDetectorCarried(player);
     }
 
     private static UUID selectedTargetFor(ServerPlayer player, List<PortableFpvDetectorTarget> targets) {
@@ -119,6 +121,16 @@ public final class PortableFpvDetectorServer {
         UUID firstTargetId = targets.get(0).droneId();
         SELECTED_TARGETS.put(player.getUUID(), firstTargetId);
         return firstTargetId;
+    }
+
+    static List<PortableFpvDetectorTarget> scanFrom(ServerPlayer player,net.minecraft.world.phys.Vec3 origin,double range) {
+        ServerLevel level=player.serverLevel();List<PortableFpvDetectorTarget> result=new ArrayList<>();
+        for(Entity e:level.getEntities(player,new AABB(origin,origin).inflate(range),e->e.isAlive()&&!e.isRemoved()&&SbwCompat.isDrone(e))){
+            double distance=e.position().distanceTo(origin);var adapter=adapterFor(e);
+            if(distance<=range&&adapter!=null)result.add(adapter.toTarget(level,player,e,distance,range));
+        }
+        result.sort(Comparator.comparingDouble(PortableFpvDetectorTarget::distance));
+        return List.copyOf(result.subList(0,Math.min(17,result.size())));
     }
 
     static List<PortableFpvDetectorTarget> scan(ServerPlayer player) {
@@ -201,7 +213,7 @@ public final class PortableFpvDetectorServer {
 
         @Override
         public PortableFpvDetectorTarget toTarget(ServerLevel level, ServerPlayer player, Entity entity, double distance, double range) {
-            ResourceLocation typeId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+            ResourceLocation typeId = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
             String type = typeId == null ? entity.getType().toString() : typeId.toString();
             SbwCompat.DroneOwnerIdentity owner = SbwCompat.resolveDroneOwner(level, entity);
             boolean active = SbwCompat.getDroneControllerUuid(entity) != null || SbwCompat.findLinkedMonitorController(level, entity) != null;
@@ -251,7 +263,7 @@ public final class PortableFpvDetectorServer {
             if (SbwDroneRangeConfig.DRONE_ENTITY_ID.equals(type)) {
                 return "Superb Warfare Drone";
             }
-            return type;
+            return SbwCompat.getDroneDisplayName(entity);
         }
     }
 }

@@ -1,0 +1,52 @@
+{
+  "model": "PATRIOT_MISSILE_PM01_US_R02",
+  "markings": "U.S. ARMY / PATRIOT / MIM-104 / UNITED STATES; original decorative US flag, not an exact official production stencil",
+  "root": "PM01_Root",
+  "forward_axis": "-Z",
+  "up_axis": "+Y",
+  "units_per_block": 16,
+  "game_length_blocks": 5.65,
+  "body_diameter_blocks": 0.464,
+  "maximum_diagonal_fin_radius_blocks": 0.496,
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "nose_anchor": "Nose_Anchor",
+  "exhaust_anchor": "Exhaust_Anchor",
+  "fin_groups": [
+    "Tail_Fin_1",
+    "Tail_Fin_2",
+    "Tail_Fin_3",
+    "Tail_Fin_4"
+  ],
+  "launcher": "MPL01_COMPLETE_REBUILD_R03",
+  "launcher_local_mount_centers_blocks": [
+    [
+      -0.55,
+      2.85,
+      1.74
+    ],
+    [
+      0.55,
+      2.85,
+      1.74
+    ],
+    [
+      -0.55,
+      3.71,
+      1.74
+    ],
+    [
+      0.55,
+      3.71,
+      1.74
+    ]
+  ],
+  "launcher_parent": "Launcher_Pitch",
+  "launcher_pose": "Mount coordinates are defined in the unrotated truck model. Parent the projectile to Launcher_Pitch or apply its visual transform before showing it.",
+  "integration": "Cosmetic projectile mesh only. Connect spawn, velocity, targeting, inventory, collision, damage and multiplayer in the Minecraft mod. Geometry does not implement real missile systems.",
+  "effects": "Exhaust_Anchor can locate existing mod flame/smoke particles. Particle textures and sounds are not included.",
+  "scope": "Original exterior game art inspired by public Patriot photographs. Game proportions fitted to the existing MPL-01 containers, not an exact engineering reconstruction."
+}

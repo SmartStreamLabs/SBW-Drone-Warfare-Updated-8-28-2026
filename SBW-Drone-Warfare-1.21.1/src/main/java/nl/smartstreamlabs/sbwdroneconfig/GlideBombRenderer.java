@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class GlideBombRenderer extends EntityRenderer<GlideBombEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/item/glide_bomb.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "textures/item/glide_bomb.png");
     private static final float BODY_TRANSLATION_Y = 0.72F;
     private static final float BODY_VISUAL_SCALE = 1.0F;
     private static final float MODEL_YAW_CORRECTION_DEGREES = 180.0F;
@@ -36,6 +36,11 @@ public class GlideBombRenderer extends EntityRenderer<GlideBombEntity> {
         boolean firstPersonCamera = cameraType == CameraType.FIRST_PERSON;
         boolean controllingLinkedDrone = SbwCompat.isUsingLinkedMonitorForDrone(player, entity);
         boolean renderBody = !CubedFpvDroneRenderMath.shouldHideControlledDroneBody(controllingLinkedDrone, firstPersonCamera);
+
+        if(entity.isLp03Fit() && entity.lp03RenderBlend(partialTicks)<1){
+            if(renderBody){float blend=entity.lp03RenderBlend(partialTicks);var stack=new ItemStack(AddonItems.GLIDE_BOMB.get());float pitch=net.minecraft.util.Mth.lerp(partialTicks,entity.xRotO,entity.getXRot())-(float)GlidePlatformLayout.RAIL_PITCH;poseStack.pushPose();poseStack.translate(0,-entity.lp03VisualRise(partialTicks),0);if(blend<=0)GlidePlatformPayloadRenderer.render(stack,entity.level(),entity.getYaw(partialTicks),pitch,entity.getRoll(partialTicks),poseStack,buffer,packedLight);else GlidePlatformPayloadRenderer.renderBridge(stack,entity.level(),entity.getYaw(partialTicks),pitch,entity.getRoll(partialTicks),renderYawDegrees(entity,partialTicks),CubedFpvDroneRenderMath.renderBodyPitchDegrees(entity.getBodyPitch(partialTicks)),CubedFpvDroneRenderMath.renderRollDegrees(entity.getRoll(partialTicks)),BODY_VISUAL_SCALE,BODY_TRANSLATION_Y,blend,poseStack,buffer,packedLight);poseStack.popPose();}
+            super.render(entity,entityYaw,partialTicks,poseStack,buffer,packedLight);return;
+        }
 
         if (renderBody) {
             poseStack.pushPose();

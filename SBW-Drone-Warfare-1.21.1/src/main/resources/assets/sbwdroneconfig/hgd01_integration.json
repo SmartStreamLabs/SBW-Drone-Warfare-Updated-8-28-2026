@@ -1,0 +1,490 @@
+{
+  "asset": "Heavy Ground Drone HGD-01",
+  "identity": "Original fictional game vehicle visually inspired by supplied image. Not a verified real vehicle replica.",
+  "units_per_metre": 16,
+  "blocks_per_metre": 1,
+  "scale": "1 block = 1 metre; real exterior dimensions estimated from a single photograph",
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "hull_shell_length_metres": 7.38,
+  "overall_bounds_metres": {
+    "min": [
+      -1.7395,
+      0.04186006875,
+      -4.0479971034375
+    ],
+    "max": [
+      1.7395,
+      3.14,
+      3.5669000000000004
+    ]
+  },
+  "overall_dimensions_metres": [
+    3.479,
+    3.09813993125,
+    7.6148971034375
+  ],
+  "elements": 1435,
+  "triangles": 86242,
+  "groups": 59,
+  "texture_resolution": [
+    4096,
+    4096
+  ],
+  "passenger_count": 4,
+  "seat_anchor_convention": "Anchor lies on cushion top; seated player transform must be adjusted and tested in-game. Facing rotations are stored on anchors.",
+  "moving_groups": {
+    "rear_ramp": {
+      "pivot_native_units": [
+        0.0,
+        12.64,
+        52.915200000000006
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "turret_yaw": {
+      "pivot_native_units": [
+        0.0,
+        34.24,
+        0.64
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "gun_pitch": {
+      "pivot_native_units": [
+        0.0,
+        43.84,
+        -6.72
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "laser_left_pitch": {
+      "pivot_native_units": [
+        -12.16,
+        47.04,
+        6.08
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "laser_right_pitch": {
+      "pivot_native_units": [
+        12.16,
+        47.04,
+        6.08
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "sensor_yaw": {
+      "pivot_native_units": [
+        -3.52,
+        46.08,
+        5.12
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "sensor_pitch": {
+      "pivot_native_units": [
+        -3.52,
+        48.32,
+        4.8
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roof_hatch_left": {
+      "pivot_native_units": [
+        -19.04,
+        34.712,
+        30.867200000000004
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roof_hatch_right": {
+      "pivot_native_units": [
+        19.04,
+        34.712,
+        30.867200000000004
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_1": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        -36.8
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_2": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        -22.08
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_3": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        -7.359999999999999
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_4": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        6.784000000000001
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_5": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        20.352
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_left_6": {
+      "pivot_native_units": [
+        -22.4,
+        9.76,
+        33.92
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "front_idler_left": {
+      "pivot_native_units": [
+        -22.4,
+        13.12,
+        -49.28
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_idler_left": {
+      "pivot_native_units": [
+        -22.4,
+        13.12,
+        49.28
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_1": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        -36.8
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_2": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        -22.08
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_3": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        -7.359999999999999
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_4": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        6.784000000000001
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_5": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        20.352
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "roadwheel_right_6": {
+      "pivot_native_units": [
+        22.4,
+        9.76,
+        33.92
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "front_idler_right": {
+      "pivot_native_units": [
+        22.4,
+        13.12,
+        -49.28
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_idler_right": {
+      "pivot_native_units": [
+        22.4,
+        13.12,
+        49.28
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_equipment_panel_1": {
+      "pivot_native_units": [
+        -12.96,
+        34.88,
+        48.48
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_equipment_panel_2": {
+      "pivot_native_units": [
+        -4.32,
+        34.88,
+        48.48
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_equipment_panel_3": {
+      "pivot_native_units": [
+        4.32,
+        34.88,
+        48.48
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rear_equipment_panel_4": {
+      "pivot_native_units": [
+        12.96,
+        34.88,
+        48.48
+      ],
+      "bind_rotation_degrees": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "anchors_metres": {
+    "passenger_anchor_left_1": [
+      -0.8,
+      1.1975,
+      0.9858000000000001
+    ],
+    "passenger_anchor_left_2": [
+      -0.8,
+      1.1975,
+      2.1624000000000003
+    ],
+    "passenger_anchor_right_1": [
+      0.8,
+      1.1975,
+      0.9858000000000001
+    ],
+    "passenger_anchor_right_2": [
+      0.8,
+      1.1975,
+      2.1624000000000003
+    ],
+    "gun_muzzle_anchor": [
+      0.0,
+      2.74,
+      -3.84
+    ],
+    "laser_emitter_anchor_left": [
+      -0.76,
+      2.94,
+      -1.02
+    ],
+    "laser_emitter_anchor_right": [
+      0.76,
+      2.94,
+      -1.02
+    ],
+    "vehicle_origin_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "drive_camera_anchor": [
+      -0.46,
+      1.74,
+      -3.64
+    ],
+    "remote_camera_anchor": [
+      -0.22,
+      3.03,
+      0.1
+    ],
+    "entry_anchor": [
+      0.0,
+      0.79,
+      3.6464000000000003
+    ],
+    "roof_service_anchor": [
+      0.0,
+      2.1740000000000004,
+      2.6500000000000004
+    ]
+  },
+  "preview_articulation_degrees": {
+    "main_gun_elevation": 68,
+    "laser_elevation": 68,
+    "ramp_open": 100
+  },
+  "track_shoes_per_side": 92,
+  "track_animation_note": "Individual static shoes, wheel bones; no physics or continuous track-path animation implemented.",
+  "rear_roof_note": "Hide rear_roof and its children to inspect the crew interior; closed roof is normal bind pose.",
+  "scope": "Editable model, cosmetic rig clips and art assets only. No laser, explosive-round, AI, vehicle or multiplayer code.",
+  "blockbench_ui_tested": false,
+  "minecraft_tested": false,
+  "real_dimensions_verified": false,
+  "revision": "Surface and materials revision 3",
+  "visual_changes": [
+    "Long shallow glacis and swept lower bow.",
+    "Longer hull, lower roof and raised end idlers with a rounded trapezoid track run.",
+    "Narrow weapon head and pedestal with a slim central cannon.",
+    "Two long round laser pods and smaller offset observation head.",
+    "Deeper side skirts, varied flank cabinets and four raised rear equipment panels.",
+    "Shorter antennae and smaller number stencils."
+  ],
+  "compatibility_note": "Hull proportions, wheel positions, turret pivots and emitter/camera/passenger anchors changed. Read current integration JSON.",
+  "detail_changes": [
+    "Recessed optical hoods and seals, service fasteners, label strips and connector boots.",
+    "Cosmetic external gun-cradle gaiter, cheek plates and hatch hardware.",
+    "Weld beads, drainage slots, recessed fixings, flush pulls and smaller surface relief.",
+    "Track hinge pins, recessed ends and guide teeth merged into each shoe mesh.",
+    "Cast wheel ribs, hub plugs, rear-panel gussets and roof latch/hinge details.",
+    "Dedicated unique UV atlas with baked contact shading and restrained procedural material weathering."
+  ],
+  "material_bake_pending": false,
+  "unique_packed_uv_atlas": true,
+  "contact_shading": "Local AO baked into base colour in bind pose, maximum darkening 30%; studio light and ground shadows are not baked.",
+  "weathering": "Restrained procedural paint grain, slight convex wear, and irregular lower-body dust.",
+  "orm_texture": "heavy_ground_drone_hgd01_orm.png",
+  "orm_channels": {
+    "R": "ambient occlusion",
+    "G": "roughness",
+    "B": "metallic"
+  },
+  "native_material_note": "BBMODEL embeds the colour atlas. ORM is an optional separate renderer map; native Generic Model does not automatically use it.",
+  "geometry_hierarchy_preserved_after_bake": true
+}

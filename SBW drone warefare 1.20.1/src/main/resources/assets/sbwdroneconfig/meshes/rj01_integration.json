@@ -1,0 +1,289 @@
+{
+  "asset_name": "Radar Jammer Tower RJ-01",
+  "identity": "Original fictional exterior game prop inspired by the supplied existing mod model. Not an engineering design or replica of real jamming hardware.",
+  "units_per_block": 16,
+  "front_axis": "-Z",
+  "up_axis": "+Y",
+  "ground_contact_y_units": 0,
+  "suggested_block_center_translation_units": [
+    8,
+    0,
+    8
+  ],
+  "bone_pivots_units": {
+    "rj01_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cabinet_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cabinet_interior": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mast": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "guards": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fixed_cables": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "service_door": [
+      -10.0,
+      9.5,
+      -6.9
+    ],
+    "cooling_fan": [
+      -5.8,
+      15.9,
+      0.0
+    ],
+    "head_yaw": [
+      5.0,
+      29.1,
+      0.0
+    ],
+    "head_tilt": [
+      5.0,
+      37.0,
+      2.2
+    ],
+    "beacon": [
+      5.0,
+      43.8,
+      -0.4
+    ],
+    "block_origin_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "head_visual_anchor": [
+      5.0,
+      37.0,
+      0.0
+    ],
+    "service_interaction_anchor": [
+      -5.8,
+      10.5,
+      -7.7
+    ],
+    "model_center_anchor": [
+      0.0,
+      22.0,
+      0.0
+    ]
+  },
+  "head_yaw": {
+    "bone": "head_yaw",
+    "axis": "Y",
+    "pivot_units": [
+      5,
+      29.1,
+      0
+    ]
+  },
+  "head_tilt": {
+    "bone": "head_tilt",
+    "axis": "X",
+    "pivot_units": [
+      5,
+      37,
+      2.2
+    ],
+    "cosmetic_preview_degrees": [
+      -8,
+      8
+    ]
+  },
+  "cooling_fan": {
+    "bone": "cooling_fan",
+    "axis": "Y",
+    "pivot_units": [
+      -5.8,
+      15.9,
+      0
+    ]
+  },
+  "service_door": {
+    "bone": "service_door",
+    "axis": "Y",
+    "pivot_units": [
+      -10,
+      9.5,
+      -6.9
+    ],
+    "cosmetic_open_angle_degrees": 75
+  },
+  "screen_uv_pixels": [
+    314,
+    158,
+    442,
+    222
+  ],
+  "screen_pixel_size": [
+    128,
+    64
+  ],
+  "texture_states": {
+    "standby": "radar_jammer_tower_rj01.png",
+    "active": "radar_jammer_tower_rj01_active.png"
+  },
+  "integration_requirements": [
+    "Replace existing Radar Jammer Tower visuals only. Preserve IDs, saves, recipes, placement, range, configuration, energy and existing jammer effects.",
+    "Use mesh-capable renderer; BBMODEL is 16 units/block and static OBJ uses blocks.",
+    "Native geometry is centred at X/Z=0 with ground Y=0; suggested block-centre offset is [8,0,8] native units, apply once relative to the existing renderer.",
+    "Move only head_yaw and its children for azimuth. Move head_tilt and its children for pitch. Yoke is yaw-only; dish/feed/crown beacon tilt together.",
+    "Fixed and moving cable sections meet at the yaw and tilt axis centres; preserve hierarchy or the cables will separate.",
+    "Fan turns about native Y under a genuinely open roof grille. Door and all its controls/latch/louvres open about native Y.",
+    "Clips and cabinet states are cosmetic; they implement no jamming, signal processing or functional RF electronics.",
+    "Only use ACTIVE texture or head/fan motion when compatible with the existing block state. Do not change existing range/configuration values.",
+    "Cabinet interior is a decorative blank equipment prop, not real RF internals.",
+    "Allow visual overhang and the animated head/cabinet door in culling; do not automatically replace collision/placement shape with a giant box.",
+    "Do not add a new multiblock, energy system, service UI or interaction because the visual model has extra detail.",
+    "Beacons are static coloured lenses; blinking needs an existing runtime state/tint or visibility hook."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "neutral_bounds_units": {
+    "min": [
+      -12.0,
+      0.0,
+      -9.03
+    ],
+    "max": [
+      12.0,
+      44.37,
+      9.0
+    ]
+  },
+  "model_dimensions_blocks": [
+    1.5,
+    2.773125,
+    1.126875
+  ],
+  "tilt_preview_minimum_y_units": 30.158906083866842,
+  "fan_actual_radius_units": 3.1148836254345054,
+  "validation": {
+    "elements": 365,
+    "triangles": 12336,
+    "bones": 16,
+    "clips": 4,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "head_yaw_tilt_hierarchy_checked": true,
+    "tilted_head_clear_above_fixed_bearing": true,
+    "four_open_mast_posts": true,
+    "five_blade_fan_clear_of_roof": true,
+    "separate_hinged_service_door": true,
+    "cable_axis_attachment_points_checked": true,
+    "matching_status_texture_uv": true,
+    "seamless_preview_loop_endpoints": true,
+    "ground_datum_checked": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "rj01_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cabinet_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cabinet_interior": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mast": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "guards": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fixed_cables": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "service_door": [
+      -0.625,
+      0.59375,
+      -0.43125
+    ],
+    "cooling_fan": [
+      -0.3625,
+      0.99375,
+      0.0
+    ],
+    "head_yaw": [
+      0.3125,
+      1.81875,
+      0.0
+    ],
+    "head_tilt": [
+      0.3125,
+      2.3125,
+      0.1375
+    ],
+    "beacon": [
+      0.3125,
+      2.7375,
+      -0.025
+    ],
+    "block_origin_anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "head_visual_anchor": [
+      0.3125,
+      2.3125,
+      0.0
+    ],
+    "service_interaction_anchor": [
+      -0.3625,
+      0.65625,
+      -0.48125
+    ],
+    "model_center_anchor": [
+      0.0,
+      1.375,
+      0.0
+    ]
+  }
+}

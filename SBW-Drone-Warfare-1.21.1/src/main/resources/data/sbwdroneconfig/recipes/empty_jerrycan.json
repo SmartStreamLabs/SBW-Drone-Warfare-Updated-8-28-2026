@@ -14,7 +14,7 @@
                       }
             },
     "result":  {
-                   "item":  "sbwdroneconfig:empty_jerrycan",
+                   "id":  "sbwdroneconfig:empty_jerrycan",
                    "count":  1
                }
 }

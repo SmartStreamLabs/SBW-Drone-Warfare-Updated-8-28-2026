@@ -9,12 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ModMetadataLicenseTest {
     @Test
-    void forgeModMetadataUsesGnuGeneralPublicLicense() throws Exception {
-        String buildScript = Files.readString(Path.of("build.gradle"));
+    void modMetadataUsesExistingAgplCodeLicense() throws Exception {
+        String gradleProperties = Files.readString(Path.of("gradle.properties"));
+        String modMetadata = Files.readString(Path.of("src/main/resources/META-INF/neoforge.mods.toml"));
 
         assertTrue(
-                buildScript.contains("mod_license            : 'GNU GENERAL PUBLIC LICENSE'"),
-                "Forge mod metadata should display GNU GENERAL PUBLIC LICENSE in the mod list."
+                gradleProperties.contains("mod_license=GNU AGPL version 3 (LICENSE)")
+                        && modMetadata.contains("license=\"${mod_license}\""),
+                "Mod metadata must preserve AGPL version 3 and its license reference."
         );
     }
 }

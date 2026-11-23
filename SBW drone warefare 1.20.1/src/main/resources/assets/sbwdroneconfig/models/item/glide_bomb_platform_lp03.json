@@ -1,0 +1,68 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "loader": "forge:obj",
+    "model": "sbwdroneconfig:models/item/lp03.obj",
+    "mtl_override": "sbwdroneconfig:models/item/lp03.mtl",
+    "flip_v": true,
+    "automatic_culling": false,
+    "textures": {
+      "particle": "sbwdroneconfig:block/glide_bomb_platform_lp03"
+    },
+    "display": {
+      "gui": {
+        "rotation": [
+          25,
+          225,
+          0
+        ],
+        "translation": [
+          0,
+          -1,
+          0
+        ],
+        "scale": [
+          0.14,
+          0.14,
+          0.14
+        ]
+      },
+      "ground": {
+        "scale": [
+          0.065,
+          0.065,
+          0.065
+        ]
+      },
+      "fixed": {
+        "scale": [
+          0.14,
+          0.14,
+          0.14
+        ]
+      },
+      "firstperson_righthand": {
+        "scale": [
+          0.065,
+          0.065,
+          0.065
+        ]
+      },
+      "thirdperson_righthand": {
+        "scale": [
+          0.065,
+          0.065,
+          0.065
+        ]
+      }
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "sbwdroneconfig:item/gui/glide_bomb_platform_lp03"
+      }
+    }
+  }
+}

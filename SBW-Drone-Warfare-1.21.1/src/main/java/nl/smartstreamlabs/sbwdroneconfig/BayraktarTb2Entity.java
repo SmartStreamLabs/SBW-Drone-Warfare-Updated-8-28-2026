@@ -9,24 +9,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
-
-import static com.atsuishio.superbwarfare.entity.vehicle.DroneEntity.AMMO;
 
 public class BayraktarTb2Entity extends LucasDroneEntity {
     private static final String[] MISSILE_ITEM_IDS = {
@@ -41,18 +36,34 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
     private static final double MISSILE_DOWN_OFFSET = -0.12D;
     private static final float MISSILE_SPEED = 2.35F;
 
+
+    // Purely visual inventory snapshots. These do not add or limit weapon slots.
+    private static final java.util.List<net.minecraft.network.syncher.EntityDataAccessor<ItemStack>> BT01_VISUAL_PAYLOADS = java.util.List.of(
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BayraktarTb2Entity.class, net.minecraft.network.syncher.EntityDataSerializers.ITEM_STACK),
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BayraktarTb2Entity.class, net.minecraft.network.syncher.EntityDataSerializers.ITEM_STACK),
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BayraktarTb2Entity.class, net.minecraft.network.syncher.EntityDataSerializers.ITEM_STACK),
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BayraktarTb2Entity.class, net.minecraft.network.syncher.EntityDataSerializers.ITEM_STACK));
+    private CompoundTag bt01LastVisualInventory;
+
+    @Override
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        for (var visual : BT01_VISUAL_PAYLOADS) builder.define(visual, ItemStack.EMPTY);
+    }
+
     public BayraktarTb2Entity(EntityType<? extends DroneEntity> type, Level level) {
         super(type, level);
     }
 
     @Override
     public void baseTick() {
-        if (!this.level().isClientSide() && this.getFire()) {
+        if (!this.level().isClientSide() && SbwCompat.getDroneFire(this)) {
             tryFireMissile();
-            this.setFire(false);
+            SbwCompat.setDroneFire(this, false);
         }
 
         super.baseTick();
+        if (!this.level().isClientSide()) bt01SyncPayloadVisuals();
     }
 
     @Override
@@ -137,7 +148,7 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
     }
 
     private boolean tryFireMissile() {
-        Player controller = this.getController();
+        Player controller = SbwCompat.getDroneController(this) instanceof Player player ? player : null;
         if (!(this.level() instanceof ServerLevel level)) {
             return false;
         }
@@ -151,7 +162,7 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
             return false;
         }
 
-        Player owner = this.getController();
+        LivingEntity owner = SbwCompat.getDroneController(this) instanceof LivingEntity living ? living : null;
         Vec3 forward = getMissileForwardVector();
         Vec3 spawnPos = this.position()
                 .add(forward.scale(MISSILE_FORWARD_OFFSET))
@@ -161,18 +172,19 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
         missile.moveTo(spawnPos.x, spawnPos.y, spawnPos.z, this.getYRot(), this.getXRot());
         missile.setYRot(this.getYRot());
         missile.setXRot(this.getXRot());
-        FastThrowableProjectile projectile = missile;
-        if (owner != null) {
+        if (missile instanceof FastThrowableProjectile projectile && owner != null) {
             projectile.setOwner(owner);
         }
         missile.shoot(forward.x, forward.y, forward.z, MISSILE_SPEED, 0.35F);
         missile.setDeltaMovement(missile.getDeltaMovement().add(this.getDeltaMovement().scale(0.35D)));
 
         ItemStack missileStack = inventory.getItem(missileSlot);
+        String launchedPayload=net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(missileStack.getItem()).toString();
         missileStack.shrink(1);
         inventory.setItem(missileSlot, missileStack.isEmpty() ? ItemStack.EMPTY : missileStack);
         inventory.saveToDrone();
 
+        DroneExplosionVfx.markPayload(missile);DroneAttackDamage.mark(missile,this,launchedPayload);
         level.addFreshEntity(missile);
         level.playSound(null, spawnPos.x, spawnPos.y, spawnPos.z, SoundEvents.DISPENSER_LAUNCH, SoundSource.NEUTRAL, 1.0F, 0.8F);
         if (controller != null) {
@@ -193,7 +205,7 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
             for (String itemId : MISSILE_ITEM_IDS) {
-                if (stackMatches(stack, itemId)) {
+                if (SbwItemResolver.stackMatches(stack, itemId)) {
                     return slot;
                 }
             }
@@ -201,12 +213,14 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
         return -1;
     }
 
+    public int osdMissileCount(){return countMissiles(new DroneInventoryContainer(this));}
+
     private int countMissiles(DroneInventoryContainer inventory) {
         int count = 0;
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
             for (String itemId : MISSILE_ITEM_IDS) {
-                if (stackMatches(stack, itemId)) {
+                if (SbwItemResolver.stackMatches(stack, itemId)) {
                     count += stack.getCount();
                     break;
                 }
@@ -215,21 +229,43 @@ public class BayraktarTb2Entity extends LucasDroneEntity {
         return count;
     }
 
-    private static boolean stackMatches(ItemStack stack, String itemId) {
-        if (stack == null || stack.isEmpty()) {
-            return false;
-        }
 
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return key != null && itemId.equals(key.toString());
+    /** Read-only display state; the original inventory/weapon code below remains authoritative. */
+    public ItemStack bt01VisualPayload(int socket) { return this.entityData.get(BT01_VISUAL_PAYLOADS.get(socket)); }
+
+    private void bt01SetVisualPayload(int socket, ItemStack display) {
+        var key = BT01_VISUAL_PAYLOADS.get(socket);
+        if (!ItemStack.matches(this.entityData.get(key), display)) this.entityData.set(key, display);
+    }
+
+    private void bt01SyncPayloadVisuals() {
+        CompoundTag stored = this.getPersistentData().contains("sbwdroneconfigDroneInventory", Tag.TAG_COMPOUND)
+                ? this.getPersistentData().getCompound("sbwdroneconfigDroneInventory") : null;
+        if (stored == bt01LastVisualInventory) return;
+        bt01LastVisualInventory = stored;
+        DroneInventoryContainer inventory = new DroneInventoryContainer(this);
+        int socket = 0;
+        for (int slot = 0; slot < inventory.getContainerSize() && socket < BT01_VISUAL_PAYLOADS.size(); slot++) {
+            ItemStack stack = inventory.getItem(slot);
+            for (String itemId : MISSILE_ITEM_IDS) {
+                if (SbwItemResolver.stackMatches(stack, itemId)) {
+                    for (int n = 0; n < stack.getCount() && socket < BT01_VISUAL_PAYLOADS.size(); n++) {
+                        ItemStack display = stack.copy(); display.setCount(1);
+                        bt01SetVisualPayload(socket++, display);
+                    }
+                    break;
+                }
+            }
+        }
+        while (socket < BT01_VISUAL_PAYLOADS.size()) bt01SetVisualPayload(socket++, ItemStack.EMPTY);
     }
 
     private void pickupBayraktar(Player player) {
         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(AddonItems.UKRAINIAN_BAYRAKTAR_TB2.get()));
 
-        for (int index = 0; index < this.entityData.get(AMMO); index++) {
-            if (!this.getCurrentItem().isEmpty()) {
-                ItemHandlerHelper.giveItemToPlayer(player, this.getCurrentItem().copy());
+        for (int index = 0; index < SbwCompat.getDroneAmmo(this); index++) {
+            if (!SbwCompat.getDroneCurrentItem(this).isEmpty()) {
+                ItemHandlerHelper.giveItemToPlayer(player, SbwCompat.getDroneCurrentItem(this).copy());
             }
         }
 

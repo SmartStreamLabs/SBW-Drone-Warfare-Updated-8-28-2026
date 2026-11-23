@@ -1,10 +1,11 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record FiberCableCutEffectMessage(
         int droneEntityId,
@@ -12,7 +13,10 @@ public record FiberCableCutEffectMessage(
         double x,
         double y,
         double z
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<FiberCableCutEffectMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "fiber_cable_cut_effect"));
+
     public static void encode(FiberCableCutEffectMessage message, FriendlyByteBuf buffer) {
         buffer.writeVarInt(message.droneEntityId);
         buffer.writeUUID(message.sessionId);
@@ -31,8 +35,12 @@ public record FiberCableCutEffectMessage(
         );
     }
 
-    public static void handle(FiberCableCutEffectMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        DroneFiberOpticClient.handleCutEffect(message);
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(FiberCableCutEffectMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> DroneFiberOpticClient.handleCutEffect(message));
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

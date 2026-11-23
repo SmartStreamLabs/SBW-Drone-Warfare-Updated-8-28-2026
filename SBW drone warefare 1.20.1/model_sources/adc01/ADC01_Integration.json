@@ -1,0 +1,23 @@
+{
+  "model": "ANTI_DRONE_CANNON_ADC01",
+  "root": "ADC01_Root",
+  "units_per_block": 16,
+  "forward_axis": "-Z",
+  "turret_yaw": "Turret_Yaw",
+  "gun_pitch": "Gun_Elevation",
+  "gun_rest_pitch_degrees": 25,
+  "sensor_yaw": "Sensor_Yaw",
+  "sensor_pitch": "Sensor_Pitch",
+  "sensor_rest_pitch_degrees": 5,
+  "recoil_bone": "Barrel_Recoil",
+  "muzzle_anchor": "Muzzle_Anchor",
+  "interaction_anchor": "Interaction_Anchor",
+  "radar_anchor": "Radar_Anchor",
+  "animations": [
+    "animation.adc01.scan_preview",
+    "animation.adc01.elevation_preview",
+    "animation.adc01.recoil_preview"
+  ],
+  "integration": "Original cosmetic Minecraft asset. Connect detection, target selection, ammunition, firing, damage, audio and networking in mod code. Apply animation offsets relative to the 25-degree barrel rest pose. Muzzle_Anchor follows the actual nested barrel transforms.",
+  "scope": "Photo-inspired exterior game art, approximate game proportions. No functional weapon internals or real fire-control implementation."
+}

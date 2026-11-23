@@ -1,10 +1,11 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record DroneFiberOpticSyncMessage(
         UUID droneId,
@@ -19,7 +20,10 @@ public record DroneFiberOpticSyncMessage(
         double anchorX,
         double anchorY,
         double anchorZ
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DroneFiberOpticSyncMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "drone_fiber_optic_sync"));
+
     public static void encode(DroneFiberOpticSyncMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.droneId);
         buffer.writeVarInt(message.droneEntityId);
@@ -52,8 +56,12 @@ public record DroneFiberOpticSyncMessage(
         );
     }
 
-    public static void handle(DroneFiberOpticSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handle(DroneFiberOpticSyncMessage message, IPayloadContext context) {
         DroneFiberOpticClient.handleSync(message);
-        contextSupplier.get().setPacketHandled(true);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

@@ -1,0 +1,5 @@
+Rescue Drone RD-01
+Original model and texture supplied by the user: Rescue_Drone_RD01_Package.zip, 10 November 2026.
+345 original elements, 10,556 mesh triangles, 33 original bones; 512x512 atlas preserved.
+The fitting scene is reference only and its mannequin is never exported.
+Runtime adds a real-player harness, shared winch/sway transforms and a folding pose for the empty harness.

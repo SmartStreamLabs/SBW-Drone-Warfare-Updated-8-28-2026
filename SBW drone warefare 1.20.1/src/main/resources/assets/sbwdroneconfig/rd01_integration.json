@@ -1,0 +1,502 @@
+{
+  "asset_name": "Rescue Drone RD-01",
+  "reference_identity": "Heavy Shot Ayudag-6 hexacopter; reference-inspired game art, not an engineering replica. Hidden hardware and dimensions are artistic.",
+  "source": "https://mod.gov.ua/en/news/ukraine-evacuation-drones-to-rescue-wounded-soldiers",
+  "units_per_block": 16,
+  "up_axis": "+Y",
+  "forward_axis": "-Z",
+  "authored_pose": "In flight with lowered empty harness. Model Y=0 is a presentation datum; fit avatar soles are at Y=4 and aircraft landing feet at Y=27.5. Use an explicit model offset for runtime placement.",
+  "aircraft_center_units": [
+    0,
+    50,
+    0
+  ],
+  "aircraft_skid_contact_y_units": 27.5,
+  "seat_hips_units": [
+    0,
+    14,
+    0
+  ],
+  "passenger_head_units": [
+    0,
+    30,
+    0
+  ],
+  "rotors": {
+    "rotor_1": {
+      "pivot_units": [
+        31.0,
+        55.6,
+        0.0
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 11.5
+    },
+    "rotor_2": {
+      "pivot_units": [
+        15.500000000000004,
+        55.6,
+        26.846787517317598
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 11.5
+    },
+    "rotor_3": {
+      "pivot_units": [
+        -15.499999999999993,
+        55.6,
+        26.8467875173176
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 11.5
+    },
+    "rotor_4": {
+      "pivot_units": [
+        -31.0,
+        55.6,
+        3.796405077356795e-15
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 11.5
+    },
+    "rotor_5": {
+      "pivot_units": [
+        -15.500000000000014,
+        55.6,
+        -26.84678751731759
+      ],
+      "axis": "Y",
+      "direction": 1,
+      "swept_radius_units": 11.5
+    },
+    "rotor_6": {
+      "pivot_units": [
+        15.500000000000004,
+        55.6,
+        -26.846787517317598
+      ],
+      "axis": "Y",
+      "direction": -1,
+      "swept_radius_units": 11.5
+    }
+  },
+  "bone_pivots_units": {
+    "rd01_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "battery_packs": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "winch_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "winch_drum": [
+      0.0,
+      44.0,
+      1.0
+    ],
+    "camera_pan": [
+      0.0,
+      45.0,
+      -15.0
+    ],
+    "camera_tilt": [
+      0.0,
+      43.8,
+      -15.3
+    ],
+    "suspension_cable": [
+      0.0,
+      42.7,
+      1.0
+    ],
+    "harness_sway": [
+      0.0,
+      37.0,
+      1.0
+    ],
+    "harness_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "harness_gate": [
+      5.1,
+      14.25,
+      -2.1
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      31.0,
+      55.6,
+      0.0
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      15.500000000000004,
+      55.6,
+      26.846787517317598
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      -15.499999999999993,
+      55.6,
+      26.8467875173176
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -31.0,
+      55.6,
+      3.796405077356795e-15
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -15.500000000000014,
+      55.6,
+      -26.84678751731759
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      15.500000000000004,
+      55.6,
+      -26.846787517317598
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      43.8,
+      -17.5
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      68.0,
+      60.0
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      122.0,
+      2.0
+    ],
+    "passenger_hips_anchor": [
+      0.0,
+      14.0,
+      0.0
+    ],
+    "passenger_head_anchor": [
+      0.0,
+      30.0,
+      0.0
+    ],
+    "pickup_interaction_anchor": [
+      0.0,
+      18.0,
+      -4.0
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      50.0,
+      0.0
+    ],
+    "aircraft_ground_contact_anchor": [
+      0.0,
+      27.5,
+      0.0
+    ]
+  },
+  "passenger_anchor": "passenger_hips_anchor",
+  "camera_anchor": "monitor_camera_anchor",
+  "camera_direction": [
+    0,
+    0,
+    -1
+  ],
+  "fit_scene": "RD01_Player_Fit_Scene.bbmodel",
+  "passenger_render": "Real player/entity, seated under the drone; preserve player skin, armour and identity. Apply a seated rescue pose with bent knees, hips at the specified anchor. Do not spawn the fitting mannequin.",
+  "physics": "Use existing Drone Warfare aerial drone controller/physics and existing SBW-compatible infrastructure. Do not apply the tracked rover physics or a fixed flight-attitude override.",
+  "runtime_requirements": [
+    "Separate controller at monitor and carried passenger: operator remains at the monitor.",
+    "Server-authoritative attachment: one real passenger, synchronized vehicle ID and attachment state; reject duplicate mounting.",
+    "Only attach through explicit interaction; do not automatically grab by proximity.",
+    "Suspend actual passenger from harness_sway: same interpolated transform for all harness geometry and player.",
+    "F5 cycle: front monitor camera, rear third person, overhead; camera positions and bounds based on the aircraft, not the operator.",
+    "Lower/retract runtime cable procedurally from fairlead to suspension eye; keep the line connected. Provided asset uses one fixed lowered presentation length. Do not animate only the passenger and leave the strap behind.",
+    "Release near a valid ground location; restore normal player pose/camera on dismount, death, disconnect, destruction and world reload.",
+    "Before touchdown, lower/release the passenger or provide a properly fitted runtime hoist/retracted pose. Default hanging passenger extends below landing skids.",
+    "Use body and rotor extents for clearance checks. Cosmetic render meshes are not collision shapes.",
+    "All five clips are cosmetic previews; winch drum clip does not retract the line or implement a hoist.",
+    "Use native mesh-capable renderer; cube-only Bedrock/Java export loses geometry. Animation JSON alone is not a complete Minecraft model."
+  ],
+  "blockbench_ui_tested": false,
+  "in_game_tested": false,
+  "recommended_model_translation_units": [
+    0,
+    -50,
+    0
+  ],
+  "passenger_hips_from_aircraft_center_units": [
+    0,
+    -36,
+    0
+  ],
+  "seat_surface_y_units": 10,
+  "fit_avatar_sole_y_units": 4,
+  "neutral_bounds_units": {
+    "min": [
+      -42.4342601670384,
+      8.7,
+      -37.57686344002824
+    ],
+    "max": [
+      42.4342601670384,
+      65.85,
+      37.57686344002825
+    ]
+  },
+  "model_dimensions_blocks": [
+    5.3042825208798,
+    3.5718749999999995,
+    4.697107930003531
+  ],
+  "rotor_actual_swept_radius_units": {
+    "rotor_1": 11.546930328013588,
+    "rotor_2": 11.54693032801359,
+    "rotor_3": 11.546930328013593,
+    "rotor_4": 11.54693032801359,
+    "rotor_5": 11.54693032801359,
+    "rotor_6": 11.54693032801359
+  },
+  "validation": {
+    "elements": 345,
+    "triangles": 10556,
+    "bones": 33,
+    "clips": 5,
+    "closed_native_triangle_meshes": true,
+    "zero_mesh_origins": true,
+    "unique_hierarchy_references": true,
+    "uv_bounds_checked": true,
+    "six_rotor_swept_discs_clear_each_other_and_body": true,
+    "seamless_preview_loop_endpoints": true,
+    "head_clearance_checked_at_bind_pose": true,
+    "vanilla_scale_fit_reference": true,
+    "seat_thigh_contact_checked": true,
+    "no_fake_patient_in_production_model": true,
+    "blockbench_ui_tested": false,
+    "in_game_tested": false
+  },
+  "obj_units_per_block": 1,
+  "obj_part_pivots_blocks": {
+    "rd01_root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "airframe": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "battery_packs": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "landing_gear": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "electronics": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "winch_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "winch_drum": [
+      0.0,
+      2.75,
+      0.0625
+    ],
+    "camera_pan": [
+      0.0,
+      2.8125,
+      -0.9375
+    ],
+    "camera_tilt": [
+      0.0,
+      2.7375,
+      -0.95625
+    ],
+    "suspension_cable": [
+      0.0,
+      2.66875,
+      0.0625
+    ],
+    "harness_sway": [
+      0.0,
+      2.3125,
+      0.0625
+    ],
+    "harness_frame": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "harness_gate": [
+      0.31875,
+      0.890625,
+      -0.13125
+    ],
+    "arm_1": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_1": [
+      1.9375,
+      3.475,
+      0.0
+    ],
+    "arm_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_2": [
+      0.9687500000000002,
+      3.475,
+      1.6779242198323499
+    ],
+    "arm_3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_3": [
+      -0.9687499999999996,
+      3.475,
+      1.67792421983235
+    ],
+    "arm_4": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_4": [
+      -1.9375,
+      3.475,
+      2.372753173347997e-16
+    ],
+    "arm_5": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_5": [
+      -0.9687500000000009,
+      3.475,
+      -1.6779242198323494
+    ],
+    "arm_6": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_6": [
+      0.9687500000000002,
+      3.475,
+      -1.6779242198323499
+    ],
+    "monitor_camera_anchor": [
+      0.0,
+      2.7375,
+      -1.09375
+    ],
+    "chase_camera_anchor": [
+      0.0,
+      4.25,
+      3.75
+    ],
+    "overhead_camera_anchor": [
+      0.0,
+      7.625,
+      0.125
+    ],
+    "passenger_hips_anchor": [
+      0.0,
+      0.875,
+      0.0
+    ],
+    "passenger_head_anchor": [
+      0.0,
+      1.875,
+      0.0
+    ],
+    "pickup_interaction_anchor": [
+      0.0,
+      1.125,
+      -0.25
+    ],
+    "aircraft_center_anchor": [
+      0.0,
+      3.125,
+      0.0
+    ],
+    "aircraft_ground_contact_anchor": [
+      0.0,
+      1.71875,
+      0.0
+    ]
+  }
+}

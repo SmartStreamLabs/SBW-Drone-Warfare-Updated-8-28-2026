@@ -1,0 +1,13 @@
+{
+  "units_per_block": 16,
+  "tool_group": "Tool",
+  "grip_anchor": "Grip_Anchor",
+  "grip_origin_model_units": [
+    0,
+    12.48,
+    0.56
+  ],
+  "animation": "animation.rs01.scoop_preview",
+  "scope": "Editable visual asset. Rubble targeting, cleanup progress, item durability, drops and multiplayer handling must be implemented in the mod.",
+  "display": "Fit held-item, GUI and dropped-item transforms in the mod renderer. The scoop preview rotates the complete tool around the grip."
+}

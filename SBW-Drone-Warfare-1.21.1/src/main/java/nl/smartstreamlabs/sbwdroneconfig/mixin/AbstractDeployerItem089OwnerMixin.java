@@ -2,6 +2,7 @@ package nl.smartstreamlabs.sbwdroneconfig.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.UseOnContext;
@@ -40,13 +41,7 @@ public abstract class AbstractDeployerItem089OwnerMixin {
             remap = false,
             require = 0
     )
-    private boolean sbwdroneconfig$assignOwnerBeforeUseSpawn(
-            ServerLevel level,
-            Entity entity,
-            Level originalLevel,
-            Player player,
-            InteractionHand hand
-    ) {
+    private boolean sbwdroneconfig$assignOwnerBeforeUseSpawn(ServerLevel level, Entity entity, Level originalLevel, Player player, InteractionHand hand) {
         if (player != null) {
             SbwCompat.assignDroneOwner(entity, player);
         }

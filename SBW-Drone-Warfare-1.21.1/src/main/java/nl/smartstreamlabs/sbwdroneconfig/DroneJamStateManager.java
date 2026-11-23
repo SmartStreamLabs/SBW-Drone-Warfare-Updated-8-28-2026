@@ -6,8 +6,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ public final class DroneJamStateManager {
     }
 
     public static void recordInfluence(ServerLevel level, Entity drone, double distance, double range) {
-        if (level == null || drone == null || !drone.isAlive() || !SbwCompat.isDrone(drone) || !AddonConfig.enableDroneJammer()) {
+        if (level == null || drone == null || !drone.isAlive() || !(drone instanceof Hgd01Entity)&&!SbwCompat.isDrone(drone) || !AddonConfig.enableDroneJammer()) {
             return;
         }
         if (FiberOpticLinkSystem.isImmuneToNormalJammers(drone)) {
@@ -38,7 +38,7 @@ public final class DroneJamStateManager {
 
         long gameTime = level.getGameTime();
         JamState state = STATES.computeIfAbsent(drone.getUUID(), JamState::new);
-        state.controllerPlayerId = state.controllerPlayerId != null ? state.controllerPlayerId : SbwCompat.getDroneControllerUuid(drone);
+        state.controllerPlayerId = state.controllerPlayerId != null ? state.controllerPlayerId : drone instanceof Hgd01Entity h&&h.operator()!=null?h.operator().getUUID():SbwCompat.getDroneControllerUuid(drone);
         if (state.lastInfluenceTick != gameTime) {
             state.lastInfluenceTick = gameTime;
             state.strongestInfluenceThisTick = influence;
@@ -50,7 +50,7 @@ public final class DroneJamStateManager {
     }
 
     public static void markControlled(ServerPlayer player, Entity drone) {
-        if (player == null || drone == null || !SbwCompat.isDrone(drone)) {
+        if (player == null || drone == null || !(drone instanceof Hgd01Entity)&&!SbwCompat.isDrone(drone)) {
             return;
         }
 
@@ -81,11 +81,12 @@ public final class DroneJamStateManager {
     }
 
     @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END || event.getServer() == null) {
+    public static void onServerTick(ServerTickEvent.Post event) {
+        if (event.getServer() == null) {
             return;
         }
 
+        Dj01System.tick(event.getServer());
         if (!AddonConfig.enableDroneJammer()) {
             if (!STATES.isEmpty()) {
                 STATES.clear();
@@ -103,7 +104,7 @@ public final class DroneJamStateManager {
         while (iterator.hasNext()) {
             JamState state = iterator.next();
             Entity drone = findDrone(server, state.droneId);
-            if (drone == null || !drone.isAlive() || !SbwCompat.isDrone(drone)) {
+            if (drone == null || !drone.isAlive() || !(drone instanceof Hgd01Entity)&&!SbwCompat.isDrone(drone)) {
                 iterator.remove();
                 continue;
             }
@@ -152,7 +153,7 @@ public final class DroneJamStateManager {
                             Component.translatable("message.sbwdroneconfig.drone_jammed_hard").withStyle(ChatFormatting.RED),
                             true
                     );
-                    DroneWaterDisconnectSystem.forceControlDisconnect(serverLevel, drone);
+                    if(drone instanceof Hgd01Entity||drone instanceof Gad01Entity)VatagSessions.stop(controller);else DroneWaterDisconnectSystem.forceControlDisconnect(serverLevel, drone);
                     state.hardDisconnectLatched = true;
                     syncIfNeeded(controller, state, true);
                 }
@@ -229,6 +230,8 @@ public final class DroneJamStateManager {
             return null;
         }
 
+        if(drone instanceof Gad01Entity g)return g.operator();
+        if(drone instanceof Hgd01Entity h)return h.operator();
         if (state.controllerPlayerId != null) {
             ServerPlayer directPlayer = server.getPlayerList().getPlayer(state.controllerPlayerId);
             if (directPlayer != null && SbwCompat.isUsingLinkedMonitorForDrone(directPlayer, drone)) {

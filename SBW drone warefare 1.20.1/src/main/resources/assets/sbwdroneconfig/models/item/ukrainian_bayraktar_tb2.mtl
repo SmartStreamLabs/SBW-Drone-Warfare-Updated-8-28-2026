@@ -1,0 +1,7 @@
+newmtl BT01
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+illum 2
+map_Kd sbwdroneconfig:item/ukrainian_bayraktar_tb2

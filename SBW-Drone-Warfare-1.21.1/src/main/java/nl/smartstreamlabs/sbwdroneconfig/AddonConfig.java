@@ -1,10 +1,9 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.event.config.ModConfigEvent;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,214 +11,229 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = SbwDroneRangeConfig.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class AddonConfig {
-    public static final ForgeConfigSpec SPEC;
-    public static final ForgeConfigSpec.IntValue DRONE_MAX_RANGE_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_VISUAL_TRACKING_RANGE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_SPEED_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_CHUNK_LOADING_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_CHUNK_LOAD_RADIUS_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_PROACTIVE_LOAD_RADIUS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_DRONE_CHUNK_LOADING_VALUE;
-    public static final ForgeConfigSpec.BooleanValue EXPERIMENTAL_DRONE_CLIENT_CHUNK_CENTER_SYNC_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_PLAYER_ANCHOR_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE;
-    public static final ForgeConfigSpec.IntValue LUCAS_TAKEOFF_ASSIST_TICKS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_TAKEOFF_FORWARD_BOOST_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_TAKEOFF_UP_BOOST_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_MIN_SPEED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_MAX_SPEED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_ACCELERATION_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_DRAG_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_TURN_RATE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_PITCH_RATE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_CLIMB_SPEED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_DESCEND_SPEED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_LIFT_STRENGTH_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_ROLL_VISUAL_AMOUNT_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_MIN_LIFT_SPEED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_STALL_GRAVITY_VALUE;
-    public static final ForgeConfigSpec.BooleanValue LUCAS_STALL_ENABLED_VALUE;
-    public static final ForgeConfigSpec.BooleanValue LUCAS_CAN_HOVER_VALUE;
-    public static final ForgeConfigSpec.IntValue LUCAS_MAX_FUEL_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_IDLE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_FLYING_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_CLIMB_VALUE;
-    public static final ForgeConfigSpec.IntValue LUCAS_LOW_FUEL_WARNING_PERCENT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue LUCAS_CAN_FLY_WITHOUT_FUEL_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_HUD_SCALE_VALUE;
-    public static final ForgeConfigSpec.IntValue FUEL_MIXER_PROCESS_TIME_VALUE;
-    public static final ForgeConfigSpec.IntValue GASOLINE_JERRYCAN_FUEL_AMOUNT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_THERMAL_VISION_VALUE;
-    public static final ForgeConfigSpec.IntValue THERMAL_VISION_RANGE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue THERMAL_VISION_KEYBIND_ENABLED_VALUE;
-    public static final ForgeConfigSpec.BooleanValue THERMAL_VISION_NOISE_EFFECT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue THERMAL_HIGHLIGHT_PLAYERS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue THERMAL_HIGHLIGHT_HOSTILE_MOBS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue THERMAL_HIGHLIGHT_ANIMALS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_BATTERY_SYSTEM_VALUE;
-    public static final ForgeConfigSpec.IntValue MAX_ENERGY_VALUE;
-    public static final ForgeConfigSpec.IntValue ENERGY_USE_PER_TICK_VALUE;
-    public static final ForgeConfigSpec.IntValue IDLE_ENERGY_USE_PER_TICK_VALUE;
-    public static final ForgeConfigSpec.IntValue LOW_ENERGY_THRESHOLD_VALUE;
-    public static final ForgeConfigSpec.BooleanValue RETURN_HOME_ON_EMPTY_VALUE;
-    public static final ForgeConfigSpec.IntValue BATTERY_TRANSFER_RATE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_SIREN_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_SIREN_RANGE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_SIREN_REDSTONE_OUTPUT_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_SIREN_COOLDOWN_TICKS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DETECT_FRIENDLY_DRONES_VALUE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_OWNER_NAMES_VALUE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_OWNER_UUIDS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue IGNORE_OWNERLESS_DRONES_VALUE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_NAMES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue IGNORE_UNNAMED_DRONES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue BLACKLIST_MATCH_CASE_INSENSITIVE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_JAMMER_VALUE;
-    public static final ForgeConfigSpec.IntValue JAMMER_RANGE_VALUE;
-    public static final ForgeConfigSpec.IntValue JAMMER_BUILD_UP_TICKS_VALUE;
-    public static final ForgeConfigSpec.IntValue JAMMER_RECOVERY_TICKS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue HARD_JAM_THRESHOLD_VALUE;
-    public static final ForgeConfigSpec.DoubleValue CONTROL_INTERFERENCE_THRESHOLD_VALUE;
-    public static final ForgeConfigSpec.DoubleValue OVERLAY_START_THRESHOLD_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_JAMMER_VALUE;
-    public static final ForgeConfigSpec.EnumValue<DroneJammerMode> JAMMER_MODE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue AFFECT_FRIENDLY_DRONES_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_RADAR_DETECTION_RANGE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_RADAR_BEEP_ENABLED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_RADAR_BEEP_VOLUME_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_RADAR_MIN_BEEP_INTERVAL_TICKS_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_RADAR_MAX_BEEP_INTERVAL_TICKS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_RADAR_ONLY_BEEP_WHEN_HELD_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_RADAR_HUD_SCALE_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_RADAR_HUD_X_OFFSET_VALUE;
-    public static final ForgeConfigSpec.IntValue DRONE_RADAR_HUD_Y_OFFSET_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_RADAR_COMPACT_MODE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_DRONE_RADAR_VALUE;
-    public static final ForgeConfigSpec.IntValue PORTABLE_FPV_DETECTOR_RANGE_VALUE;
-    public static final ForgeConfigSpec.IntValue PORTABLE_FPV_DETECTOR_SCAN_INTERVAL_TICKS_VALUE;
-    public static final ForgeConfigSpec.IntValue PORTABLE_FPV_DETECTOR_MAXIMUM_TARGETS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_VIDEO_ENABLED_VALUE;
-    public static final ForgeConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_DETECT_OWN_DRONES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_REQUIRE_LINE_OF_SIGHT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE;
-    public static final ForgeConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_SHOW_SIGNAL_PERCENT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_FIBER_OPTIC_MODE_VALUE;
-    public static final ForgeConfigSpec.IntValue FIBER_OPTIC_CABLE_LENGTH_VALUE;
-    public static final ForgeConfigSpec.IntValue FIBER_OPTIC_CABLE_BREAK_DELAY_TICKS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_OPTIC_EXTRA_BATTERY_DRAIN_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.BooleanValue NORMAL_JAMMERS_AFFECT_FIBER_OPTIC_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ANTI_DRONE_NET_CUTS_FIBER_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ANTI_DRONE_NET_PANEL_REQUIRES_SUPPORT_VALUE;
-    public static final ForgeConfigSpec.DoubleValue ANTI_DRONE_NET_PANEL_TRIGGER_THICKNESS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue ANTI_DRONE_NET_PANEL_VISUAL_THICKNESS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue VEHICLE_ANTI_DRONE_NET_ENABLED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_HORIZONTAL_PADDING_VALUE;
-    public static final ForgeConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_TOP_PADDING_VALUE;
-    public static final ForgeConfigSpec.BooleanValue VEHICLE_ANTI_DRONE_NET_STOPS_DRONES_VALUE;
-    public static final ForgeConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_OPACITY_VALUE;
-    public static final ForgeConfigSpec.BooleanValue NET_BULK_PLACEMENT_ENABLED_VALUE;
-    public static final ForgeConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_WIDTH_VALUE;
-    public static final ForgeConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_HEIGHT_VALUE;
-    public static final ForgeConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_BLOCKS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue NET_BULK_PLACEMENT_MAXIMUM_REACH_VALUE;
-    public static final ForgeConfigSpec.BooleanValue NET_BULK_PLACEMENT_ALL_OR_NOTHING_VALUE;
-    public static final ForgeConfigSpec.BooleanValue NET_BULK_PLACEMENT_SKIP_BLOCKED_VALUE;
-    public static final ForgeConfigSpec.IntValue NET_BULK_PLACEMENT_BLOCKS_PER_TICK_VALUE;
-    public static final ForgeConfigSpec.IntValue NET_BULK_PLACEMENT_UNDO_SECONDS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_FIBER_OPTIC_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_VISUAL_THICKNESS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_VISUAL_ALPHA_VALUE;
-    public static final ForgeConfigSpec.ConfigValue<String> FIBER_CABLE_VISUAL_COLOR_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_MAX_RENDER_DISTANCE_VALUE;
-    public static final ForgeConfigSpec.IntValue MAX_VISIBLE_FIBER_CABLES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_ROUTE_HISTORY_ENABLED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_ROUTE_POINT_SPACING_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_ROUTE_MINIMUM_TURN_DISTANCE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_ROUTE_TURN_ANGLE_THRESHOLD_VALUE;
-    public static final ForgeConfigSpec.IntValue FIBER_ROUTE_MAXIMUM_POINTS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_ROUTE_CORNER_SMOOTHING_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_ROUTE_DEBUG_LOGGING_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_CUT_BY_OWNER_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_CUT_BY_OTHER_PLAYERS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CUT_REQUIRES_SHEARS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_CUT_REACH_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_INTERACTION_RADIUS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CUT_LINE_OF_SIGHT_REQUIRED_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_TARGET_INDICATOR_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_DEBUG_VISUAL_THICKNESS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_SPACING_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_HEALTH_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_HITBOX_SIZE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_PLAYERS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_PROJECTILES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_EXPLOSIONS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_PROJECTILE_RAYCAST_BREAK_VALUE;
-    public static final ForgeConfigSpec.BooleanValue FIBER_CABLE_BREAKS_WHEN_ANY_SEGMENT_DESTROYED_VALUE;
-    public static final ForgeConfigSpec.IntValue MAX_FIBER_CABLE_SEGMENTS_PER_DRONE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_FIBER_CABLE_RENDER_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_FIBER_CABLE_SEGMENTS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue RENDER_RED_DEBUG_CABLE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue RENDER_LEGACY_FIBER_LINE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue WEATHER_EFFECTS_ENABLED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue RAIN_VISIBILITY_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.DoubleValue STORM_INSTABILITY_STRENGTH_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_DRONE_SCREENSHOT_SOUND_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_ENGINE_VOLUME_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_ENGINE_VOLUME_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_MONITOR_HUM_VOLUME_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_AIRBORNE_VOLUME_MULTIPLIER_VALUE;
-    public static final ForgeConfigSpec.DoubleValue CUBED_FPV_EXTERNAL_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue CUBED_FPV_NEAR_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue CUBED_FPV_MID_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue CUBED_FPV_FAR_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_EXTERNAL_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_NEAR_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_MID_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue LUCAS_FAR_VOLUME_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_INTERNAL_AUDIO_GAIN_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_DOPPLER_ENABLED_VALUE;
-    public static final ForgeConfigSpec.DoubleValue DRONE_DOPPLER_STRENGTH_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DRONE_AUDIO_OCCLUSION_VALUE;
-    public static final ForgeConfigSpec.IntValue MAX_AUDIBLE_CUBED_FPV_DRONES_VALUE;
-    public static final ForgeConfigSpec.IntValue MAX_AUDIBLE_LUCAS_DRONES_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_CAMERA_FOV_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_CAMERA_TILT_DEGREES_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_FPV_FISHEYE_EFFECT_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_FPV_CAMERA_VIBRATION_VALUE;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_SPOTLIGHT_MODULE_VALUE;
-    public static final ForgeConfigSpec.IntValue SPOTLIGHT_RANGE_VALUE;
-    public static final ForgeConfigSpec.IntValue SPOTLIGHT_ENERGY_COST_PER_SECOND_VALUE;
-    public static final ForgeConfigSpec.BooleanValue SPOTLIGHT_REQUIRES_MODULE_VALUE;
-    public static final ForgeConfigSpec.BooleanValue SPOTLIGHT_VISIBLE_TO_OTHER_PLAYERS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue SPOTLIGHT_AUTO_OFF_WHEN_BATTERY_EMPTY_VALUE;
-    public static final ForgeConfigSpec.BooleanValue SPOTLIGHT_REAL_LIGHT_ENABLED_VALUE;
-    public static final ForgeConfigSpec.IntValue SPOTLIGHT_LIGHT_RANGE_VALUE;
-    public static final ForgeConfigSpec.IntValue SPOTLIGHT_LIGHT_LEVEL_VALUE;
-    public static final ForgeConfigSpec.IntValue SPOTLIGHT_LIGHT_UPDATE_INTERVAL_TICKS_VALUE;
-    public static final ForgeConfigSpec.BooleanValue DEBUG_PAYLOAD_MOUNTS_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_ATTACHMENT_X_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_ATTACHMENT_Y_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_ATTACHMENT_Z_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_CORD_LENGTH_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_GRENADE_SCALE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_GRENADE_ROTATION_PITCH_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_GRENADE_ROTATION_ROLL_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_GRENADE_ROTATION_YAW_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_SWING_MAX_ANGLE_VALUE;
-    public static final ForgeConfigSpec.DoubleValue FPV_PAYLOAD_SWING_DAMPING_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_EXTRA_TICKETS_PER_TICK_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_EXTRA_PENDING_CHUNKS_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_EXTRA_TICKET_LIMIT_VALUE;
+    public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec CLIENT_SPEC;
+    private static final Set<ModConfigSpec.ConfigValue<?>> LOCAL_VALUES;
+    public static final ModConfigSpec.IntValue DRONE_MAX_RANGE_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_VISUAL_TRACKING_RANGE_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_SPEED_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_CHUNK_LOADING_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_CHUNK_LOAD_RADIUS_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_PLAYER_ANCHOR_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE;
+    public static final ModConfigSpec.BooleanValue HIDE_PLAYER_ON_MINIMAP_DURING_DRONE_CONTROL_VALUE;
+    public static final ModConfigSpec.BooleanValue SHOW_DRONE_MARKER_INSTEAD_VALUE;
+    public static final ModConfigSpec.IntValue LUCAS_TAKEOFF_ASSIST_TICKS_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_TAKEOFF_FORWARD_BOOST_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_TAKEOFF_UP_BOOST_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_MIN_SPEED_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_MAX_SPEED_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_ACCELERATION_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_DRAG_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_TURN_RATE_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_PITCH_RATE_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_CLIMB_SPEED_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_DESCEND_SPEED_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_LIFT_STRENGTH_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_ROLL_VISUAL_AMOUNT_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_MIN_LIFT_SPEED_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_STALL_GRAVITY_VALUE;
+    public static final ModConfigSpec.BooleanValue LUCAS_STALL_ENABLED_VALUE;
+    public static final ModConfigSpec.BooleanValue LUCAS_CAN_HOVER_VALUE;
+    public static final ModConfigSpec.IntValue LUCAS_MAX_FUEL_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_IDLE_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_FLYING_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_FUEL_DRAIN_CLIMB_VALUE;
+    public static final ModConfigSpec.IntValue LUCAS_LOW_FUEL_WARNING_PERCENT_VALUE;
+    public static final ModConfigSpec.BooleanValue LUCAS_CAN_FLY_WITHOUT_FUEL_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_HUD_SCALE_VALUE;
+    public static final ModConfigSpec.IntValue FUEL_MIXER_PROCESS_TIME_VALUE;
+    public static final ModConfigSpec.IntValue GASOLINE_JERRYCAN_FUEL_AMOUNT_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_THERMAL_VISION_VALUE;
+    public static final ModConfigSpec.IntValue THERMAL_VISION_RANGE_VALUE;
+    public static final ModConfigSpec.BooleanValue THERMAL_VISION_KEYBIND_ENABLED_VALUE;
+    public static final ModConfigSpec.BooleanValue THERMAL_VISION_NOISE_EFFECT_VALUE;
+    public static final ModConfigSpec.BooleanValue THERMAL_HIGHLIGHT_PLAYERS_VALUE;
+    public static final ModConfigSpec.BooleanValue THERMAL_HIGHLIGHT_HOSTILE_MOBS_VALUE;
+    public static final ModConfigSpec.BooleanValue THERMAL_HIGHLIGHT_ANIMALS_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_BATTERY_SYSTEM_VALUE;
+    public static final ModConfigSpec.IntValue MAX_ENERGY_VALUE;
+    public static final ModConfigSpec.IntValue ENERGY_USE_PER_TICK_VALUE;
+    public static final ModConfigSpec.IntValue IDLE_ENERGY_USE_PER_TICK_VALUE;
+    public static final ModConfigSpec.IntValue LOW_ENERGY_THRESHOLD_VALUE;
+    public static final ModConfigSpec.BooleanValue RETURN_HOME_ON_EMPTY_VALUE;
+    public static final ModConfigSpec.IntValue BATTERY_TRANSFER_RATE_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_SIREN_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_SIREN_RANGE_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_SIREN_REDSTONE_OUTPUT_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_SIREN_COOLDOWN_TICKS_VALUE;
+    public static final ModConfigSpec.BooleanValue DETECT_FRIENDLY_DRONES_VALUE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_OWNER_NAMES_VALUE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_OWNER_UUIDS_VALUE;
+    public static final ModConfigSpec.BooleanValue IGNORE_OWNERLESS_DRONES_VALUE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> IGNORED_DRONE_NAMES_VALUE;
+    public static final ModConfigSpec.BooleanValue IGNORE_UNNAMED_DRONES_VALUE;
+    public static final ModConfigSpec.BooleanValue BLACKLIST_MATCH_CASE_INSENSITIVE_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_JAMMER_VALUE;
+    public static final ModConfigSpec.IntValue JAMMER_RANGE_VALUE;
+    public static final ModConfigSpec.IntValue JAMMER_BUILD_UP_TICKS_VALUE;
+    public static final ModConfigSpec.IntValue JAMMER_RECOVERY_TICKS_VALUE;
+    public static final ModConfigSpec.DoubleValue HARD_JAM_THRESHOLD_VALUE;
+    public static final ModConfigSpec.DoubleValue CONTROL_INTERFERENCE_THRESHOLD_VALUE;
+    public static final ModConfigSpec.DoubleValue OVERLAY_START_THRESHOLD_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_JAMMER_VALUE;
+    public static final ModConfigSpec.EnumValue<DroneJammerMode> JAMMER_MODE_VALUE;
+    public static final ModConfigSpec.BooleanValue AFFECT_FRIENDLY_DRONES_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_RADAR_DETECTION_RANGE_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_RADAR_BEEP_ENABLED_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_RADAR_BEEP_VOLUME_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_RADAR_MIN_BEEP_INTERVAL_TICKS_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_RADAR_MAX_BEEP_INTERVAL_TICKS_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_RADAR_ONLY_BEEP_WHEN_HELD_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_RADAR_HUD_SCALE_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_RADAR_HUD_X_OFFSET_VALUE;
+    public static final ModConfigSpec.IntValue DRONE_RADAR_HUD_Y_OFFSET_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_RADAR_COMPACT_MODE_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_DRONE_RADAR_VALUE;
+    public static final ModConfigSpec.IntValue PORTABLE_FPV_DETECTOR_RANGE_VALUE;
+    public static final ModConfigSpec.IntValue PORTABLE_FPV_DETECTOR_SCAN_INTERVAL_TICKS_VALUE;
+    public static final ModConfigSpec.IntValue PORTABLE_FPV_DETECTOR_MAXIMUM_TARGETS_VALUE;
+    public static final ModConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_VIDEO_ENABLED_VALUE;
+    public static final ModConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_DETECT_OWN_DRONES_VALUE;
+    public static final ModConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_REQUIRE_LINE_OF_SIGHT_VALUE;
+    public static final ModConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE;
+    public static final ModConfigSpec.BooleanValue PORTABLE_FPV_DETECTOR_SHOW_SIGNAL_PERCENT_VALUE;
+    public static final ModConfigSpec.IntValue LASER_DEFENSE_TOWER_DRONE_RANGE_VALUE;
+    public static final ModConfigSpec.BooleanValue LASER_DEFENSE_TOWER_WHITELIST_ENABLED_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_FIBER_OPTIC_MODE_VALUE;
+    public static final ModConfigSpec.IntValue FIBER_OPTIC_CABLE_LENGTH_VALUE;
+    public static final ModConfigSpec.IntValue FIBER_OPTIC_CABLE_BREAK_DELAY_TICKS_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_OPTIC_EXTRA_BATTERY_DRAIN_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.BooleanValue NORMAL_JAMMERS_AFFECT_FIBER_OPTIC_VALUE;
+    public static final ModConfigSpec.BooleanValue ANTI_DRONE_NET_CUTS_FIBER_VALUE;
+    public static final ModConfigSpec.BooleanValue ANTI_DRONE_NET_PANEL_REQUIRES_SUPPORT_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_DRONE_NET_PANEL_TRIGGER_THICKNESS_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_DRONE_NET_PANEL_VISUAL_THICKNESS_VALUE;
+    public static final ModConfigSpec.BooleanValue VEHICLE_ANTI_DRONE_NET_ENABLED_VALUE;
+    public static final ModConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_HORIZONTAL_PADDING_VALUE;
+    public static final ModConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_TOP_PADDING_VALUE;
+    public static final ModConfigSpec.BooleanValue VEHICLE_ANTI_DRONE_NET_STOPS_DRONES_VALUE;
+    public static final ModConfigSpec.DoubleValue VEHICLE_ANTI_DRONE_NET_OPACITY_VALUE;
+    public static final ModConfigSpec.BooleanValue NET_BULK_PLACEMENT_ENABLED_VALUE;
+    public static final ModConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_WIDTH_VALUE;
+    public static final ModConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_HEIGHT_VALUE;
+    public static final ModConfigSpec.IntValue NET_BULK_PLACEMENT_MAX_BLOCKS_VALUE;
+    public static final ModConfigSpec.DoubleValue NET_BULK_PLACEMENT_MAXIMUM_REACH_VALUE;
+    public static final ModConfigSpec.BooleanValue NET_BULK_PLACEMENT_ALL_OR_NOTHING_VALUE;
+    public static final ModConfigSpec.BooleanValue NET_BULK_PLACEMENT_SKIP_BLOCKED_VALUE;
+    public static final ModConfigSpec.IntValue NET_BULK_PLACEMENT_BLOCKS_PER_TICK_VALUE;
+    public static final ModConfigSpec.IntValue NET_BULK_PLACEMENT_UNDO_SECONDS_VALUE;
+    public static final ModConfigSpec.BooleanValue KEEP_DETACHED_FIBER_CABLE_ON_DRONE_DEATH_VALUE;
+    public static final ModConfigSpec.IntValue DETACHED_FIBER_CABLE_LIFETIME_TICKS_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_FIBER_OPTIC_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_VISUAL_THICKNESS_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_VISUAL_ALPHA_VALUE;
+    public static final ModConfigSpec.ConfigValue<String> FIBER_CABLE_VISUAL_COLOR_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_MAX_RENDER_DISTANCE_VALUE;
+    public static final ModConfigSpec.IntValue MAX_VISIBLE_FIBER_CABLES_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_ROUTE_HISTORY_ENABLED_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_ROUTE_POINT_SPACING_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_ROUTE_MINIMUM_TURN_DISTANCE_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_ROUTE_TURN_ANGLE_THRESHOLD_VALUE;
+    public static final ModConfigSpec.IntValue FIBER_ROUTE_MAXIMUM_POINTS_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_ROUTE_CORNER_SMOOTHING_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_ROUTE_DEBUG_LOGGING_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_CUT_BY_OWNER_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_CUT_BY_OTHER_PLAYERS_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CUT_REQUIRES_SHEARS_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_CUT_REACH_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_INTERACTION_RADIUS_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CUT_LINE_OF_SIGHT_REQUIRED_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_TARGET_INDICATOR_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_DEBUG_VISUAL_THICKNESS_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_SPACING_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_HEALTH_VALUE;
+    public static final ModConfigSpec.DoubleValue FIBER_CABLE_SEGMENT_HITBOX_SIZE_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_PLAYERS_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_PROJECTILES_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_CAN_BE_DAMAGED_BY_EXPLOSIONS_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_PROJECTILE_RAYCAST_BREAK_VALUE;
+    public static final ModConfigSpec.BooleanValue FIBER_CABLE_BREAKS_WHEN_ANY_SEGMENT_DESTROYED_VALUE;
+    public static final ModConfigSpec.IntValue MAX_FIBER_CABLE_SEGMENTS_PER_DRONE_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_FIBER_CABLE_RENDER_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_FIBER_CABLE_SEGMENTS_VALUE;
+    public static final ModConfigSpec.BooleanValue RENDER_RED_DEBUG_CABLE_VALUE;
+    public static final ModConfigSpec.BooleanValue RENDER_LEGACY_FIBER_LINE_VALUE;
+    public static final ModConfigSpec.BooleanValue WEATHER_EFFECTS_ENABLED_VALUE;
+    public static final ModConfigSpec.DoubleValue RAIN_VISIBILITY_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.DoubleValue STORM_INSTABILITY_STRENGTH_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_DRONE_SCREENSHOT_SOUND_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_ENGINE_VOLUME_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_ENGINE_VOLUME_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_MONITOR_HUM_VOLUME_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_AIRBORNE_VOLUME_MULTIPLIER_VALUE;
+    public static final ModConfigSpec.DoubleValue CUBED_FPV_EXTERNAL_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue CUBED_FPV_NEAR_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue CUBED_FPV_MID_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue CUBED_FPV_FAR_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_EXTERNAL_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_NEAR_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_MID_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue LUCAS_FAR_VOLUME_VALUE;
+    public static final ModConfigSpec.DoubleValue FPV_INTERNAL_AUDIO_GAIN_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_DOPPLER_ENABLED_VALUE;
+    public static final ModConfigSpec.DoubleValue DRONE_DOPPLER_STRENGTH_VALUE;
+    public static final ModConfigSpec.BooleanValue DRONE_AUDIO_OCCLUSION_VALUE;
+    public static final ModConfigSpec.IntValue MAX_AUDIBLE_CUBED_FPV_DRONES_VALUE;
+    public static final ModConfigSpec.IntValue MAX_AUDIBLE_LUCAS_DRONES_VALUE;
+    public static final ModConfigSpec.DoubleValue FPV_CAMERA_FOV_VALUE;
+    public static final ModConfigSpec.DoubleValue FPV_CAMERA_TILT_DEGREES_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_FPV_FISHEYE_EFFECT_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_FPV_CAMERA_VIBRATION_VALUE;
+    public static final ModConfigSpec.BooleanValue ENABLE_SPOTLIGHT_MODULE_VALUE;
+    public static final ModConfigSpec.IntValue SPOTLIGHT_RANGE_VALUE;
+    public static final ModConfigSpec.IntValue SPOTLIGHT_ENERGY_COST_PER_SECOND_VALUE;
+    public static final ModConfigSpec.BooleanValue SPOTLIGHT_REQUIRES_MODULE_VALUE;
+    public static final ModConfigSpec.BooleanValue SPOTLIGHT_VISIBLE_TO_OTHER_PLAYERS_VALUE;
+    public static final ModConfigSpec.BooleanValue SPOTLIGHT_AUTO_OFF_WHEN_BATTERY_EMPTY_VALUE;
+    public static final ModConfigSpec.BooleanValue SPOTLIGHT_REAL_LIGHT_ENABLED_VALUE;
+    public static final ModConfigSpec.IntValue SPOTLIGHT_LIGHT_RANGE_VALUE;
+    public static final ModConfigSpec.IntValue SPOTLIGHT_LIGHT_LEVEL_VALUE;
+    public static final ModConfigSpec.IntValue SPOTLIGHT_LIGHT_UPDATE_INTERVAL_TICKS_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_RADAR_TOWER_MOUNT_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_ROOF_ANCHOR_X_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_ROOF_ANCHOR_Y_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_ROOF_ANCHOR_Z_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_CAGE_YAW_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_CAGE_PITCH_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_CAGE_ROLL_VALUE;
+    public static final ModConfigSpec.DoubleValue RADAR_TOWER_CAGE_SCALE_VALUE;
+    public static final ModConfigSpec.IntValue RADAR_TOWER_MAX_BATTERY_CAPACITY_VALUE;
+    public static final ModConfigSpec.IntValue RADAR_TOWER_SOLAR_CHARGE_RATE_VALUE;
+    public static final ModConfigSpec.IntValue RADAR_TOWER_CHARGING_STATION_CHARGE_RATE_VALUE;
+    public static final ModConfigSpec.IntValue RADAR_TOWER_JAMMER_ENERGY_DRAIN_RATE_VALUE;
+    public static final ModConfigSpec.IntValue RADAR_TOWER_MINIMUM_ENERGY_TO_ACTIVATE_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_VEHICLE_MORTAR_VEHICLE_DAMAGE_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_VEHICLE_MORTAR_ENTITY_DAMAGE_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_VEHICLE_MORTAR_EXPLOSION_RADIUS_VALUE;
+    public static final ModConfigSpec.DoubleValue ANTI_VEHICLE_MORTAR_BLOCK_DAMAGE_RADIUS_VALUE;
+    public static final ModConfigSpec.IntValue ANTI_VEHICLE_MORTAR_PAYLOAD_COOLDOWN_TICKS_VALUE;
+    public static final ModConfigSpec.BooleanValue DEBUG_PAYLOAD_MOUNTS_VALUE;
 
     private static volatile int droneMaxRange;
     private static volatile int droneVisualTrackingRange;
     private static volatile double droneSpeedMultiplier;
     private static volatile boolean enableDroneChunkLoading;
     private static volatile int droneChunkLoadRadius;
-    private static volatile int droneProactiveLoadRadius;
-    private static volatile boolean debugDroneChunkLoading;
-    private static volatile boolean experimentalDroneClientChunkCenterSync;
     private static volatile boolean enableDronePlayerAnchor;
     private static volatile boolean enableDroneCrashExplosionDamage;
+    private static volatile boolean hidePlayerOnMinimapDuringDroneControl;
+    private static volatile boolean showDroneMarkerInstead;
     private static volatile int lucasTakeoffAssistTicks;
     private static volatile double lucasTakeoffForwardBoost;
     private static volatile double lucasTakeoffUpBoost;
@@ -300,6 +314,8 @@ public final class AddonConfig {
     private static volatile boolean portableFpvDetectorRequireLineOfSight;
     private static volatile boolean portableFpvDetectorHudEnabled;
     private static volatile boolean portableFpvDetectorShowSignalPercent;
+    private static volatile int laserDefenseTowerDroneRange;
+    private static volatile boolean laserDefenseTowerWhitelistEnabled;
     private static volatile boolean enableFiberOpticMode;
     private static volatile int fiberOpticCableLength;
     private static volatile int fiberOpticCableBreakDelayTicks;
@@ -323,6 +339,8 @@ public final class AddonConfig {
     private static volatile boolean netBulkPlacementSkipBlocked;
     private static volatile int netBulkPlacementBlocksPerTick;
     private static volatile int netBulkPlacementUndoSeconds;
+    private static volatile boolean keepDetachedFiberCableOnDroneDeath;
+    private static volatile int detachedFiberCableLifetimeTicks;
     private static volatile boolean debugFiberOptic;
     private static volatile double fiberCableVisualThickness;
     private static volatile double fiberCableVisualAlpha;
@@ -393,25 +411,45 @@ public final class AddonConfig {
     private static volatile int spotlightLightRange;
     private static volatile int spotlightLightLevel;
     private static volatile int spotlightLightUpdateIntervalTicks;
+    private static volatile boolean debugRadarTowerMount;
+    private static volatile double radarTowerRoofAnchorX;
+    private static volatile double radarTowerRoofAnchorY;
+    private static volatile double radarTowerRoofAnchorZ;
+    private static volatile double radarTowerCageYaw;
+    private static volatile double radarTowerCagePitch;
+    private static volatile double radarTowerCageRoll;
+    private static volatile double radarTowerCageScale;
+    private static volatile int radarTowerMaxBatteryCapacity;
+    private static volatile int radarTowerSolarChargeRate;
+    private static volatile int radarTowerChargingStationChargeRate;
+    private static volatile int radarTowerJammerEnergyDrainRate;
+    private static volatile int radarTowerMinimumEnergyToActivate;
+    private static volatile double antiVehicleMortarVehicleDamage;
+    private static volatile double antiVehicleMortarEntityDamage;
+    private static volatile double antiVehicleMortarExplosionRadius;
+    private static volatile double antiVehicleMortarBlockDamageRadius;
+    private static volatile int antiVehicleMortarPayloadCooldownTicks;
     private static volatile boolean debugPayloadMounts;
-    private static volatile double fpvPayloadAttachmentX;
-    private static volatile double fpvPayloadAttachmentY;
-    private static volatile double fpvPayloadAttachmentZ;
-    private static volatile double fpvPayloadCordLength;
-    private static volatile double fpvPayloadGrenadeScale;
-    private static volatile double fpvPayloadGrenadeRotationPitch;
-    private static volatile double fpvPayloadGrenadeRotationRoll;
-    private static volatile double fpvPayloadGrenadeRotationYaw;
-    private static volatile double fpvPayloadSwingMaxAngle;
-    private static volatile double fpvPayloadSwingDamping;
 
     static {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        AddonSettingsBuilder builder = new AddonSettingsBuilder();
 
         builder.push("drone");
+        ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE = builder
+                .comment("Use vanilla chunk and entity tracking around the validated drone camera while the body stays in place. Takes precedence over the legacy player anchor; disabling restores the legacy behavior.")
+                .define("enableDroneRemoteChunkTracking", true);
+        DRONE_EXTRA_TICKETS_PER_TICK_VALUE = builder.comment("Global new supplementary body/autonomous-flight tickets per server tick; camera views use vanilla's own throttler.")
+                .defineInRange("droneExtraTicketsPerTick", 4, 1, 16);
+        DRONE_EXTRA_PENDING_CHUNKS_VALUE = builder.comment("Global supplementary chunks allowed to be loading at once.")
+                .defineInRange("droneExtraPendingChunks", 8, 1, 64);
+        DRONE_EXTRA_TICKET_LIMIT_VALUE = builder.comment("Global supplementary ticket cap, shared by all drones, players and dimensions.")
+                .defineInRange("droneExtraTicketLimit", 512, 16, 4096);
+
+        builder.comment("Internal one-time migration marker for the obsolete 100-block default; do not edit.")
+                .defineInRange("_manualRangeDefaultsVersion", 1, 0, 1);
         DRONE_MAX_RANGE_VALUE = builder
                 .comment("Maximum allowed distance in blocks between the player and a linked Superb Warfare drone.")
-                .defineInRange("droneMaxRange", 100, 1, 30000);
+                .defineInRange("droneMaxRange", 10000, 1, 30000);
         DRONE_VISUAL_TRACKING_RANGE_VALUE = builder
                 .comment("Maximum distance in blocks that ordinary nearby players keep a drone entity tracked for visual and audio playback.")
                 .defineInRange("droneVisualTrackingRange", 256, 32, 512);
@@ -426,21 +464,18 @@ public final class AddonConfig {
         DRONE_CHUNK_LOAD_RADIUS_VALUE = builder
                 .comment("Chunk radius kept loaded around the drone when chunk loading is enabled.")
                 .defineInRange("droneChunkLoadRadius", 1, 0, 4);
-        DRONE_PROACTIVE_LOAD_RADIUS_VALUE = builder
-                .comment("Immediate chunk preload radius when a controlled drone enters a chunk. Limited to 1 to keep requests within a 3x3 area.")
-                .defineInRange("droneProactiveLoadRadius", 1, 0, 1);
-        DEBUG_DRONE_CHUNK_LOADING_VALUE = builder
-                .comment("Log one entry whenever an actively controlled drone proactively requests chunks after crossing a chunk boundary.")
-                .define("debugDroneChunkLoading", false);
-        EXPERIMENTAL_DRONE_CLIENT_CHUNK_CENTER_SYNC_VALUE = builder
-                .comment("Experimental: send the controlling client a chunk-cache center update when its drone crosses a chunk boundary.")
-                .define("experimentalDroneClientChunkCenterSync", false);
         ENABLE_DRONE_PLAYER_ANCHOR_VALUE = builder
                 .comment("Move the controlling player with the drone while using the monitor so vanilla chunk loading follows the drone.")
                 .define("enableDronePlayerAnchor", true);
         ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE = builder
                 .comment("Allow drone crash explosions to damage entities and destroy blocks.")
                 .define("enableDroneCrashExplosionDamage", true);
+        HIDE_PLAYER_ON_MINIMAP_DURING_DRONE_CONTROL_VALUE = builder
+                .comment("Hide the controlling player's normal minimap marker while actively piloting an FPV or LUCAS drone.")
+                .define("hidePlayerOnMinimapDuringDroneControl", true);
+        SHOW_DRONE_MARKER_INSTEAD_VALUE = builder
+                .comment("Prefer showing the active drone as the map target when supported by a minimap integration.")
+                .define("showDroneMarkerInstead", true);
         builder.pop();
 
         builder.push("lucas");
@@ -682,26 +717,35 @@ public final class AddonConfig {
                 .comment("Maximum wireless FPV detector range in blocks.")
                 .defineInRange("portableFpvDetectorRange", 1500, 16, 5000);
         PORTABLE_FPV_DETECTOR_SCAN_INTERVAL_TICKS_VALUE = builder
-                .comment("Server-side scan interval in ticks while the detector is ON and held.")
+                .comment("Server-side scan interval in ticks for active held portable FPV detectors.")
                 .defineInRange("portableFpvDetectorScanIntervalTicks", 10, 1, 200);
         PORTABLE_FPV_DETECTOR_MAXIMUM_TARGETS_VALUE = builder
-                .comment("Maximum detected wireless drone targets sent to the detector display.")
+                .comment("Maximum detector targets sent to one client per scan.")
                 .defineInRange("portableFpvDetectorMaximumTargets", 16, 1, 64);
         PORTABLE_FPV_DETECTOR_VIDEO_ENABLED_VALUE = builder
-                .comment("Allow the detector UI to advertise live video support for compatible wireless drones.")
+                .comment("Allow read-only intercepted video panels for compatible wireless drones.")
                 .define("portableFpvDetectorVideoEnabled", true);
         PORTABLE_FPV_DETECTOR_DETECT_OWN_DRONES_VALUE = builder
-                .comment("If false, the handheld detector ignores drones owned by the detector holder.")
+                .comment("If true, the detector also lists drones owned by the detector holder.")
                 .define("portableFpvDetectorDetectOwnDrones", true);
         PORTABLE_FPV_DETECTOR_REQUIRE_LINE_OF_SIGHT_VALUE = builder
-                .comment("If true, the detector only reports drones with direct line of sight.")
+                .comment("If true, detector scans require line of sight to each drone.")
                 .define("portableFpvDetectorRequireLineOfSight", false);
         PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE = builder
-                .comment("Render the compact lower-right Portable FPV Drone Detector HUD while scanning.")
+                .comment("Render the compact handheld detector HUD while the active detector is held.")
                 .define("portableFpvDetectorHudEnabled", true);
         PORTABLE_FPV_DETECTOR_SHOW_SIGNAL_PERCENT_VALUE = builder
                 .comment("Show numeric signal percentages in the raised detector receiver screen.")
                 .define("portableFpvDetectorShowSignalPercent", true);
+        builder.pop();
+
+        builder.push("laserDefenseTower");
+        LASER_DEFENSE_TOWER_DRONE_RANGE_VALUE = builder
+                .comment("Maximum drone targeting range in blocks for Superb Warfare Laser Defense Towers.")
+                .defineInRange("laserDefenseTowerDroneRange", 500, 1, 1200);
+        LASER_DEFENSE_TOWER_WHITELIST_ENABLED_VALUE = builder
+                .comment("If true, Laser Defense Towers ignore drones owned by gamertags on the tower whitelist.")
+                .define("laserDefenseTowerWhitelistEnabled", true);
         builder.pop();
 
         builder.push("fiberOptic");
@@ -733,19 +777,19 @@ public final class AddonConfig {
                 .comment("Anti-Drone Net Panel visual thickness in blocks.")
                 .defineInRange("antiDroneNetPanelVisualThickness", 0.0625D, 0.03125D, 0.125D);
         VEHICLE_ANTI_DRONE_NET_ENABLED_VALUE = builder
-                .comment("Enable the vehicle-mounted Anti-Drone Net Upgrade cage around Superb Warfare vehicles.")
+                .comment("Enable the vehicle-mounted Anti-Drone Net upgrade for Superb Warfare vehicles.")
                 .define("vehicleAntiDroneNetEnabled", true);
         VEHICLE_ANTI_DRONE_NET_HORIZONTAL_PADDING_VALUE = builder
-                .comment("Extra horizontal clearance in blocks added around the vehicle hitbox for the mounted anti-drone net cage.")
+                .comment("Horizontal padding in blocks added around the detected vehicle body for the mounted anti-drone net.")
                 .defineInRange("vehicleAntiDroneNetHorizontalPadding", 0.20D, 0.0D, 2.0D);
         VEHICLE_ANTI_DRONE_NET_TOP_PADDING_VALUE = builder
-                .comment("Extra top clearance in blocks added above the vehicle hitbox for the mounted anti-drone net cage.")
+                .comment("Vertical padding in blocks added above the detected vehicle body for the mounted anti-drone net.")
                 .defineInRange("vehicleAntiDroneNetTopPadding", 0.25D, 0.0D, 2.0D);
         VEHICLE_ANTI_DRONE_NET_STOPS_DRONES_VALUE = builder
-                .comment("If true, drones crossing an active vehicle-mounted anti-drone net cage are jammed like normal anti-drone net blocks.")
+                .comment("If true, drones crossing the mounted vehicle net are jammed like normal Anti-Drone Net blocks.")
                 .define("vehicleAntiDroneNetStopsDrones", true);
         VEHICLE_ANTI_DRONE_NET_OPACITY_VALUE = builder
-                .comment("Client render opacity for the vehicle-mounted anti-drone net cage.")
+                .comment("Opacity of the visible vehicle-mounted net cage.")
                 .defineInRange("vehicleAntiDroneNetOpacity", 0.70D, 0.05D, 1.0D);
         NET_BULK_PLACEMENT_ENABLED_VALUE = builder
                 .comment("Enable sneak-right-click POS1/POS2 bulk placement for Anti-Drone Net, Panel, and Carpet blocks.")
@@ -774,6 +818,12 @@ public final class AddonConfig {
         NET_BULK_PLACEMENT_UNDO_SECONDS_VALUE = builder
                 .comment("Seconds that /sbw net undo remains available for the player's most recent successful bulk placement.")
                 .defineInRange("netBulkPlacementUndoSeconds", 60, 0, 3600);
+        KEEP_DETACHED_FIBER_CABLE_ON_DRONE_DEATH_VALUE = builder
+                .comment("Keep Fiber Optic cable segment entities in the world when the linked drone dies, crashes, despawns, or is removed.")
+                .define("keepDetachedFiberCableOnDroneDeath", true);
+        DETACHED_FIBER_CABLE_LIFETIME_TICKS_VALUE = builder
+                .comment("Lifetime for detached Fiber Optic cable leftovers. -1 means never auto-despawn.")
+                .defineInRange("detachedFiberCableLifetimeTicks", -1, -1, 1728000);
         DEBUG_FIBER_OPTIC_VALUE = builder
                 .comment("Enable verbose Fiber Optic cable debug logging.")
                 .define("debugFiberOptic", false);
@@ -898,8 +948,8 @@ public final class AddonConfig {
 
         builder.push("fpvCamera");
         FPV_CAMERA_FOV_VALUE = builder
-                .comment("Analog-style FPV camera field of view for the Cubed FPV Drone.")
-                .defineInRange("fpvCameraFov", CubedFpvCameraViewMath.DEFAULT_FPV_FOV, CubedFpvCameraViewMath.MIN_FPV_FOV, CubedFpvCameraViewMath.MAX_FPV_FOV);
+                .comment("Wide FPV camera field of view for the Cubed FPV Drone.")
+                .defineInRange("fpvCameraFov", 135.0D, 120.0D, 155.0D);
         FPV_CAMERA_TILT_DEGREES_VALUE = builder
                 .comment("Forward camera tilt applied while controlling the Cubed FPV Drone.")
                 .defineInRange("fpvCameraTiltDegrees", 20.0D, 0.0D, 45.0D);
@@ -1033,43 +1083,75 @@ public final class AddonConfig {
                 .defineInRange("spotlightLightUpdateIntervalTicks", 2, 1, 10);
         builder.pop();
 
+        builder.push("radarTowerMount");
+        DEBUG_RADAR_TOWER_MOUNT_VALUE = builder
+                .comment("Legacy debug option. The Radar Jammer Tower now renders as one static block model without an animated mount renderer.")
+                .define("debugRadarTowerMount", false);
+        RADAR_TOWER_ROOF_ANCHOR_X_VALUE = builder
+                .comment("Local X offset for the Radar Jammer Tower roof/cage anchor.")
+                .defineInRange("roofAnchorX", 1.24D, -4.0D, 4.0D);
+        RADAR_TOWER_ROOF_ANCHOR_Y_VALUE = builder
+                .comment("Local Y offset for the Radar Jammer Tower roof/cage anchor.")
+                .defineInRange("roofAnchorY", 2.42D, -1.0D, 6.0D);
+        RADAR_TOWER_ROOF_ANCHOR_Z_VALUE = builder
+                .comment("Local Z offset for the Radar Jammer Tower roof/cage anchor.")
+                .defineInRange("roofAnchorZ", 0.08D, -4.0D, 4.0D);
+        RADAR_TOWER_CAGE_YAW_VALUE = builder
+                .comment("Local yaw adjustment for the Radar Jammer Tower cage/head attachment.")
+                .defineInRange("cageYaw", 0.0D, -180.0D, 180.0D);
+        RADAR_TOWER_CAGE_PITCH_VALUE = builder
+                .comment("Local pitch adjustment for the Radar Jammer Tower cage/head attachment.")
+                .defineInRange("cagePitch", 0.0D, -180.0D, 180.0D);
+        RADAR_TOWER_CAGE_ROLL_VALUE = builder
+                .comment("Local roll adjustment for the Radar Jammer Tower cage/head attachment.")
+                .defineInRange("cageRoll", 0.0D, -180.0D, 180.0D);
+        RADAR_TOWER_CAGE_SCALE_VALUE = builder
+                .comment("Local scale for the Radar Jammer Tower cage/head attachment.")
+                .defineInRange("cageScale", 1.0D, 0.1D, 4.0D);
+        RADAR_TOWER_MAX_BATTERY_CAPACITY_VALUE = builder
+                .comment("Maximum internal solar battery capacity for the Radar Jammer Tower.")
+                .defineInRange("maxBatteryCapacity", 24000, 1, 10000000);
+        RADAR_TOWER_SOLAR_CHARGE_RATE_VALUE = builder
+                .comment("Energy added per tick while the Radar Jammer Tower solar panel has clear daytime sky.")
+                .defineInRange("solarChargeRate", 25, 0, 100000);
+        RADAR_TOWER_CHARGING_STATION_CHARGE_RATE_VALUE = builder
+                .comment("Energy added per tick when a Superb Warfare Charging Station or Creative Charging Station is below the Radar Jammer Tower base.")
+                .defineInRange("chargingStationChargeRate", 100, 0, 100000);
+        RADAR_TOWER_JAMMER_ENERGY_DRAIN_RATE_VALUE = builder
+                .comment("Energy drained per active jammer tick from the Radar Jammer Tower battery.")
+                .defineInRange("jammerEnergyDrainRate", 4, 0, 100000);
+        RADAR_TOWER_MINIMUM_ENERGY_TO_ACTIVATE_VALUE = builder
+                .comment("Minimum stored energy required before the Radar Jammer Tower GUI can open and the jammer can operate.")
+                .defineInRange("minimumEnergyToActivate", 100, 0, 10000000);
+        builder.pop();
+
         builder.push("payload");
+        ANTI_VEHICLE_MORTAR_VEHICLE_DAMAGE_VALUE = builder
+                .comment("Direct damage dealt by the Anti-Vehicle Mortar Payload to vehicle-like Superb Warfare entities.")
+                .defineInRange("antiVehicleMortarVehicleDamage", 85.0D, 0.0D, 10000.0D);
+        ANTI_VEHICLE_MORTAR_ENTITY_DAMAGE_VALUE = builder
+                .comment("Direct damage dealt by the Anti-Vehicle Mortar Payload to normal non-vehicle entities.")
+                .defineInRange("antiVehicleMortarEntityDamage", 12.0D, 0.0D, 10000.0D);
+        ANTI_VEHICLE_MORTAR_EXPLOSION_RADIUS_VALUE = builder
+                .comment("Radius used for payload entity damage checks.")
+                .defineInRange("antiVehicleMortarExplosionRadius", 7.0D, 0.0D, 64.0D);
+        ANTI_VEHICLE_MORTAR_BLOCK_DAMAGE_RADIUS_VALUE = builder
+                .comment("Small vanilla explosion radius used for limited block damage. Set to 0 to disable block damage.")
+                .defineInRange("antiVehicleMortarBlockDamageRadius", 2.0D, 0.0D, 16.0D);
+        ANTI_VEHICLE_MORTAR_PAYLOAD_COOLDOWN_TICKS_VALUE = builder
+                .comment("Cooldown in ticks between drone mortar payload drops.")
+                .defineInRange("antiVehicleMortarPayloadCooldownTicks", 40, 0, 1200);
         DEBUG_PAYLOAD_MOUNTS_VALUE = builder
                 .comment("Render colored payload mount debug markers and log payload mount transforms every second.")
                 .define("debugPayloadMounts", false);
-        FPV_PAYLOAD_ATTACHMENT_X_VALUE = builder
-                .comment("Local X offset for the single dangling Cubed FPV payload attachment point.")
-                .defineInRange("fpvPayloadAttachmentX", 0.0D, -2.0D, 2.0D);
-        FPV_PAYLOAD_ATTACHMENT_Y_VALUE = builder
-                .comment("Local Y offset for the single dangling Cubed FPV payload attachment point.")
-                .defineInRange("fpvPayloadAttachmentY", -0.30D, -2.0D, 1.0D);
-        FPV_PAYLOAD_ATTACHMENT_Z_VALUE = builder
-                .comment("Local Z offset for the single dangling Cubed FPV payload attachment point.")
-                .defineInRange("fpvPayloadAttachmentZ", 0.0D, -2.0D, 2.0D);
-        FPV_PAYLOAD_CORD_LENGTH_VALUE = builder
-                .comment("Length in blocks of the visual cord below the Cubed FPV drone.")
-                .defineInRange("fpvPayloadCordLength", 0.65D, 0.1D, 1.0D);
-        FPV_PAYLOAD_GRENADE_SCALE_VALUE = builder
-                .comment("Extra visual scale multiplier for the dangling Cubed FPV payload.")
-                .defineInRange("fpvPayloadGrenadeScale", 0.62D, 0.1D, 2.0D);
-        FPV_PAYLOAD_GRENADE_ROTATION_PITCH_VALUE = builder
-                .comment("Extra visual pitch rotation for the dangling Cubed FPV payload.")
-                .defineInRange("fpvPayloadGrenadeRotationPitch", 0.0D, -180.0D, 180.0D);
-        FPV_PAYLOAD_GRENADE_ROTATION_ROLL_VALUE = builder
-                .comment("Extra visual roll rotation for the dangling Cubed FPV payload.")
-                .defineInRange("fpvPayloadGrenadeRotationRoll", 0.0D, -180.0D, 180.0D);
-        FPV_PAYLOAD_GRENADE_ROTATION_YAW_VALUE = builder
-                .comment("Extra visual yaw rotation for the dangling Cubed FPV payload.")
-                .defineInRange("fpvPayloadGrenadeRotationYaw", 0.0D, -180.0D, 180.0D);
-        FPV_PAYLOAD_SWING_MAX_ANGLE_VALUE = builder
-                .comment("Maximum visual swing angle in degrees for the dangling Cubed FPV payload.")
-                .defineInRange("fpvPayloadSwingMaxAngle", 35.0D, 0.0D, 45.0D);
-        FPV_PAYLOAD_SWING_DAMPING_VALUE = builder
-                .comment("Client-side damping for the dangling Cubed FPV payload swing.")
-                .defineInRange("fpvPayloadSwingDamping", 0.88D, 0.0D, 0.99D);
         builder.pop();
 
+        Vc01Settings.configure(builder);
+        DroneVehicleDamageConfig.configure(builder);
         SPEC = builder.build();
+        CLIENT_SPEC = builder.buildClient();
+        LOCAL_VALUES = builder.localValues();
+        bake();
     }
 
     private AddonConfig() {
@@ -1077,7 +1159,7 @@ public final class AddonConfig {
 
     @SubscribeEvent
     public static void onLoad(ModConfigEvent event) {
-        if (event.getConfig().getSpec() == SPEC) {
+        if (event.getConfig().getSpec() == SPEC || event.getConfig().getSpec() == CLIENT_SPEC) {
             bake();
             if (ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID)) {
                 DroneTrackingRangeOverride.applyConfiguredRange();
@@ -1085,250 +1167,255 @@ public final class AddonConfig {
         }
     }
 
+    private static <T> T read(ModConfigSpec.ConfigValue<T> value) {
+        var owner = LOCAL_VALUES.contains(value) ? CLIENT_SPEC : SPEC;
+        return owner.isLoaded() ? value.get() : value.getDefault();
+    }
+
     private static void bake() {
-        droneMaxRange = DRONE_MAX_RANGE_VALUE.get();
-        droneVisualTrackingRange = DRONE_VISUAL_TRACKING_RANGE_VALUE.get();
-        droneSpeedMultiplier = DRONE_SPEED_MULTIPLIER_VALUE.get();
-        enableDroneChunkLoading = ENABLE_DRONE_CHUNK_LOADING_VALUE.get();
-        droneChunkLoadRadius = DRONE_CHUNK_LOAD_RADIUS_VALUE.get();
-        droneProactiveLoadRadius = DRONE_PROACTIVE_LOAD_RADIUS_VALUE.get();
-        debugDroneChunkLoading = DEBUG_DRONE_CHUNK_LOADING_VALUE.get();
-        experimentalDroneClientChunkCenterSync = EXPERIMENTAL_DRONE_CLIENT_CHUNK_CENTER_SYNC_VALUE.get();
-        enableDronePlayerAnchor = ENABLE_DRONE_PLAYER_ANCHOR_VALUE.get();
-        enableDroneCrashExplosionDamage = ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE.get();
-        lucasTakeoffAssistTicks = LUCAS_TAKEOFF_ASSIST_TICKS_VALUE.get();
-        lucasTakeoffForwardBoost = LUCAS_TAKEOFF_FORWARD_BOOST_VALUE.get();
-        lucasTakeoffUpBoost = LUCAS_TAKEOFF_UP_BOOST_VALUE.get();
-        lucasMinSpeed = LUCAS_MIN_SPEED_VALUE.get();
-        lucasMaxSpeed = Math.max(lucasMinSpeed, LUCAS_MAX_SPEED_VALUE.get());
-        lucasAcceleration = LUCAS_ACCELERATION_VALUE.get();
-        lucasDrag = LUCAS_DRAG_VALUE.get();
-        lucasTurnRate = LUCAS_TURN_RATE_VALUE.get();
-        lucasPitchRate = LUCAS_PITCH_RATE_VALUE.get();
-        lucasClimbSpeed = LUCAS_CLIMB_SPEED_VALUE.get();
-        lucasDescendSpeed = LUCAS_DESCEND_SPEED_VALUE.get();
-        lucasLiftStrength = LUCAS_LIFT_STRENGTH_VALUE.get();
-        lucasRollVisualAmount = LUCAS_ROLL_VISUAL_AMOUNT_VALUE.get();
-        lucasMinLiftSpeed = LUCAS_MIN_LIFT_SPEED_VALUE.get();
-        lucasStallGravity = LUCAS_STALL_GRAVITY_VALUE.get();
-        lucasStallEnabled = LUCAS_STALL_ENABLED_VALUE.get();
-        lucasCanHover = LUCAS_CAN_HOVER_VALUE.get();
-        lucasMaxFuel = LUCAS_MAX_FUEL_VALUE.get();
-        lucasFuelDrainIdle = LUCAS_FUEL_DRAIN_IDLE_VALUE.get();
-        lucasFuelDrainFlying = LUCAS_FUEL_DRAIN_FLYING_VALUE.get();
-        lucasFuelDrainClimb = LUCAS_FUEL_DRAIN_CLIMB_VALUE.get();
-        lucasLowFuelWarningPercent = LUCAS_LOW_FUEL_WARNING_PERCENT_VALUE.get();
-        lucasCanFlyWithoutFuel = LUCAS_CAN_FLY_WITHOUT_FUEL_VALUE.get();
-        lucasHudScale = LUCAS_HUD_SCALE_VALUE.get();
-        fuelMixerProcessTime = FUEL_MIXER_PROCESS_TIME_VALUE.get();
-        gasolineJerrycanFuelAmount = GASOLINE_JERRYCAN_FUEL_AMOUNT_VALUE.get();
-        enableThermalVision = ENABLE_THERMAL_VISION_VALUE.get();
-        thermalVisionRange = THERMAL_VISION_RANGE_VALUE.get();
-        thermalVisionKeybindEnabled = THERMAL_VISION_KEYBIND_ENABLED_VALUE.get();
-        thermalVisionNoiseEffect = THERMAL_VISION_NOISE_EFFECT_VALUE.get();
-        thermalHighlightPlayers = THERMAL_HIGHLIGHT_PLAYERS_VALUE.get();
-        thermalHighlightHostileMobs = THERMAL_HIGHLIGHT_HOSTILE_MOBS_VALUE.get();
-        thermalHighlightAnimals = THERMAL_HIGHLIGHT_ANIMALS_VALUE.get();
-        enableBatterySystem = ENABLE_BATTERY_SYSTEM_VALUE.get();
-        maxEnergy = MAX_ENERGY_VALUE.get();
-        energyUsePerTick = ENERGY_USE_PER_TICK_VALUE.get();
-        idleEnergyUsePerTick = IDLE_ENERGY_USE_PER_TICK_VALUE.get();
-        lowEnergyThreshold = LOW_ENERGY_THRESHOLD_VALUE.get();
-        returnHomeOnEmpty = RETURN_HOME_ON_EMPTY_VALUE.get();
-        batteryTransferRate = BATTERY_TRANSFER_RATE_VALUE.get();
-        enableDroneSiren = ENABLE_DRONE_SIREN_VALUE.get();
-        droneSirenRange = DRONE_SIREN_RANGE_VALUE.get();
-        droneSirenRedstoneOutput = DRONE_SIREN_REDSTONE_OUTPUT_VALUE.get();
-        droneSirenCooldownTicks = DRONE_SIREN_COOLDOWN_TICKS_VALUE.get();
-        detectFriendlyDrones = DETECT_FRIENDLY_DRONES_VALUE.get();
-        ignoredDroneOwnerNames = normalizeOwnerNames(IGNORED_DRONE_OWNER_NAMES_VALUE.get());
-        ignoredDroneOwnerUUIDs = parseOwnerUuids(IGNORED_DRONE_OWNER_UUIDS_VALUE.get());
-        ignoreOwnerlessDrones = IGNORE_OWNERLESS_DRONES_VALUE.get();
-        blacklistMatchCaseInsensitive = BLACKLIST_MATCH_CASE_INSENSITIVE_VALUE.get();
-        ignoredDroneNames = normalizeConfiguredNames(IGNORED_DRONE_NAMES_VALUE.get(), blacklistMatchCaseInsensitive);
-        ignoreUnnamedDrones = IGNORE_UNNAMED_DRONES_VALUE.get();
-        enableDroneJammer = ENABLE_DRONE_JAMMER_VALUE.get();
-        jammerRange = JAMMER_RANGE_VALUE.get();
-        jammerBuildUpTicks = JAMMER_BUILD_UP_TICKS_VALUE.get();
-        jammerRecoveryTicks = JAMMER_RECOVERY_TICKS_VALUE.get();
-        overlayStartThreshold = clampThreshold(OVERLAY_START_THRESHOLD_VALUE.get(), 0.0D, 0.99D);
+        droneMaxRange = read(DRONE_MAX_RANGE_VALUE);
+        droneVisualTrackingRange = read(DRONE_VISUAL_TRACKING_RANGE_VALUE);
+        droneSpeedMultiplier = read(DRONE_SPEED_MULTIPLIER_VALUE);
+        enableDroneChunkLoading = read(ENABLE_DRONE_CHUNK_LOADING_VALUE);
+        droneChunkLoadRadius = read(DRONE_CHUNK_LOAD_RADIUS_VALUE);
+        enableDronePlayerAnchor = read(ENABLE_DRONE_PLAYER_ANCHOR_VALUE);
+        enableDroneCrashExplosionDamage = read(ENABLE_DRONE_CRASH_EXPLOSION_DAMAGE_VALUE);
+        hidePlayerOnMinimapDuringDroneControl = read(HIDE_PLAYER_ON_MINIMAP_DURING_DRONE_CONTROL_VALUE);
+        showDroneMarkerInstead = read(SHOW_DRONE_MARKER_INSTEAD_VALUE);
+        lucasTakeoffAssistTicks = read(LUCAS_TAKEOFF_ASSIST_TICKS_VALUE);
+        lucasTakeoffForwardBoost = read(LUCAS_TAKEOFF_FORWARD_BOOST_VALUE);
+        lucasTakeoffUpBoost = read(LUCAS_TAKEOFF_UP_BOOST_VALUE);
+        lucasMinSpeed = read(LUCAS_MIN_SPEED_VALUE);
+        lucasMaxSpeed = Math.max(lucasMinSpeed, read(LUCAS_MAX_SPEED_VALUE));
+        lucasAcceleration = read(LUCAS_ACCELERATION_VALUE);
+        lucasDrag = read(LUCAS_DRAG_VALUE);
+        lucasTurnRate = read(LUCAS_TURN_RATE_VALUE);
+        lucasPitchRate = read(LUCAS_PITCH_RATE_VALUE);
+        lucasClimbSpeed = read(LUCAS_CLIMB_SPEED_VALUE);
+        lucasDescendSpeed = read(LUCAS_DESCEND_SPEED_VALUE);
+        lucasLiftStrength = read(LUCAS_LIFT_STRENGTH_VALUE);
+        lucasRollVisualAmount = read(LUCAS_ROLL_VISUAL_AMOUNT_VALUE);
+        lucasMinLiftSpeed = read(LUCAS_MIN_LIFT_SPEED_VALUE);
+        lucasStallGravity = read(LUCAS_STALL_GRAVITY_VALUE);
+        lucasStallEnabled = read(LUCAS_STALL_ENABLED_VALUE);
+        lucasCanHover = read(LUCAS_CAN_HOVER_VALUE);
+        lucasMaxFuel = read(LUCAS_MAX_FUEL_VALUE);
+        lucasFuelDrainIdle = read(LUCAS_FUEL_DRAIN_IDLE_VALUE);
+        lucasFuelDrainFlying = read(LUCAS_FUEL_DRAIN_FLYING_VALUE);
+        lucasFuelDrainClimb = read(LUCAS_FUEL_DRAIN_CLIMB_VALUE);
+        lucasLowFuelWarningPercent = read(LUCAS_LOW_FUEL_WARNING_PERCENT_VALUE);
+        lucasCanFlyWithoutFuel = read(LUCAS_CAN_FLY_WITHOUT_FUEL_VALUE);
+        lucasHudScale = read(LUCAS_HUD_SCALE_VALUE);
+        fuelMixerProcessTime = read(FUEL_MIXER_PROCESS_TIME_VALUE);
+        gasolineJerrycanFuelAmount = read(GASOLINE_JERRYCAN_FUEL_AMOUNT_VALUE);
+        enableThermalVision = read(ENABLE_THERMAL_VISION_VALUE);
+        thermalVisionRange = read(THERMAL_VISION_RANGE_VALUE);
+        thermalVisionKeybindEnabled = read(THERMAL_VISION_KEYBIND_ENABLED_VALUE);
+        thermalVisionNoiseEffect = read(THERMAL_VISION_NOISE_EFFECT_VALUE);
+        thermalHighlightPlayers = read(THERMAL_HIGHLIGHT_PLAYERS_VALUE);
+        thermalHighlightHostileMobs = read(THERMAL_HIGHLIGHT_HOSTILE_MOBS_VALUE);
+        thermalHighlightAnimals = read(THERMAL_HIGHLIGHT_ANIMALS_VALUE);
+        enableBatterySystem = read(ENABLE_BATTERY_SYSTEM_VALUE);
+        maxEnergy = read(MAX_ENERGY_VALUE);
+        energyUsePerTick = read(ENERGY_USE_PER_TICK_VALUE);
+        idleEnergyUsePerTick = read(IDLE_ENERGY_USE_PER_TICK_VALUE);
+        lowEnergyThreshold = read(LOW_ENERGY_THRESHOLD_VALUE);
+        returnHomeOnEmpty = read(RETURN_HOME_ON_EMPTY_VALUE);
+        batteryTransferRate = read(BATTERY_TRANSFER_RATE_VALUE);
+        enableDroneSiren = read(ENABLE_DRONE_SIREN_VALUE);
+        droneSirenRange = read(DRONE_SIREN_RANGE_VALUE);
+        droneSirenRedstoneOutput = read(DRONE_SIREN_REDSTONE_OUTPUT_VALUE);
+        droneSirenCooldownTicks = read(DRONE_SIREN_COOLDOWN_TICKS_VALUE);
+        detectFriendlyDrones = read(DETECT_FRIENDLY_DRONES_VALUE);
+        ignoredDroneOwnerNames = normalizeOwnerNames(read(IGNORED_DRONE_OWNER_NAMES_VALUE));
+        ignoredDroneOwnerUUIDs = parseOwnerUuids(read(IGNORED_DRONE_OWNER_UUIDS_VALUE));
+        ignoreOwnerlessDrones = read(IGNORE_OWNERLESS_DRONES_VALUE);
+        blacklistMatchCaseInsensitive = read(BLACKLIST_MATCH_CASE_INSENSITIVE_VALUE);
+        ignoredDroneNames = normalizeConfiguredNames(read(IGNORED_DRONE_NAMES_VALUE), blacklistMatchCaseInsensitive);
+        ignoreUnnamedDrones = read(IGNORE_UNNAMED_DRONES_VALUE);
+        enableDroneJammer = read(ENABLE_DRONE_JAMMER_VALUE);
+        jammerRange = read(JAMMER_RANGE_VALUE);
+        jammerBuildUpTicks = read(JAMMER_BUILD_UP_TICKS_VALUE);
+        jammerRecoveryTicks = read(JAMMER_RECOVERY_TICKS_VALUE);
+        overlayStartThreshold = clampThreshold(read(OVERLAY_START_THRESHOLD_VALUE), 0.0D, 0.99D);
         controlInterferenceThreshold = Math.max(
                 overlayStartThreshold,
-                clampThreshold(CONTROL_INTERFERENCE_THRESHOLD_VALUE.get(), 0.0D, 0.99D)
+                clampThreshold(read(CONTROL_INTERFERENCE_THRESHOLD_VALUE), 0.0D, 0.99D)
         );
         hardJamThreshold = Math.max(
                 controlInterferenceThreshold,
-                clampThreshold(HARD_JAM_THRESHOLD_VALUE.get(), 0.50D, 1.0D)
+                clampThreshold(read(HARD_JAM_THRESHOLD_VALUE), 0.50D, 1.0D)
         );
-        debugJammer = DEBUG_JAMMER_VALUE.get();
-        jammerMode = JAMMER_MODE_VALUE.get();
-        affectFriendlyDrones = AFFECT_FRIENDLY_DRONES_VALUE.get();
-        droneRadarDetectionRange = DRONE_RADAR_DETECTION_RANGE_VALUE.get();
-        droneRadarBeepEnabled = DRONE_RADAR_BEEP_ENABLED_VALUE.get();
-        droneRadarBeepVolume = DRONE_RADAR_BEEP_VOLUME_VALUE.get();
-        droneRadarMinBeepIntervalTicks = DRONE_RADAR_MIN_BEEP_INTERVAL_TICKS_VALUE.get();
+        debugJammer = read(DEBUG_JAMMER_VALUE);
+        jammerMode = read(JAMMER_MODE_VALUE);
+        affectFriendlyDrones = read(AFFECT_FRIENDLY_DRONES_VALUE);
+        droneRadarDetectionRange = read(DRONE_RADAR_DETECTION_RANGE_VALUE);
+        droneRadarBeepEnabled = read(DRONE_RADAR_BEEP_ENABLED_VALUE);
+        droneRadarBeepVolume = read(DRONE_RADAR_BEEP_VOLUME_VALUE);
+        droneRadarMinBeepIntervalTicks = read(DRONE_RADAR_MIN_BEEP_INTERVAL_TICKS_VALUE);
         droneRadarMaxBeepIntervalTicks = Math.max(
                 droneRadarMinBeepIntervalTicks,
-                DRONE_RADAR_MAX_BEEP_INTERVAL_TICKS_VALUE.get()
+                read(DRONE_RADAR_MAX_BEEP_INTERVAL_TICKS_VALUE)
         );
-        droneRadarOnlyBeepWhenHeld = DRONE_RADAR_ONLY_BEEP_WHEN_HELD_VALUE.get();
-        droneRadarHudScale = DRONE_RADAR_HUD_SCALE_VALUE.get();
-        droneRadarHudXOffset = DRONE_RADAR_HUD_X_OFFSET_VALUE.get();
-        droneRadarHudYOffset = DRONE_RADAR_HUD_Y_OFFSET_VALUE.get();
-        droneRadarCompactMode = DRONE_RADAR_COMPACT_MODE_VALUE.get();
-        debugDroneRadar = DEBUG_DRONE_RADAR_VALUE.get();
-        portableFpvDetectorRange = PORTABLE_FPV_DETECTOR_RANGE_VALUE.get();
-        portableFpvDetectorScanIntervalTicks = PORTABLE_FPV_DETECTOR_SCAN_INTERVAL_TICKS_VALUE.get();
-        portableFpvDetectorMaximumTargets = PORTABLE_FPV_DETECTOR_MAXIMUM_TARGETS_VALUE.get();
-        portableFpvDetectorVideoEnabled = PORTABLE_FPV_DETECTOR_VIDEO_ENABLED_VALUE.get();
-        portableFpvDetectorDetectOwnDrones = PORTABLE_FPV_DETECTOR_DETECT_OWN_DRONES_VALUE.get();
-        portableFpvDetectorRequireLineOfSight = PORTABLE_FPV_DETECTOR_REQUIRE_LINE_OF_SIGHT_VALUE.get();
-        portableFpvDetectorHudEnabled = PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE.get();
-        portableFpvDetectorShowSignalPercent = PORTABLE_FPV_DETECTOR_SHOW_SIGNAL_PERCENT_VALUE.get();
-        enableFiberOpticMode = ENABLE_FIBER_OPTIC_MODE_VALUE.get();
-        fiberOpticCableLength = FIBER_OPTIC_CABLE_LENGTH_VALUE.get();
-        fiberOpticCableBreakDelayTicks = FIBER_OPTIC_CABLE_BREAK_DELAY_TICKS_VALUE.get();
-        fiberOpticExtraBatteryDrainMultiplier = FIBER_OPTIC_EXTRA_BATTERY_DRAIN_MULTIPLIER_VALUE.get();
-        normalJammersAffectFiberOptic = NORMAL_JAMMERS_AFFECT_FIBER_OPTIC_VALUE.get();
-        antiDroneNetCutsFiber = ANTI_DRONE_NET_CUTS_FIBER_VALUE.get();
-        antiDroneNetPanelRequiresSupport = ANTI_DRONE_NET_PANEL_REQUIRES_SUPPORT_VALUE.get();
-        antiDroneNetPanelTriggerThickness = ANTI_DRONE_NET_PANEL_TRIGGER_THICKNESS_VALUE.get();
-        antiDroneNetPanelVisualThickness = ANTI_DRONE_NET_PANEL_VISUAL_THICKNESS_VALUE.get();
-        vehicleAntiDroneNetEnabled = VEHICLE_ANTI_DRONE_NET_ENABLED_VALUE.get();
-        vehicleAntiDroneNetHorizontalPadding = clamp(VEHICLE_ANTI_DRONE_NET_HORIZONTAL_PADDING_VALUE.get(), 0.0D, 2.0D);
-        vehicleAntiDroneNetTopPadding = clamp(VEHICLE_ANTI_DRONE_NET_TOP_PADDING_VALUE.get(), 0.0D, 2.0D);
-        vehicleAntiDroneNetStopsDrones = VEHICLE_ANTI_DRONE_NET_STOPS_DRONES_VALUE.get();
-        vehicleAntiDroneNetOpacity = clamp(VEHICLE_ANTI_DRONE_NET_OPACITY_VALUE.get(), 0.05D, 1.0D);
-        netBulkPlacementEnabled = NET_BULK_PLACEMENT_ENABLED_VALUE.get();
-        netBulkPlacementMaxWidth = NET_BULK_PLACEMENT_MAX_WIDTH_VALUE.get();
-        netBulkPlacementMaxHeight = NET_BULK_PLACEMENT_MAX_HEIGHT_VALUE.get();
+        droneRadarOnlyBeepWhenHeld = read(DRONE_RADAR_ONLY_BEEP_WHEN_HELD_VALUE);
+        droneRadarHudScale = read(DRONE_RADAR_HUD_SCALE_VALUE);
+        droneRadarHudXOffset = read(DRONE_RADAR_HUD_X_OFFSET_VALUE);
+        droneRadarHudYOffset = read(DRONE_RADAR_HUD_Y_OFFSET_VALUE);
+        droneRadarCompactMode = read(DRONE_RADAR_COMPACT_MODE_VALUE);
+        debugDroneRadar = read(DEBUG_DRONE_RADAR_VALUE);
+        portableFpvDetectorRange = read(PORTABLE_FPV_DETECTOR_RANGE_VALUE);
+        portableFpvDetectorScanIntervalTicks = read(PORTABLE_FPV_DETECTOR_SCAN_INTERVAL_TICKS_VALUE);
+        portableFpvDetectorMaximumTargets = read(PORTABLE_FPV_DETECTOR_MAXIMUM_TARGETS_VALUE);
+        portableFpvDetectorVideoEnabled = read(PORTABLE_FPV_DETECTOR_VIDEO_ENABLED_VALUE);
+        portableFpvDetectorDetectOwnDrones = read(PORTABLE_FPV_DETECTOR_DETECT_OWN_DRONES_VALUE);
+        portableFpvDetectorRequireLineOfSight = read(PORTABLE_FPV_DETECTOR_REQUIRE_LINE_OF_SIGHT_VALUE);
+        portableFpvDetectorHudEnabled = read(PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE);
+        portableFpvDetectorShowSignalPercent = read(PORTABLE_FPV_DETECTOR_SHOW_SIGNAL_PERCENT_VALUE);
+        laserDefenseTowerDroneRange = read(LASER_DEFENSE_TOWER_DRONE_RANGE_VALUE);
+        laserDefenseTowerWhitelistEnabled = read(LASER_DEFENSE_TOWER_WHITELIST_ENABLED_VALUE);
+        enableFiberOpticMode = read(ENABLE_FIBER_OPTIC_MODE_VALUE);
+        fiberOpticCableLength = read(FIBER_OPTIC_CABLE_LENGTH_VALUE);
+        fiberOpticCableBreakDelayTicks = read(FIBER_OPTIC_CABLE_BREAK_DELAY_TICKS_VALUE);
+        fiberOpticExtraBatteryDrainMultiplier = read(FIBER_OPTIC_EXTRA_BATTERY_DRAIN_MULTIPLIER_VALUE);
+        normalJammersAffectFiberOptic = read(NORMAL_JAMMERS_AFFECT_FIBER_OPTIC_VALUE);
+        antiDroneNetCutsFiber = read(ANTI_DRONE_NET_CUTS_FIBER_VALUE);
+        antiDroneNetPanelRequiresSupport = read(ANTI_DRONE_NET_PANEL_REQUIRES_SUPPORT_VALUE);
+        antiDroneNetPanelTriggerThickness = read(ANTI_DRONE_NET_PANEL_TRIGGER_THICKNESS_VALUE);
+        antiDroneNetPanelVisualThickness = read(ANTI_DRONE_NET_PANEL_VISUAL_THICKNESS_VALUE);
+        vehicleAntiDroneNetEnabled = read(VEHICLE_ANTI_DRONE_NET_ENABLED_VALUE);
+        vehicleAntiDroneNetHorizontalPadding = clamp(read(VEHICLE_ANTI_DRONE_NET_HORIZONTAL_PADDING_VALUE), 0.0D, 2.0D);
+        vehicleAntiDroneNetTopPadding = clamp(read(VEHICLE_ANTI_DRONE_NET_TOP_PADDING_VALUE), 0.0D, 2.0D);
+        vehicleAntiDroneNetStopsDrones = read(VEHICLE_ANTI_DRONE_NET_STOPS_DRONES_VALUE);
+        vehicleAntiDroneNetOpacity = clamp(read(VEHICLE_ANTI_DRONE_NET_OPACITY_VALUE), 0.05D, 1.0D);
+        netBulkPlacementEnabled = read(NET_BULK_PLACEMENT_ENABLED_VALUE);
+        netBulkPlacementMaxWidth = read(NET_BULK_PLACEMENT_MAX_WIDTH_VALUE);
+        netBulkPlacementMaxHeight = read(NET_BULK_PLACEMENT_MAX_HEIGHT_VALUE);
         netBulkPlacementMaxBlocks = Math.min(
-                NET_BULK_PLACEMENT_MAX_BLOCKS_VALUE.get(),
+                read(NET_BULK_PLACEMENT_MAX_BLOCKS_VALUE),
                 netBulkPlacementMaxWidth * netBulkPlacementMaxHeight
         );
-        netBulkPlacementMaximumReach = clamp(NET_BULK_PLACEMENT_MAXIMUM_REACH_VALUE.get(), 1.0D, 256.0D);
-        netBulkPlacementAllOrNothing = NET_BULK_PLACEMENT_ALL_OR_NOTHING_VALUE.get();
-        netBulkPlacementSkipBlocked = NET_BULK_PLACEMENT_SKIP_BLOCKED_VALUE.get();
-        netBulkPlacementBlocksPerTick = Math.max(1, NET_BULK_PLACEMENT_BLOCKS_PER_TICK_VALUE.get());
-        netBulkPlacementUndoSeconds = Math.max(0, NET_BULK_PLACEMENT_UNDO_SECONDS_VALUE.get());
-        debugFiberOptic = DEBUG_FIBER_OPTIC_VALUE.get();
-        fiberCableVisualThickness = FIBER_CABLE_VISUAL_THICKNESS_VALUE.get();
-        fiberCableVisualAlpha = FIBER_CABLE_VISUAL_ALPHA_VALUE.get();
-        fiberCableVisualColor = normalizeFiberCableVisualColor(FIBER_CABLE_VISUAL_COLOR_VALUE.get());
-        fiberCableMaxRenderDistance = FIBER_CABLE_MAX_RENDER_DISTANCE_VALUE.get();
-        maxVisibleFiberCables = MAX_VISIBLE_FIBER_CABLES_VALUE.get();
-        fiberRouteHistoryEnabled = FIBER_ROUTE_HISTORY_ENABLED_VALUE.get();
-        fiberRoutePointSpacing = FIBER_ROUTE_POINT_SPACING_VALUE.get();
-        fiberRouteMinimumTurnDistance = FIBER_ROUTE_MINIMUM_TURN_DISTANCE_VALUE.get();
-        fiberRouteTurnAngleThreshold = FIBER_ROUTE_TURN_ANGLE_THRESHOLD_VALUE.get();
-        fiberRouteMaximumPoints = FIBER_ROUTE_MAXIMUM_POINTS_VALUE.get();
-        fiberRouteCornerSmoothing = FIBER_ROUTE_CORNER_SMOOTHING_VALUE.get();
-        fiberRouteDebugLogging = FIBER_ROUTE_DEBUG_LOGGING_VALUE.get();
-        fiberCableCanBeCutByOwner = FIBER_CABLE_CAN_BE_CUT_BY_OWNER_VALUE.get();
-        fiberCableCanBeCutByOtherPlayers = FIBER_CABLE_CAN_BE_CUT_BY_OTHER_PLAYERS_VALUE.get();
-        fiberCableCutRequiresShears = FIBER_CABLE_CUT_REQUIRES_SHEARS_VALUE.get();
-        fiberCableCutReach = clamp(FIBER_CABLE_CUT_REACH_VALUE.get(), 1.0D, 16.0D);
-        fiberCableInteractionRadius = clamp(FIBER_CABLE_INTERACTION_RADIUS_VALUE.get(), 0.02D, 0.50D);
-        fiberCableCutLineOfSightRequired = FIBER_CABLE_CUT_LINE_OF_SIGHT_REQUIRED_VALUE.get();
-        fiberCableTargetIndicator = FIBER_CABLE_TARGET_INDICATOR_VALUE.get();
-        fiberCableDebugVisualThickness = FIBER_CABLE_DEBUG_VISUAL_THICKNESS_VALUE.get();
-        fiberCableSegmentSpacing = FIBER_CABLE_SEGMENT_SPACING_VALUE.get();
-        fiberCableSegmentHealth = FIBER_CABLE_SEGMENT_HEALTH_VALUE.get();
-        fiberCableSegmentHitboxSize = FIBER_CABLE_SEGMENT_HITBOX_SIZE_VALUE.get();
-        fiberCableCanBeDamagedByPlayers = FIBER_CABLE_CAN_BE_DAMAGED_BY_PLAYERS_VALUE.get();
-        fiberCableCanBeDamagedByProjectiles = FIBER_CABLE_CAN_BE_DAMAGED_BY_PROJECTILES_VALUE.get();
-        fiberCableCanBeDamagedByExplosions = FIBER_CABLE_CAN_BE_DAMAGED_BY_EXPLOSIONS_VALUE.get();
-        fiberCableProjectileRaycastBreak = FIBER_CABLE_PROJECTILE_RAYCAST_BREAK_VALUE.get();
-        fiberCableBreaksWhenAnySegmentDestroyed = FIBER_CABLE_BREAKS_WHEN_ANY_SEGMENT_DESTROYED_VALUE.get();
-        maxFiberCableSegmentsPerDrone = MAX_FIBER_CABLE_SEGMENTS_PER_DRONE_VALUE.get();
-        debugFiberCableRender = DEBUG_FIBER_CABLE_RENDER_VALUE.get();
-        debugFiberCableSegments = DEBUG_FIBER_CABLE_SEGMENTS_VALUE.get();
-        renderRedDebugCable = RENDER_RED_DEBUG_CABLE_VALUE.get();
-        renderLegacyFiberLine = RENDER_LEGACY_FIBER_LINE_VALUE.get();
-        weatherEffectsEnabled = WEATHER_EFFECTS_ENABLED_VALUE.get();
-        rainVisibilityMultiplier = RAIN_VISIBILITY_MULTIPLIER_VALUE.get();
-        stormInstabilityStrength = STORM_INSTABILITY_STRENGTH_VALUE.get();
-        enableDroneScreenshotSound = ENABLE_DRONE_SCREENSHOT_SOUND_VALUE.get();
-        fpvCameraFov = FPV_CAMERA_FOV_VALUE.get();
-        fpvCameraTiltDegrees = FPV_CAMERA_TILT_DEGREES_VALUE.get();
-        enableFpvFisheyeEffect = ENABLE_FPV_FISHEYE_EFFECT_VALUE.get();
-        enableFpvCameraVibration = ENABLE_FPV_CAMERA_VIBRATION_VALUE.get();
-        droneEngineVolumeMultiplier = DRONE_ENGINE_VOLUME_MULTIPLIER_VALUE.get();
-        lucasEngineVolumeMultiplier = LUCAS_ENGINE_VOLUME_MULTIPLIER_VALUE.get();
-        droneMonitorHumVolumeMultiplier = DRONE_MONITOR_HUM_VOLUME_MULTIPLIER_VALUE.get();
-        droneAirborneVolumeMultiplier = DRONE_AIRBORNE_VOLUME_MULTIPLIER_VALUE.get();
-        cubedFpvExternalVolume = clamp(CUBED_FPV_EXTERNAL_VOLUME_VALUE.get(),
+        netBulkPlacementMaximumReach = clamp(read(NET_BULK_PLACEMENT_MAXIMUM_REACH_VALUE), 1.0D, 256.0D);
+        netBulkPlacementAllOrNothing = read(NET_BULK_PLACEMENT_ALL_OR_NOTHING_VALUE);
+        netBulkPlacementSkipBlocked = read(NET_BULK_PLACEMENT_SKIP_BLOCKED_VALUE);
+        netBulkPlacementBlocksPerTick = Math.max(1, read(NET_BULK_PLACEMENT_BLOCKS_PER_TICK_VALUE));
+        netBulkPlacementUndoSeconds = Math.max(0, read(NET_BULK_PLACEMENT_UNDO_SECONDS_VALUE));
+        keepDetachedFiberCableOnDroneDeath = read(KEEP_DETACHED_FIBER_CABLE_ON_DRONE_DEATH_VALUE);
+        detachedFiberCableLifetimeTicks = read(DETACHED_FIBER_CABLE_LIFETIME_TICKS_VALUE);
+        debugFiberOptic = read(DEBUG_FIBER_OPTIC_VALUE);
+        fiberCableVisualThickness = read(FIBER_CABLE_VISUAL_THICKNESS_VALUE);
+        fiberCableVisualAlpha = read(FIBER_CABLE_VISUAL_ALPHA_VALUE);
+        fiberCableVisualColor = normalizeFiberCableVisualColor(read(FIBER_CABLE_VISUAL_COLOR_VALUE));
+        fiberCableMaxRenderDistance = read(FIBER_CABLE_MAX_RENDER_DISTANCE_VALUE);
+        maxVisibleFiberCables = read(MAX_VISIBLE_FIBER_CABLES_VALUE);
+        fiberRouteHistoryEnabled = read(FIBER_ROUTE_HISTORY_ENABLED_VALUE);
+        fiberRoutePointSpacing = read(FIBER_ROUTE_POINT_SPACING_VALUE);
+        fiberRouteMinimumTurnDistance = read(FIBER_ROUTE_MINIMUM_TURN_DISTANCE_VALUE);
+        fiberRouteTurnAngleThreshold = read(FIBER_ROUTE_TURN_ANGLE_THRESHOLD_VALUE);
+        fiberRouteMaximumPoints = read(FIBER_ROUTE_MAXIMUM_POINTS_VALUE);
+        fiberRouteCornerSmoothing = read(FIBER_ROUTE_CORNER_SMOOTHING_VALUE);
+        fiberRouteDebugLogging = read(FIBER_ROUTE_DEBUG_LOGGING_VALUE);
+        fiberCableCanBeCutByOwner = read(FIBER_CABLE_CAN_BE_CUT_BY_OWNER_VALUE);
+        fiberCableCanBeCutByOtherPlayers = read(FIBER_CABLE_CAN_BE_CUT_BY_OTHER_PLAYERS_VALUE);
+        fiberCableCutRequiresShears = read(FIBER_CABLE_CUT_REQUIRES_SHEARS_VALUE);
+        fiberCableCutReach = clamp(read(FIBER_CABLE_CUT_REACH_VALUE), 1.0D, 16.0D);
+        fiberCableInteractionRadius = clamp(read(FIBER_CABLE_INTERACTION_RADIUS_VALUE), 0.02D, 0.50D);
+        fiberCableCutLineOfSightRequired = read(FIBER_CABLE_CUT_LINE_OF_SIGHT_REQUIRED_VALUE);
+        fiberCableTargetIndicator = read(FIBER_CABLE_TARGET_INDICATOR_VALUE);
+        fiberCableDebugVisualThickness = read(FIBER_CABLE_DEBUG_VISUAL_THICKNESS_VALUE);
+        fiberCableSegmentSpacing = read(FIBER_CABLE_SEGMENT_SPACING_VALUE);
+        fiberCableSegmentHealth = read(FIBER_CABLE_SEGMENT_HEALTH_VALUE);
+        fiberCableSegmentHitboxSize = read(FIBER_CABLE_SEGMENT_HITBOX_SIZE_VALUE);
+        fiberCableCanBeDamagedByPlayers = read(FIBER_CABLE_CAN_BE_DAMAGED_BY_PLAYERS_VALUE);
+        fiberCableCanBeDamagedByProjectiles = read(FIBER_CABLE_CAN_BE_DAMAGED_BY_PROJECTILES_VALUE);
+        fiberCableCanBeDamagedByExplosions = read(FIBER_CABLE_CAN_BE_DAMAGED_BY_EXPLOSIONS_VALUE);
+        fiberCableProjectileRaycastBreak = read(FIBER_CABLE_PROJECTILE_RAYCAST_BREAK_VALUE);
+        fiberCableBreaksWhenAnySegmentDestroyed = read(FIBER_CABLE_BREAKS_WHEN_ANY_SEGMENT_DESTROYED_VALUE);
+        maxFiberCableSegmentsPerDrone = read(MAX_FIBER_CABLE_SEGMENTS_PER_DRONE_VALUE);
+        debugFiberCableRender = read(DEBUG_FIBER_CABLE_RENDER_VALUE);
+        debugFiberCableSegments = read(DEBUG_FIBER_CABLE_SEGMENTS_VALUE);
+        renderRedDebugCable = read(RENDER_RED_DEBUG_CABLE_VALUE);
+        renderLegacyFiberLine = read(RENDER_LEGACY_FIBER_LINE_VALUE);
+        weatherEffectsEnabled = read(WEATHER_EFFECTS_ENABLED_VALUE);
+        rainVisibilityMultiplier = read(RAIN_VISIBILITY_MULTIPLIER_VALUE);
+        stormInstabilityStrength = read(STORM_INSTABILITY_STRENGTH_VALUE);
+        enableDroneScreenshotSound = read(ENABLE_DRONE_SCREENSHOT_SOUND_VALUE);
+        fpvCameraFov = read(FPV_CAMERA_FOV_VALUE);
+        fpvCameraTiltDegrees = read(FPV_CAMERA_TILT_DEGREES_VALUE);
+        enableFpvFisheyeEffect = read(ENABLE_FPV_FISHEYE_EFFECT_VALUE);
+        enableFpvCameraVibration = read(ENABLE_FPV_CAMERA_VIBRATION_VALUE);
+        droneEngineVolumeMultiplier = read(DRONE_ENGINE_VOLUME_MULTIPLIER_VALUE);
+        lucasEngineVolumeMultiplier = read(LUCAS_ENGINE_VOLUME_MULTIPLIER_VALUE);
+        droneMonitorHumVolumeMultiplier = read(DRONE_MONITOR_HUM_VOLUME_MULTIPLIER_VALUE);
+        droneAirborneVolumeMultiplier = read(DRONE_AIRBORNE_VOLUME_MULTIPLIER_VALUE);
+        cubedFpvExternalVolume = clamp(read(CUBED_FPV_EXTERNAL_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        cubedFpvNearVolume = clamp(CUBED_FPV_NEAR_VOLUME_VALUE.get(),
+        cubedFpvNearVolume = clamp(read(CUBED_FPV_NEAR_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        cubedFpvMidVolume = clamp(CUBED_FPV_MID_VOLUME_VALUE.get(),
+        cubedFpvMidVolume = clamp(read(CUBED_FPV_MID_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        cubedFpvFarVolume = clamp(CUBED_FPV_FAR_VOLUME_VALUE.get(),
+        cubedFpvFarVolume = clamp(read(CUBED_FPV_FAR_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        lucasExternalVolume = clamp(LUCAS_EXTERNAL_VOLUME_VALUE.get(),
+        lucasExternalVolume = clamp(read(LUCAS_EXTERNAL_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        lucasNearVolume = clamp(LUCAS_NEAR_VOLUME_VALUE.get(),
+        lucasNearVolume = clamp(read(LUCAS_NEAR_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        lucasMidVolume = clamp(LUCAS_MID_VOLUME_VALUE.get(),
+        lucasMidVolume = clamp(read(LUCAS_MID_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        lucasFarVolume = clamp(LUCAS_FAR_VOLUME_VALUE.get(),
+        lucasFarVolume = clamp(read(LUCAS_FAR_VOLUME_VALUE),
                 DroneAudioConfigLimits.MIN_EXTERNAL_LAYER_VOLUME,
                 DroneAudioConfigLimits.MAX_EXTERNAL_LAYER_VOLUME);
-        fpvInternalAudioGain = clamp(FPV_INTERNAL_AUDIO_GAIN_VALUE.get(),
+        fpvInternalAudioGain = clamp(read(FPV_INTERNAL_AUDIO_GAIN_VALUE),
                 DroneAudioConfigLimits.MIN_INTERNAL_AUDIO_GAIN,
                 DroneAudioConfigLimits.MAX_INTERNAL_AUDIO_GAIN);
-        droneDopplerEnabled = DRONE_DOPPLER_ENABLED_VALUE.get();
-        droneDopplerStrength = clamp(DRONE_DOPPLER_STRENGTH_VALUE.get(),
+        droneDopplerEnabled = read(DRONE_DOPPLER_ENABLED_VALUE);
+        droneDopplerStrength = clamp(read(DRONE_DOPPLER_STRENGTH_VALUE),
                 DroneAudioConfigLimits.MIN_DOPPLER_STRENGTH,
                 DroneAudioConfigLimits.MAX_DOPPLER_STRENGTH);
-        droneAudioOcclusion = DRONE_AUDIO_OCCLUSION_VALUE.get();
+        droneAudioOcclusion = read(DRONE_AUDIO_OCCLUSION_VALUE);
         maxAudibleCubedFpvDrones = Math.max(
                 DroneAudioConfigLimits.MIN_AUDIBLE_DRONES,
-                Math.min(DroneAudioConfigLimits.MAX_AUDIBLE_DRONES, MAX_AUDIBLE_CUBED_FPV_DRONES_VALUE.get())
+                Math.min(DroneAudioConfigLimits.MAX_AUDIBLE_DRONES, read(MAX_AUDIBLE_CUBED_FPV_DRONES_VALUE))
         );
         maxAudibleLucasDrones = Math.max(
                 DroneAudioConfigLimits.MIN_AUDIBLE_DRONES,
-                Math.min(DroneAudioConfigLimits.MAX_AUDIBLE_DRONES, MAX_AUDIBLE_LUCAS_DRONES_VALUE.get())
+                Math.min(DroneAudioConfigLimits.MAX_AUDIBLE_DRONES, read(MAX_AUDIBLE_LUCAS_DRONES_VALUE))
         );
-        enableSpotlightModule = ENABLE_SPOTLIGHT_MODULE_VALUE.get();
-        spotlightRange = SPOTLIGHT_RANGE_VALUE.get();
-        spotlightEnergyCostPerSecond = SPOTLIGHT_ENERGY_COST_PER_SECOND_VALUE.get();
-        spotlightRequiresModule = SPOTLIGHT_REQUIRES_MODULE_VALUE.get();
-        spotlightVisibleToOtherPlayers = SPOTLIGHT_VISIBLE_TO_OTHER_PLAYERS_VALUE.get();
-        spotlightAutoOffWhenBatteryEmpty = SPOTLIGHT_AUTO_OFF_WHEN_BATTERY_EMPTY_VALUE.get();
-        spotlightRealLightEnabled = SPOTLIGHT_REAL_LIGHT_ENABLED_VALUE.get();
-        spotlightLightRange = SPOTLIGHT_LIGHT_RANGE_VALUE.get();
-        spotlightLightLevel = SPOTLIGHT_LIGHT_LEVEL_VALUE.get();
-        spotlightLightUpdateIntervalTicks = SPOTLIGHT_LIGHT_UPDATE_INTERVAL_TICKS_VALUE.get();
-        debugPayloadMounts = DEBUG_PAYLOAD_MOUNTS_VALUE.get();
-        fpvPayloadAttachmentX = FPV_PAYLOAD_ATTACHMENT_X_VALUE.get();
-        fpvPayloadAttachmentY = FPV_PAYLOAD_ATTACHMENT_Y_VALUE.get();
-        fpvPayloadAttachmentZ = FPV_PAYLOAD_ATTACHMENT_Z_VALUE.get();
-        fpvPayloadCordLength = FPV_PAYLOAD_CORD_LENGTH_VALUE.get();
-        fpvPayloadGrenadeScale = FPV_PAYLOAD_GRENADE_SCALE_VALUE.get();
-        fpvPayloadGrenadeRotationPitch = FPV_PAYLOAD_GRENADE_ROTATION_PITCH_VALUE.get();
-        fpvPayloadGrenadeRotationRoll = FPV_PAYLOAD_GRENADE_ROTATION_ROLL_VALUE.get();
-        fpvPayloadGrenadeRotationYaw = FPV_PAYLOAD_GRENADE_ROTATION_YAW_VALUE.get();
-        fpvPayloadSwingMaxAngle = FPV_PAYLOAD_SWING_MAX_ANGLE_VALUE.get();
-        fpvPayloadSwingDamping = FPV_PAYLOAD_SWING_DAMPING_VALUE.get();
-
-        fpvPayloadAttachmentY = migrateLegacyPayloadDefault(fpvPayloadAttachmentY, -0.14D, -0.30D);
-        fpvPayloadAttachmentZ = migrateLegacyPayloadDefault(fpvPayloadAttachmentZ, 0.10D, 0.0D);
-        fpvPayloadCordLength = Math.max(0.1D, Math.min(1.0D, migrateLegacyPayloadDefault(fpvPayloadCordLength, 0.62D, 0.65D)));
-        fpvPayloadGrenadeScale = migrateLegacyPayloadDefault(fpvPayloadGrenadeScale, 0.55D, 0.62D);
-        fpvPayloadSwingMaxAngle = Math.max(0.0D, Math.min(45.0D, migrateLegacyPayloadDefault(fpvPayloadSwingMaxAngle, 42.0D, 35.0D)));
-        fpvPayloadSwingDamping = migrateLegacyPayloadDefault(fpvPayloadSwingDamping, 0.86D, 0.88D);
-    }
-
-    private static double migrateLegacyPayloadDefault(double value, double oldDefault, double newDefault) {
-        return Math.abs(value - oldDefault) < 1.0E-6D ? newDefault : value;
+        enableSpotlightModule = read(ENABLE_SPOTLIGHT_MODULE_VALUE);
+        spotlightRange = read(SPOTLIGHT_RANGE_VALUE);
+        spotlightEnergyCostPerSecond = read(SPOTLIGHT_ENERGY_COST_PER_SECOND_VALUE);
+        spotlightRequiresModule = read(SPOTLIGHT_REQUIRES_MODULE_VALUE);
+        spotlightVisibleToOtherPlayers = read(SPOTLIGHT_VISIBLE_TO_OTHER_PLAYERS_VALUE);
+        spotlightAutoOffWhenBatteryEmpty = read(SPOTLIGHT_AUTO_OFF_WHEN_BATTERY_EMPTY_VALUE);
+        spotlightRealLightEnabled = read(SPOTLIGHT_REAL_LIGHT_ENABLED_VALUE);
+        spotlightLightRange = read(SPOTLIGHT_LIGHT_RANGE_VALUE);
+        spotlightLightLevel = read(SPOTLIGHT_LIGHT_LEVEL_VALUE);
+        spotlightLightUpdateIntervalTicks = read(SPOTLIGHT_LIGHT_UPDATE_INTERVAL_TICKS_VALUE);
+        debugRadarTowerMount = read(DEBUG_RADAR_TOWER_MOUNT_VALUE);
+        radarTowerRoofAnchorX = read(RADAR_TOWER_ROOF_ANCHOR_X_VALUE);
+        radarTowerRoofAnchorY = read(RADAR_TOWER_ROOF_ANCHOR_Y_VALUE);
+        radarTowerRoofAnchorZ = read(RADAR_TOWER_ROOF_ANCHOR_Z_VALUE);
+        radarTowerCageYaw = read(RADAR_TOWER_CAGE_YAW_VALUE);
+        radarTowerCagePitch = read(RADAR_TOWER_CAGE_PITCH_VALUE);
+        radarTowerCageRoll = read(RADAR_TOWER_CAGE_ROLL_VALUE);
+        radarTowerCageScale = read(RADAR_TOWER_CAGE_SCALE_VALUE);
+        radarTowerMaxBatteryCapacity = read(RADAR_TOWER_MAX_BATTERY_CAPACITY_VALUE);
+        radarTowerSolarChargeRate = read(RADAR_TOWER_SOLAR_CHARGE_RATE_VALUE);
+        radarTowerChargingStationChargeRate = read(RADAR_TOWER_CHARGING_STATION_CHARGE_RATE_VALUE);
+        radarTowerJammerEnergyDrainRate = read(RADAR_TOWER_JAMMER_ENERGY_DRAIN_RATE_VALUE);
+        radarTowerMinimumEnergyToActivate = read(RADAR_TOWER_MINIMUM_ENERGY_TO_ACTIVATE_VALUE);
+        antiVehicleMortarVehicleDamage = read(ANTI_VEHICLE_MORTAR_VEHICLE_DAMAGE_VALUE);
+        antiVehicleMortarEntityDamage = read(ANTI_VEHICLE_MORTAR_ENTITY_DAMAGE_VALUE);
+        antiVehicleMortarExplosionRadius = read(ANTI_VEHICLE_MORTAR_EXPLOSION_RADIUS_VALUE);
+        antiVehicleMortarBlockDamageRadius = read(ANTI_VEHICLE_MORTAR_BLOCK_DAMAGE_RADIUS_VALUE);
+        antiVehicleMortarPayloadCooldownTicks = read(ANTI_VEHICLE_MORTAR_PAYLOAD_COOLDOWN_TICKS_VALUE);
+        debugPayloadMounts = read(DEBUG_PAYLOAD_MOUNTS_VALUE);
     }
 
     public static int droneMaxRange() {
@@ -1351,24 +1438,20 @@ public final class AddonConfig {
         return droneChunkLoadRadius;
     }
 
-    public static int droneProactiveLoadRadius() {
-        return droneProactiveLoadRadius;
-    }
-
-    public static boolean debugDroneChunkLoading() {
-        return debugDroneChunkLoading;
-    }
-
-    public static boolean experimentalDroneClientChunkCenterSync() {
-        return experimentalDroneClientChunkCenterSync;
-    }
-
     public static boolean enableDronePlayerAnchor() {
         return enableDronePlayerAnchor;
     }
 
     public static boolean enableDroneCrashExplosionDamage() {
         return enableDroneCrashExplosionDamage;
+    }
+
+    public static boolean hidePlayerOnMinimapDuringDroneControl() {
+        return hidePlayerOnMinimapDuringDroneControl;
+    }
+
+    public static boolean showDroneMarkerInstead() {
+        return showDroneMarkerInstead;
     }
 
     public static int lucasTakeoffAssistTicks() {
@@ -1695,6 +1778,14 @@ public final class AddonConfig {
         return portableFpvDetectorShowSignalPercent;
     }
 
+    public static int laserDefenseTowerDroneRange() {
+        return laserDefenseTowerDroneRange;
+    }
+
+    public static boolean laserDefenseTowerWhitelistEnabled() {
+        return laserDefenseTowerWhitelistEnabled;
+    }
+
     public static boolean enableFiberOpticMode() {
         return enableFiberOpticMode;
     }
@@ -1785,6 +1876,14 @@ public final class AddonConfig {
 
     public static int netBulkPlacementUndoSeconds() {
         return netBulkPlacementUndoSeconds;
+    }
+
+    public static boolean keepDetachedFiberCableOnDroneDeath() {
+        return keepDetachedFiberCableOnDroneDeath;
+    }
+
+    public static int detachedFiberCableLifetimeTicks() {
+        return detachedFiberCableLifetimeTicks;
     }
 
     public static boolean debugFiberOptic() {
@@ -2067,48 +2166,80 @@ public final class AddonConfig {
         return spotlightLightUpdateIntervalTicks;
     }
 
+    public static double antiVehicleMortarVehicleDamage() {
+        return antiVehicleMortarVehicleDamage;
+    }
+
+    public static double antiVehicleMortarEntityDamage() {
+        return antiVehicleMortarEntityDamage;
+    }
+
+    public static double antiVehicleMortarExplosionRadius() {
+        return antiVehicleMortarExplosionRadius;
+    }
+
+    public static double antiVehicleMortarBlockDamageRadius() {
+        return antiVehicleMortarBlockDamageRadius;
+    }
+
+    public static int antiVehicleMortarPayloadCooldownTicks() {
+        return antiVehicleMortarPayloadCooldownTicks;
+    }
+
     public static boolean debugPayloadMounts() {
         return debugPayloadMounts;
     }
 
-    public static double fpvPayloadAttachmentX() {
-        return fpvPayloadAttachmentX;
+    public static boolean debugRadarTowerMount() {
+        return debugRadarTowerMount;
     }
 
-    public static double fpvPayloadAttachmentY() {
-        return fpvPayloadAttachmentY;
+    public static double radarTowerRoofAnchorX() {
+        return radarTowerRoofAnchorX;
     }
 
-    public static double fpvPayloadAttachmentZ() {
-        return fpvPayloadAttachmentZ;
+    public static double radarTowerRoofAnchorY() {
+        return radarTowerRoofAnchorY;
     }
 
-    public static double fpvPayloadCordLength() {
-        return fpvPayloadCordLength;
+    public static double radarTowerRoofAnchorZ() {
+        return radarTowerRoofAnchorZ;
     }
 
-    public static double fpvPayloadGrenadeScale() {
-        return fpvPayloadGrenadeScale;
+    public static double radarTowerCageYaw() {
+        return radarTowerCageYaw;
     }
 
-    public static double fpvPayloadGrenadeRotationPitch() {
-        return fpvPayloadGrenadeRotationPitch;
+    public static double radarTowerCagePitch() {
+        return radarTowerCagePitch;
     }
 
-    public static double fpvPayloadGrenadeRotationRoll() {
-        return fpvPayloadGrenadeRotationRoll;
+    public static double radarTowerCageRoll() {
+        return radarTowerCageRoll;
     }
 
-    public static double fpvPayloadGrenadeRotationYaw() {
-        return fpvPayloadGrenadeRotationYaw;
+    public static double radarTowerCageScale() {
+        return radarTowerCageScale;
     }
 
-    public static double fpvPayloadSwingMaxAngle() {
-        return fpvPayloadSwingMaxAngle;
+    public static int radarTowerMaxBatteryCapacity() {
+        return radarTowerMaxBatteryCapacity;
     }
 
-    public static double fpvPayloadSwingDamping() {
-        return fpvPayloadSwingDamping;
+    public static int radarTowerSolarChargeRate() {
+        return radarTowerSolarChargeRate;
+    }
+
+    public static int radarTowerChargingStationChargeRate() {
+        return radarTowerChargingStationChargeRate;
+    }
+
+    public static int radarTowerJammerEnergyDrainRate() {
+        return radarTowerJammerEnergyDrainRate;
+    }
+
+    public static int radarTowerMinimumEnergyToActivate() {
+        return radarTowerMinimumEnergyToActivate;
     }
 
     private static Set<String> normalizeOwnerNames(List<? extends String> rawNames) {
@@ -2186,20 +2317,14 @@ public final class AddonConfig {
         };
     }
 
-    /** Restored Laser Defense Tower defaults for the Forge 1.20.1 integration. */
-    public static int laserDefenseTowerDroneRange() {
-        return 500;
-    }
-
-    public static boolean laserDefenseTowerWhitelistEnabled() {
-        return true;
-    }
-
     public static void save() {
-        SPEC.save();
+        if (SPEC.isLoaded()) SPEC.save();
+        if (CLIENT_SPEC.isLoaded()) CLIENT_SPEC.save();
         bake();
         if (ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID)) {
             DroneTrackingRangeOverride.applyConfiguredRange();
         }
     }
+
+    public static boolean enableDroneRemoteChunkTracking() { return read(ENABLE_DRONE_REMOTE_CHUNK_TRACKING_VALUE); }
 }

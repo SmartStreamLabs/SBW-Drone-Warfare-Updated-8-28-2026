@@ -12,7 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public abstract class DroneEntityCullingMixin {
-    @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true, require = 0)
+    @Inject(
+            method = "shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false,
+            require = 0
+    )
     private void sbwdroneconfig$expandDroneVisualCullingBounds(Entity drone, Frustum frustum, double x, double y, double z, CallbackInfoReturnable<Boolean> callback) {
         if (!SbwCompat.isDrone(drone)) {
             return;

@@ -1,37 +1,31 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
-public record OpenLaserTowerWhitelistMessage(int entityId, List<String> whitelistedGamertags) {
+public record OpenLaserTowerWhitelistMessage(int entityId, List<String> whitelistedGamertags) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<OpenLaserTowerWhitelistMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "open_laser_tower_whitelist"));
+
     public static void encode(OpenLaserTowerWhitelistMessage message, FriendlyByteBuf buffer) {
         buffer.writeVarInt(message.entityId);
-        buffer.writeVarInt(message.whitelistedGamertags.size());
-        for (String entry : message.whitelistedGamertags) {
-            buffer.writeUtf(entry, 64);
-        }
+        buffer.writeCollection(message.whitelistedGamertags, FriendlyByteBuf::writeUtf);
     }
 
     public static OpenLaserTowerWhitelistMessage decode(FriendlyByteBuf buffer) {
-        int entityId = buffer.readVarInt();
-        int size = Math.min(buffer.readVarInt(), 64);
-        List<String> entries = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            entries.add(buffer.readUtf(64));
-        }
-        return new OpenLaserTowerWhitelistMessage(entityId, entries);
+        return new OpenLaserTowerWhitelistMessage(buffer.readVarInt(), buffer.readList(FriendlyByteBuf::readUtf));
     }
 
-    public static void handle(OpenLaserTowerWhitelistMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () ->
-                LaserTowerWhitelistScreen.open(message.entityId(), message.whitelistedGamertags())));
-        context.setPacketHandled(true);
+    public static void handle(OpenLaserTowerWhitelistMessage message, IPayloadContext context) {
+        LaserTowerWhitelistScreen.open(message.entityId(), message.whitelistedGamertags());
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

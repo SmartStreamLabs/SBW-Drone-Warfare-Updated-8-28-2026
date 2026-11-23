@@ -1,12 +1,13 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record FiberCableCutRequestMessage(
         int droneEntityId,
@@ -16,7 +17,10 @@ public record FiberCableCutRequestMessage(
         double hitX,
         double hitY,
         double hitZ
-) {
+) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<FiberCableCutRequestMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "fiber_cable_cut_request"));
+
     public FiberCableCutRequestMessage(int droneEntityId, UUID sessionId, int claimedRevision, int claimedSegmentIndex, Vec3 hitPosition) {
         this(
                 droneEntityId,
@@ -51,16 +55,20 @@ public record FiberCableCutRequestMessage(
         );
     }
 
-    public static void handle(FiberCableCutRequestMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
+    public static void handle(FiberCableCutRequestMessage message, IPayloadContext context) {
         context.enqueueWork(() -> {
-            ServerPlayer sender = context.getSender();
-            FiberCableCutSystem.handleCutRequest(sender, message);
+            if (context.player() instanceof ServerPlayer sender) {
+                FiberCableCutSystem.handleCutRequest(sender, message);
+            }
         });
-        context.setPacketHandled(true);
     }
 
     Vec3 claimedHitPosition() {
         return new Vec3(hitX, hitY, hitZ);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

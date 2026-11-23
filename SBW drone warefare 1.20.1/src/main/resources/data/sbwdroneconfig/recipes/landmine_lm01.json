@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "superbwarfare:steel_ingot"
+    },
+    {
+      "item": "superbwarfare:steel_ingot"
+    },
+    {
+      "item": "superbwarfare:steel_ingot"
+    },
+    {
+      "item": "superbwarfare:high_energy_explosives"
+    },
+    {
+      "item": "minecraft:stone_pressure_plate"
+    }
+  ],
+  "result": {
+    "item": "sbwdroneconfig:landmine_lm01",
+    "count": 1
+  }
+}

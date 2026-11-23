@@ -1,18 +1,20 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.UUID;
@@ -23,6 +25,7 @@ public final class SbwCompat {
     public static final String TAG_LINKED_DRONE = "LinkedDrone";
     public static final String TAG_DRONE_OWNER_UUID = "sbwdroneconfigDroneOwnerUuid";
     public static final String TAG_DRONE_OWNER_NAME = "sbwdroneconfigDroneOwnerName";
+    private static final SbwDroneAccess SBW_ACCESS = SbwVersionDetector.selectAdapter();
     private static final String SBW_VEHICLE_ENTITY_CLASS = "com.atsuishio.superbwarfare.entity.vehicle.base.VehicleEntity";
     private static volatile Class<?> sbwVehicleEntityClass;
     private static volatile boolean sbwVehicleEntityLookupAttempted;
@@ -30,17 +33,20 @@ public final class SbwCompat {
     private SbwCompat() {
     }
 
+    public static SbwDroneAccess access() {
+        return SBW_ACCESS;
+    }
+
+    public static String selectedAdapterName() {
+        return SBW_ACCESS.adapterName();
+    }
+
     public static boolean isMonitor(ItemStack stack) {
         return isLegacyMonitor(stack);
     }
 
     public static boolean isLegacyMonitor(ItemStack stack) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-        Item item = stack.getItem();
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
-        return key != null && SbwDroneRangeConfig.MONITOR_ITEM_ID.equals(key.toString());
+        return SBW_ACCESS.isMonitor(stack);
     }
 
     public static boolean isFpvGoggles(ItemStack stack) {
@@ -51,37 +57,29 @@ public final class SbwCompat {
         if (!isMonitor(stack)) {
             return false;
         }
-        normalizeInactiveMonitorTag(stack);
-        return isLinkedMonitorTag(stack.getTag());
+        return AddonStackTags.readBoolean(stack, TAG_LINKED) && AddonStackTags.contains(stack, TAG_LINKED_DRONE);
     }
 
     public static boolean isLegacyLinkedMonitor(ItemStack stack) {
         if (!isLegacyMonitor(stack)) {
             return false;
         }
-        normalizeInactiveMonitorTag(stack);
-        return isLinkedMonitorTag(stack.getTag());
+        return AddonStackTags.readBoolean(stack, TAG_LINKED) && AddonStackTags.contains(stack, TAG_LINKED_DRONE);
     }
 
     public static boolean isLegacyUsingMonitor(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        return isLegacyLinkedMonitor(stack) && tag != null && tag.getBoolean(TAG_USING);
+        return isLegacyLinkedMonitor(stack) && AddonStackTags.readBoolean(stack, TAG_USING);
     }
 
     public static boolean isUsingLinkedMonitor(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        return isLinkedMonitor(stack) && tag != null && tag.getBoolean(TAG_USING);
+        return isLinkedMonitor(stack) && AddonStackTags.readBoolean(stack, TAG_USING);
     }
 
     public static UUID getLinkedDroneUuid(ItemStack stack) {
         if (!isLinkedMonitor(stack)) {
             return null;
         }
-        CompoundTag tag = stack.getTag();
-        if (tag == null) {
-            return null;
-        }
-        String uuidString = tag.getString(TAG_LINKED_DRONE);
+        String uuidString = AddonStackTags.readString(stack, TAG_LINKED_DRONE);
         try {
             return UUID.fromString(uuidString);
         } catch (IllegalArgumentException ignored) {
@@ -89,56 +87,16 @@ public final class SbwCompat {
         }
     }
 
-    private static boolean isLinkedMonitorTag(CompoundTag tag) {
-        return tag != null
-                && tag.getBoolean(TAG_LINKED)
-                && tag.contains(TAG_LINKED_DRONE)
-                && !"none".equals(tag.getString(TAG_LINKED_DRONE));
-    }
-
-    public static void normalizeInactiveMonitorStack(ItemStack stack) {
-        if (!isMonitor(stack)) {
-            return;
+    public static UUID getLegacyLinkedDroneUuid(ItemStack stack) {
+        if (!isLegacyLinkedMonitor(stack)) {
+            return null;
         }
-        normalizeInactiveMonitorTag(stack);
-    }
-
-    private static void normalizeInactiveMonitorTag(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null || isLinkedMonitorTag(tag)) {
-            return;
+        String uuidString = AddonStackTags.readString(stack, TAG_LINKED_DRONE);
+        try {
+            return UUID.fromString(uuidString);
+        } catch (IllegalArgumentException ignored) {
+            return null;
         }
-
-        if (containsOnlyInactiveMonitorState(tag)) {
-            stack.setTag(null);
-        }
-    }
-
-    private static boolean containsOnlyInactiveMonitorState(CompoundTag tag) {
-        if (tag.isEmpty()) {
-            return true;
-        }
-
-        for (String key : tag.getAllKeys()) {
-            if (!isMonitorStateKey(key)) {
-                return false;
-            }
-        }
-
-        if (tag.getBoolean(TAG_LINKED) || tag.getBoolean(TAG_USING)) {
-            return false;
-        }
-
-        return !tag.contains(TAG_LINKED_DRONE) || "none".equals(tag.getString(TAG_LINKED_DRONE));
-    }
-
-    private static boolean isMonitorStateKey(String key) {
-        return TAG_LINKED.equals(key)
-                || TAG_USING.equals(key)
-                || TAG_LINKED_DRONE.equals(key)
-                || "PosX".equals(key)
-                || "PosY".equals(key)
-                || "PosZ".equals(key);
     }
 
     public static Entity findLinkedDrone(ServerPlayer player, ItemStack stack) {
@@ -155,15 +113,17 @@ public final class SbwCompat {
     }
 
     public static boolean isDrone(Entity entity) {
-        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-        return key != null && (SbwDroneRangeConfig.DRONE_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.CUBED_FPV_DRONE_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.DELIVERY_DRONE_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.GLIDE_BOMB_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.GERANIUM_2_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.HEAVY_BOMBER_DRONE_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.UKRAINIAN_BAYRAKTAR_TB2_ENTITY_ID.equals(key.toString())
-                || SbwDroneRangeConfig.LUCAS_DRONE_ENTITY_ID.equals(key.toString()));
+        if(entity instanceof Fl01Entity)return true;
+        if(entity instanceof DeliveryRotorPart)return false;
+        return isSupportedDrone(entity);
+    }
+
+    public static boolean isSbwDrone(Entity entity) {
+        return SBW_ACCESS.isSbwDrone(entity);
+    }
+
+    public static boolean isSupportedDrone(Entity entity) {
+        return entity instanceof Sd01Entity || entity instanceof Gad01Entity || SBW_ACCESS.isSupportedDrone(entity);
     }
 
     public static boolean isSbwVehicle(Entity entity) {
@@ -178,59 +138,49 @@ public final class SbwCompat {
         return !stack.isEmpty() && stack.is(AddonItems.VEHICLE_ANTI_DRONE_NET_UPGRADE.get());
     }
 
+    public static boolean isVehicleNetHost(Entity vehicle){return vehicle instanceof com.atsuishio.superbwarfare.entity.vehicle.base.VehicleEntity && !(vehicle instanceof com.atsuishio.superbwarfare.entity.vehicle.DroneEntity);}
     public static boolean hasVehicleAntiDroneNetUpgrade(Entity vehicle) {
-        if (!AddonConfig.vehicleAntiDroneNetEnabled() || !isSbwVehicle(vehicle) || !vehicle.isAlive()) {
+        if (!AddonConfig.vehicleAntiDroneNetEnabled() || !isVehicleNetHost(vehicle) || !vehicle.isAlive()) {
             return false;
         }
+
+        Object inventory=invokeNoArg(vehicle,"getInventory");
+        if(inventory instanceof net.neoforged.neoforge.items.IItemHandler handler){for(int slot=0;slot<handler.getSlots();slot++)if(isVehicleAntiDroneNetUpgradeStack(handler.getStackInSlot(slot)))return true;return false;}
 
         int size = getVehicleContainerSize(vehicle);
-        if (size <= 0) {
-            return false;
-        }
-
         for (int slot = 0; slot < size; slot++) {
             if (isVehicleAntiDroneNetUpgradeStack(getVehicleItem(vehicle, slot))) {
                 return true;
             }
         }
-
         return false;
     }
 
     public static Vec3 getVehicleRightVector(Entity vehicle, float partialTick) {
-        Vec3 reflected = invokeVehicleVector(vehicle, "getRightVec", partialTick);
-        if (reflected != null && reflected.lengthSqr() > 1.0E-6D) {
-            return reflected.normalize();
-        }
-
-        Vec3 forward = getVehicleForwardFallback(vehicle);
-        Vec3 right = new Vec3(forward.z, 0.0D, -forward.x);
-        return right.lengthSqr() > 1.0E-6D ? right.normalize() : new Vec3(1.0D, 0.0D, 0.0D);
+        Vec3 right = invokeVehicleVector(vehicle, "getRightVec", partialTick);
+        return right != null ? right : Vec3.directionFromRotation(0.0F, vehicle.getYRot() + 90.0F);
     }
 
     public static Vec3 getVehicleUpVector(Entity vehicle, float partialTick) {
-        Vec3 reflected = invokeVehicleVector(vehicle, "getUpVec", partialTick);
-        if (reflected != null && reflected.lengthSqr() > 1.0E-6D) {
-            return reflected.normalize();
-        }
-        return new Vec3(0.0D, 1.0D, 0.0D);
+        Vec3 up = invokeVehicleVector(vehicle, "getUpVec", partialTick);
+        return up != null ? up : new Vec3(0.0D, 1.0D, 0.0D);
     }
 
     public static Vec3 getVehicleForwardVector(Entity vehicle, float partialTick) {
-        Vec3 right = getVehicleRightVector(vehicle, partialTick);
-        Vec3 up = getVehicleUpVector(vehicle, partialTick);
-        Vec3 forward = right.cross(up);
-        if (forward.lengthSqr() > 1.0E-6D) {
-            return forward.normalize();
-        }
-        return getVehicleForwardFallback(vehicle);
+        Vec3 forward = invokeVehicleVector(vehicle, "getForwardVec", partialTick);
+        return forward != null ? forward : getVehicleForwardFallback(vehicle);
     }
 
-    public static boolean isUsingLinkedMonitorForDrone(Player player, Entity drone) {
-        if (player == null || drone == null) {
-            return false;
-        }
-        return isUsingLinkedMonitorForDrone(getActiveLinkedMonitor(player), drone);
+    public static DroneOwnerIdentity getDroneOwner(ServerLevel level, Entity drone) {
+        return SBW_ACCESS.getDroneOwner(level, drone);
+    }
+
+    public static Vec3 getDronePosition(Entity drone) {
+        return SBW_ACCESS.getDronePosition(drone);
+    }
+
+    public static String getDroneDisplayName(Entity drone) {
+        return SBW_ACCESS.getDroneDisplayName(drone);
     }
 
     public static ItemStack getActiveLinkedMonitor(Player player) {
@@ -247,7 +197,11 @@ public final class SbwCompat {
         }
 
         ItemStack activeMonitor = getActiveLinkedMonitor(player);
-        return activeMonitor.isEmpty() ? findMonitorStack(player, false) : activeMonitor;
+        if (!activeMonitor.isEmpty()) {
+            return activeMonitor;
+        }
+
+        return findMonitorStack(player, false);
     }
 
     public static ItemStack getEquippedFpvGoggles(Player player) {
@@ -286,7 +240,22 @@ public final class SbwCompat {
     }
 
     private static boolean matchesPilotStack(ItemStack stack, boolean requireUsing) {
-        return requireUsing ? isLegacyUsingMonitor(stack) : isLegacyLinkedMonitor(stack);
+        return requireUsing ? isUsingLinkedMonitor(stack) : isLinkedMonitor(stack);
+    }
+
+    public static net.minecraft.world.item.Item resolveSbwItem(String id) {
+        return SBW_ACCESS.resolveSbwItem(id);
+    }
+
+    public static EntityType<?> resolveSbwEntityType(String id) {
+        return SBW_ACCESS.resolveSbwEntityType(id);
+    }
+
+    public static boolean isUsingLinkedMonitorForDrone(Player player, Entity drone) {
+        if (player == null || drone == null) {
+            return false;
+        }
+        return isUsingLinkedMonitorForDrone(getActiveLinkedMonitor(player), drone);
     }
 
     public static Entity findActiveLinkedDrone(ServerPlayer player) {
@@ -311,6 +280,38 @@ public final class SbwCompat {
         return isUsingLinkedMonitor(stack) && linkedDrone != null && linkedDrone.equals(drone.getUUID());
     }
 
+    public static boolean hasLinkedMonitorForDrone(Player player, Entity drone) {
+        if (player == null || drone == null) {
+            return false;
+        }
+
+        return !getLinkedMonitorForDrone(player, drone).isEmpty();
+    }
+
+    public static ItemStack getLinkedMonitorForDrone(Player player, Entity drone) {
+        if (player == null || drone == null) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack mainHand = player.getMainHandItem();
+        if (isLinkedMonitorForDrone(mainHand, drone)) {
+            return mainHand;
+        }
+
+        ItemStack offhand = player.getOffhandItem();
+        if (isLinkedMonitorForDrone(offhand, drone)) {
+            return offhand;
+        }
+
+        for (ItemStack stack : player.getInventory().items) {
+            if (isLegacyLinkedMonitorForDrone(stack, drone)) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
     public static ServerPlayer findLinkedMonitorController(ServerLevel level, Entity drone) {
         if (level == null || drone == null || !isDrone(drone)) {
             return null;
@@ -325,45 +326,8 @@ public final class SbwCompat {
         return null;
     }
 
-    public static boolean hasLinkedMonitorForDrone(Player player, Entity drone) {
-        return !getLinkedMonitorForDrone(player, drone).isEmpty();
-    }
-
-    public static ItemStack getLinkedMonitorForDrone(Player player, Entity drone) {
-        if (player == null || drone == null) {
-            return ItemStack.EMPTY;
-        }
-
-        ItemStack mainHand = player.getMainHandItem();
-        if (isLegacyLinkedMonitorForDrone(mainHand, drone)) {
-            return mainHand;
-        }
-
-        ItemStack offhand = player.getOffhandItem();
-        if (isLegacyLinkedMonitorForDrone(offhand, drone)) {
-            return offhand;
-        }
-
-        for (ItemStack stack : player.getInventory().items) {
-            if (isLegacyLinkedMonitorForDrone(stack, drone)) {
-                return stack;
-            }
-        }
-
-        return ItemStack.EMPTY;
-    }
-
-    private static boolean isLinkedMonitorForDrone(ItemStack stack, Entity drone) {
+    public static boolean isLinkedMonitorForDrone(ItemStack stack, Entity drone) {
         if (stack.isEmpty() || drone == null) {
-            return false;
-        }
-
-        UUID linkedDrone = getLinkedDroneUuid(stack);
-        return linkedDrone != null && linkedDrone.equals(drone.getUUID());
-    }
-
-    private static boolean isLegacyLinkedMonitorForDrone(ItemStack stack, Entity drone) {
-        if (stack.isEmpty() || drone == null || !isLegacyLinkedMonitor(stack)) {
             return false;
         }
 
@@ -375,7 +339,7 @@ public final class SbwCompat {
         if (stack.isEmpty()) {
             return false;
         }
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if (key == null || !SbwDroneRangeConfig.SBW_MOD_ID.equals(key.getNamespace())) {
             return false;
         }
@@ -395,31 +359,21 @@ public final class SbwCompat {
         if (!isMonitor(stack)) {
             return;
         }
-        CompoundTag tag = stack.getTag();
-        if (tag == null) {
-            return;
-        }
-        tag.putBoolean(TAG_USING, false);
-        normalizeInactiveMonitorTag(stack);
+        AddonStackTags.update(stack, tag -> tag.putBoolean(TAG_USING, false));
     }
 
     public static void setUsingMonitor(ItemStack stack, boolean using) {
         if (!isLinkedMonitor(stack)) {
             return;
         }
-        stack.getOrCreateTag().putBoolean(TAG_USING, using);
+        AddonStackTags.update(stack, tag -> tag.putBoolean(TAG_USING, using));
     }
 
     public static void stopUsingLegacyMonitor(ItemStack stack) {
         if (!isLegacyMonitor(stack)) {
             return;
         }
-        CompoundTag tag = stack.getTag();
-        if (tag == null) {
-            return;
-        }
-        tag.putBoolean(TAG_USING, false);
-        normalizeInactiveMonitorTag(stack);
+        AddonStackTags.update(stack, tag -> tag.putBoolean(TAG_USING, false));
     }
 
     public static void linkMonitorToDrone(ItemStack stack, Entity drone, boolean using) {
@@ -427,26 +381,57 @@ public final class SbwCompat {
             return;
         }
 
-        CompoundTag tag = stack.getOrCreateTag();
-        tag.putBoolean(TAG_LINKED, true);
-        tag.putBoolean(TAG_USING, using);
-        tag.putString(TAG_LINKED_DRONE, drone.getStringUUID());
+        AddonStackTags.update(stack, tag -> {
+            tag.putBoolean(TAG_LINKED, true);
+            tag.putBoolean(TAG_USING, using);
+            tag.putString(TAG_LINKED_DRONE, drone.getStringUUID());
+        });
     }
 
-    public static boolean unlinkMonitorFromDrone(ItemStack stack, Player player, Entity drone) {
-        if (!isLinkedMonitorForDrone(stack, drone)) {
+    public static boolean stopUsingLinkedMonitorForDrone(Player player, Entity drone) {
+        if (player == null || drone == null) {
             return false;
         }
 
-        CompoundTag tag = stack.getOrCreateTag();
-        tag.putBoolean(TAG_LINKED, false);
-        tag.putBoolean(TAG_USING, false);
-        tag.putString(TAG_LINKED_DRONE, "none");
-        tag.remove("PosX");
-        tag.remove("PosY");
-        tag.remove("PosZ");
-        normalizeInactiveMonitorTag(stack);
-        return true;
+        boolean stopped = false;
+        if (isLinkedMonitorForDrone(player.getMainHandItem(), drone)) {
+            stopUsingMonitor(player.getMainHandItem());
+            stopped = true;
+        }
+        if (isLinkedMonitorForDrone(player.getOffhandItem(), drone)) {
+            stopUsingMonitor(player.getOffhandItem());
+            stopped = true;
+        }
+
+        for (ItemStack stack : player.getInventory().items) {
+            if (isLinkedMonitorForDrone(stack, drone)) {
+                stopUsingMonitor(stack);
+                stopped = true;
+            }
+        }
+
+        return stopped;
+    }
+
+    public static boolean unlinkMonitorFromDrone(ItemStack stack, Player player, Entity drone) {
+        if (isLinkedMonitorForDrone(stack, drone)) {
+            AddonStackTags.update(stack, tag -> {
+                tag.putBoolean(TAG_LINKED, false);
+                tag.putBoolean(TAG_USING, false);
+                tag.putString(TAG_LINKED_DRONE, "none");
+                tag.remove("PosX");
+                tag.remove("PosY");
+                tag.remove("PosZ");
+            });
+            return true;
+        }
+
+        if (isLegacyLinkedMonitorForDrone(stack, drone)) {
+            SBW_ACCESS.unlinkMonitor(stack, player);
+            return true;
+        }
+
+        return false;
     }
 
     public static boolean disconnectControllersForDrone(ServerLevel level, Entity drone) {
@@ -495,6 +480,15 @@ public final class SbwCompat {
         return true;
     }
 
+    private static boolean isLegacyLinkedMonitorForDrone(ItemStack stack, Entity drone) {
+        if (stack.isEmpty() || drone == null) {
+            return false;
+        }
+
+        UUID linkedDrone = getLegacyLinkedDroneUuid(stack);
+        return linkedDrone != null && linkedDrone.equals(drone.getUUID());
+    }
+
     public static void resetDroneInput(Entity drone) {
         CompoundTag data = drone.getPersistentData();
         data.putBoolean("left", false);
@@ -506,24 +500,20 @@ public final class SbwCompat {
     }
 
     public static UUID getDroneControllerUuid(Entity drone) {
+        if(drone instanceof Sd01Entity sd)return sd.operator()==null?null:sd.operator().getUUID();
+        if(drone instanceof Gad01Entity g)return g.operator()==null?null:g.operator().getUUID();
         if (drone == null || !isDrone(drone)) {
             return null;
         }
 
-        try {
-            Method method = drone.getClass().getMethod("getController");
-            Object result = method.invoke(drone);
-            if (result instanceof Player player) {
-                return player.getUUID();
-            }
-            if (result instanceof Entity entity) {
-                return entity.getUUID();
-            }
-        } catch (ReflectiveOperationException ignored) {
-        }
-
-        return null;
+        Entity controller = SbwDroneRuntimeAccess.controller(drone);
+        return controller == null ? null : controller.getUUID();
     }
+    public static Entity getDroneController(Entity drone) { if(drone instanceof Sd01Entity sd)return sd.operator(); return SbwDroneRuntimeAccess.controller(drone); }
+    public static ItemStack getDroneCurrentItem(Entity drone) { if(drone instanceof Sd01Entity)return ItemStack.EMPTY; return SbwDroneRuntimeAccess.item(drone); }
+    public static void setDroneCurrentItem(Entity drone, ItemStack stack) { if(drone instanceof Sd01Entity)return; SbwDroneRuntimeAccess.item(drone, stack); }
+    public static boolean getDroneFire(Entity drone) { if(drone instanceof Sd01Entity)return false; return SbwDroneRuntimeAccess.fire(drone); }
+    public static void setDroneFire(Entity drone, boolean value) { if(drone instanceof Sd01Entity)return; SbwDroneRuntimeAccess.fire(drone, value); }
 
     public static String getDroneCustomName(Entity drone) {
         if (drone == null || !isDrone(drone) || !drone.hasCustomName()) {
@@ -542,6 +532,115 @@ public final class SbwCompat {
 
         String sanitized = rawName.trim();
         return sanitized.isEmpty() ? null : sanitized;
+    }
+
+    private static Class<?> getSbwVehicleEntityClass() {
+        if (!sbwVehicleEntityLookupAttempted) {
+            synchronized (SbwCompat.class) {
+                if (!sbwVehicleEntityLookupAttempted) {
+                    try {
+                        sbwVehicleEntityClass = Class.forName(SBW_VEHICLE_ENTITY_CLASS);
+                    } catch (ClassNotFoundException ignored) {
+                        sbwVehicleEntityClass = null;
+                    }
+                    sbwVehicleEntityLookupAttempted = true;
+                }
+            }
+        }
+        return sbwVehicleEntityClass;
+    }
+
+    private static int getVehicleContainerSize(Entity vehicle) {
+        Object inventory=invokeNoArg(vehicle,"getInventory");
+        if(inventory instanceof net.neoforged.neoforge.items.IItemHandler handler)return handler.getSlots();
+        if(inventory instanceof net.minecraft.world.Container container)return container.getContainerSize();
+        if(vehicle instanceof net.minecraft.world.Container container)return container.getContainerSize();
+        Object result = invokeNoArg(vehicle, "getContainerSize");
+        return result instanceof Number number ? Math.max(0, number.intValue()) : 0;
+    }
+
+    private static ItemStack getVehicleItem(Entity vehicle, int slot) {
+        Object inventory=invokeNoArg(vehicle,"getInventory");
+        if(inventory instanceof net.neoforged.neoforge.items.IItemHandler handler)return slot>=0&&slot<handler.getSlots()?handler.getStackInSlot(slot):ItemStack.EMPTY;
+        if(inventory instanceof net.minecraft.world.Container container)return container.getItem(slot);
+        if(vehicle instanceof net.minecraft.world.Container container)return container.getItem(slot);
+
+        try {
+            Method method = vehicle.getClass().getMethod("getItem", int.class);
+            Object result = method.invoke(vehicle, slot);
+            return result instanceof ItemStack stack ? stack : ItemStack.EMPTY;
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    private static Object invokeNoArg(Entity entity, String methodName) {
+        try {
+            Method method = entity.getClass().getMethod(methodName);
+            return method.invoke(entity);
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+            return null;
+        }
+    }
+
+    private static Vec3 invokeVehicleVector(Entity vehicle, String methodName, float partialTick) {
+        try {
+            Method method = vehicle.getClass().getMethod(methodName, float.class);
+            Object result = method.invoke(vehicle, partialTick);
+            return result instanceof Vec3 vector ? vector : null;
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+            return null;
+        }
+    }
+
+    private static Vec3 getVehicleForwardFallback(Entity vehicle) {
+        return Vec3.directionFromRotation(0.0F, vehicle.getYRot());
+    }
+
+    public static int getDroneAmmo(Entity drone) {
+        if (drone == null || !isDrone(drone)) {
+            return 0;
+        }
+
+        Integer methodAmmo = invokeIntGetter(drone, "getAmmo");
+        if (methodAmmo != null) {
+            return methodAmmo;
+        }
+
+        Integer droneAmmo = readSyncedIntAccessor(drone, "com.atsuishio.superbwarfare.entity.vehicle.DroneEntity", "AMMO");
+        if (droneAmmo != null) {
+            return droneAmmo;
+        }
+
+        Integer vehicleAmmo = readSyncedIntAccessor(drone, "com.atsuishio.superbwarfare.entity.vehicle.base.VehicleEntity", "AMMO");
+        return vehicleAmmo == null ? 0 : vehicleAmmo;
+    }
+
+    private static Integer invokeIntGetter(Entity entity, String methodName) {
+        try {
+            Method method = entity.getClass().getMethod(methodName);
+            Object result = method.invoke(entity);
+            return result instanceof Number number ? number.intValue() : null;
+        } catch (ReflectiveOperationException ignored) {
+            return null;
+        }
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static Integer readSyncedIntAccessor(Entity entity, String className, String fieldName) {
+        try {
+            Class<?> accessorOwner = Class.forName(className);
+            Field field = accessorOwner.getField(fieldName);
+            Object accessor = field.get(null);
+            if (!(accessor instanceof EntityDataAccessor entityDataAccessor)) {
+                return null;
+            }
+
+            Object value = entity.getEntityData().get(entityDataAccessor);
+            return value instanceof Number number ? number.intValue() : null;
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+            return null;
+        }
     }
 
     public static void assignDroneOwner(Entity drone, Player player) {
@@ -665,74 +764,6 @@ public final class SbwCompat {
         }
         String sanitized = ownerName.trim();
         return sanitized.isEmpty() ? null : sanitized;
-    }
-
-    private static Class<?> getSbwVehicleEntityClass() {
-        Class<?> cached = sbwVehicleEntityClass;
-        if (cached != null || sbwVehicleEntityLookupAttempted) {
-            return cached;
-        }
-
-        sbwVehicleEntityLookupAttempted = true;
-        try {
-            cached = Class.forName(SBW_VEHICLE_ENTITY_CLASS);
-            sbwVehicleEntityClass = cached;
-            return cached;
-        } catch (ClassNotFoundException ignored) {
-            return null;
-        }
-    }
-
-    private static int getVehicleContainerSize(Entity vehicle) {
-        Object result = invokeNoArg(vehicle, "getContainerSize");
-        return result instanceof Number number ? Math.max(0, number.intValue()) : 0;
-    }
-
-    private static ItemStack getVehicleItem(Entity vehicle, int slot) {
-        if (vehicle == null) {
-            return ItemStack.EMPTY;
-        }
-
-        try {
-            Object result = vehicle.getClass().getMethod("getItem", int.class).invoke(vehicle, slot);
-            return result instanceof ItemStack stack ? stack : ItemStack.EMPTY;
-        } catch (ReflectiveOperationException | LinkageError ignored) {
-            return ItemStack.EMPTY;
-        }
-    }
-
-    private static Object invokeNoArg(Entity entity, String methodName) {
-        if (entity == null) {
-            return null;
-        }
-
-        try {
-            return entity.getClass().getMethod(methodName).invoke(entity);
-        } catch (ReflectiveOperationException | LinkageError ignored) {
-            return null;
-        }
-    }
-
-    private static Vec3 invokeVehicleVector(Entity vehicle, String methodName, float partialTick) {
-        if (!isSbwVehicle(vehicle)) {
-            return null;
-        }
-
-        try {
-            Object result = vehicle.getClass().getMethod(methodName, float.class).invoke(vehicle, partialTick);
-            return result instanceof Vec3 vec3 ? vec3 : null;
-        } catch (ReflectiveOperationException | LinkageError ignored) {
-            return null;
-        }
-    }
-
-    private static Vec3 getVehicleForwardFallback(Entity vehicle) {
-        if (vehicle == null) {
-            return new Vec3(0.0D, 0.0D, 1.0D);
-        }
-
-        Vec3 forward = Vec3.directionFromRotation(vehicle.getXRot(), vehicle.getYRot());
-        return forward.lengthSqr() > 1.0E-6D ? forward.normalize() : new Vec3(0.0D, 0.0D, 1.0D);
     }
 
     public record DroneOwnerIdentity(UUID uuid, String name) {

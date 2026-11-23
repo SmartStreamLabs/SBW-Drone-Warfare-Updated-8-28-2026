@@ -1,0 +1,68 @@
+{
+  "result": "PASS",
+  "revision": "REV02",
+  "variants": [
+    {
+      "variant": "CLASSIC",
+      "model_name": "US_ARMY_COMBAT_SET_US01_CLASSIC_REV02",
+      "armor_meshes": 607,
+      "hidden_reference_meshes": 6,
+      "groups": 33,
+      "vertices": 8346,
+      "total_triangles_including_reference": 13890,
+      "closed_shells_with_positive_signed_volume": 601,
+      "arm_flags": [
+        {
+          "name": "right_US_OUTER_ARM_FLAG",
+          "x_units": -8.55,
+          "plane": "outer X side of upper arm"
+        },
+        {
+          "name": "left_US_OUTER_ARM_FLAG",
+          "x_units": 8.55,
+          "plane": "outer X side of upper arm"
+        }
+      ],
+      "embedded_textures": 5,
+      "native_sha256": "fd69cff6b0c58ba6ad93a1ff1aedc01f4d5aedc25b936b86ac0684d4ae762e8b"
+    },
+    {
+      "variant": "SLIM",
+      "model_name": "US_ARMY_COMBAT_SET_US01_SLIM_REV02",
+      "armor_meshes": 607,
+      "hidden_reference_meshes": 6,
+      "groups": 33,
+      "vertices": 8346,
+      "total_triangles_including_reference": 13890,
+      "closed_shells_with_positive_signed_volume": 601,
+      "arm_flags": [
+        {
+          "name": "right_US_OUTER_ARM_FLAG",
+          "x_units": -7.4125,
+          "plane": "outer X side of upper arm"
+        },
+        {
+          "name": "left_US_OUTER_ARM_FLAG",
+          "x_units": 7.4125,
+          "plane": "outer X side of upper arm"
+        }
+      ],
+      "embedded_textures": 5,
+      "native_sha256": "825782eb843cd594ccf94281e4e1d681f6aa3c7ed1eda61831e6375c45219c41"
+    }
+  ],
+  "checks": [
+    "Unique IDs, complete hierarchy and valid animation targets",
+    "Finite nondegenerate geometry and bounded UVs",
+    "Positive signed volume of every topologically closed mesh",
+    "Both flag patches lie on the outer side planes of the upper arms, with outward face normals",
+    "Eyewear group, geometry and lens texture completely absent",
+    "Embedded textures match separate PNG files",
+    "Example skin hidden and excluded from armor export",
+    "Sampled face opening clear; helmet clears reference head surface"
+  ],
+  "limitations": [
+    "Native validation and Blender previews with back-facing surfaces hidden; no Blockbench UI or Minecraft integration test.",
+    "Fit checks do not establish clipping-free behavior across every pose, skin layer or external mod."
+  ]
+}

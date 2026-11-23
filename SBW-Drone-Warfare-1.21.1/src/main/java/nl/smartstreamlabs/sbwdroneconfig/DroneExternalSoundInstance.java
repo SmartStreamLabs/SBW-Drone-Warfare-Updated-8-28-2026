@@ -15,10 +15,11 @@ abstract class DroneExternalSoundInstance extends AbstractTickableSoundInstance 
     private float targetVolume;
     private float targetPitch = 1.0F;
     private boolean stopping;
+    private final long created;
 
     DroneExternalSoundInstance(VehicleEntity drone, DroneAudioProfile profile, DroneAudioProfile.Layer layer) {
         super(profile.sound(layer), SoundSource.AMBIENT, drone.level().getRandom());
-        this.drone = drone;
+        this.drone = drone;this.created=drone.level().getGameTime();
         this.profile = profile;
         this.layer = layer;
         this.looping = true;
@@ -61,6 +62,8 @@ abstract class DroneExternalSoundInstance extends AbstractTickableSoundInstance 
         this.stopping = false;
     }
 
+    boolean lostChannel(net.minecraft.client.sounds.SoundManager manager){return drone.level().getGameTime()-created>=10&&!manager.isActive(this);}
+    void stopImmediately(){targetVolume=0;stopping=true;stop();net.minecraft.client.Minecraft.getInstance().getSoundManager().stop(this);}
     void requestStop() {
         this.targetVolume = 0.0F;
         this.stopping = true;

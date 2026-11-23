@@ -1,0 +1,84 @@
+{
+  "revision": "US_R02",
+  "status": "passed",
+  "model": "PATRIOT_MISSILE_PM01_US_R02",
+  "mesh_count": 84,
+  "triangles": 7128,
+  "texture_count": 2,
+  "bounds_blocks": [
+    [
+      -0.35885669125,
+      -0.35885669125,
+      -2.825
+    ],
+    [
+      0.35885669125,
+      0.35885669125,
+      2.825
+    ]
+  ],
+  "canister_envelope_checks": [
+    {
+      "canister": 1,
+      "game_center_blocks": [
+        -0.55,
+        2.85,
+        1.74
+      ],
+      "minimum_shell_envelope_margin_blocks": [
+        0.14614330874999992,
+        0.026143308749999594,
+        0.46499999999999986
+      ]
+    },
+    {
+      "canister": 2,
+      "game_center_blocks": [
+        0.55,
+        2.85,
+        1.74
+      ],
+      "minimum_shell_envelope_margin_blocks": [
+        0.14614330874999992,
+        0.026143308749999594,
+        0.46499999999999986
+      ]
+    },
+    {
+      "canister": 3,
+      "game_center_blocks": [
+        -0.55,
+        3.71,
+        1.74
+      ],
+      "minimum_shell_envelope_margin_blocks": [
+        0.14614330874999992,
+        0.026143308749999594,
+        0.46499999999999986
+      ]
+    },
+    {
+      "canister": 4,
+      "game_center_blocks": [
+        0.55,
+        3.71,
+        1.74
+      ],
+      "minimum_shell_envelope_margin_blocks": [
+        0.14614330874999992,
+        0.026143308749999594,
+        0.46499999999999986
+      ]
+    }
+  ],
+  "scope": "Visual game-asset envelope only. This does not establish real-world mechanical fit or implement firing.",
+  "sha256": "e143569ad986c1dd735edd6caeff0b097ee295ecc02e0ee6de61f5ca2f5d5498",
+  "checks": [
+    "Unique IDs and complete group links",
+    "Finite nondegenerate triangle geometry",
+    "UV bounds",
+    "Embedded textures match separate PNGs",
+    "Projectile envelope fits all four R03 container shell envelopes",
+    "Both side labels have upright V and outside-reading U orientation"
+  ]
+}

@@ -1,6 +1,7 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -154,61 +155,11 @@ public class JammerBlockEntity extends BlockEntity implements ConfigurableJammer
     protected void playActiveJammerSound(ServerLevel serverLevel, BlockPos pos, long gameTime) {
     }
 
-    private boolean shouldAffectDrone(ServerLevel level, Entity entity) {
-        if (entity == null || !entity.isAlive() || !SbwCompat.isDrone(entity)) {
-            return false;
-        }
-        String whitelistedGamertag = findWhitelistedGamertag(level, entity);
-        if (whitelistedGamertag != null) {
-            if (AddonConfig.debugJammer()) {
-                SbwDroneRangeConfig.LOGGER.info(
-                        "Jammer at {} ignored whitelisted player {} for drone {}",
-                        worldPosition,
-                        whitelistedGamertag,
-                        entity.getUUID()
-                );
-            }
-            return false;
-        }
-        if (AddonConfig.affectFriendlyDrones() || ownerUuid == null) {
-            return true;
-        }
-
-        SbwCompat.DroneOwnerIdentity ownerIdentity = SbwCompat.resolveDroneOwner(level, entity);
-        return !ownerIdentity.hasUuid() || !ownerUuid.equals(ownerIdentity.uuid());
-    }
-
-    private String findWhitelistedGamertag(ServerLevel level, Entity drone) {
-        if (whitelistedGamertags.isEmpty()) {
-            return null;
-        }
-
-        UUID controllerUuid = SbwCompat.getDroneControllerUuid(drone);
-        if (controllerUuid != null) {
-            ServerPlayer controller = level.getServer().getPlayerList().getPlayer(controllerUuid);
-            if (controller != null && isWhitelistedGamertag(controller.getGameProfile().getName())) {
-                return controller.getGameProfile().getName();
-            }
-        }
-
-        SbwCompat.DroneOwnerIdentity ownerIdentity = SbwCompat.resolveDroneOwner(level, drone);
-        if (ownerIdentity.hasName() && isWhitelistedGamertag(ownerIdentity.name())) {
-            return ownerIdentity.name();
-        }
-
-        if (ownerIdentity.hasUuid()) {
-            ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerIdentity.uuid());
-            if (owner != null && isWhitelistedGamertag(owner.getGameProfile().getName())) {
-                return owner.getGameProfile().getName();
-            }
-        }
-
-        return null;
-    }
+    private boolean shouldAffectDrone(ServerLevel level,Entity entity){return JammerRules.affects(level,entity,ownerUuid,whitelistedGamertags);}
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         if (ownerUuid != null) {
             tag.putUUID("Owner", ownerUuid);
         }
@@ -217,8 +168,8 @@ public class JammerBlockEntity extends BlockEntity implements ConfigurableJammer
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         ownerUuid = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
         jammerRange = clampRange(tag.getInt("JammerRange"));
         whitelistedGamertags.clear();

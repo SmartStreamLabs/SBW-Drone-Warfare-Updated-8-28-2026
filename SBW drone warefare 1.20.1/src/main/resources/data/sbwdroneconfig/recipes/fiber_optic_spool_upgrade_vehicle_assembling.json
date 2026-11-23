@@ -1,0 +1,15 @@
+{
+  "type": "superbwarfare:vehicle_assembling",
+  "category": "misc",
+  "inputs": [
+    "3 minecraft:string",
+    "minecraft:glass_pane",
+    "2 superbwarfare:longer_wire",
+    "2 superbwarfare:copper_plate",
+    "superbwarfare:cell",
+    "superbwarfare:monitor"
+  ],
+  "result": {
+    "item": "sbwdroneconfig:fiber_optic_spool_upgrade"
+  }
+}

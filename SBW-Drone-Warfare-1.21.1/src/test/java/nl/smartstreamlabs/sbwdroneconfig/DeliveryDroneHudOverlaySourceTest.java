@@ -27,7 +27,7 @@ class DeliveryDroneHudOverlaySourceTest {
         assertTrue(hud.contains("DroneClientViewContext.activeDeliveryDrone"));
         assertTrue(hud.contains("DroneClientViewContext.isLocalDeliveryViewOf"));
         assertTrue(hud.contains("RenderGuiEvent.Post"));
-        assertTrue(hud.contains("RenderGuiOverlayEvent.Pre"));
+        assertTrue(hud.contains("RenderGuiLayerEvent.Pre"));
         assertTrue(hud.contains("RenderHandEvent"));
         assertTrue(hud.contains("\"DELIVERY DRONE\""));
         assertTrue(hud.contains("\"CARGO BAY\""));

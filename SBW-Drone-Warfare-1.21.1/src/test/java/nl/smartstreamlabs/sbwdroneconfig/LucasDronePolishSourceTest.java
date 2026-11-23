@@ -31,25 +31,16 @@ class LucasDronePolishSourceTest {
 
     @Test
     void lucasPropellerVisualIsScaledUpWithoutChangingCollision() throws Exception {
-        JsonObject rearPropeller = lucasGeometryBones().get("rear_propeller");
-        assertNotNull(rearPropeller, "The LUCAS drone should keep its dedicated rear propeller bone.");
-
-        JsonObject blade = rearPropeller.getAsJsonArray("cubes").get(0).getAsJsonObject();
-        assertEquals(-0.3D, blade.getAsJsonArray("origin").get(0).getAsDouble(), 1.0E-6D,
-                "The propeller blade should extend 1.5x farther left visually.");
-        assertEquals(0.6D, blade.getAsJsonArray("size").get(0).getAsDouble(), 1.0E-6D,
-                "The propeller blade should be about 1.5x wider visually.");
+        JsonObject prop=lucasGeometryBones().get("propeller");assertNotNull(prop);
+        assertTrue(prop.has("poly_mesh"));assertEquals(3.3,prop.getAsJsonArray("pivot").get(1).getAsDouble(),1e-8);
+        assertEquals(23.58,prop.getAsJsonArray("pivot").get(2).getAsDouble(),1e-8);
     }
 
     @Test
     void lucasGeometryAddsLowPolyMilitaryDetailBones() throws Exception {
-        Map<String, JsonObject> bones = lucasGeometryBones();
-
-        assertDetailBone(bones, "panel_lines", 8);
-        assertDetailBone(bones, "nose_sensor_detail", 3);
-        assertDetailBone(bones, "antenna_details", 3);
-        assertFalse(bones.containsKey("military_markings"),
-                "The LUCAS drone should not render broad white stripe overlays; markings must come from the texture, not floating cube strips.");
+        var bones=lucasGeometryBones();
+        for(String name:new String[]{"engine_exterior","surface_details","wingtip_fin_L","wingtip_fin_R"})assertTrue(bones.get(name).has("poly_mesh"),name);
+        assertFalse(bones.containsKey("military_markings"));
     }
 
     private static void assertDetailBone(Map<String, JsonObject> bones, String boneName, int minimumCubes) {

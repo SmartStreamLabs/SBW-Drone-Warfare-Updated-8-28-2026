@@ -1,0 +1,1 @@
+See root THIRD-PARTY-NOTICES.md, LICENSE-ASSETS.md, RIGHTS-REVIEW.md and ASSET-RIGHTS-INVENTORY.csv. Historical credits are retained where provenance is unresolved. Original visual replacements do not automatically replace inventory assets.

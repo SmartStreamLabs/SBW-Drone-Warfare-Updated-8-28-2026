@@ -3,6 +3,7 @@ package nl.smartstreamlabs.sbwdroneconfig;
 import net.minecraft.network.chat.Component;
 
 public enum DroneConfigCategory {
+    DISTANCE_WAR("screen.sbwdroneconfig.config.category.distance_war", "screen.sbwdroneconfig.config.description.distance_war"),
     DRONE("screen.sbwdroneconfig.config.category.drone", "screen.sbwdroneconfig.config.description.drone"),
     LUCAS_FLIGHT("screen.sbwdroneconfig.config.category.lucas_flight", "screen.sbwdroneconfig.config.description.lucas_flight"),
     FUEL("screen.sbwdroneconfig.config.category.fuel", "screen.sbwdroneconfig.config.description.fuel"),

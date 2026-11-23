@@ -1,0 +1,81 @@
+{
+  "sampled_door_checks": [
+    {
+      "door_y_degrees": 0,
+      "wall_surface_intersections": []
+    },
+    {
+      "door_y_degrees": -15,
+      "wall_surface_intersections": []
+    },
+    {
+      "door_y_degrees": -30,
+      "wall_surface_intersections": []
+    },
+    {
+      "door_y_degrees": -60,
+      "wall_surface_intersections": []
+    },
+    {
+      "door_y_degrees": -90,
+      "wall_surface_intersections": []
+    },
+    {
+      "door_y_degrees": -105,
+      "wall_surface_intersections": []
+    }
+  ],
+  "aperture_and_headroom_rays": [
+    {
+      "check": "front_slit_-2",
+      "clear": true
+    },
+    {
+      "check": "front_slit_0",
+      "clear": true
+    },
+    {
+      "check": "front_slit_2",
+      "clear": true
+    },
+    {
+      "check": "open_door_0.75",
+      "clear": true
+    },
+    {
+      "check": "open_door_1.4",
+      "clear": true
+    },
+    {
+      "check": "open_door_2.2",
+      "clear": true
+    },
+    {
+      "check": "standing_headroom_0_0",
+      "clear": true
+    },
+    {
+      "check": "standing_headroom_1.9_2.6",
+      "clear": true
+    },
+    {
+      "check": "standing_headroom_-1.8_1.5",
+      "clear": true
+    }
+  ],
+  "rest_bounds_blocks_xyz": [
+    [
+      -5.449999809265137,
+      5.449999809265137
+    ],
+    [
+      0.0,
+      4.820000171661377
+    ],
+    [
+      -4.849999904632568,
+      6.300000190734863
+    ]
+  ],
+  "notes": "Surface intersection test against main walls, excluding intentional hinge/frame contacts; finite ray samples check apertures and standing clearance. Not an exhaustive or in-game collision test."
+}

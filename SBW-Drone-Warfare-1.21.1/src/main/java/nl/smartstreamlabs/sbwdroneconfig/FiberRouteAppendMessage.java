@@ -1,12 +1,13 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public record FiberRouteAppendMessage(
         UUID droneId,
@@ -15,8 +16,11 @@ public record FiberRouteAppendMessage(
         int previousRevision,
         int revision,
         List<FiberCableRouteState.RoutePoint> points
-) {
+) implements CustomPacketPayload {
     private static final int HARD_APPEND_LIMIT = 128;
+    public static final CustomPacketPayload.Type<FiberRouteAppendMessage> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "fiber_route_append")
+    );
 
     public FiberRouteAppendMessage {
         points = List.copyOf(points);
@@ -54,8 +58,12 @@ public record FiberRouteAppendMessage(
         return new FiberRouteAppendMessage(droneId, droneEntityId, sessionId, previousRevision, revision, points);
     }
 
-    public static void handle(FiberRouteAppendMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        DroneFiberOpticClient.handleRouteAppend(message);
-        contextSupplier.get().setPacketHandled(true);
+    public static void handle(FiberRouteAppendMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> DroneFiberOpticClient.handleRouteAppend(message));
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

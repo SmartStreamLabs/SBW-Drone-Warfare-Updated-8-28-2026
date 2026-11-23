@@ -1,0 +1,23 @@
+{
+  "vertex": "sbwdroneconfig:white_hot_composite",
+  "fragment": "sbwdroneconfig:white_hot_composite",
+  "attributes": [
+    "Position",
+    "UV0"
+  ],
+  "samplers": [
+    {
+      "name": "Sampler0"
+    },
+    {
+      "name": "Sampler1"
+    },
+    {
+      "name": "Sampler2"
+    },
+    {
+      "name": "Sampler3"
+    }
+  ],
+  "uniforms": []
+}

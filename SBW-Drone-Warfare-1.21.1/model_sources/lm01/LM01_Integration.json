@@ -1,0 +1,24 @@
+{
+  "name": "LM-01",
+  "format": "Native Blockbench Java Block/Item",
+  "units_per_block": 16,
+  "footprint_units": [
+    0,
+    16
+  ],
+  "front_axis": "+Z",
+  "block_model": "Minecraft_Assets/assets/lm01/models/block/lm01.json",
+  "sample_resource_namespace": "lm01; rename to the real mod namespace during integration",
+  "cubes": 142,
+  "exterior_quads": 720,
+  "covered_touching_faces_removed": 132,
+  "max_height_units": 3.34,
+  "notes": [
+    "Original fictional exterior game artwork. No functional internals.",
+    "Plain Java cuboids and allowed single-axis Y rotations.",
+    "The matching block JSON can be baked and rendered as a normal block.",
+    "This package does not register a block or implement contact, damage, explosion, inventory or drone placement.",
+    "A model file does not decide whether gameplay uses an Entity or BlockEntity; register an ordinary block and use static model rendering.",
+    "Texture and UVs are fully opaque; no glass/transparency sorting dependency."
+  ]
+}

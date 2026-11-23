@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SWS",
+    "W W",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "superbwarfare:steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "item": "minecraft:brown_wool"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:us01_combat_trousers",
+    "count": 1
+  }
+}

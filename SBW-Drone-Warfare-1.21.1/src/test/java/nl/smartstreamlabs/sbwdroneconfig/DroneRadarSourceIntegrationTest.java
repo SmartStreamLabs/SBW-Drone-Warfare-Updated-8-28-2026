@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DroneRadarSourceIntegrationTest {
@@ -34,31 +34,28 @@ class DroneRadarSourceIntegrationTest {
     }
 
     @Test
-    void handheldDetectorUsesSmallGameplaySummaryAndRaisedReceiver() throws Exception {
+    void handheldDetectorHudUsesCompactLowerRightServerFedLayout() throws Exception {
         String client = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/DroneJammerClient.java"));
         String config = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/AddonConfig.java"));
-        String item = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/DroneJammerItem.java"));
-        String model = Files.readString(Path.of("src/main/resources/assets/sbwdroneconfig/models/item/drone_jammer.json"));
 
         assertTrue(config.contains("PORTABLE_FPV_DETECTOR_HUD_ENABLED_VALUE"), "Detector HUD should be configurable.");
         assertTrue(config.contains("defineInRange(\"portableFpvDetectorRange\", 1500"), "Default detector range should be 1500 blocks.");
         assertTrue(config.contains("defineInRange(\"portableFpvDetectorScanIntervalTicks\", 10"), "Default detector scan interval should be 10 ticks.");
         assertTrue(config.contains("defineInRange(\"portableFpvDetectorMaximumTargets\", 16"), "Detector should cap scan packets to 16 targets by default.");
 
-        assertTrue(client.contains("RenderGuiOverlayEvent.Post"), "A small gameplay summary should show detector status again.");
-        assertFalse(client.contains("renderCompactHud"), "The old floating detector panel should be removed.");
-        assertTrue(client.contains("HUD_WIDTH = 146"), "The restored detector summary should stay compact.");
-        assertTrue(client.contains("Wireless FPV signal detected"), "New detections should be reported once through the action bar.");
-        assertTrue(client.contains("FPV signal lost"), "Lost signals should be reported once through the action bar.");
-        assertTrue(client.contains("handleBeep"), "The controlled warning beep system should remain.");
-        assertTrue(item.contains("setActive(stack, true)"), "Shift-right-click should activate the detector before the raised scan opens.");
-        assertTrue(model.contains("\"scale\": [0.42, 0.42, 0.42]"), "The first-person detector item should not fill the screen.");
+        assertTrue(client.contains("AddonConfig.portableFpvDetectorHudEnabled()"), "Renderer should use the detector HUD toggle.");
+        assertTrue(client.contains("HUD_WIDTH = 190"), "Compact detector panel width should remain small.");
+        assertTrue(client.contains("HUD_HEIGHT = 98"), "Compact detector panel height should remain small.");
+        assertTrue(client.contains("HUD_HOTBAR_CLEARANCE"), "Detector HUD should stay clear of the hotbar.");
+        assertTrue(client.contains("overlay.sbwdroneconfig.fpv_detector.title"), "Compact HUD should use detector localization.");
+        assertTrue(client.contains("directionInfo"), "HUD should show player-relative direction.");
+        assertTrue(client.contains("drawSignalBars"), "HUD should show signal bars.");
     }
 
     @Test
     void detectorVideoRendererUsesReadOnlyOffscreenCameraWithStateRestore() throws Exception {
         String renderer = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/PortableFpvDetectorVideoRenderer.java"));
-        String client = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/DroneJammerClient.java"));
+        String screen = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/PortableFpvDetectorScreen.java"));
         String context = Files.readString(Path.of("src/main/java/nl/smartstreamlabs/sbwdroneconfig/DroneClientViewContext.java"));
 
         assertTrue(renderer.contains("new TextureTarget"), "Video feed should render to a client-side offscreen target.");
@@ -69,9 +66,7 @@ class DroneRadarSourceIntegrationTest {
         assertTrue(renderer.contains("RenderSystem.restoreProjectionMatrix()"), "GUI projection should be restored after the video render.");
         assertTrue(renderer.contains("minecraft.gameRenderer.setRenderHand(false)"), "The intercepted feed must not draw the player's hand or HUD.");
         assertTrue(renderer.contains("DroneClientViewContext.beginReadOnlyCameraIntercept"), "Camera mixins should know this is read-only interception.");
-        assertTrue(renderer.contains("MainRenderTargetSwap.swap"), "Forge 1.20.1 should route nested level renders into the detector texture.");
-        assertTrue(renderer.contains("mainTargetSwap.close()"), "The real main framebuffer must be restored after the detector video render.");
-        assertTrue(client.contains("PortableFpvDetectorVideoRenderer.render"), "The raised detector display should use the live video renderer.");
+        assertTrue(screen.contains("PortableFpvDetectorVideoRenderer.render"), "The detector GUI should use the live video renderer.");
         assertTrue(context.contains("beginReadOnlyCameraIntercept"));
         assertTrue(context.contains("endReadOnlyCameraIntercept"));
     }
@@ -113,7 +108,8 @@ class DroneRadarSourceIntegrationTest {
             assertNotNull(stream, "English language file should be packaged.");
             JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
             assertTrue(root.has("overlay.sbwdroneconfig.radar_title"));
-            assertTrue(root.has("overlay.sbwdroneconfig.radar_fiber"));
+            assertTrue(root.has("overlay.sbwdroneconfig.fpv_detector.title"));
+            assertTrue(root.has("screen.sbwdroneconfig.fpv_detector.intercepted_video"));
             assertTrue(root.has("screen.sbwdroneconfig.config.label.radar_beep_volume"));
         }
     }

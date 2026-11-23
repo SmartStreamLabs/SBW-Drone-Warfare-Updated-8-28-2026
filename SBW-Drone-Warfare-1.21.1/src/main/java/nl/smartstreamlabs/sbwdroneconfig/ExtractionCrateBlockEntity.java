@@ -1,6 +1,7 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -53,16 +54,16 @@ public class ExtractionCrateBlockEntity extends RandomizableContainerBlockEntity
         return changed;
     }
 
-    public CompoundTag saveContentsOnly() {
+    public CompoundTag saveContentsOnly(HolderLookup.Provider registries) {
         CompoundTag tag = new CompoundTag();
-        ContainerHelper.saveAllItems(tag, this.items);
+        ContainerHelper.saveAllItems(tag, this.items, registries);
         return tag;
     }
 
-    public void loadContentsOnly(CompoundTag tag) {
+    public void loadContentsOnly(CompoundTag tag, HolderLookup.Provider registries) {
         this.items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         if (tag != null && !tag.isEmpty()) {
-            ContainerHelper.loadAllItems(tag, this.items);
+            ContainerHelper.loadAllItems(tag, this.items, registries);
         }
         setChanged();
     }
@@ -104,7 +105,7 @@ public class ExtractionCrateBlockEntity extends RandomizableContainerBlockEntity
             return ItemStack.EMPTY;
         }
 
-        if (!ItemStack.isSameItemSameTags(existing, stack) || existing.getCount() >= existing.getMaxStackSize()) {
+        if (!ItemStack.isSameItemSameComponents(existing, stack) || existing.getCount() >= existing.getMaxStackSize()) {
             return stack;
         }
 
@@ -145,19 +146,19 @@ public class ExtractionCrateBlockEntity extends RandomizableContainerBlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         if (!this.trySaveLootTable(tag)) {
-            ContainerHelper.saveAllItems(tag, this.items);
+            ContainerHelper.saveAllItems(tag, this.items, registries);
         }
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(tag)) {
-            ContainerHelper.loadAllItems(tag, this.items);
+            ContainerHelper.loadAllItems(tag, this.items, registries);
         }
     }
 

@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "mesh_elements": 313,
+  "groups": 18,
+  "vertices": 6380,
+  "faces": 11156,
+  "triangles": 11156,
+  "animations": 3,
+  "textures": 3,
+  "native_axes": "X right, Y up, -Z forward",
+  "rest_bounds_blocks_xyz": [
+    [
+      -1.9919999837875366,
+      1.9919999837875366
+    ],
+    [
+      0.0,
+      4.016168117523193
+    ],
+    [
+      -4.252957820892334,
+      2.115000009536743
+    ]
+  ],
+  "rest_dimensions_blocks_xyz": [
+    3.984,
+    4.016,
+    6.368
+  ],
+  "native_sha256": "f55b03be7d22a4024ce2fb9729bec7baed4bda1186806fde32cc6379bce05671",
+  "checks": [
+    "Unique IDs and complete outliner references",
+    "Finite vertices and nondegenerate triangulation",
+    "Valid texture references and UV bounds",
+    "Embedded PNG bytes match separate textures",
+    "Animation target groups and keyframe ranges",
+    "Gun exterior versus main side shells at six sampled pitch angles",
+    "Ground minimum equals zero"
+  ],
+  "limitations": [
+    "Structural file checks and Blender renders; not an in-game or Blockbench UI test.",
+    "Motion check tests surfaces of gun exterior against main side shells at sampled angles; it is not exhaustive collision validation."
+  ]
+}

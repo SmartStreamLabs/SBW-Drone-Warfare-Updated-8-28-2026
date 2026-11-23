@@ -1,0 +1,7 @@
+package nl.smartstreamlabs.sbwdroneconfig.mixin;
+import org.spongepowered.asm.mixin.*;import org.spongepowered.asm.mixin.injection.*;
+@Mixin(value=net.minecraft.client.Minecraft.class,remap=false)
+public abstract class RoverPerspectiveMixin {
+ @Redirect(method="handleKeybinds",at=@At(value="INVOKE",target="Lnet/minecraft/client/KeyMapping;consumeClick()Z"))
+ private boolean rescue$perspective(net.minecraft.client.KeyMapping key){boolean pressed=key.consumeClick();if(nl.smartstreamlabs.sbwdroneconfig.Rd01Client.active()&&key==net.minecraft.client.Minecraft.getInstance().options.keySwapOffhand)return false;if(key==net.minecraft.client.Minecraft.getInstance().options.keyTogglePerspective&&nl.smartstreamlabs.sbwdroneconfig.Rd01Client.active()){if(pressed)nl.smartstreamlabs.sbwdroneconfig.Rd01Client.cycleView();return false;}if(nl.smartstreamlabs.sbwdroneconfig.Id01Client.active()&&key==net.minecraft.client.Minecraft.getInstance().options.keyAdvancements)return false;if(key==net.minecraft.client.Minecraft.getInstance().options.keyTogglePerspective&&nl.smartstreamlabs.sbwdroneconfig.Id01Client.active()){if(pressed)nl.smartstreamlabs.sbwdroneconfig.Id01Client.cycleView();return false;}if(key==net.minecraft.client.Minecraft.getInstance().options.keyTogglePerspective&&nl.smartstreamlabs.sbwdroneconfig.VatagClient.active()&&nl.smartstreamlabs.sbwdroneconfig.VatagClient.groundCamera()){if(pressed)nl.smartstreamlabs.sbwdroneconfig.VatagClient.cycleRoverView();return false;}return pressed;}
+}

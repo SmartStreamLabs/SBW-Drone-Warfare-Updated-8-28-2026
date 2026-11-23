@@ -1,0 +1,105 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.rj01.head_yaw": {
+      "loop": true,
+      "animation_length": 12,
+      "bones": {
+        "head_yaw": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "6": [
+              0.0,
+              180.0,
+              0.0
+            ],
+            "12": [
+              0.0,
+              360.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.rj01.head_tilt_preview": {
+      "loop": true,
+      "animation_length": 5,
+      "bones": {
+        "head_tilt": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1.25": [
+              8.0,
+              0.0,
+              0.0
+            ],
+            "3.75": [
+              -8.0,
+              0.0,
+              0.0
+            ],
+            "5": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.rj01.fan": {
+      "loop": true,
+      "animation_length": 0.5,
+      "bones": {
+        "cooling_fan": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "0.25": [
+              0.0,
+              180.0,
+              0.0
+            ],
+            "0.5": [
+              0.0,
+              360.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "animation.rj01.open_service_door": {
+      "loop": false,
+      "animation_length": 1,
+      "bones": {
+        "service_door": {
+          "rotation": {
+            "0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "1": [
+              0.0,
+              75.0,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

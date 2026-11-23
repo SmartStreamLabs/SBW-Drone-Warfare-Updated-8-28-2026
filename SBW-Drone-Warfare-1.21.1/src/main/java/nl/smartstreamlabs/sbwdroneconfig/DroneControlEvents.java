@@ -5,21 +5,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 
 public final class DroneControlEvents {
     private DroneControlEvents() {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END || event.player.level().isClientSide()) {
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
-        if (!ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID) || !(event.player instanceof ServerPlayer player)) {
+        if (!ModList.get().isLoaded(SbwDroneRangeConfig.SBW_MOD_ID) || !(event.getEntity() instanceof ServerPlayer player)) {
             return;
         }
 
@@ -49,18 +49,6 @@ public final class DroneControlEvents {
         SbwCompat.ensureDroneOwner(drone, player);
 
         boolean usingMonitor = SbwCompat.isUsingLinkedMonitor(stack);
-        if (usingMonitor && !SbwCompat.hasEquippedFpvGoggles(player)) {
-            // The monitor mixin only guards activation; keep the authoritative control state gated too.
-            SbwCompat.stopUsingMonitor(stack);
-            SbwCompat.resetDroneInput(drone);
-            PlayerDroneAnchorManager.release(player, true);
-            player.displayClientMessage(
-                    Component.translatable("message.sbwdroneconfig.fpv_goggles_required").withStyle(ChatFormatting.RED),
-                    true
-            );
-            return;
-        }
-
         if (usingMonitor && drone instanceof Geranium2Entity geraniumDrone && Geranium2FuelSystem.isOutOfFuel(geraniumDrone)) {
             SbwCompat.stopUsingMonitor(stack);
             SbwCompat.resetDroneInput(drone);
@@ -74,8 +62,8 @@ public final class DroneControlEvents {
         }
 
         DroneLinkMode linkMode = FiberOpticLinkSystem.getLinkMode(drone);
-        boolean anchorEnabled = AddonConfig.enableDronePlayerAnchor();
-        boolean anchorActive = usingMonitor && anchorEnabled;
+        boolean anchorEnabled = !(drone instanceof Hx2Entity) && AddonConfig.enableDronePlayerAnchor() && !AddonConfig.enableDroneRemoteChunkTracking();
+        boolean anchorActive = usingMonitor && anchorEnabled && !SbwCompat.isFpvGoggles(stack);
 
         if (usingMonitor && AddonConfig.enableBatterySystem()) {
             DroneBatterySystem.tickForActiveController(player, drone);
@@ -115,11 +103,9 @@ public final class DroneControlEvents {
             }
         }
 
-        if (AddonConfig.enableDroneChunkLoading() && usingMonitor) {
-            int chunkRadius = AddonConfig.droneChunkLoadRadius();
-            ChunkTicketManager.touchDrone(drone, chunkRadius);
+        if (usingMonitor && AddonConfig.enableDroneRemoteChunkTracking()) {
+            DroneClientChunkSyncManager.touch(player,drone,AddonConfig.droneChunkLoadRadius());
         }
-
     }
 
     @SubscribeEvent

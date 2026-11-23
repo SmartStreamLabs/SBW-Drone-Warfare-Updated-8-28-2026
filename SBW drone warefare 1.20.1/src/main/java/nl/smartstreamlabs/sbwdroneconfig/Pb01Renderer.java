@@ -1,0 +1,6 @@
+package nl.smartstreamlabs.sbwdroneconfig;
+import com.mojang.blaze3d.vertex.PoseStack;import com.mojang.math.Axis;import net.minecraft.client.renderer.*;import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;import net.minecraft.core.BlockPos;
+public final class Pb01Renderer implements BlockEntityRenderer<Pb01BlockEntity>{
+ @Override public boolean shouldRenderOffScreen(Pb01BlockEntity b){return true;}@Override public int getViewDistance(){return 192;}@Override public boolean shouldRender(Pb01BlockEntity b,net.minecraft.world.phys.Vec3 camera){return b.getRenderBoundingBox().getCenter().distanceToSqr(camera)<192*192&&(Pb01Client.frustum==null||Pb01Client.frustum.isVisible(b.getRenderBoundingBox()));}
+ @Override public void render(Pb01BlockEntity b,float partial,PoseStack p,MultiBufferSource buffers,int light,int overlay){int outside=light,inside=light;if(b.getLevel()!=null){outside=LevelRenderer.getLightColor(b.getLevel(),BlockPos.containing(Pb01Geometry.point(b.getBlockPos(),b.facing(),0,5,0)));inside=LevelRenderer.getLightColor(b.getLevel(),BlockPos.containing(Pb01Geometry.point(b.getBlockPos(),b.facing(),0,1.5,0)));}p.pushPose();p.translate(.5,0,.5);p.mulPose(Axis.YP.rotationDegrees(180-b.facing().toYRot()));Pb01Model.get().draw(p,buffers,outside,inside,overlay,b.progress(partial),b.mask(),b.lights,false,true);p.popPose();}
+}

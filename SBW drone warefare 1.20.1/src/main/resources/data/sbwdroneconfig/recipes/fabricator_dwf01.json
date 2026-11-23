@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SMS",
+    "DFD",
+    "SCS"
+  ],
+  "key": {
+    "S": {
+      "item": "superbwarfare:steel_block"
+    },
+    "M": {
+      "item": "superbwarfare:motor"
+    },
+    "D": {
+      "item": "sbwdroneconfig:drone_video_terminal_dvt01"
+    },
+    "F": {
+      "item": "sbwdroneconfig:fuel_mixer"
+    },
+    "C": {
+      "item": "superbwarfare:cell"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:fabricator_dwf01",
+    "count": 1
+  }
+}

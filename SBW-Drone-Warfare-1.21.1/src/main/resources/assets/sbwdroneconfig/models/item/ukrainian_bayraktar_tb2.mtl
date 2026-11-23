@@ -1,9 +1,7 @@
-# Bayraktar TB2 model asset by 42manako, CC BY 4.0
-newmtl UkrainianBayraktarTB2
-Ka 1.000000 1.000000 1.000000
-Kd 1.000000 1.000000 1.000000
-Ks 0.000000 0.000000 0.000000
-Ns 32.000000
-d 1.000000
+newmtl BT01
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
 illum 2
 map_Kd sbwdroneconfig:item/ukrainian_bayraktar_tb2

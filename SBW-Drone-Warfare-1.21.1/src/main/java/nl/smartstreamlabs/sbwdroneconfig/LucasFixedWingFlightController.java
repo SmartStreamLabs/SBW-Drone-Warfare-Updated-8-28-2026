@@ -1,9 +1,9 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
-import com.atsuishio.superbwarfare.entity.projectile.C4Entity;
 import com.atsuishio.superbwarfare.entity.projectile.ProjectileEntity;
 import com.atsuishio.superbwarfare.entity.vehicle.base.VehicleEntity;
 import com.atsuishio.superbwarfare.init.ModTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Locale;
 
 final class LucasFixedWingFlightController {
     private static final double IDLE_THROTTLE_DECAY = 0.008D;
@@ -37,12 +39,13 @@ final class LucasFixedWingFlightController {
     }
 
     static void travel(LucasDroneEntity drone) {
-        Player controller = drone.getController();
-        boolean activelyControlled = controller != null && SbwCompat.isUsingLinkedMonitorForDrone(controller, drone);
+        Player controller = SbwCompat.getDroneController(drone) instanceof Player player ? player : null;
+        boolean activelyControlled = MissionManager.powered(drone) || controller != null && SbwCompat.isUsingLinkedMonitorForDrone(controller, drone);
         boolean poweredFlight = LucasFuelSystem.canUsePoweredFlight(drone);
         boolean braking = activelyControlled && isBrakeInput(drone);
+        if(MissionManager.owns(drone))braking=MissionManager.braking(drone);
 
-        if (activelyControlled && poweredFlight && !braking) {
+        if (activelyControlled && poweredFlight && !braking && (!MissionManager.owns(drone)||MissionManager.flight(drone).flightTicks<12)) {
             if (drone.beginLucasTakeoffAssist()) {
                 drone.setLucasThrottle(Math.max(drone.getLucasThrottle(), (float) TAKEOFF_THROTTLE_FLOOR));
             }
@@ -109,7 +112,8 @@ final class LucasFixedWingFlightController {
         double pitchRadians = Math.toRadians(drone.getXRot());
         double pitchLift = -Math.sin(pitchRadians) * Math.max(blendedSpeed, targetSpeed) * 0.022D * controlAuthority;
         double climbCommand = 0.0D;
-        if (activelyControlled && poweredFlight) {
+        if(MissionManager.powered(drone))climbCommand=MissionManager.climb(drone);
+        else if (activelyControlled && poweredFlight) {
             if (drone.upInputDown()) {
                 climbCommand += AddonConfig.lucasClimbSpeed();
             }
@@ -166,6 +170,7 @@ final class LucasFixedWingFlightController {
     }
 
     private static float updateThrottle(LucasDroneEntity drone, boolean activelyControlled) {
+        if(MissionManager.owns(drone))return MissionManager.powered(drone)?MissionManager.throttle(drone):0;
         float throttle = drone.getLucasThrottle();
         boolean throttleUp = drone.forwardInputDown();
         boolean throttleDown = drone.backInputDown();
@@ -186,6 +191,7 @@ final class LucasFixedWingFlightController {
     }
 
     private static void updateOrientation(LucasDroneEntity drone, float controlAuthority, double currentSpeed, double maxSpeed) {
+        if(MissionManager.powered(drone))return;
         float yawInput = 0.0F;
         if (drone.leftInputDown()) {
             yawInput += 1.0F;
@@ -228,13 +234,21 @@ final class LucasFixedWingFlightController {
             if (target instanceof ItemEntity
                     || target instanceof Projectile
                     || target instanceof ProjectileEntity
-                    || target.getClass().getName().toLowerCase(java.util.Locale.ROOT).contains("laserentity")
+                    || isIgnoredSbwCrashSweepEntity(target)
                     || target.getType().is(ModTags.EntityTypes.DECOY)
-                    || target instanceof AreaEffectCloud
-                    || target instanceof C4Entity) {
+                    || target instanceof AreaEffectCloud) {
                 continue;
             }
             drone.hitEntityCrash(controller, target);
         }
+    }
+
+    private static boolean isIgnoredSbwCrashSweepEntity(Entity entity) {
+        String className = entity.getClass().getName().toLowerCase(Locale.ROOT);
+        String typeId = String.valueOf(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType())).toLowerCase(Locale.ROOT);
+        return className.contains("laserentity")
+                || className.contains("c4entity")
+                || typeId.contains("laser")
+                || typeId.contains("c4");
     }
 }

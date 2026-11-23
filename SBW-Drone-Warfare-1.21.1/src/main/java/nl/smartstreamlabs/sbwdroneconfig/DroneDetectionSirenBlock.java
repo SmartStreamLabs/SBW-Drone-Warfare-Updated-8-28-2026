@@ -1,5 +1,6 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -7,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class DroneDetectionSirenBlock extends BaseEntityBlock {
+    public static final MapCodec<DroneDetectionSirenBlock> CODEC = simpleCodec(DroneDetectionSirenBlock::new);
     public static final BooleanProperty ACTIVE = BlockStateProperties.LIT;
     private static final Vector3f PARTICLE_COLOR = new Vector3f(1.0F, 0.15F, 0.15F);
     private static final VoxelShape SHAPE = Shapes.block();
@@ -71,7 +74,22 @@ public class DroneDetectionSirenBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return openConfig(level, pos, player);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = openConfig(level, pos, player);
+        return result.consumesAction() ? ItemInteractionResult.sidedSuccess(level.isClientSide()) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    private InteractionResult openConfig(Level level, BlockPos pos, Player player) {
         if (level.isClientSide()) {
             return InteractionResult.sidedSuccess(true);
         }

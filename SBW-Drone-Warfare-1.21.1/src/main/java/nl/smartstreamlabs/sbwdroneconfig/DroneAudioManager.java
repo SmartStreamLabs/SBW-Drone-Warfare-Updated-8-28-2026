@@ -8,10 +8,11 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -41,9 +42,10 @@ public final class DroneAudioManager {
 
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> VehicleEntity.playEngineSound = DroneAudioManager::playEngineSound);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(DroneAudioManager.class);
+        NeoForge.EVENT_BUS.register(DroneAudioManager.class);
     }
 
+    private static boolean enabled(){var m=Minecraft.getInstance();return m.options.getSoundSourceVolume(net.minecraft.sounds.SoundSource.MASTER)>0&&m.options.getSoundSourceVolume(net.minecraft.sounds.SoundSource.AMBIENT)>0;}
     private static void playEngineSound(VehicleEntity vehicle) {
         if (isManagedDroneAudio(vehicle)) {
             return;
@@ -78,8 +80,8 @@ public final class DroneAudioManager {
 
         OccludedSbwDroneEngineSound existing = ACTIVE_SBW_DRONE_SOUNDS.get(drone.getUUID());
         if (existing != null && !existing.isStopped()) {
-            existing.markActive();
-            return;
+            if(minecraft.getSoundManager().isActive(existing)||drone.level().getGameTime()-existing.created<10){existing.markActive();return;}
+            existing.stopSound();
         }
 
         OccludedSbwDroneEngineSound sound = new OccludedSbwDroneEngineSound(drone);
@@ -88,11 +90,7 @@ public final class DroneAudioManager {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-
+    public static void onClientTick(ClientTickEvent.Post event) {
         VehicleEntity.playEngineSound = DroneAudioManager::playEngineSound;
 
         Minecraft minecraft = Minecraft.getInstance();
@@ -109,6 +107,7 @@ public final class DroneAudioManager {
             activeLevel = level;
         }
 
+        if(!enabled()){stopAll();return;}
         ListenerState listener = ListenerState.capture(minecraft, player);
         List<DroneCandidate> cubedCandidates = new ArrayList<>();
         List<DroneCandidate> lucasCandidates = new ArrayList<>();
@@ -126,11 +125,11 @@ public final class DroneAudioManager {
     }
 
     private static void collectCandidates(ClientLevel level,
-                                          LocalPlayer player,
-                                          ListenerState listener,
-                                          List<DroneCandidate> cubedCandidates,
-                                          List<DroneCandidate> lucasCandidates,
-                                          List<DroneCandidate> deliveryCandidates,
+                                         LocalPlayer player,
+                                         ListenerState listener,
+                                         List<DroneCandidate> cubedCandidates,
+                                         List<DroneCandidate> lucasCandidates,
+                                         List<DroneCandidate> deliveryCandidates,
         List<DroneCandidate> glideBombCandidates) {
         for (Entity entity : level.entitiesForRendering()) {
             if (entity instanceof Geranium2Entity geranium) {
@@ -210,9 +209,9 @@ public final class DroneAudioManager {
         });
     }
 
-    private static void stopAll() {
+    public static void stopAll() {
         for (ManagedDroneAudio managed : ACTIVE_AUDIO.values()) {
-            managed.requestStop();
+            managed.stopImmediately();
         }
         ACTIVE_AUDIO.clear();
         for (OccludedSbwDroneEngineSound sound : List.copyOf(ACTIVE_SBW_DRONE_SOUNDS.values())) {
@@ -232,13 +231,13 @@ public final class DroneAudioManager {
     }
 
     private static boolean shouldPlayOriginalSbwDroneSound(LocalPlayer player, VehicleEntity drone) {
-        if (player == null || drone == null || drone.isRemoved() || !drone.isAlive() || !drone.engineRunning()) {
+        if (!enabled() || player == null || drone == null || drone.isSilent() || drone.isRemoved() || !drone.isAlive() || !drone.engineRunning()) {
             return false;
         }
         if (SbwCompat.isUsingLinkedMonitorForDrone(player, drone)) {
             return true;
         }
-        if (drone.onGround()) {
+        if (drone.onGround() && !(drone instanceof VatagEntity)) {
             return false;
         }
         return ListenerState.capture(Minecraft.getInstance(), player).position().distanceTo(drone.position()) <= ORIGINAL_SBW_DRONE_SOUND_DISTANCE;
@@ -398,7 +397,8 @@ public final class DroneAudioManager {
 
                 DroneExternalSoundInstance sound = this.layers.get(layer);
                 if (volume > MIN_LAYER_START_VOLUME) {
-                    if (sound == null || sound.isStopped()) {
+                    if (sound == null || sound.isStopped() || sound.lostChannel(minecraft.getSoundManager())) {
+                        if(sound!=null)sound.stopImmediately();
                         sound = createSound(layer);
                         this.layers.put(layer, sound);
                         minecraft.getSoundManager().play(sound);
@@ -412,6 +412,8 @@ public final class DroneAudioManager {
 
             this.layers.entrySet().removeIf(entry -> entry.getValue().isStopped());
         }
+
+        void stopImmediately(){for(var sound:this.layers.values())sound.stopImmediately();}
 
         void requestStop() {
             for (DroneExternalSoundInstance sound : this.layers.values()) {
@@ -442,14 +444,18 @@ public final class DroneAudioManager {
 
     private static final class OccludedSbwDroneEngineSound extends VehicleSoundInstance {
         private final VehicleEntity drone;
+        private final long created;
         private int fade;
         private boolean dying;
         private boolean stopped;
 
         private OccludedSbwDroneEngineSound(VehicleEntity drone) {
             super(resolveEngineSound(drone), Minecraft.getInstance(), drone);
-            this.drone = drone;
+            this.drone = drone;this.created=drone.level().getGameTime();
+            this.x=drone.getX();this.y=drone.getY();this.z=drone.getZ();
+            this.attenuation=Attenuation.NONE;this.volume=getVolume(drone);this.pitch=1;
         }
+        @Override public boolean canStartSilent(){return true;}
 
         @Override
         protected boolean canPlay(VehicleEntity vehicle) {
@@ -465,8 +471,7 @@ public final class DroneAudioManager {
         protected float getVolume(VehicleEntity vehicle) {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
-            ClientLevel level = minecraft.level;
-            if (level == null || player == null) {
+            if (!(minecraft.level instanceof ClientLevel level) || player == null) {
                 return 0.0F;
             }
 
@@ -526,6 +531,7 @@ public final class DroneAudioManager {
 
         private void stopSound() {
             this.stopped = true;
+            Minecraft.getInstance().getSoundManager().stop(this);
             ACTIVE_SBW_DRONE_SOUNDS.remove(this.drone.getUUID(), this);
             DroneSoundOcclusion.remove(this.drone.getUUID());
             stop();
@@ -534,7 +540,7 @@ public final class DroneAudioManager {
         private static net.minecraft.sounds.SoundEvent resolveEngineSound(VehicleEntity drone) {
             net.minecraft.sounds.SoundEvent engineSound = drone.getEngineSound();
             if (engineSound == null) {
-                throw new IllegalStateException("Superb Warfare drone engine sound event is missing.");
+                return net.minecraft.sounds.SoundEvent.createVariableRangeEvent(net.minecraft.resources.ResourceLocation.tryParse("superbwarfare:drone_engine"));
             }
             return engineSound;
         }

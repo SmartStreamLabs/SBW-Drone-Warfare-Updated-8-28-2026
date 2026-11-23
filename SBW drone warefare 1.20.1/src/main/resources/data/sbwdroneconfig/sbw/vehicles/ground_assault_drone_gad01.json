@@ -1,0 +1,110 @@
+{
+  "MaxHealth": 70,
+  "MaxEnergy": 100000,
+  "OBB": [
+    {
+      "Size": [
+        0.6,
+        0.3,
+        0.63
+      ],
+      "Position": [
+        0,
+        0.42,
+        0
+      ]
+    }
+  ],
+  "Seats": [],
+  "Weapons": {},
+  "EngineType": "Wheel",
+  "EngineInfo": {
+    "Buoyancy": 0,
+    "EnergyCostRate": 8,
+    "WheelRotSpeed": 4.071223614399755,
+    "WheelDifferential": 0.5,
+    "MaxForwardSpeedRate": 0.18,
+    "MaxBackwardSpeedRate": 0.11,
+    "Increment": 0.014,
+    "Decrement": 0.045,
+    "SteeringSpeed": 0.09,
+    "TrackRotSpeed": 0.2,
+    "TrackDifferential": 0.01,
+    "EngineSoundVolume": 0.12
+  },
+  "TurretPos": [
+    0,
+    0,
+    0
+  ],
+  "TurretTurnSpeed": [
+    12.5,
+    10
+  ],
+  "TurretPitchRange": [
+    -12,
+    35
+  ],
+  "BarrelPos": [
+    0,
+    0,
+    0
+  ],
+  "ThirdPersonCameraPos": [
+    0,
+    0,
+    0
+  ],
+  "HasDecoy": false,
+  "UpStep": 1.05,
+  "RotateOffsetHeight": 0.25,
+  "Mass": 0.25,
+  "DamageModifiers": [],
+  "VehicleContainerType": "Small",
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 0,
+    "ExplosionRadius": 0,
+    "SympatheticDetonation": false
+  },
+  "VehicleIcon": "sbwdroneconfig:textures/entity/ground_assault_drone_gad01.png",
+  "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png",
+  "Type": "Car",
+  "CollisionLevel": {
+    "Level": 1,
+    "PowerLimits": [
+      [
+        0,
+        0,
+        false
+      ]
+    ]
+  },
+  "EngineSound": "superbwarfare:lav_150_engine",
+  "HudType": "@Empty",
+  "TerrainCompat": [
+    [
+      -0.49,
+      0,
+      -0.4
+    ],
+    [
+      -0.49,
+      0,
+      0.4
+    ],
+    [
+      0.49,
+      0,
+      -0.4
+    ],
+    [
+      0.49,
+      0,
+      0.4
+    ]
+  ],
+  "InertiaRotateRate": 1,
+  "KeepChunkLoaded": false,
+  "TowForceFactor": 0
+}

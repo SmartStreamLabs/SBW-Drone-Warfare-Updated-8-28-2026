@@ -1,14 +1,16 @@
 package nl.smartstreamlabs.sbwdroneconfig;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public record DroneOperatorVisibilityMessage(UUID playerId, boolean hidden) {
+public record DroneOperatorVisibilityMessage(UUID playerId, boolean hidden) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DroneOperatorVisibilityMessage> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SbwDroneRangeConfig.MOD_ID, "drone_operator_visibility"));
+
     public static void encode(DroneOperatorVisibilityMessage message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.playerId);
         buffer.writeBoolean(message.hidden);
@@ -18,9 +20,12 @@ public record DroneOperatorVisibilityMessage(UUID playerId, boolean hidden) {
         return new DroneOperatorVisibilityMessage(buffer.readUUID(), buffer.readBoolean());
     }
 
-    public static void handle(DroneOperatorVisibilityMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DroneThermalVisionClient.handleDroneOperatorVisibility(message)));
-        context.setPacketHandled(true);
+    public static void handle(DroneOperatorVisibilityMessage message, IPayloadContext context) {
+        DroneThermalVisionClient.handleDroneOperatorVisibility(message);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

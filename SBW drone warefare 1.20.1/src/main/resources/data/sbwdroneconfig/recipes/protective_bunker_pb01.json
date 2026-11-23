@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SCS",
+    "CDC",
+    "SLS"
+  ],
+  "key": {
+    "S": {
+      "item": "superbwarfare:steel_block"
+    },
+    "C": {
+      "item": "minecraft:gray_concrete"
+    },
+    "D": {
+      "item": "minecraft:iron_door"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    }
+  },
+  "result": {
+    "item": "sbwdroneconfig:protective_bunker_pb01",
+    "count": 1
+  }
+}

@@ -1,169 +1,42 @@
 package nl.smartstreamlabs.sbwdroneconfig;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import net.minecraft.client.CameraType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
+import net.minecraft.world.phys.*;
+import org.joml.Vector3d;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class HeavyBomberDroneRenderer extends EntityRenderer<HeavyBomberDroneEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SbwDroneRangeConfig.MOD_ID, "textures/item/heavy_bomber_drone.png");
-    private static final ResourceLocation WHITE_TEXTURE = new ResourceLocation("minecraft", "textures/misc/white.png");
-    private static final float BODY_TRANSLATION_X = 0.0F;
-    private static final float BODY_TRANSLATION_Y = 0.24F;
-    private static final float BODY_VISUAL_SCALE = 1.0F;
-    private static final float MODEL_YAW_CORRECTION_DEGREES = 180.0F;
-    private static final float ITEM_FIXED_SCALE = 0.72F;
-    private static final float PROPELLER_Y = 1.36F;
-    private static final float PROPELLER_INNER_RADIUS = 0.06F;
-    private static final float PROPELLER_OUTER_RADIUS = 0.62F;
-    private static final float PROPELLER_ROOT_HALF_WIDTH = 0.055F;
-    private static final float PROPELLER_TIP_HALF_WIDTH = 0.032F;
-    private static final float PROPELLER_SPIN_DEGREES_PER_TICK = 64.0F;
-    private static final double[][] PROPELLER_CENTERS = {
-            {0.949D, PROPELLER_Y, 1.604D},
-            {1.919D, PROPELLER_Y, 0.0D},
-            {0.949D, PROPELLER_Y, -1.604D},
-            {-0.949D, PROPELLER_Y, -1.604D},
-            {-1.919D, PROPELLER_Y, 0.0D},
-            {-0.949D, PROPELLER_Y, 1.604D}
-    };
-    private static final float[] PROPELLER_DIRECTIONS = {1.0F, -1.0F, 1.0F, -1.0F, 1.0F, -1.0F};
-
-    public HeavyBomberDroneRenderer(EntityRendererProvider.Context context) {
-        super(context);
-        this.shadowRadius = 1.2F;
+public class HeavyBomberDroneRenderer extends CachedEntityRenderer<HeavyBomberDroneEntity> {
+    private final Hb01PayloadRenderer payloadRenderer=new Hb01PayloadRenderer();
+    public HeavyBomberDroneRenderer(EntityRendererProvider.Context c){super(c,new HeavyBomberDroneModel());this.shadowRadius=.65f;}
+    @Override public RenderType getRenderType(HeavyBomberDroneEntity d,ResourceLocation texture,MultiBufferSource buffers,float partial){return RenderType.entityCutoutNoCull(texture);}
+    @Override protected void applyRotations(HeavyBomberDroneEntity d,PoseStack p,float age,float yaw,float partial,float nativeScale){} // one authored attitude below
+    public static void applyVisualPose(HeavyBomberDroneEntity d,float partial,PoseStack p){
+        var m=Hb01VisualPose.matrix(d.getYaw(partial),d.getBodyPitch(partial),d.getRoll(partial));
+        p.translate(m.m30(),m.m31(),m.m32());p.mulPose(new org.joml.Quaternionf(m.getNormalizedRotation(new org.joml.Quaterniond())));
     }
-
-    @Override
-    public void render(HeavyBomberDroneEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        if (DroneClientViewContext.isLocalFpvViewOf(entity)) {
-            return;
+    @Override public void render(HeavyBomberDroneEntity d,float yaw,float partial,PoseStack p,MultiBufferSource buffers,int light){p.pushPose();try{Dc01DockRender.apply(d,partial,p);renderDrone(d,yaw,partial,p,buffers,light);}finally{p.popPose();}}
+     private void renderDrone(HeavyBomberDroneEntity d,float yaw,float partial,PoseStack p,MultiBufferSource buffers,int light){
+        if(DroneClientViewContext.isLocalFpvViewOf(d))return;
+        var mc=Minecraft.getInstance();boolean first=mc.options.getCameraType()==CameraType.FIRST_PERSON;
+        boolean controlled=SbwCompat.isUsingLinkedMonitorForDrone(mc.player,d);
+        if(!CubedFpvDroneRenderMath.shouldHideControlledDroneBody(controlled,first)){
+            p.pushPose();applyVisualPose(d,partial,p);
+            p.pushPose();p.translate(0,-.01,0);super.render(d,yaw,partial,p,buffers,light);p.popPose();
+            payloadRenderer.render(d,p,buffers,light);
+            p.popPose();
         }
-
-        Player player = Minecraft.getInstance().player;
-        CameraType cameraType = Minecraft.getInstance().options.getCameraType();
-        boolean firstPersonCamera = cameraType == CameraType.FIRST_PERSON;
-        boolean controllingLinkedDrone = SbwCompat.isUsingLinkedMonitorForDrone(player, entity);
-        boolean renderBody = !CubedFpvDroneRenderMath.shouldHideControlledDroneBody(controllingLinkedDrone, firstPersonCamera);
-
-        if (renderBody) {
-            poseStack.pushPose();
-            applyBodyTransform(entity, partialTicks, poseStack);
-            Minecraft.getInstance().getItemRenderer().renderStatic(
-                    new ItemStack(AddonItems.HEAVY_BOMBER_DRONE.get()),
-                    ItemDisplayContext.FIXED,
-                    packedLight,
-                    OverlayTexture.NO_OVERLAY,
-                    poseStack,
-                    buffer,
-                    entity.level(),
-                    entity.getId()
-            );
-            renderPropellers(entity, partialTicks, poseStack, buffer, packedLight);
-            poseStack.popPose();
+    }
+    @Override public boolean shouldRender(HeavyBomberDroneEntity d,net.minecraft.client.renderer.culling.Frustum frustum,double x,double y,double z){
+        if(!d.isAlive()||d.isRemoved())return false;
+        var carrier=Dc01Docking.carrier(d);if(carrier!=null)return frustum.isVisible(carrier.getBoundingBoxForCulling());
+        var m=Hb01VisualPose.matrix(d.getYaw(1),d.getBodyPitch(1),d.getRoll(1));AABB bounds=null;
+        for(int i=0;i<8;i++){
+            var v=m.transformPosition(new Vector3d((i&1)==0?Hb01VisualPose.MIN_X:Hb01VisualPose.MAX_X,(i&2)==0?Hb01VisualPose.MIN_Y:Hb01VisualPose.MAX_Y,(i&4)==0?Hb01VisualPose.MIN_Z:Hb01VisualPose.MAX_Z));
+            var point=new Vec3(d.getX()+v.x,d.getY()+v.y,d.getZ()+v.z);var corner=new AABB(point,point);bounds=bounds==null?corner:bounds.minmax(corner);
         }
-
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(HeavyBomberDroneEntity entity) {
-        return TEXTURE;
-    }
-
-    private static void applyBodyTransform(HeavyBomberDroneEntity entity, float partialTicks, PoseStack poseStack) {
-        poseStack.scale(BODY_VISUAL_SCALE, BODY_VISUAL_SCALE, BODY_VISUAL_SCALE);
-        poseStack.translate(0.0D, BODY_TRANSLATION_Y, 0.0D);
-        poseStack.mulPose(Axis.YP.rotationDegrees(renderYawDegrees(entity, partialTicks)));
-        poseStack.mulPose(Axis.XP.rotationDegrees(CubedFpvDroneRenderMath.renderBodyPitchDegrees(entity.getBodyPitch(partialTicks))));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(CubedFpvDroneRenderMath.renderRollDegrees(entity.getRoll(partialTicks))));
-        poseStack.translate(BODY_TRANSLATION_X, 0.0D, 0.0D);
-    }
-
-    private static float renderYawDegrees(HeavyBomberDroneEntity entity, float partialTicks) {
-        return CubedFpvDroneRenderMath.renderYawDegrees(entity.getYaw(partialTicks)) + MODEL_YAW_CORRECTION_DEGREES;
-    }
-
-    private static void renderPropellers(HeavyBomberDroneEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        poseStack.pushPose();
-        poseStack.scale(ITEM_FIXED_SCALE, ITEM_FIXED_SCALE, ITEM_FIXED_SCALE);
-        poseStack.translate(-0.5D, -0.5D, -0.5D);
-        Matrix4f matrix = poseStack.last().pose();
-        Matrix3f normal = poseStack.last().normal();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(WHITE_TEXTURE));
-        float baseAngle = (entity.tickCount + partialTicks) * PROPELLER_SPIN_DEGREES_PER_TICK;
-
-        for (int index = 0; index < PROPELLER_CENTERS.length; index++) {
-            double[] center = PROPELLER_CENTERS[index];
-            float angle = baseAngle * PROPELLER_DIRECTIONS[index];
-            renderPropellerPair(consumer, matrix, normal, center, angle, packedLight);
-        }
-        poseStack.popPose();
-    }
-
-    private static void renderPropellerPair(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, double[] center, float angleDegrees, int packedLight) {
-        renderPropellerBlade(consumer, matrix, normal, center, angleDegrees, packedLight);
-        renderPropellerBlade(consumer, matrix, normal, center, angleDegrees + 180.0F, packedLight);
-    }
-
-    private static void renderPropellerBlade(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, double[] center, float angleDegrees, int packedLight) {
-        double angle = Math.toRadians(angleDegrees);
-        double dirX = Math.cos(angle);
-        double dirZ = Math.sin(angle);
-        double sideX = -dirZ;
-        double sideZ = dirX;
-        double x = center[0];
-        double y = center[1] + 0.012D;
-        double z = center[2];
-
-        Vec3 rootLeft = new Vec3(
-                x + dirX * PROPELLER_INNER_RADIUS + sideX * PROPELLER_ROOT_HALF_WIDTH,
-                y,
-                z + dirZ * PROPELLER_INNER_RADIUS + sideZ * PROPELLER_ROOT_HALF_WIDTH
-        );
-        Vec3 rootRight = new Vec3(
-                x + dirX * PROPELLER_INNER_RADIUS - sideX * PROPELLER_ROOT_HALF_WIDTH,
-                y,
-                z + dirZ * PROPELLER_INNER_RADIUS - sideZ * PROPELLER_ROOT_HALF_WIDTH
-        );
-        Vec3 tipRight = new Vec3(
-                x + dirX * PROPELLER_OUTER_RADIUS - sideX * PROPELLER_TIP_HALF_WIDTH,
-                y,
-                z + dirZ * PROPELLER_OUTER_RADIUS - sideZ * PROPELLER_TIP_HALF_WIDTH
-        );
-        Vec3 tipLeft = new Vec3(
-                x + dirX * PROPELLER_OUTER_RADIUS + sideX * PROPELLER_TIP_HALF_WIDTH,
-                y,
-                z + dirZ * PROPELLER_OUTER_RADIUS + sideZ * PROPELLER_TIP_HALF_WIDTH
-        );
-
-        putPropellerVertex(consumer, matrix, normal, rootLeft, 245, packedLight);
-        putPropellerVertex(consumer, matrix, normal, rootRight, 245, packedLight);
-        putPropellerVertex(consumer, matrix, normal, tipRight, 245, packedLight);
-        putPropellerVertex(consumer, matrix, normal, tipLeft, 245, packedLight);
-    }
-
-    private static void putPropellerVertex(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, Vec3 point, int alpha, int packedLight) {
-        consumer.vertex(matrix, (float) point.x, (float) point.y, (float) point.z)
-                .color(10, 12, 12, alpha)
-                .uv(0.5F, 0.5F)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(packedLight)
-                .normal(normal, 0.0F, 1.0F, 0.0F)
-                .endVertex();
+        return frustum.isVisible(bounds.inflate(.05));
     }
 }

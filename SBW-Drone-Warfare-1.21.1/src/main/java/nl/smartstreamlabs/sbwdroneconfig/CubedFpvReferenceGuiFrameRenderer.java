@@ -2,6 +2,7 @@ package nl.smartstreamlabs.sbwdroneconfig;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -73,8 +74,7 @@ final class CubedFpvReferenceGuiFrameRenderer {
         }
 
         Matrix4f matrix = graphics.pose().last().pose();
-        BufferBuilder buffer = Tesselator.getInstance().getBuilder();
-        buffer.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
+        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
 
         for (int index = 1; index < points.length - 1; index++) {
             vertex(buffer, matrix, layout, points[0][0], points[0][1], color);
@@ -82,7 +82,7 @@ final class CubedFpvReferenceGuiFrameRenderer {
             vertex(buffer, matrix, layout, points[index + 1][0], points[index + 1][1], color);
         }
 
-        Tesselator.getInstance().end();
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
     }
 
     private static void vertex(BufferBuilder buffer, Matrix4f matrix, CubedFpvReferenceGuiLayout.Canvas layout, float x, float y, int color) {
@@ -90,7 +90,7 @@ final class CubedFpvReferenceGuiFrameRenderer {
         int red = color >>> 16 & 0xFF;
         int green = color >>> 8 & 0xFF;
         int blue = color & 0xFF;
-        buffer.vertex(matrix, layout.x(x), layout.y(y), 0.0F).color(red, green, blue, alpha).endVertex();
+        buffer.addVertex(matrix, layout.x(x), layout.y(y), 0.0F).setColor(red, green, blue, alpha);
     }
 
     private static float[][] mirror(float[][] points) {

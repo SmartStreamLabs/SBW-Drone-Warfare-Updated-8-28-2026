@@ -1,0 +1,40 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "sbwdroneconfig:block/landmine_lm01",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "sbwdroneconfig:block/landmine_lm01",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "sbwdroneconfig:block/landmine_lm01",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "sbwdroneconfig:block/landmine_lm01",
+        "y": 270
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+UF-01 flag music — Flag Music
+Source: user-provided Ant_etkenmen.webm, explicitly selected for this feature.
+Original SHA-256: 273c47aa8073591f169c24d3f1a7729bb1d94c5dd798732cfe407995c319192b
+Bundled mono Vorbis SHA-256: 2d244460573f17d592479cdb98202320058dbaebffc8b4f441d2eadbf85f5b65
+Complete decoded duration: 157.361646 seconds.
+Conversion: full source decoded/downmixed to mono Ogg Vorbis (quality 5). No cuts, extra echo, pitch changes or additional layers. Prepared OGG reused byte-for-byte.
+This asset is neutrally titled Flag Music. No claim is made that it is a particular state anthem or that a recording license has been supplied. No identity/license confirmation gate is used.
